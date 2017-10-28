@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import RootContainer from './RootContainer'
 import createStore from '../Redux'
-import { Font } from 'expo'
 
 // create our store
 const store = createStore()
@@ -19,13 +18,6 @@ const store = createStore()
  * We separate like this to play nice with React Native's hot reloading.
  */
 class App extends Component {
-
-  componentDidMount() {
-    Font.loadAsync({
-      'ProximaNova-Regular': require('../assets/fonts/ProximaNova-Regular.ttf'),
-      'ProximaNova-Bold': require('../assets/fonts/ProximaNova-Bold.ttf')
-    });
-  }
 
   render () {
     return (

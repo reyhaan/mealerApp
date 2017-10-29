@@ -6,7 +6,7 @@ import { is } from 'ramda'
 export const selectAvatar = (state) => state.github.avatar
 
 // process STARTUP actions
-export function * startup (action) {
+export const startup = function * startup (action) {
   if (__DEV__ && console.tron) {
     // straight-up string logging
     console.tron.log('Hello, I\'m an example of how to log via Reactotron.')

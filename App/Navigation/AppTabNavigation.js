@@ -3,6 +3,8 @@ import OrdersTab from '../Containers/OrdersTab'
 import SettingsTab from '../Containers/SettingsTab'
 import CooksTab from '../Containers/CooksTab'
 
+import styles from './Styles/NavigationStyles'
+
 const tabNavigatorConfig = {
     swipeEnabled: false,
     tabBarPosition: 'bottom',

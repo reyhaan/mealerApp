@@ -3,4 +3,4 @@ node_modules/
 /.idea/*
 .history/
 npm-debug.*
-
+/package-lock.json

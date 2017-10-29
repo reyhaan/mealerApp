@@ -6,26 +6,6 @@ import { AuthScreen, SignUpScreen } from '../Containers'
 
 import styles from './Styles/NavigationStyles'
 
-// Manifest of possible screens
-const PrimaryNav = StackNavigator({
-  AuthScreen: {
-    screen: AuthScreen
-  },
-  SignUpScreen: {
-    screen: SignUpScreen,
-    navigationOptions: {
-      headerTitle: 'Sign Up',
-    },
-  },
-}, {
-  // Default config for all screens
-  headerMode: 'none',
-  initialRouteName: 'AuthScreen',
-  navigationOptions: {
-    headerStyle: styles.header
-  }
-})
-
 const tabNavigatorConfig = {
   swipeEnabled: false,
   tabBarPosition: 'bottom',
@@ -60,24 +40,29 @@ const tabsList = {
   }
 }
 
-const MainApp = TabNavigator(tabsList, tabNavigatorConfig)
+const TabsView = TabNavigator(tabsList, tabNavigatorConfig)
 
-const AppRouter = StackNavigator({
-  Root: { 
-    screen: PrimaryNav 
+// Manifest of possible screens
+const PrimaryNav = StackNavigator({
+  AuthScreen: {
+    screen: TabsView
   },
-  TabView: {
-    screen: MainApp
+  SignUpScreen: {
+    screen: SignUpScreen,
+    navigationOptions: {
+      headerTitle: 'Sign Up',
+    },
+  },
+  TabsView: {
+    screen: TabsView
   }
-},
-{
+}, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'Root',
+  initialRouteName: 'AuthScreen',
   navigationOptions: {
     headerStyle: styles.header
   }
-}
-)
+})
 
-export default AppRouter
+export default PrimaryNav

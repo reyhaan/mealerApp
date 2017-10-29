@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Login } from '../Components'
+import { UserSignUp } from '../Components'
 
-class AuthScreen extends Component {
+class SignUpScreen extends Component {
   constructor (props) {
     super(props)
     this.state = {}
@@ -10,11 +10,11 @@ class AuthScreen extends Component {
 
   render () {
     return (
-      <Login navigation={this.props.navigation}/>
+      <UserSignUp navigation={this.props.navigation}/>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({})
 const mapDispatchToProps = {}
-export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)

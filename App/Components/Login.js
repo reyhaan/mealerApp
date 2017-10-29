@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Image } from 'react-native'
+import { ScrollView, View, Image, TouchableOpacity } from 'react-native'
 import styles from './Styles/LoginStyles'
 import { Button, FormInput, Text } from 'react-native-elements'
 import { Images, Fonts } from '../Themes'
@@ -12,6 +12,9 @@ const facebookLoginButtonTitle = () => {
 }
 
 export default class Login extends Component {
+  navigateToSignUpScreen = (navigation) => {
+    navigation.navigate('SignUpScreen')
+  }
   someFunction = () => {
     console.log('dd')
   }
@@ -55,7 +58,9 @@ export default class Login extends Component {
 
             <View style={styles.signUpView}>
               <View><Text h5 style={styles.registerButton}> Don't have an account?</Text></View>
-              <View><Text h5 style={styles.signUpButton}> Sign Up </Text></View>
+              <TouchableOpacity onPress={() => this.navigateToSignUpScreen(this.props.navigation)}>
+                <Text h5 style={styles.signUpButton}>Sign Up</Text>
+              </TouchableOpacity>
             </View>
           </View>
 

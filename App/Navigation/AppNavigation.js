@@ -64,7 +64,10 @@ const MainApp = TabNavigator(tabsList, tabNavigatorConfig)
 
 const AppRouter = StackNavigator({
   Root: { 
-    screen: MainApp 
+    screen: PrimaryNav 
+  },
+  TabView: {
+    screen: MainApp
   }
 },
 {

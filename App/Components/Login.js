@@ -6,6 +6,7 @@ import { Images, Fonts } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 const facebookLoginButtonTitle = () => {
+  // TODO: find away to avoid the warning from showing up when using icon in the button title
   // return [<Icon name='facebook' size={14} color='white' />, 'acebook']
   return 'Facebook'
 }

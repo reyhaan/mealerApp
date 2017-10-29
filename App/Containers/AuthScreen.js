@@ -15,12 +15,6 @@ class AuthScreen extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {}
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {}
-}
-
+const mapStateToProps = (state, ownProps) => ({});
+const mapDispatchToProps = {};
 export default connect(mapStateToProps, mapDispatchToProps)(AuthScreen)

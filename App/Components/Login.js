@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView, View, Image } from 'react-native'
 import styles from './Styles/LoginStyles'
-import { Button, FormInput } from 'react-native-elements'
+import { Button, FormInput, Text } from 'react-native-elements'
 import { Images, Fonts } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -52,6 +52,11 @@ export default class Login extends Component {
               fontWeight='bold'
               textStyle={{textAlign: 'center'}}
               title={facebookLoginButtonTitle()}/>
+
+            <View style={styles.signUpView}>
+              <View><Text h5 style={styles.registerButton}> Don't have an account?</Text></View>
+              <View><Text h5 style={styles.signUpButton}> Sign Up </Text></View>
+            </View>
           </View>
 
         </ScrollView>

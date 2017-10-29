@@ -24,5 +24,23 @@ export default StyleSheet.create({
     marginTop: Metrics.baseMargin,
     backgroundColor: Colors.facebook,
     borderRadius: 3
+  },
+  signUpView:{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10
+  },
+  registerButton: {
+    margin: 15,
+    fontSize: 15,
+    color: 'white'
+  },
+  signUpButton: {
+    margin: 15,
+    fontSize: 15,
+    color: Colors.bloodOrange,
+    textDecorationLine: 'underline'
   }
 })

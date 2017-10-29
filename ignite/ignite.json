@@ -1,5 +1,15 @@
 {
   "createdWith": "2.0.0",
-  "boilerplate": "empty",
-  "examples": "none"
+  "examples": "classic",
+  "navigation": "react-navigation",
+  "askToOverride": true,
+  "generators": {
+    "component": "ignite-ir-boilerplate",
+    "container": "ignite-ir-boilerplate",
+    "listview": "ignite-ir-boilerplate",
+    "list": "ignite-ir-boilerplate",
+    "redux": "ignite-ir-boilerplate",
+    "saga": "ignite-ir-boilerplate",
+    "screen": "ignite-ir-boilerplate"
+  }
 }

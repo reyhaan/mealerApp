@@ -1,7 +1,11 @@
+import React from 'react'
+import { Image, Platform } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import OrdersTab from '../Containers/OrdersTab'
 import SettingsTab from '../Containers/SettingsTab'
 import CooksTab from '../Containers/CooksTab'
+import { Colors, Images } from '../Themes'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 import styles from './Styles/NavigationStyles'
 
@@ -13,18 +17,22 @@ const tabNavigatorConfig = {
         headerStyle: styles.header
     },
     tabBarOptions: {
-        activeTintColor: 'red',  // Color of tab when pressed
-        inactiveTintColor: '#b5b5b5', // Color of tab when not pressed
-        showIcon: 'true', // Shows an icon for both iOS and Android
-        // showLabel: (Platform.OS !== 'android'), //No label for Android
+        activeTintColor: Colors.snow,  // Color of tab when pressed
+        inactiveTintColor: Colors.pinkLight1, // Color of tab when not pressed
+        showIcon: true, // Shows an icon for both iOS and Android
         labelStyle: {
-        fontSize: 11,
-        fontWeight: 'bold'
+            fontSize: 11,
+            fontWeight: 'bold',
+            marginTop: 2
         },
         style: {
-        backgroundColor: '#fff', // Makes Android tab bar white instead of standard blue
-        // height: (Platform.OS === 'ios') ? 48 : 50 // I didn't use this in my app, so the numbers may be off. 
-        }
+            backgroundColor: Colors.backgroundDarker, // Makes Android tab bar white instead of standard blue
+            height: (Platform.OS === 'ios') ? 48 : 60 // I didn't use this in my app, so the numbers may be off. 
+        },
+        tabStyle: {
+            borderColor: Colors.backgroundDarker
+        },
+        indicatorStyle: styles.indicator,
     }
 }
 
@@ -33,7 +41,13 @@ const tabsList = {
         screen:  CooksTab,
         headerMode: 'none',
         navigationOptions: {
-            title: 'Cooks',
+            tabBarLabel: 'Cooks',
+            tabBarIcon: ({ tintColor }) => (
+                <Image
+                    source={ Images.cooksWhite }
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
             headerStyle: styles.header
         },
     },
@@ -42,6 +56,12 @@ const tabsList = {
         screen: OrdersTab,
         navigationOptions: {
             title: 'Orders',
+            tabBarIcon: ({ tintColor }) => (
+                <Image
+                    source={ Images.ordersWhite }
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
         },
     },
 
@@ -49,6 +69,12 @@ const tabsList = {
         screen: SettingsTab,
         navigationOptions: {
             title: 'Settings',
+            tabBarIcon: ({ tintColor }) => (
+                <Image
+                    source={ Images.settingsWhite }
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
         },
     }
 }

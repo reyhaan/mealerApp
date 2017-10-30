@@ -20,7 +20,15 @@ const images = {
   chevronRight: require('../Images/Icons/chevron-right.png'),
   hamburger: require('../Images/Icons/hamburger.png'),
   backButton: require('../Images/Icons/back-button.png'),
-  closeButton: require('../Images/Icons/close-button.png')
+  closeButton: require('../Images/Icons/close-button.png'),
+
+  settingsColor: require('../Images/Icons/icon_settings_color.png'),
+  settingsWhite: require('../Images/Icons/icon_settings_white.png'),
+  cooksColor: require('../Images/Icons/icon_cooks_color.png'),
+  cooksWhite: require('../Images/Icons/icon_cooks_white.png'),
+  ordersColor: require('../Images/Icons/icon_orders_color.png'),
+  ordersWhite: require('../Images/Icons/icon_orders_white.png')
+
 }
 
 export default images

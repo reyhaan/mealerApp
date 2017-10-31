@@ -19,7 +19,7 @@ export default class UserSignUp extends Component {
                 </View>
 
                 <View style={[LoginStyles.section, {marginBottom: 10}]}>
-                    
+
 
                     <Button>antd-mobile button</Button>
 

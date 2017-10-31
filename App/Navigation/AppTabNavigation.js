@@ -1,9 +1,9 @@
 import React from 'react'
 import { Image, Platform } from 'react-native'
 import { TabNavigator } from 'react-navigation'
-import OrdersTab from '../Containers/OrdersTab'
-import SettingsTab from '../Containers/SettingsTab'
-import CooksTab from '../Containers/CooksTab'
+import OrdersTab from '../Containers/ordersTab/OrdersTab'
+import SettingsTab from '../Containers/settingsTab/SettingsTab'
+import CooksTab from '../Containers/cooksTab/CooksTab'
 import { Colors, Images } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -11,23 +11,24 @@ import styles from './Styles/NavigationStyles'
 
 const tabNavigatorConfig = {
     swipeEnabled: false,
+    animationEnabled: false,
     tabBarPosition: 'bottom',
     headerMode: 'none',
     navigationOptions: {
         headerStyle: styles.header
     },
     tabBarOptions: {
-        activeTintColor: Colors.snow,  // Color of tab when pressed
-        inactiveTintColor: Colors.pinkLight1, // Color of tab when not pressed
-        showIcon: true, // Shows an icon for both iOS and Android
+        activeTintColor: Colors.snow,
+        inactiveTintColor: Colors.pinkLight1,
+        showIcon: true,
         labelStyle: {
             fontSize: 11,
             fontWeight: 'bold',
             marginTop: 2
         },
         style: {
-            backgroundColor: Colors.backgroundDarker, // Makes Android tab bar white instead of standard blue
-            height: (Platform.OS === 'ios') ? 48 : 60 // I didn't use this in my app, so the numbers may be off. 
+            backgroundColor: Colors.backgroundDarker,
+            height: (Platform.OS === 'ios') ? 48 : 60 
         },
         tabStyle: {
             borderColor: Colors.backgroundDarker

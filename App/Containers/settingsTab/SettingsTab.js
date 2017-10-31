@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-import styles from './Styles/OrdersTabStyle'
+import styles from '../Styles/settingsTabStyles/SettingsTabStyle'
 
-class OrdersTab extends Component {
+class SettingsTab extends Component {
   // constructor (props) {
   //   super(props)
   //   this.state = {}
@@ -16,7 +16,7 @@ class OrdersTab extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <Text>OrdersTab Container</Text>
+        <Text>SettingsTab Container</Text>
       </ScrollView>
     )
   }
@@ -32,4 +32,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrdersTab)
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsTab)

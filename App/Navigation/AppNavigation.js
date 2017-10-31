@@ -1,7 +1,4 @@
 import { StackNavigator, TabNavigator } from 'react-navigation'
-import OrdersTab from '../Containers/OrdersTab'
-import SettingsTab from '../Containers/SettingsTab'
-import CooksTab from '../Containers/CooksTab'
 import { AuthScreen, SignUpScreen } from '../Containers'
 import TabsView from './AppTabNavigation'
 

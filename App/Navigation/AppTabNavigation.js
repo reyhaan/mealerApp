@@ -18,6 +18,7 @@ const tabNavigatorConfig = {
     animationEnabled: false,
     tabBarPosition: 'bottom',
     navigationOptions: {
+        headerMode: 'none',
         headerStyle: styles.header
     },
     initialRouteName: 'Three',
@@ -41,23 +42,6 @@ const tabNavigatorConfig = {
         indicatorStyle: styles.indicator,
     }
 }
-
-const settingsStack = StackNavigator({
-    SettingsTab: {
-        screen: SettingsTab,
-        navigationOptions: {
-            title: 'Settings',
-        },
-    },
-    PasswordChangeScreen: {
-        screen: PasswordChangeScreen,
-        navigationOptions: ({ navigation }) => ({
-            title: `Change Password`,
-        }),
-    },
-}, {
-
-})
 
 const tabsList = {
     One: {
@@ -88,7 +72,7 @@ const tabsList = {
     },
 
     Three: {
-        screen: settingsStack,
+        screen: SettingsTab,
         navigationOptions: {
             tabBarLabel: 'SETTINGS',
             tabBarIcon: ({ tintColor }) => (
@@ -103,4 +87,21 @@ const tabsList = {
 
 const TabsView = TabNavigator(tabsList, tabNavigatorConfig)
 
-export default TabsView
+const RootStack = StackNavigator({
+    Root: {
+        screen: TabsView
+    },
+    PasswordChangeScreen: {
+        screen: PasswordChangeScreen,
+        navigationOptions: ({ navigation }) => ({
+            title: `Change Password`,
+        }),
+    },
+}, {
+    navigationOptions: {
+        headerMode: 'none',
+        headerStyle: styles.header
+    }
+})
+
+export default RootStack

@@ -44,6 +44,11 @@ class SignUpScreen extends Component {
                         buttonStyle={SignUpScreenStyle.signUpButton}
                         textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
                         title="SIGN UP"/>
+                    <Button
+                        fontSize={15}
+                        buttonStyle={SignUpScreenStyle.goBackToLoginButton}
+                        textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
+                        title="GO BACK TO LOGIN"/>
                 </View>
             </ScrollView>
         )

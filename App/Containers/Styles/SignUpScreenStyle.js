@@ -38,5 +38,13 @@ export default StyleSheet.create({
         marginRight: 5,
         backgroundColor: Colors.pink,
         borderRadius: 3
+    },
+    goBackToLoginButton: {
+        marginTop: 20,
+        marginLeft: 30,
+        marginRight: 30,
+        borderRadius: 3,
+        height:30,
+        backgroundColor:Colors.backgroundDarker
     }
 })

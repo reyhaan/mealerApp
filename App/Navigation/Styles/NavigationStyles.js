@@ -11,6 +11,7 @@ export default StyleSheet.create({
   },
   icon: {
     height: 18,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    marginBottom: 0
   }
 })

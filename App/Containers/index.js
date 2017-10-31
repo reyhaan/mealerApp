@@ -1,8 +1,8 @@
 import AuthScreen from './AuthScreen'
 import SignUpScreen from './SignUpScreen'
-import CooksTab from './CooksTab'
-import OrdersTab from './OrdersTab'
-import SettingsTab from './SettingsTab'
+import CooksTab from './CooksTab/CooksTab'
+import OrdersTab from './OrdersTab/OrdersTab'
+import SettingsTab from './SettingsTab/SettingsTab'
 
 export {
   AuthScreen,

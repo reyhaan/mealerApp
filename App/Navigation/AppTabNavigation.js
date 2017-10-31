@@ -1,13 +1,16 @@
 import React from 'react'
 import { Image, Platform } from 'react-native'
 import { TabNavigator } from 'react-navigation'
-import OrdersTab from '../Containers/OrdersTab'
-import SettingsTab from '../Containers/SettingsTab'
-import CooksTab from '../Containers/CooksTab'
 import { Colors, Images } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import styles from './Styles/NavigationStyles'
+
+import { 
+    CooksTab, 
+    OrdersTab, 
+    SettingsTab 
+} from '../Containers'
 
 const tabNavigatorConfig = {
     swipeEnabled: false,
@@ -17,6 +20,7 @@ const tabNavigatorConfig = {
     navigationOptions: {
         headerStyle: styles.header
     },
+    initialRouteName: 'Three',
     tabBarOptions: {
         activeTintColor: Colors.snow,
         inactiveTintColor: Colors.pinkLight1,
@@ -24,7 +28,8 @@ const tabNavigatorConfig = {
         labelStyle: {
             fontSize: 11,
             fontWeight: 'bold',
-            marginTop: 2
+            marginTop: (Platform.OS === 'ios') ? -2 : 2,
+            paddingBottom: (Platform.OS === 'ios') ? 6 : 0
         },
         style: {
             backgroundColor: Colors.backgroundDarker,
@@ -40,9 +45,8 @@ const tabNavigatorConfig = {
 const tabsList = {
     One: {
         screen:  CooksTab,
-        headerMode: 'none',
         navigationOptions: {
-            tabBarLabel: 'Cooks',
+            tabBarLabel: 'COOKS',
             tabBarIcon: ({ tintColor }) => (
                 <Image
                     source={ Images.cooksWhite }
@@ -56,7 +60,7 @@ const tabsList = {
     Two: {
         screen: OrdersTab,
         navigationOptions: {
-            title: 'Orders',
+            tabBarLabel: 'ORDERS',
             tabBarIcon: ({ tintColor }) => (
                 <Image
                     source={ Images.ordersWhite }
@@ -69,7 +73,7 @@ const tabsList = {
     Three: {
         screen: SettingsTab,
         navigationOptions: {
-            title: 'Settings',
+            tabBarLabel: 'SETTINGS',
             tabBarIcon: ({ tintColor }) => (
                 <Image
                     source={ Images.settingsWhite }

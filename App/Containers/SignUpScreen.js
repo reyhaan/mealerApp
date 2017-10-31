@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
-import {ScrollView, Text} from 'react-native'
+import {Button, FormInput, Text} from 'react-native-elements'
 import {connect} from 'react-redux'
+import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
+import {Images, Fonts} from '../Themes'
+import {SignUpScreenStyle} from './Styles'
+
 
 class SignUpScreen extends Component {
     constructor(props) {
@@ -10,8 +14,40 @@ class SignUpScreen extends Component {
 
     render() {
         return (
-            <ScrollView>
-                <Text>Sign up screen</Text>
+            <ScrollView style={SignUpScreenStyle.container}>
+                <View style={SignUpScreenStyle.centered}>
+                    <Image source={Images.logo} style={SignUpScreenStyle.logo}/>
+                    <Image source={Images.mealerLogo} style={SignUpScreenStyle.mealerLogo}/>
+                </View>
+
+                <View style={[SignUpScreenStyle.section, {marginBottom: 10}]}>
+                    <FormInput
+                        underlineColorAndroid="transparent"
+                        inputStyle={SignUpScreenStyle.inputField}
+                        containerStyle={SignUpScreenStyle.inputContainer}
+                        onChangeText={this.someFunction}
+                        placeholder="NAME"/>
+
+                    <FormInput
+                        underlineColorAndroid="transparent"
+                        inputStyle={SignUpScreenStyle.inputField}
+                        containerStyle={SignUpScreenStyle.inputContainer}
+                        onChangeText={this.someFunction}
+                        placeholder="EMAIL"/>
+                    <FormInput
+                        underlineColorAndroid="transparent"
+                        inputStyle={SignUpScreenStyle.inputField}
+                        containerStyle={SignUpScreenStyle.inputContainer}
+                        onChangeText={this.someFunction}
+                        placeholder="PASSWORD"/>
+                </View>
+
+                <View style={[SignUpScreenStyle.section, {marginTop: 0}]}>
+                    <Button
+                        buttonStyle={SignUpScreenStyle.primaryButton}
+                        textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
+                        title="SIGN UP"/>
+                </View>
             </ScrollView>
         )
     }

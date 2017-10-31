@@ -27,51 +27,48 @@ class LoginScreen extends Component {
 
     render() {
         return (
-            <View style={LoginScreenStyle.mainContainer}>
-                <ScrollView style={LoginScreenStyle.container}>
-                    <View style={LoginScreenStyle.centered}>
-                        <Image source={Images.logo} style={LoginScreenStyle.logo}/>
-                        <Image source={Images.mealerLogo} style={LoginScreenStyle.mealerLogo}/>
+            <ScrollView style={LoginScreenStyle.container}>
+                <View style={LoginScreenStyle.centered}>
+                    <Image source={Images.logo} style={LoginScreenStyle.logo}/>
+                    <Image source={Images.mealerLogo} style={LoginScreenStyle.mealerLogo}/>
+                </View>
+
+                <View style={[LoginScreenStyle.section, {marginBottom: 10}]}>
+                    <FormInput
+                        underlineColorAndroid="transparent"
+                        inputStyle={LoginScreenStyle.inputField}
+                        containerStyle={LoginScreenStyle.inputContainer}
+                        onChangeText={this.someFunction}
+                        placeholder="EMAIL"/>
+
+                    <FormInput
+                        underlineColorAndroid="transparent"
+                        inputStyle={LoginScreenStyle.inputField}
+                        containerStyle={LoginScreenStyle.inputContainer}
+                        onChangeText={this.someFunction}
+                        placeholder="PASSWORD"/>
+                </View>
+
+                <View style={[LoginScreenStyle.section, {marginTop: 0}]}>
+                    <Button
+                        buttonStyle={LoginScreenStyle.primaryButton}
+                        textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
+                        title={`LOGIN`}/>
+
+                    <Button
+                        buttonStyle={LoginScreenStyle.facebookButton}
+                        fontWeight='bold'
+                        textStyle={{textAlign: 'center'}}
+                        title={facebookLoginButtonTitle()}/>
+
+                    <View style={LoginScreenStyle.signUpView}>
+                        <View><Text h5 style={LoginScreenStyle.registerButton}> Don't have an account?</Text></View>
+                        <TouchableOpacity onPress={() => this.navigateToSignUpScreen(this.props.navigation)}>
+                            <Text h5 style={LoginScreenStyle.signUpButton}>Sign Up</Text>
+                        </TouchableOpacity>
                     </View>
-
-                    <View style={[LoginScreenStyle.section, {marginBottom: 10}]}>
-                        <FormInput
-                            underlineColorAndroid="transparent"
-                            inputStyle={LoginScreenStyle.inputField}
-                            containerStyle={LoginScreenStyle.inputContainer}
-                            onChangeText={this.someFunction}
-                            placeholder="EMAIL"/>
-
-                        <FormInput
-                            underlineColorAndroid="transparent"
-                            inputStyle={LoginScreenStyle.inputField}
-                            containerStyle={LoginScreenStyle.inputContainer}
-                            onChangeText={this.someFunction}
-                            placeholder="PASSWORD"/>
-                    </View>
-
-                    <View style={[LoginScreenStyle.section, {marginTop: 0}]}>
-                        <Button
-                            buttonStyle={LoginScreenStyle.primaryButton}
-                            textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                            title={`LOGIN`}/>
-
-                        <Button
-                            buttonStyle={LoginScreenStyle.facebookButton}
-                            fontWeight='bold'
-                            textStyle={{textAlign: 'center'}}
-                            title={facebookLoginButtonTitle()}/>
-
-                        <View style={LoginScreenStyle.signUpView}>
-                            <View><Text h5 style={LoginScreenStyle.registerButton}> Don't have an account?</Text></View>
-                            <TouchableOpacity onPress={() => this.navigateToSignUpScreen(this.props.navigation)}>
-                                <Text h5 style={LoginScreenStyle.signUpButton}>Sign Up</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-
-                </ScrollView>
-            </View>
+                </View>
+            </ScrollView>
         )
     }
 }

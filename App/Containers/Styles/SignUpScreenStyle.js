@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native'
-import { Colors, Metrics, ApplicationStyles } from '../../Themes/'
+import {StyleSheet} from 'react-native'
+import {Colors, Metrics, ApplicationStyles} from '../../Themes/'
 
 export default StyleSheet.create({
     ...ApplicationStyles.screen,
@@ -25,22 +25,18 @@ export default StyleSheet.create({
         backgroundColor: Colors.facebook,
         borderRadius: 3
     },
-    signUpView:{
+    signUpView: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         margin: 10
     },
-    registerButton: {
-        margin: 15,
-        fontSize: 15,
-        color: 'white'
-    },
     signUpButton: {
-        margin: 15,
-        fontSize: 15,
-        color: Colors.bloodOrange,
-        textDecorationLine: 'underline'
+        marginTop: 20,
+        marginLeft: 5,
+        marginRight: 5,
+        backgroundColor: Colors.pink,
+        borderRadius: 3
     }
 })

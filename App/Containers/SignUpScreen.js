@@ -40,11 +40,8 @@ class SignUpScreen extends Component {
                         containerStyle={SignUpScreenStyle.inputContainer}
                         onChangeText={this.someFunction}
                         placeholder="PASSWORD"/>
-                </View>
-
-                <View style={[SignUpScreenStyle.section, {marginTop: 0}]}>
                     <Button
-                        buttonStyle={SignUpScreenStyle.primaryButton}
+                        buttonStyle={SignUpScreenStyle.signUpButton}
                         textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
                         title="SIGN UP"/>
                 </View>

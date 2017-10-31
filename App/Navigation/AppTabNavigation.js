@@ -1,9 +1,9 @@
 import React from 'react'
 import { Image, Platform } from 'react-native'
 import { TabNavigator } from 'react-navigation'
-import OrdersTab from '../Containers/ordersTab/OrdersTab'
-import SettingsTab from '../Containers/settingsTab/SettingsTab'
-import CooksTab from '../Containers/cooksTab/CooksTab'
+import OrdersTab from '../Containers/OrdersTab'
+import SettingsTab from '../Containers/SettingsTab'
+import CooksTab from '../Containers/CooksTab'
 import { Colors, Images } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 

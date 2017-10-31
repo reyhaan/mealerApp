@@ -8,7 +8,7 @@ import {OrdersTabStyle} from '../Styles'
 
 // Styles
 
-const styles = OrdersTabStyle
+const styles = OrdersTabStyle;
 
 class OrdersTab extends Component {
   // constructor (props) {

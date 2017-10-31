@@ -1,13 +1,13 @@
 import { StackNavigator, TabNavigator } from 'react-navigation'
-import { AuthScreen, SignUpScreen } from '../Containers'
+import { SignUpScreen, LoginScreen } from '../Containers'
 import TabsView from './AppTabNavigation'
 
 import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  AuthScreen: {
-    screen: TabsView
+  LoginScreen: {
+    screen: LoginScreen
   },
   SignUpScreen: {
     screen: SignUpScreen,
@@ -21,10 +21,10 @@ const PrimaryNav = StackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'AuthScreen',
+  initialRouteName: 'LoginScreen',
   navigationOptions: {
     headerStyle: styles.header
   }
-})
+});
 
 export default PrimaryNav

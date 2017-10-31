@@ -6,8 +6,8 @@ import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
-  AuthScreen: {
-    screen: TabsView
+  LoginScreen: {
+    screen: SignUpScreen
   },
   SignUpScreen: {
     screen: SignUpScreen,
@@ -21,10 +21,10 @@ const PrimaryNav = StackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'AuthScreen',
+  initialRouteName: 'SignUpScreen',
   navigationOptions: {
     headerStyle: styles.header
   }
-})
+});
 
 export default PrimaryNav

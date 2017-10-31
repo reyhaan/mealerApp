@@ -15,6 +15,6 @@ class SignUpScreen extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({})
-const mapDispatchToProps = {}
+const mapStateToProps = (state, ownProps) => ({});
+const mapDispatchToProps = {};
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)

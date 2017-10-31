@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
-import {CooksTabStyle} from './Styles'
+import {OrdersTabStyle} from '../Styles'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-const styles = CooksTabStyle
 
-class CooksTab extends Component {
+const styles = OrdersTabStyle
+
+class OrdersTab extends Component {
   // constructor (props) {
   //   super(props)
   //   this.state = {}
@@ -18,7 +19,7 @@ class CooksTab extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <Text>CooksTab Container</Text>
+        <Text>OrdersTab Container</Text>
       </ScrollView>
     )
   }
@@ -34,4 +35,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CooksTab)
+export default connect(mapStateToProps, mapDispatchToProps)(OrdersTab)

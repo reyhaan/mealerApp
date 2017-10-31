@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView } from 'react-native'
 import { connect } from 'react-redux'
+import {Button, Text} from 'react-native-elements'
 import {SettingsTabStyle} from '../Styles'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -18,7 +19,13 @@ class SettingsTab extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <Text>SettingsTab Container</Text>
+        <Button
+          buttonStyle={{marginTop: 20}}
+          fontWeight='bold'
+          textStyle={{textAlign: 'center'}}
+          title='something'
+          onPress={() => { this.props.navigation.navigate('PasswordChangeScreen') }}
+          />
       </ScrollView>
     )
   }

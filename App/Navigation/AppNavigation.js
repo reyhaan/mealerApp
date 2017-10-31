@@ -7,7 +7,7 @@ import styles from './Styles/NavigationStyles'
 // Manifest of possible screens
 const PrimaryNav = StackNavigator({
   LoginScreen: {
-    screen: LoginScreen
+    screen: TabsView
   },
   SignUpScreen: {
     screen: SignUpScreen,

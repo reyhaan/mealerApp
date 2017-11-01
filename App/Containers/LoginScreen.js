@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
 import {LoginScreenStyle} from './Styles'
-import {Button, FormInput, Text} from 'react-native-elements'
+import {Button, FormInput, Text, CheckBox} from 'react-native-elements'
 import {Images, Fonts} from '../Themes'
 import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { Colors } from '../Themes/'
 
 const facebookLoginButtonTitle = () => {
     // TODO: find away to avoid the warning from showing up when using icon in the button title
@@ -33,7 +34,7 @@ class LoginScreen extends Component {
                     <Image source={Images.mealerLogo} style={LoginScreenStyle.mealerLogo}/>
                 </View>
 
-                <View style={[LoginScreenStyle.section, {marginBottom: 10}]}>
+                <View style={[LoginScreenStyle.section, {marginBottom: 5}]}>
                     <FormInput
                         underlineColorAndroid="transparent"
                         inputStyle={LoginScreenStyle.inputField}
@@ -46,26 +47,39 @@ class LoginScreen extends Component {
                         inputStyle={LoginScreenStyle.inputField}
                         containerStyle={LoginScreenStyle.inputContainer}
                         onChangeText={this.someFunction}
-                        placeholder="PASSWORD"/>
+                        placeholder="PASSWORD"
+                        secureTextEntry={true}/>
                 </View>
 
-                <View style={[LoginScreenStyle.section, {marginTop: 0}]}>
-                    <Button
-                        buttonStyle={LoginScreenStyle.primaryButton}
+                <View style={LoginScreenStyle.forgotPasswordView}>
+                    <CheckBox 
+                        title='Remember me'
+                        iconLeft
+                        checked={false}
+                        checkedColor={Colors.background}
+                        uncheckedColor={'white'}
+                        textStyle={LoginScreenStyle.checkBoxTextStyle}
+                        containerStyle={LoginScreenStyle.checkBoxContainerStyle}
+                    />
+                    <Text style={LoginScreenStyle.forgotPasswordTextStyle}>
+                        Forgot Password?
+                    </Text>
+                </View>
+
+                <Button
+                        buttonStyle={[LoginScreenStyle.primaryButton, LoginScreenStyle.loginButton]}
                         textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
                         title={`LOGIN`}/>
 
-                    <Button
-                        buttonStyle={LoginScreenStyle.facebookButton}
-                        fontWeight='bold'
-                        textStyle={{textAlign: 'center'}}
-                        title={facebookLoginButtonTitle()}/>
+                <View style={[LoginScreenStyle.section, {marginTop: 0, marginLeft:30,marginRight:80, display:'flex', flexDirection:'row', justifyContent:'space-between'}]}>
 
+                </View>
+                <View>
                     <View style={LoginScreenStyle.signUpView}>
-                        <View><Text h5 style={LoginScreenStyle.registerButton}> Don't have an account?</Text></View>
-                        <TouchableOpacity onPress={() => this.navigateToSignUpScreen(this.props.navigation)}>
-                            <Text h5 style={LoginScreenStyle.signUpButton}>Sign Up</Text>
-                        </TouchableOpacity>
+                            <View><Text h5 style={LoginScreenStyle.registerButton}> Don't have an account?</Text></View>
+                            <TouchableOpacity onPress={() => this.navigateToSignUpScreen(this.props.navigation)}>
+                                <Text h5 style={LoginScreenStyle.signUpButton}>Sign Up</Text>
+                            </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>

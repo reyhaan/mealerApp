@@ -21,9 +21,9 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     facebookButton: {
-        marginTop: Metrics.baseMargin,
         backgroundColor: Colors.facebook,
-        borderRadius: 3
+        borderRadius: 3,
+        width:'100%'
     },
     signUpView:{
         flex: 1,
@@ -37,10 +37,42 @@ export default StyleSheet.create({
         fontSize: 15,
         color: 'white'
     },
+    loginButton: {
+        marginTop: 20,
+        marginLeft: 35,
+        marginRight: 35,
+    },
     signUpButton: {
         margin: 15,
         fontSize: 15,
         color: Colors.bloodOrange,
         textDecorationLine: 'underline'
+    },
+    forgotPasswordView: {
+        marginBottom : 5,
+        display:'flex',
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        marginLeft: 45,
+        marginRight:25
+    },
+    checkBoxTextStyle:{
+        color:'white', 
+        fontWeight:'bold', 
+        fontSize:12
+    },
+    checkBoxContainerStyle:{
+        height:20, 
+        flex:1, 
+        backgroundColor:Colors.background, 
+        borderWidth:0
+    },
+    forgotPasswordTextStyle:{
+        flex:1, 
+        color:'white', 
+        fontWeight: 'bold', 
+        fontSize:12
     }
 })

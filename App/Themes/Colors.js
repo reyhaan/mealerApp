@@ -2,6 +2,7 @@ const colors = {
   background: '#572FB6',
   backgroundDarker: '#4C2A9E',
   pink: '#EE388D',
+  pink2: '#7041C9',
   pinkLight1: '#B27CF4',
   clear: 'rgba(0,0,0,0)',
   facebook: '#9A61DF',

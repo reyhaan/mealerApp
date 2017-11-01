@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, Platform } from 'react-native'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import { Colors, Images } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -9,15 +9,16 @@ import styles from './Styles/NavigationStyles'
 import { 
     CooksTab, 
     OrdersTab, 
-    SettingsTab 
+    SettingsTab,
+    PasswordChangeScreen 
 } from '../Containers'
 
 const tabNavigatorConfig = {
     swipeEnabled: false,
     animationEnabled: false,
     tabBarPosition: 'bottom',
-    headerMode: 'none',
     navigationOptions: {
+        headerMode: 'none',
         headerStyle: styles.header
     },
     initialRouteName: 'Three',
@@ -86,4 +87,21 @@ const tabsList = {
 
 const TabsView = TabNavigator(tabsList, tabNavigatorConfig)
 
-export default TabsView
+const RootStack = StackNavigator({
+    Root: {
+        screen: TabsView
+    },
+    PasswordChangeScreen: {
+        screen: PasswordChangeScreen,
+        navigationOptions: ({ navigation }) => ({
+            title: `Change Password`,
+        }),
+    },
+}, {
+    navigationOptions: {
+        headerMode: 'none',
+        headerStyle: styles.header
+    }
+})
+
+export default RootStack

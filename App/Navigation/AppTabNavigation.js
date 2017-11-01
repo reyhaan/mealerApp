@@ -98,9 +98,9 @@ const RootStack = StackNavigator({
         }),
     },
 }, {
+    headerMode: 'none',
     navigationOptions: {
-        headerMode: 'none',
-        headerStyle: styles.header
+        
     }
 })
 

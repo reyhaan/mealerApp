@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import {Button, Text} from 'react-native-elements'
+import {Button, Text, List, ListItem} from 'react-native-elements'
 import {SettingsTabStyle} from '../Styles'
 
 import { Colors } from '../../Themes'
@@ -9,7 +9,7 @@ import { Colors } from '../../Themes'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
-import { List, ListItem } from 'react-native-elements'
+import Header from '../../Components/Header'
 
 // Styles
 const styles = SettingsTabStyle
@@ -46,6 +46,9 @@ class SettingsTab extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
+
+          <Header style={{marginBottom: 40}} />
+
           <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
             {
               list.map((l, i) => (

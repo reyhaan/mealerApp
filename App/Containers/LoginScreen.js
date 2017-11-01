@@ -16,15 +16,28 @@ const facebookLoginButtonTitle = () => {
 class LoginScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            checked : false,
+            userLoginInfo : {'email':'', 'password':''}
+        }
     }
-
+    toggleCheckBox = ()=>{
+        this.setState({checked : !this.state.checked})
+    }
     navigateToSignUpScreen = (navigation) => {
         navigation.navigate('SignUpScreen')
     };
-    someFunction = () => {
-        console.log('dd')
+    getUserLoginInfo = (id, e) => {
+        if(id === 'email'){
+            this.setState({userLoginInfo: Object.assign({}, this.state.userLoginInfo, {email : e})});
+        }
+        if(id === 'password'){
+            this.setState({userLoginInfo : Object.assign({}, this.state.userLoginInfo, {password : e})});
+          }
     };
+    componentDidUpdate = ()=>{
+        console.log(this.state)
+    }
 
     render() {
         return (
@@ -39,14 +52,14 @@ class LoginScreen extends Component {
                         underlineColorAndroid="transparent"
                         inputStyle={LoginScreenStyle.inputField}
                         containerStyle={LoginScreenStyle.inputContainer}
-                        onChangeText={this.someFunction}
+                        onChangeText={(e)=>this.getUserLoginInfo('email', e)}
                         placeholder="EMAIL"/>
 
                     <FormInput
                         underlineColorAndroid="transparent"
                         inputStyle={LoginScreenStyle.inputField}
                         containerStyle={LoginScreenStyle.inputContainer}
-                        onChangeText={this.someFunction}
+                        onChangeText={(e)=>this.getUserLoginInfo('password', e)}
                         placeholder="PASSWORD"
                         secureTextEntry={true}/>
                 </View>
@@ -55,11 +68,12 @@ class LoginScreen extends Component {
                     <CheckBox 
                         title='Remember me'
                         iconLeft
-                        checked={false}
-                        checkedColor={Colors.background}
+                        checked={this.state.checked}
+                        checkedColor={'white'}
                         uncheckedColor={'white'}
                         textStyle={LoginScreenStyle.checkBoxTextStyle}
                         containerStyle={LoginScreenStyle.checkBoxContainerStyle}
+                        onPress={this.toggleCheckBox}
                     />
                     <Text style={LoginScreenStyle.forgotPasswordTextStyle}>
                         Forgot Password?
@@ -70,17 +84,11 @@ class LoginScreen extends Component {
                         buttonStyle={[LoginScreenStyle.primaryButton, LoginScreenStyle.loginButton]}
                         textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
                         title={`LOGIN`}/>
-
-                <View style={[LoginScreenStyle.section, {marginTop: 0, marginLeft:30,marginRight:80, display:'flex', flexDirection:'row', justifyContent:'space-between'}]}>
-
-                </View>
-                <View>
-                    <View style={LoginScreenStyle.signUpView}>
-                            <View><Text h5 style={LoginScreenStyle.registerButton}> Don't have an account?</Text></View>
-                            <TouchableOpacity onPress={() => this.navigateToSignUpScreen(this.props.navigation)}>
-                                <Text h5 style={LoginScreenStyle.signUpButton}>Sign Up</Text>
-                            </TouchableOpacity>
-                    </View>
+                <View style={LoginScreenStyle.signUpView}>
+                        <View><Text h5 style={LoginScreenStyle.registerButton}> Not Registered?</Text></View>
+                        <TouchableOpacity onPress={() => this.navigateToSignUpScreen(this.props.navigation)}>
+                            <Text h5 style={LoginScreenStyle.signUpButton}>SIGN UP!</Text>
+                        </TouchableOpacity>
                 </View>
             </ScrollView>
         )

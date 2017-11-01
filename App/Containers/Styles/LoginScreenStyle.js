@@ -20,33 +20,36 @@ export default StyleSheet.create({
     centered: {
         alignItems: 'center'
     },
-    facebookButton: {
-        backgroundColor: Colors.facebook,
-        borderRadius: 3,
-        width:'100%'
-    },
     signUpView:{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 10
+        marginTop: 5
     },
     registerButton: {
         margin: 15,
-        fontSize: 15,
-        color: 'white'
+        fontSize: 12,
+        color: 'white',
+        fontWeight:'bold',
+        marginRight:2
     },
     loginButton: {
-        marginTop: 20,
-        marginLeft: 35,
-        marginRight: 35,
+        marginTop: 10,
+        marginLeft: 42,
+        marginRight: 35
     },
     signUpButton: {
-        margin: 15,
-        fontSize: 15,
-        color: Colors.bloodOrange,
-        textDecorationLine: 'underline'
+        fontSize: 12,
+        color: 'white',
+        paddingTop:5,
+        paddingLeft:5,
+        backgroundColor:'rgba(51, 29, 107,0.4)',
+        borderStyle:'solid',
+        borderWidth:3,
+        borderRadius:5,
+        borderColor:'rgba(51, 29, 107,0.2)',
+        fontWeight:'bold'
     },
     forgotPasswordView: {
         marginBottom : 5,

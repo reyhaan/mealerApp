@@ -5,12 +5,16 @@ import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 
+const merchantTitle = "I AM A MERCHANT";
+const customerTitle = "I AM A CUSTOMER";
+
 class SignUpScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             userType: 'customer',
-            userTypeDropDown:false
+            userTypeDropDown: false,
+            userTypeTitle: customerTitle
         }
     }
 
@@ -18,8 +22,8 @@ class SignUpScreen extends Component {
         this.setState({userTypeDropDown: !this.state.userTypeDropDown});
     };
 
-    userTypeDropDown = () =>{
-        if( this.state.userTypeDropDown ){
+    userTypeDropDown = () => {
+        if (this.state.userTypeDropDown) {
             return (
                 <List containerStyle={SignUpScreenStyle.userTypePickerDropDown}>
                     <ListItem titleStyle={SignUpScreenStyle.userTypePickerTitle} hideChevron={true}
@@ -38,13 +42,12 @@ class SignUpScreen extends Component {
     };
 
     onSelectUserType = (value) => {
-        console.log(value);
-
+        this.toggleUserTypeDropDown();
         this.setState({
-            userType: value
+            userType: value,
+            userTypeTitle: value === 'customer' ? customerTitle : merchantTitle
         });
     };
-
 
 
     render() {
@@ -75,15 +78,19 @@ class SignUpScreen extends Component {
                         containerStyle={SignUpScreenStyle.inputContainer}
                         onChangeText={this.someFunction}
                         placeholder="PASSWORD"/>
+
+                    {/*Todo use TouchableOpacity for this button instead since icon is not showing properly*/}
                     <Button
                         buttonStyle={SignUpScreenStyle.userTypePickerBtn}
                         fontWeight={'600'}
                         iconRight={{name: 'check'}}
-                        title="I AM A MERCHANT"
+                        title={this.state.userTypeTitle}
                         onPress={() => {
                             this.toggleUserTypeDropDown()
                         }}/>
+
                     {this.userTypeDropDown()}
+
                     <Button
                         buttonStyle={SignUpScreenStyle.signUpButton}
                         textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}

@@ -1,16 +1,51 @@
 import React, {Component} from 'react'
-import {Button, FormInput, Text} from 'react-native-elements'
+import {Button, FormInput, List, ListItem, Text} from 'react-native-elements'
 import {connect} from 'react-redux'
 import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 
-
 class SignUpScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            userType: 'customer',
+            userTypeDropDown:false
+        }
     }
+
+    toggleUserTypeDropDown = () => {
+        this.setState({userTypeDropDown: !this.state.userTypeDropDown});
+    };
+
+    userTypeDropDown = () =>{
+        if( this.state.userTypeDropDown ){
+            return (
+                <List containerStyle={SignUpScreenStyle.userTypePickerDropDown}>
+                    <ListItem titleStyle={SignUpScreenStyle.userTypePickerTitle} hideChevron={true}
+                              title={"I AM A CUSTOMER"} onPress={() => {
+                        this.onSelectUserType("customer")
+                    }}/>
+                    <ListItem titleStyle={SignUpScreenStyle.userTypePickerTitle} hideChevron={true}
+                              title={"I AM A MERCHANT"} onPress={() => {
+                        this.onSelectUserType("merchant")
+                    }}/>
+                </List>
+            )
+        } else {
+            return null
+        }
+    };
+
+    onSelectUserType = (value) => {
+        console.log(value);
+
+        this.setState({
+            userType: value
+        });
+    };
+
+
 
     render() {
         return (
@@ -40,6 +75,15 @@ class SignUpScreen extends Component {
                         containerStyle={SignUpScreenStyle.inputContainer}
                         onChangeText={this.someFunction}
                         placeholder="PASSWORD"/>
+                    <Button
+                        buttonStyle={SignUpScreenStyle.userTypePickerBtn}
+                        fontWeight={'600'}
+                        iconRight={{name: 'check'}}
+                        title="I AM A MERCHANT"
+                        onPress={() => {
+                            this.toggleUserTypeDropDown()
+                        }}/>
+                    {this.userTypeDropDown()}
                     <Button
                         buttonStyle={SignUpScreenStyle.signUpButton}
                         textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}

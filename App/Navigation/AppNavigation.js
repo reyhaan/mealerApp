@@ -21,7 +21,7 @@ const PrimaryNav = StackNavigator({
 }, {
   // Default config for all screens
   headerMode: 'none',
-  initialRouteName: 'LoginScreen',
+  initialRouteName: 'SignUpScreen',
   navigationOptions: {
     headerStyle: styles.header
   }

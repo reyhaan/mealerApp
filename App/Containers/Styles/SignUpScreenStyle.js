@@ -39,6 +39,27 @@ export default StyleSheet.create({
         backgroundColor: Colors.pink,
         borderRadius: 3
     },
+    userTypePickerBtn:{
+        marginTop:10,
+        marginLeft:4,
+        width:266,
+        backgroundColor:Colors.backgroundDarker
+    },
+    userTypePickerDropDown:{
+        marginTop:10,
+        marginLeft:20,
+        width:265,
+
+    },
+    userTypePickerTitle:{
+        fontWeight:'700',
+        fontSize: 13
+    },
+    userTypePickerText:{
+        color:Colors.text,
+        fontSize:15,
+        fontWeight:'500',
+    },
     goBackToLoginButton: {
         marginTop: 20,
         marginLeft: 30,

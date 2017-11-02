@@ -12,16 +12,35 @@ class SignUpScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: "",
+            email: "",
+            password: "",
             userType: 'customer',
             userTypeDropDown: false,
             userTypeTitle: customerTitle
         }
     }
 
+    formUpdate = (input, value) => {
+        this.setState({
+            [input]: value,
+        });
+    };
+
+    onSelectUserType = (value) => {
+        this.toggleUserTypeDropDown();
+        this.setState({
+            userType: value,
+            userTypeTitle: value === 'customer' ? customerTitle : merchantTitle
+        });
+    };
+
     toggleUserTypeDropDown = () => {
         this.setState({userTypeDropDown: !this.state.userTypeDropDown});
     };
 
+
+    //TODO: Create custom drop down list component
     userTypeDropDown = () => {
         if (this.state.userTypeDropDown) {
             return (
@@ -41,15 +60,6 @@ class SignUpScreen extends Component {
         }
     };
 
-    onSelectUserType = (value) => {
-        this.toggleUserTypeDropDown();
-        this.setState({
-            userType: value,
-            userTypeTitle: value === 'customer' ? customerTitle : merchantTitle
-        });
-    };
-
-
     render() {
         return (
             <ScrollView style={SignUpScreenStyle.container}>
@@ -63,20 +73,20 @@ class SignUpScreen extends Component {
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
-                        onChangeText={this.someFunction}
+                        onChangeText={(e)=>this.formUpdate('name', e)}
                         placeholder="NAME"/>
 
                     <FormInput
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
-                        onChangeText={this.someFunction}
+                        onChangeText={(e)=>this.formUpdate('email', e)}
                         placeholder="EMAIL"/>
                     <FormInput
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
-                        onChangeText={this.someFunction}
+                        onChangeText={(e)=>this.formUpdate('password', e)}
                         placeholder="PASSWORD"/>
 
                     {/*Todo use TouchableOpacity for this button instead since icon is not showing properly*/}

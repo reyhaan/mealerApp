@@ -37,7 +37,7 @@ class LoginScreen extends Component {
     };
     componentDidUpdate = ()=>{
         console.log(this.state)
-    }
+    };
 
     render() {
         return (

@@ -20,27 +20,62 @@ export default StyleSheet.create({
     centered: {
         alignItems: 'center'
     },
-    facebookButton: {
-        marginTop: Metrics.baseMargin,
-        backgroundColor: Colors.facebook,
-        borderRadius: 3
-    },
     signUpView:{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 10
+        marginTop: 5
     },
     registerButton: {
         margin: 15,
-        fontSize: 15,
-        color: 'white'
+        fontSize: 12,
+        color: 'white',
+        fontWeight:'bold',
+        marginRight:2
+    },
+    loginButton: {
+        marginTop: 10,
+        marginLeft: 42,
+        marginRight: 35
     },
     signUpButton: {
-        margin: 15,
-        fontSize: 15,
-        color: Colors.bloodOrange,
-        textDecorationLine: 'underline'
+        fontSize: 12,
+        color: 'white',
+        paddingTop:5,
+        paddingLeft:5,
+        backgroundColor:'rgba(51, 29, 107,0.4)',
+        borderStyle:'solid',
+        borderWidth:3,
+        borderRadius:5,
+        borderColor:'rgba(51, 29, 107,0.2)',
+        fontWeight:'bold'
+    },
+    forgotPasswordView: {
+        marginBottom : 5,
+        display:'flex',
+        flex:1,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        marginLeft: 45,
+        marginRight:25
+    },
+    checkBoxTextStyle:{
+        color:'white', 
+        fontWeight:'bold', 
+        fontSize:12
+    },
+    checkBoxContainerStyle:{
+        height:20, 
+        flex:1, 
+        backgroundColor:Colors.background, 
+        borderWidth:0
+    },
+    forgotPasswordTextStyle:{
+        flex:1, 
+        color:'white', 
+        fontWeight: 'bold', 
+        fontSize:12
     }
 })

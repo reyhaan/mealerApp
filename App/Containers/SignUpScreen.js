@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
+import {signIn} from '../Redux/User/UserActions'; //TODO: Use bindActionCreators
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -25,6 +26,8 @@ class SignUpScreen extends Component {
         this.setState({
             [input]: value,
         });
+
+        console.log(this.props.signIn());
     };
 
     onSelectUserType = (value) => {
@@ -116,6 +119,6 @@ class SignUpScreen extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({});
-const mapDispatchToProps = {};
+const mapDispatchToProps = {signIn};
+const mapStateToProps = state => ({nav: state.navigation});
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)

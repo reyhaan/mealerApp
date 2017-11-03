@@ -1,50 +1,36 @@
-import React, { Component } from 'react'
-import { View, StatusBar } from 'react-native'
-import ReduxNavigation from '../Navigation/ReduxNavigation'
-import { connect } from 'react-redux'
-import StartupActions from '../Redux/StartupRedux'
-import ReduxPersist from '../Config/ReduxPersist'
-import { Font } from 'expo'
-
-// Styles
+import React, {Component} from 'react'
+import {View, StatusBar} from 'react-native'
+import AppNavigationContainer from '../Navigation/AppNavigationContainer'
+import {connect} from 'react-redux'
+import {Font} from 'expo'
 import styles from './Styles/RootContainerStyles'
 
 class RootContainer extends Component {
-  
-  state = {
-    fontLoaded: false,
-  };
+    state = {
+        fontLoaded: false,
+    };
 
-  async componentDidMount () {
-    // if redux persist is not active fire startup action
-    if (!ReduxPersist.active) {
-      this.props.startup()
+    async componentDidMount() {
+        await Font.loadAsync({
+            'ProximaNova-Regular': require('../../assets/fonts/ProximaNova-Regular.ttf'),
+            'ProximaNova-Bold': require('../../assets/fonts/ProximaNova-Bold.ttf')
+        });
+        this.setState({fontLoaded: true});
     }
 
-    await Font.loadAsync({
-      'ProximaNova-Regular': require('../../assets/fonts/ProximaNova-Regular.ttf'),
-      'ProximaNova-Bold': require('../../assets/fonts/ProximaNova-Bold.ttf')
-    });
-
-    this.setState({ fontLoaded: true });
-
-  }
-
-  render () {
-    return (
-      this.state.fontLoaded ? (
-          <View style={styles.applicationView}>
-            <StatusBar barStyle='light-content' />
-            <ReduxNavigation />
-          </View>
-        ) : null
-    )
-  }
+    render() {
+        return (
+            this.state.fontLoaded ? (
+                <View style={styles.applicationView}>
+                    <StatusBar barStyle='light-content'/>
+                    <AppNavigationContainer/>
+                </View>
+            ) : null
+        )
+    }
 }
 
 // wraps dispatch to create nicer functions to call within our component
-const mapDispatchToProps = (dispatch) => ({
-  startup: () => dispatch(StartupActions.startup())
-})
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(null, mapDispatchToProps)(RootContainer)

@@ -1,16 +1,16 @@
 import React from 'react'
-import { Image, Platform } from 'react-native'
-import { TabNavigator, StackNavigator } from 'react-navigation'
-import { Colors, Images } from '../Themes'
+import {Image, Platform} from 'react-native'
+import {TabNavigator, StackNavigator} from 'react-navigation'
+import {Colors, Images} from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import styles from './Styles/NavigationStyles'
 
-import { 
-    CooksTab, 
-    OrdersTab, 
+import {
+    CooksTab,
+    OrdersTab,
     SettingsTab,
-    PasswordChangeScreen 
+    PasswordChangeScreen
 } from '../Containers'
 
 const tabNavigatorConfig = {
@@ -34,7 +34,7 @@ const tabNavigatorConfig = {
         },
         style: {
             backgroundColor: Colors.backgroundDarker,
-            height: (Platform.OS === 'ios') ? 48 : 60 
+            height: (Platform.OS === 'ios') ? 48 : 60
         },
         tabStyle: {
             borderColor: Colors.backgroundDarker
@@ -45,12 +45,12 @@ const tabNavigatorConfig = {
 
 const tabsList = {
     One: {
-        screen:  CooksTab,
+        screen: CooksTab,
         navigationOptions: {
             tabBarLabel: 'COOKS',
-            tabBarIcon: ({ tintColor }) => (
+            tabBarIcon: ({tintColor}) => (
                 <Image
-                    source={ Images.cooksWhite }
+                    source={Images.cooksWhite}
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
@@ -62,9 +62,9 @@ const tabsList = {
         screen: OrdersTab,
         navigationOptions: {
             tabBarLabel: 'ORDERS',
-            tabBarIcon: ({ tintColor }) => (
+            tabBarIcon: ({tintColor}) => (
                 <Image
-                    source={ Images.ordersWhite }
+                    source={Images.ordersWhite}
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
@@ -75,25 +75,24 @@ const tabsList = {
         screen: SettingsTab,
         navigationOptions: {
             tabBarLabel: 'SETTINGS',
-            tabBarIcon: ({ tintColor }) => (
+            tabBarIcon: ({tintColor}) => (
                 <Image
-                    source={ Images.settingsWhite }
+                    source={Images.settingsWhite}
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
         },
     }
-}
+};
 
-const TabsView = TabNavigator(tabsList, tabNavigatorConfig)
-
+const TabsView = TabNavigator(tabsList, tabNavigatorConfig);
 const RootStack = StackNavigator({
     Root: {
         screen: TabsView
     },
     PasswordChangeScreen: {
         screen: PasswordChangeScreen,
-        navigationOptions: ({ navigation }) => ({
+        navigationOptions: ({navigation}) => ({
             title: `Change Password`,
         }),
     },
@@ -102,6 +101,6 @@ const RootStack = StackNavigator({
         headerMode: 'none',
         headerStyle: styles.header
     }
-})
+});
 
 export default RootStack

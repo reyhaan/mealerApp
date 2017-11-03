@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
-import {signIn} from '../Redux/User/UserActions'; //TODO: Use bindActionCreators
+import {bindActionCreators} from 'redux'
+import * as UserActionCreators from '../Redux/User/UserActions'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -19,7 +20,7 @@ class SignUpScreen extends Component {
             userType: 'customer',
             userTypeDropDown: false,
             userTypeTitle: customerTitle
-        }
+        };
     }
 
     formUpdate = (input, value) => {
@@ -76,20 +77,20 @@ class SignUpScreen extends Component {
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
-                        onChangeText={(e)=>this.formUpdate('name', e)}
+                        onChangeText={(e) => this.formUpdate('name', e)}
                         placeholder="NAME"/>
 
                     <FormInput
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
-                        onChangeText={(e)=>this.formUpdate('email', e)}
+                        onChangeText={(e) => this.formUpdate('email', e)}
                         placeholder="EMAIL"/>
                     <FormInput
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
-                        onChangeText={(e)=>this.formUpdate('password', e)}
+                        onChangeText={(e) => this.formUpdate('password', e)}
                         placeholder="PASSWORD"/>
 
                     {/*Todo use TouchableOpacity for this button instead since icon is not showing properly*/}
@@ -119,6 +120,6 @@ class SignUpScreen extends Component {
     }
 }
 
-const mapDispatchToProps = {signIn};
+const mapDispatchToProps = (dispatch) => (bindActionCreators(UserActionCreators, dispatch));
 const mapStateToProps = state => ({nav: state.navigation});
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)

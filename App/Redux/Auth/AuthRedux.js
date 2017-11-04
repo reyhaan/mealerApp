@@ -7,14 +7,17 @@ function action(type, data) {
 
 // All authentication actions
 export const authAction = {
-    signIn: 'SIGN_IN',
-    signUp: 'SIGN_UP'
+    signIn: 'signIn',
+    signInSuccessful: 'signInSuccessful',
+    signUp: 'signUp',
+    signUpSuccessful: 'signUpSuccessful',
 };
 
 /******************************* ACTIONS *************************************/
 export const signIn = (data) => action(authAction.signIn, data);
+export const signInSuccessful = (data) => action(authAction.signInSuccessful, data);
 export const signUp = (data) => action(authAction.signUp, data);
-
+export const signUpSuccessful = (data) => action(authAction.signUpSuccessful, data);
 
 /******************************* WATCHERS *************************************/
 export const authSagas = [

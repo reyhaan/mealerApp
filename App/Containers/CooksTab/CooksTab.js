@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import { connect } from 'react-redux'
 import { CooksTabStyle } from '../Styles'
 import { Header } from 'react-native-elements' 
@@ -20,7 +20,7 @@ class CooksTab extends Component {
 
   render () {
     return (
-      <ScrollView style = {styles.container}>
+      <View style = {styles.container}>
         <Header
           leftComponent = {{ icon: 'filter', color: '#fff', type: 'font-awesome' }}
           centerComponent = {{ text: 'COOKS', style: { color: '#fff' } }}
@@ -28,7 +28,7 @@ class CooksTab extends Component {
           backgroundColor = {Colors.background}
           outerContainerStyles = { styles.headerOuterContainer }
         />
-      </ScrollView>
+      </View>
     )
   }
 }

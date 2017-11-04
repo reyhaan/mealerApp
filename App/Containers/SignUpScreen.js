@@ -6,6 +6,7 @@ import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 import {bindActionCreators} from 'redux'
 import * as UserActionCreators from '../Redux/User/UserActions'
+import firebase from '../Config/firebaseConfig'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -27,8 +28,6 @@ class SignUpScreen extends Component {
         this.setState({
             [input]: value,
         });
-
-        console.log(this.props.signIn());
     };
 
     onSelectUserType = (value) => {
@@ -41,10 +40,20 @@ class SignUpScreen extends Component {
 
     toggleUserTypeDropDown = () => {
         this.setState({userTypeDropDown: !this.state.userTypeDropDown});
+        firebase.database().ref('users/' + "ppp").set({
+            highScore: 6
+        });
     };
 
+    signUp = () => {
+        const {email, password} = this.state;
+        if ( email && password) {
+            this.props.signUp({email, password});
+        }
+    };
 
-    //TODO: Create custom drop down list component
+    //TODO: Add form validation for email and password
+
     userTypeDropDown = () => {
         if (this.state.userTypeDropDown) {
             return (
@@ -73,42 +82,47 @@ class SignUpScreen extends Component {
                 </View>
 
                 <View style={[SignUpScreenStyle.section, {marginBottom: 10}]}>
-                    <FormInput
-                        underlineColorAndroid="transparent"
-                        inputStyle={SignUpScreenStyle.inputField}
-                        containerStyle={SignUpScreenStyle.inputContainer}
-                        onChangeText={(e) => this.formUpdate('name', e)}
-                        placeholder="NAME"/>
+                    {/*<FormInput*/}
+                        {/*underlineColorAndroid="transparent"*/}
+                        {/*inputStyle={SignUpScreenStyle.inputField}*/}
+                        {/*containerStyle={SignUpScreenStyle.inputContainer}*/}
+                        {/*onChangeText={(e) => this.formUpdate('name', e)}*/}
+                        {/*placeholder="NAME"/>*/}
 
                     <FormInput
+                        keyboardType="email-address"
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
                         onChangeText={(e) => this.formUpdate('email', e)}
                         placeholder="EMAIL"/>
                     <FormInput
+                        secureTextEntry = {true}
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
                         onChangeText={(e) => this.formUpdate('password', e)}
                         placeholder="PASSWORD"/>
 
-                    {/*Todo use TouchableOpacity for this button instead since icon is not showing properly*/}
-                    <Button
-                        buttonStyle={SignUpScreenStyle.userTypePickerBtn}
-                        fontWeight={'600'}
-                        iconRight={{name: 'check'}}
-                        title={this.state.userTypeTitle}
-                        onPress={() => {
-                            this.toggleUserTypeDropDown()
-                        }}/>
+                    {/*/!*Todo use TouchableOpacity for this button instead since icon is not showing properly*!/*/}
+                    {/*<Button*/}
+                        {/*buttonStyle={SignUpScreenStyle.userTypePickerBtn}*/}
+                        {/*fontWeight={'600'}*/}
+                        {/*iconRight={{name: 'check'}}*/}
+                        {/*title={this.state.userTypeTitle}*/}
+                        {/*onPress={() => {*/}
+                            {/*this.toggleUserTypeDropDown()*/}
+                        {/*}}/>*/}
 
-                    {this.userTypeDropDown()}
+                    {/*{this.userTypeDropDown()}*/}
 
                     <Button
                         buttonStyle={SignUpScreenStyle.signUpButton}
                         textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                        title="SIGN UP"/>
+                        title="SIGN UP"
+                        onPress={() => {
+                            this.signUp()
+                        }}/>
                     <Button
                         fontSize={15}
                         buttonStyle={SignUpScreenStyle.goBackToLoginButton}

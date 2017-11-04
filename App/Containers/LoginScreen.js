@@ -20,22 +20,20 @@ class LoginScreen extends Component {
     }
     toggleCheckBox = ()=>{
         this.setState({checked : !this.state.checked})
-    }
+    };
     navigateToSignUpScreen = (navigation) => {
         navigation.navigate('SignUpScreen')
     };
     getUserLoginInfo = (id, e) => {
             this.setState({userLoginInfo: Object.assign({}, this.state.userLoginInfo, {[id] : e})});
     };
-    componentDidUpdate = ()=>{
-        console.log(this.state);
-    };
+
     login = () => {
         let {email, password} = this.state.userLoginInfo;
         if(email && password){
             this.props.signIn({email, password});
         }
-    }
+    };
     render() {
         return (
             <ScrollView style={LoginScreenStyle.container}>

@@ -1,15 +1,15 @@
 import {authAction} from './AuthRedux';
 
-let initialState = 0;
+let initialState = {};
 
-export default function user(state = initialState, action) {
+export default function auth(state = initialState, action) {
     switch (action.type) {
-        case authAction.signIn:
-            console.log('signing');
-            return state + 1;
-        case authAction.signUp:
-            console.log('signing');
-            return state - 1;
+        case authAction.signInSuccessful:
+            console.log('sign in successful');
+            return state;
+        case authAction.signUpSuccessful:
+            console.log('sign up successful');
+            return state;
         default:
             return state;
     }

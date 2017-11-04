@@ -106,7 +106,8 @@ const RootStack = StackNavigator({
         navigationOptions: ({navigation}) => ({
             // TODO: grab this string from state object which tracks the currently active tab
             title: 'Available Cooks',
-            headerTitleStyle: { alignSelf: 'center' }
+            headerTitleStyle: { alignSelf: 'center' },
+            header: null
         })
     },
     UserInfoChangeScreen: {
@@ -126,7 +127,6 @@ const RootStack = StackNavigator({
             color: Colors.snow
         },
         headerTintColor: Colors.snow,
-        headerTitleStyle: { alignSelf: 'center' }
     }),
     cardStyle: {
         backgroundColor: Colors.background,

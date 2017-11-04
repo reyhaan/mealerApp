@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { CooksTabStyle } from '../Styles'
+import { Header } from 'react-native-elements' 
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -18,7 +19,11 @@ class CooksTab extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <Text>CooksTab Container</Text>
+        <Header
+          leftComponent={{ icon: 'menu', color: '#fff' }}
+          centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+          rightComponent={{ icon: 'home', color: '#fff' }}
+        />
       </ScrollView>
     )
   }

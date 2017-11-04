@@ -82,12 +82,12 @@ class SignUpScreen extends Component {
                 </View>
 
                 <View style={[SignUpScreenStyle.section, {marginBottom: 10}]}>
-                    <FormInput
-                        underlineColorAndroid="transparent"
-                        inputStyle={SignUpScreenStyle.inputField}
-                        containerStyle={SignUpScreenStyle.inputContainer}
-                        onChangeText={(e) => this.formUpdate('name', e)}
-                        placeholder="NAME"/>
+                    {/*<FormInput*/}
+                        {/*underlineColorAndroid="transparent"*/}
+                        {/*inputStyle={SignUpScreenStyle.inputField}*/}
+                        {/*containerStyle={SignUpScreenStyle.inputContainer}*/}
+                        {/*onChangeText={(e) => this.formUpdate('name', e)}*/}
+                        {/*placeholder="NAME"/>*/}
 
                     <FormInput
                         keyboardType="email-address"
@@ -104,17 +104,17 @@ class SignUpScreen extends Component {
                         onChangeText={(e) => this.formUpdate('password', e)}
                         placeholder="PASSWORD"/>
 
-                    {/*Todo use TouchableOpacity for this button instead since icon is not showing properly*/}
-                    <Button
-                        buttonStyle={SignUpScreenStyle.userTypePickerBtn}
-                        fontWeight={'600'}
-                        iconRight={{name: 'check'}}
-                        title={this.state.userTypeTitle}
-                        onPress={() => {
-                            this.toggleUserTypeDropDown()
-                        }}/>
+                    {/*/!*Todo use TouchableOpacity for this button instead since icon is not showing properly*!/*/}
+                    {/*<Button*/}
+                        {/*buttonStyle={SignUpScreenStyle.userTypePickerBtn}*/}
+                        {/*fontWeight={'600'}*/}
+                        {/*iconRight={{name: 'check'}}*/}
+                        {/*title={this.state.userTypeTitle}*/}
+                        {/*onPress={() => {*/}
+                            {/*this.toggleUserTypeDropDown()*/}
+                        {/*}}/>*/}
 
-                    {this.userTypeDropDown()}
+                    {/*{this.userTypeDropDown()}*/}
 
                     <Button
                         buttonStyle={SignUpScreenStyle.signUpButton}

@@ -6,6 +6,8 @@ import {Images, Fonts} from '../Themes'
 import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Colors } from '../Themes/'
+import {bindActionCreators} from 'redux'
+import * as UserActionCreators from '../Redux/User/UserActions'
 
 const facebookLoginButtonTitle = () => {
     // TODO: find away to avoid the warning from showing up when using icon in the button title
@@ -33,7 +35,12 @@ class LoginScreen extends Component {
     componentDidUpdate = ()=>{
         console.log(this.state);
     };
-
+    login = () => {
+        let {email, password} = this.state.userLoginInfo;
+        if(email && password){
+            this.props.signIn({email, password});
+        }
+    }
     render() {
         return (
             <ScrollView style={LoginScreenStyle.container}>
@@ -77,7 +84,8 @@ class LoginScreen extends Component {
                                 /*containerViewStyle={LoginScreenStyle.loginButtonView}*/
                                 buttonStyle={[LoginScreenStyle.primaryButton]}
                                 textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                                title={`LOGIN`}/></View>
+                                title={`LOGIN`}
+                                onPress={this.login}/></View>
                     <View style={[LoginScreenStyle.signUpView]}>
                             <Text h5 style={LoginScreenStyle.registerButton}> Not Registered?</Text>
                             <TouchableOpacity onPress={() => this.navigateToSignUpScreen(this.props.navigation)}>

@@ -28,8 +28,6 @@ class SignUpScreen extends Component {
         this.setState({
             [input]: value,
         });
-
-        console.log(this.props.signIn());
     };
 
     onSelectUserType = (value) => {
@@ -42,14 +40,20 @@ class SignUpScreen extends Component {
 
     toggleUserTypeDropDown = () => {
         this.setState({userTypeDropDown: !this.state.userTypeDropDown});
-
         firebase.database().ref('users/' + "ppp").set({
             highScore: 6
         });
     };
 
+    signUp = () => {
+        const {email, password} = this.state;
+        if ( email && password) {
+            this.props.signUp({email, password});
+        }
+    };
 
-    //TODO: Create custom drop down list component
+    //TODO: Add form validation for email and password
+
     userTypeDropDown = () => {
         if (this.state.userTypeDropDown) {
             return (
@@ -86,12 +90,14 @@ class SignUpScreen extends Component {
                         placeholder="NAME"/>
 
                     <FormInput
+                        keyboardType="email-address"
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
                         onChangeText={(e) => this.formUpdate('email', e)}
                         placeholder="EMAIL"/>
                     <FormInput
+                        secureTextEntry = {true}
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
@@ -113,7 +119,10 @@ class SignUpScreen extends Component {
                     <Button
                         buttonStyle={SignUpScreenStyle.signUpButton}
                         textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                        title="SIGN UP"/>
+                        title="SIGN UP"
+                        onPress={() => {
+                            this.signUp()
+                        }}/>
                     <Button
                         fontSize={15}
                         buttonStyle={SignUpScreenStyle.goBackToLoginButton}

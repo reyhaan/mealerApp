@@ -1,12 +1,27 @@
 import * as userActions from '../Redux/User/UserActions';
-import {takeLatest} from 'redux-saga/effects'
+import {put, call, takeLatest} from 'redux-saga/effects'
+import {NavigationActions} from 'react-navigation';
+import {Alert} from 'react-native';
+import authenticationService from '../Services/authentication-service'
 
 /******************************* EFFECTS *************************************/
-const signInFn = function*  signIn() {
+const signInFn = function* signIn() {
     try {
-        console.log("saga works")
+        console.log("sign in user")
     } catch (error) {
-        console.log(error)
+        Alert.alert('Error', error.message,)
+    } finally {
+        // finally
+    }
+};
+
+const signUpFn = function* signUp(userCredentials) {
+    try {
+        const user = yield call(authenticationService.signUp, userCredentials.data);
+        // TODO: Store the user info in session
+        yield put(NavigationActions.navigate({routeName: 'TabsView'}));
+    } catch (error) {
+        Alert.alert('Error', error.message,)
     } finally {
         // finally
     }
@@ -15,4 +30,5 @@ const signInFn = function*  signIn() {
 /******************************* WATCHERS *************************************/
 export const userSagas = [
     takeLatest(userActions.SIGN_IN, signInFn),
+    takeLatest(userActions.SIGN_UP, signUpFn),
 ];

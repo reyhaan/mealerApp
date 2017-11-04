@@ -1,8 +1,16 @@
-import * as userActions from '../Redux/User/UserActions';
 import {put, call, takeLatest} from 'redux-saga/effects'
 import {NavigationActions} from 'react-navigation';
 import {Alert} from 'react-native';
-import authenticationService from '../Services/authentication-service'
+import authenticationService from '../../Services/authentication-service'
+import userActions from './UserActions'
+
+function action(type, data) {
+    return {type, data};
+}
+
+/******************************* ACTIONS *************************************/
+export const signIn = (data) => action(userActions.signIn, data);
+export const signUp = (data) => action(userActions.signUp, data);
 
 /******************************* EFFECTS *************************************/
 const signInFn = function* signIn() {
@@ -29,6 +37,6 @@ const signUpFn = function* signUp(userCredentials) {
 
 /******************************* WATCHERS *************************************/
 export const userSagas = [
-    takeLatest(userActions.SIGN_IN, signInFn),
-    takeLatest(userActions.SIGN_UP, signUpFn),
+    takeLatest(userActions.signIn, signInFn),
+    takeLatest(userActions.signUp, signUpFn),
 ];

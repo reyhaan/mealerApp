@@ -1,4 +1,4 @@
-import * as Actions from './UserActions';
+import * as Actions from './UserRedux';
 
 let initialState = 0;
 

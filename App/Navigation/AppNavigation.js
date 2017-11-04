@@ -1,7 +1,6 @@
 import {StackNavigator, TabNavigator} from 'react-navigation'
 import {SignUpScreen, LoginScreen} from '../Containers'
 import TabsView from './AppNavigationTab'
-
 import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens

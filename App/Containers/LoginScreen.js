@@ -28,7 +28,7 @@ class LoginScreen extends Component {
         navigation.navigate('SignUpScreen')
     };
     getUserLoginInfo = (id, e) => {
-            this.setState({userLoginInfo: Object.assign({}, this.state.userLoginInfo, {id : e})});
+            this.setState({userLoginInfo: Object.assign({}, this.state.userLoginInfo, {[id] : e})});
     };
     componentDidUpdate = ()=>{
         console.log(this.state)

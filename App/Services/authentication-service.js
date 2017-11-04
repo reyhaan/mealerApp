@@ -13,3 +13,8 @@ authentication.currentUser = () => {
     return firebase.auth().currentUser();
 };
 
+authentication.signIn = (userCredentials)=>{
+    userCredentials.email = userCredentials.email.toLowerCase();
+    return firebase.auth().signInWithEmailAndPassword(userCredentials.email, userCredentials.password);
+}
+

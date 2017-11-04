@@ -7,13 +7,8 @@ import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Colors } from '../Themes/'
 import {bindActionCreators} from 'redux'
-import * as UserActionCreators from '../Redux/User/UserActions'
+import * as UserActionCreators from '../Redux/User/UserRedux'
 
-const facebookLoginButtonTitle = () => {
-    // TODO: find away to avoid the warning from showing up when using icon in the button title
-    // return [<Icon name='facebook' size={14} coilor='white' />, 'acebook']
-    return 'Facebook'
-};
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -98,6 +93,6 @@ class LoginScreen extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({});
-const mapDispatchToProps = {};
+const mapDispatchToProps = (dispatch) => (bindActionCreators(UserActionCreators, dispatch));
+const mapStateToProps = state => ({nav: state.navigation});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

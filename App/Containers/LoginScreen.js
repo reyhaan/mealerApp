@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Colors } from '../Themes/'
 import {bindActionCreators} from 'redux'
-import * as UserActionCreators from '../Redux/User/UserRedux'
+import * as UserActionCreators from '../Redux/Auth/AuthRedux'
 
 
 class LoginScreen extends Component {

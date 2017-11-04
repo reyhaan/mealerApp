@@ -54,7 +54,7 @@ class SettingsTab extends Component {
               list.map((l, i) => (
                 <ListItem
                   underlayColor={Colors.backgroundDarker}
-                  onPress={() => {this.props.navigation.navigate(l.screen)}}
+                  onPress={() => {this.props.navigation.navigate(l.screen, {page: l.name})}}
                   chevronColor='#FFFFFF'
                   titleStyle={styles.listTitle}
                   containerStyle={styles.listItem}

@@ -27,7 +27,8 @@ const images = {
   cooksColor: require('../Images/Icons/icon_cooks_color.png'),
   cooksWhite: require('../Images/Icons/icon_cooks_white.png'),
   ordersColor: require('../Images/Icons/icon_orders_color.png'),
-  ordersWhite: require('../Images/Icons/icon_orders_white.png')
+  ordersWhite: require('../Images/Icons/icon_orders_white.png'),
+  infoIcon: require('../Images/Icons/info_icon.png')
 
 }
 

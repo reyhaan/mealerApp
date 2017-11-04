@@ -20,8 +20,14 @@ export default StyleSheet.create({
     centered: {
         alignItems: 'center'
     },
+    mainLoginView:{
+        flex:1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     signUpView:{
-        flex: 1,
+        flex:1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -32,12 +38,13 @@ export default StyleSheet.create({
         fontSize: 12,
         color: 'white',
         fontWeight:'bold',
-        marginRight:2
+        marginRight:3
     },
-    loginButton: {
-        marginTop: 10,
-        marginLeft: 42,
-        marginRight: 35
+    loginButtonView: {
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center'
     },
     signUpButton: {
         fontSize: 12,
@@ -52,14 +59,12 @@ export default StyleSheet.create({
         fontWeight:'bold'
     },
     forgotPasswordView: {
-        marginBottom : 5,
-        display:'flex',
+        marginBottom : 10,
+        marginTop:10,
         flex:1,
         flexDirection:'row',
-        justifyContent:'space-between',
-        alignItems:'center',
-        marginLeft: 45,
-        marginRight:25
+        justifyContent:'flex-start',
+        alignItems:'center'
     },
     checkBoxTextStyle:{
         color:'white', 
@@ -68,12 +73,10 @@ export default StyleSheet.create({
     },
     checkBoxContainerStyle:{
         height:20, 
-        flex:1, 
         backgroundColor:Colors.background, 
         borderWidth:0
     },
     forgotPasswordTextStyle:{
-        flex:1, 
         color:'white', 
         fontWeight: 'bold', 
         fontSize:12

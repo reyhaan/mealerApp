@@ -6,6 +6,7 @@ import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 import {bindActionCreators} from 'redux'
 import * as UserActionCreators from '../Redux/User/UserActions'
+import firebase from '../Config/firebaseConfig'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -41,6 +42,10 @@ class SignUpScreen extends Component {
 
     toggleUserTypeDropDown = () => {
         this.setState({userTypeDropDown: !this.state.userTypeDropDown});
+
+        firebase.database().ref('users/' + "ppp").set({
+            highScore: 6
+        });
     };
 
 

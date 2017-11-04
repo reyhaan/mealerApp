@@ -22,7 +22,9 @@ class RootContainer extends Component {
         return (
             this.state.fontLoaded ? (
                 <View style={styles.applicationView}>
-                    <StatusBar barStyle='light-content'/>
+                    <StatusBar 
+                        barStyle='light-content'
+                    />
                     <AppNavigationContainer/>
                 </View>
             ) : null

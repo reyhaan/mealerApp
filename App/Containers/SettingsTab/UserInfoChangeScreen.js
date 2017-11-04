@@ -14,10 +14,6 @@ class UserInfoChangeScreen extends Component {
     this.state = {}
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.state.params.page}`,
-  });
-
   render () {
     const { params } = this.props.navigation.state;
     return (

@@ -10,7 +10,7 @@ import {
     CooksTab,
     OrdersTab,
     SettingsTab,
-    PasswordChangeScreen
+    UserInfoChangeScreen
 } from '../Containers'
 
 const tabNavigatorConfig = {
@@ -88,18 +88,18 @@ const tabsList = {
 const TabsView = TabNavigator(tabsList, tabNavigatorConfig);
 const RootStack = StackNavigator({
     Root: {
-        screen: TabsView
+        screen: TabsView,
     },
-    PasswordChangeScreen: {
-        screen: PasswordChangeScreen,
+    UserInfoChangeScreen: {
+        screen: UserInfoChangeScreen,
         navigationOptions: ({navigation}) => ({
             title: `Change Password`,
         }),
     },
 }, {
+    // headerMode: 'none',
     navigationOptions: {
-        headerMode: 'none',
-        headerStyle: styles.header
+        
     }
 });
 

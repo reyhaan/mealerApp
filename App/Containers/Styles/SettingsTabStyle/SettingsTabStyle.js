@@ -9,7 +9,8 @@ export default StyleSheet.create({
   listContainer: {
     borderBottomWidth: 0,
     borderTopWidth: 0, 
-    marginBottom: 20, 
+    marginBottom: 20,
+    marginTop: 5,
     paddingLeft: 5, 
     paddingRight: 5, 
     backgroundColor: Colors.background

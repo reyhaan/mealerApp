@@ -3,7 +3,7 @@ import SignUpScreenStyle from './SignUpScreenStyle'
 import CooksTabStyle from './CooksTabStyle/CooksTabStyle'
 import OrdersTabStyle from './OrdersTabStyle/OrdersTabStyle'
 import SettingsTabStyle from './SettingsTabStyle/SettingsTabStyle'
-import PasswordChangeScreenStyle from './SettingsTabStyle/PasswordChangeScreenStyle'
+import UserInfoChangeScreenStyle from './SettingsTabStyle/UserInfoChangeScreenStyle'
 
 export {
     LoginScreenStyle,
@@ -11,5 +11,5 @@ export {
     CooksTabStyle,
     OrdersTabStyle,
     SettingsTabStyle,
-    PasswordChangeScreenStyle
+    UserInfoChangeScreenStyle
 }

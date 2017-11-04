@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
-import {PasswordChangeScreenStyle} from '../Styles'
+import {UserInfoChangeScreenStyle} from '../Styles'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-const styles = PasswordChangeScreenStyle
+const styles = UserInfoChangeScreenStyle
 
-class PasswordChangeScreen extends Component {
+class UserInfoChangeScreen extends Component {
   // constructor (props) {
   //   super(props)
   //   this.state = {}
@@ -17,7 +17,7 @@ class PasswordChangeScreen extends Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <Text>PasswordChangeScreen Container</Text>
+        <Text>UserInfoChangeScreen Container</Text>
       </ScrollView>
     )
   }
@@ -33,4 +33,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PasswordChangeScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfoChangeScreen)

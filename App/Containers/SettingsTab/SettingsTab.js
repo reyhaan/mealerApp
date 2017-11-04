@@ -18,17 +18,17 @@ const list = [
   {
     name: 'Address',
     icon: 'home',
-    screen: ''
+    screen: 'UserInfoChangeScreen'
   },
   {
     name: 'Display Name',
     icon: 'user',
-    screen: ''
+    screen: 'UserInfoChangeScreen'
   },
   {
     name: 'Password',
     icon: 'lock',
-    screen: 'PasswordChangeScreen'
+    screen: 'UserInfoChangeScreen'
   },
   {
     name: 'Logout',

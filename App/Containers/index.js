@@ -3,7 +3,7 @@ import SignUpScreen from './SignUpScreen'
 import CooksTab from './CooksTab/CooksTab'
 import OrdersTab from './OrdersTab/OrdersTab'
 import SettingsTab from './SettingsTab/SettingsTab'
-import PasswordChangeScreen from './SettingsTab/PasswordChangeScreen'
+import UserInfoChangeScreen from './SettingsTab/UserInfoChangeScreen'
 
 export {
     LoginScreen,
@@ -11,5 +11,5 @@ export {
     CooksTab,
     OrdersTab,
     SettingsTab,
-    PasswordChangeScreen
+    UserInfoChangeScreen
 }

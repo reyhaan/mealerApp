@@ -35,6 +35,6 @@ export default StyleSheet.create({
 
   },
   avatarContainer: {
-    marginTop: (Platform.OS === 'ios') ? 0 : 5,
+    marginTop: (Platform.OS === 'ios') ? 0 : 2,
   }
 })

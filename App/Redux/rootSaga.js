@@ -1,9 +1,9 @@
 import {all} from 'redux-saga/effects'
-import {userSagas} from './User/UserRedux'
+import {authSagas} from './Auth/AuthRedux'
 
 const sagas = function* root() {
     yield all([
-        ...userSagas,
+        ...authSagas,
     ])
 };
 

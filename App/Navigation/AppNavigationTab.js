@@ -103,6 +103,10 @@ const TabsView = TabNavigator(tabsList, tabNavigatorConfig);
 const RootStack = StackNavigator({
     Root: {
         screen: TabsView,
+        navigationOptions: ({navigation}) => ({
+            // TODO: grab this string from state object which tracks the currently active tab
+            title: 'Settings',
+        })
     },
     UserInfoChangeScreen: {
         screen: UserInfoChangeScreen,
@@ -111,9 +115,17 @@ const RootStack = StackNavigator({
         }),
     },
 }, {
-    navigationOptions: {
-        title: 'Settings',
-    },
+    navigationOptions: ({navigation}) => ({
+        // title: `${navigation.state.params}`,
+        headerStyle: {
+            backgroundColor: Colors.background
+        },
+        headerBackTitle: null,
+        headerBackTitleStyle: {
+            color: Colors.snow
+        },
+        headerTintColor: Colors.snow
+    }),
     cardStyle: {
         backgroundColor: Colors.background,
         paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight

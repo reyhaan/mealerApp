@@ -31,7 +31,7 @@ class LoginScreen extends Component {
             this.setState({userLoginInfo: Object.assign({}, this.state.userLoginInfo, {[id] : e})});
     };
     componentDidUpdate = ()=>{
-        console.log(this.state)
+        console.log(this.state);
     };
 
     render() {

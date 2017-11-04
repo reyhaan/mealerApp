@@ -21,7 +21,7 @@ const tabNavigatorConfig = {
         headerMode: 'none',
         headerStyle: styles.header
     },
-    initialRouteName: 'Three',
+    initialRouteName: 'One',
     tabBarOptions: {
         activeTintColor: Colors.snow,
         inactiveTintColor: Colors.pinkLight1,
@@ -105,7 +105,9 @@ const RootStack = StackNavigator({
         screen: TabsView,
         navigationOptions: ({navigation}) => ({
             // TODO: grab this string from state object which tracks the currently active tab
-            title: 'Settings',
+            title: 'Available Cooks',
+            headerTitleStyle: { alignSelf: 'center' },
+            header: null
         })
     },
     UserInfoChangeScreen: {
@@ -124,11 +126,11 @@ const RootStack = StackNavigator({
         headerBackTitleStyle: {
             color: Colors.snow
         },
-        headerTintColor: Colors.snow
+        headerTintColor: Colors.snow,
     }),
     cardStyle: {
         backgroundColor: Colors.background,
-        paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+        // paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
     }
 });
 

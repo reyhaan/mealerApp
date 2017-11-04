@@ -3,13 +3,14 @@ import { ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import {Button, Text, List, ListItem} from 'react-native-elements'
 import {SettingsTabStyle} from '../Styles'
+import { Header } from 'react-native-elements' 
 
 import { Colors } from '../../Themes'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
-import Header from '../../Components/Header'
+// import Header from '../../Components/Header'
 
 // Styles
 const styles = SettingsTabStyle
@@ -47,7 +48,13 @@ class SettingsTab extends Component {
     return (
       <ScrollView style={styles.container}>
 
-          <Header style={{marginBottom: 40}} />
+        <Header
+          centerComponent = {{ text: 'SETTINGS', style: { color: '#fff' } }}
+          backgroundColor = {Colors.background}
+          outerContainerStyles = { styles.headerOuterContainer }
+        />
+
+          {/* <Header style={{marginBottom: 40}} /> */}
 
           <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
             {

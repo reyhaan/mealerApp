@@ -23,5 +23,13 @@ export default StyleSheet.create({
   },
   listItem: {
     borderBottomColor: Colors.pink2
+  },
+  headerOuterContainer: {
+    width: Metrics.screenWidth,
+    backgroundColor: Colors.background,
+    borderBottomColor: Colors.pink2,
+    borderBottomWidth: 1,
+    padding: 15,
+    height: 75,
   }
 })

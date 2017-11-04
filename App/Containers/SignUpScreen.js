@@ -6,7 +6,6 @@ import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 import {bindActionCreators} from 'redux'
 import * as UserActionCreators from '../Redux/User/UserActions'
-import firebase from '../Config/firebaseConfig'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -40,14 +39,11 @@ class SignUpScreen extends Component {
 
     toggleUserTypeDropDown = () => {
         this.setState({userTypeDropDown: !this.state.userTypeDropDown});
-        firebase.database().ref('users/' + "ppp").set({
-            highScore: 6
-        });
     };
 
     signUp = () => {
         const {email, password} = this.state;
-        if ( email && password) {
+        if (email && password) {
             this.props.signUp({email, password});
         }
     };
@@ -83,11 +79,11 @@ class SignUpScreen extends Component {
 
                 <View style={[SignUpScreenStyle.section, {marginBottom: 10}]}>
                     {/*<FormInput*/}
-                        {/*underlineColorAndroid="transparent"*/}
-                        {/*inputStyle={SignUpScreenStyle.inputField}*/}
-                        {/*containerStyle={SignUpScreenStyle.inputContainer}*/}
-                        {/*onChangeText={(e) => this.formUpdate('name', e)}*/}
-                        {/*placeholder="NAME"/>*/}
+                    {/*underlineColorAndroid="transparent"*/}
+                    {/*inputStyle={SignUpScreenStyle.inputField}*/}
+                    {/*containerStyle={SignUpScreenStyle.inputContainer}*/}
+                    {/*onChangeText={(e) => this.formUpdate('name', e)}*/}
+                    {/*placeholder="NAME"/>*/}
 
                     <FormInput
                         keyboardType="email-address"
@@ -97,7 +93,7 @@ class SignUpScreen extends Component {
                         onChangeText={(e) => this.formUpdate('email', e)}
                         placeholder="EMAIL"/>
                     <FormInput
-                        secureTextEntry = {true}
+                        secureTextEntry={true}
                         underlineColorAndroid="transparent"
                         inputStyle={SignUpScreenStyle.inputField}
                         containerStyle={SignUpScreenStyle.inputContainer}
@@ -106,13 +102,13 @@ class SignUpScreen extends Component {
 
                     {/*/!*Todo use TouchableOpacity for this button instead since icon is not showing properly*!/*/}
                     {/*<Button*/}
-                        {/*buttonStyle={SignUpScreenStyle.userTypePickerBtn}*/}
-                        {/*fontWeight={'600'}*/}
-                        {/*iconRight={{name: 'check'}}*/}
-                        {/*title={this.state.userTypeTitle}*/}
-                        {/*onPress={() => {*/}
-                            {/*this.toggleUserTypeDropDown()*/}
-                        {/*}}/>*/}
+                    {/*buttonStyle={SignUpScreenStyle.userTypePickerBtn}*/}
+                    {/*fontWeight={'600'}*/}
+                    {/*iconRight={{name: 'check'}}*/}
+                    {/*title={this.state.userTypeTitle}*/}
+                    {/*onPress={() => {*/}
+                    {/*this.toggleUserTypeDropDown()*/}
+                    {/*}}/>*/}
 
                     {/*{this.userTypeDropDown()}*/}
 
@@ -127,7 +123,10 @@ class SignUpScreen extends Component {
                         fontSize={15}
                         buttonStyle={SignUpScreenStyle.goBackToLoginButton}
                         textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                        title="GO BACK TO LOGIN"/>
+                        title="GO BACK TO LOGIN"
+                        onPress={() => {
+                            this.props.navigation.navigate('LoginScreen')
+                        }}/>
                 </View>
             </ScrollView>
         )

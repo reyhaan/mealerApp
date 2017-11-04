@@ -13,9 +13,12 @@ export const signIn = (data) => action(userActions.signIn, data);
 export const signUp = (data) => action(userActions.signUp, data);
 
 /******************************* EFFECTS *************************************/
-const signInFn = function* signIn() {
+const signInFn = function* signIn(userLoginCredentials) {
     try {
-        console.log("sign in user")
+        const user = yield call(authenticationService.signIn, userLoginCredentials.data);
+        console.log("sign: "+user);
+        // TODO: Store the user info in session
+        yield put(NavigationActions.navigate({routeName: 'TabsView'}));
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {

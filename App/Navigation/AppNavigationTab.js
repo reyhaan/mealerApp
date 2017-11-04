@@ -88,7 +88,7 @@ const tabsList = {
 const TabsView = TabNavigator(tabsList, tabNavigatorConfig);
 const RootStack = StackNavigator({
     Root: {
-        screen: TabsView
+        screen: TabsView,
     },
     PasswordChangeScreen: {
         screen: PasswordChangeScreen,
@@ -97,7 +97,7 @@ const RootStack = StackNavigator({
         }),
     },
 }, {
-    headerMode: 'none',
+    // headerMode: 'none',
     navigationOptions: {
         
     }

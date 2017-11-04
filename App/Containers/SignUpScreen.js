@@ -5,7 +5,7 @@ import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 import {bindActionCreators} from 'redux'
-import * as UserActionCreators from '../Redux/User/UserRedux'
+import * as UserActionCreators from '../Redux/Auth/AuthRedux'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";

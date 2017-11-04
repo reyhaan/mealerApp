@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import user from './User/UserReducers';
+import auth from './Auth/AuthReducers';
 import navigation from './Navigation/NavigationReducer';
 
 export const rootReducer = combineReducers({
-    user,
+    auth,
     navigation
 });

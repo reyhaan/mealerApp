@@ -1,5 +1,5 @@
 import React from 'react'
-import {Image, Platform} from 'react-native'
+import {Image, Platform, StatusBar} from 'react-native'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import {Colors, Images} from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -26,6 +26,7 @@ const tabNavigatorConfig = {
         activeTintColor: Colors.snow,
         inactiveTintColor: Colors.pinkLight1,
         showIcon: true,
+        showLabel: false,
         labelStyle: {
             fontSize: 11,
             fontWeight: 'bold',
@@ -34,7 +35,7 @@ const tabNavigatorConfig = {
         },
         style: {
             backgroundColor: Colors.backgroundDarker,
-            height: (Platform.OS === 'ios') ? 48 : 60
+            height: (Platform.OS === 'ios') ? 48 : 48
         },
         tabStyle: {
             borderColor: Colors.backgroundDarker
@@ -47,7 +48,7 @@ const tabsList = {
     One: {
         screen: CooksTab,
         navigationOptions: {
-            tabBarLabel: 'COOKS',
+            // tabBarLabel: 'COOKS',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.cooksWhite}
@@ -61,7 +62,7 @@ const tabsList = {
     Two: {
         screen: OrdersTab,
         navigationOptions: {
-            tabBarLabel: 'ORDERS',
+            // tabBarLabel: 'ORDERS',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.ordersWhite}
@@ -74,10 +75,23 @@ const tabsList = {
     Three: {
         screen: SettingsTab,
         navigationOptions: {
-            tabBarLabel: 'SETTINGS',
+            // tabBarLabel: 'SETTINGS',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.settingsWhite}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        },
+    },
+
+    Four: {
+        screen: OrdersTab,
+        navigationOptions: {
+            // tabBarLabel: 'SETTINGS',
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={Images.infoIcon}
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
@@ -89,17 +103,32 @@ const TabsView = TabNavigator(tabsList, tabNavigatorConfig);
 const RootStack = StackNavigator({
     Root: {
         screen: TabsView,
+        navigationOptions: ({navigation}) => ({
+            // TODO: grab this string from state object which tracks the currently active tab
+            title: 'Settings',
+        })
     },
     UserInfoChangeScreen: {
         screen: UserInfoChangeScreen,
         navigationOptions: ({navigation}) => ({
-            title: `Change Password`,
+            title: `${navigation.state.params.page}`,
         }),
     },
 }, {
-    // headerMode: 'none',
-    navigationOptions: {
-        
+    navigationOptions: ({navigation}) => ({
+        // title: `${navigation.state.params}`,
+        headerStyle: {
+            backgroundColor: Colors.background
+        },
+        headerBackTitle: null,
+        headerBackTitleStyle: {
+            color: Colors.snow
+        },
+        headerTintColor: Colors.snow
+    }),
+    cardStyle: {
+        backgroundColor: Colors.background,
+        paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
     }
 });
 

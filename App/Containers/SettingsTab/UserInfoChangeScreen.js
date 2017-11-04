@@ -9,15 +9,20 @@ import {UserInfoChangeScreenStyle} from '../Styles'
 const styles = UserInfoChangeScreenStyle
 
 class UserInfoChangeScreen extends Component {
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
+
+  static navigationOptions = ({ navigation }) => ({
+    title: `${navigation.state.params.page}`,
+  });
 
   render () {
+    const { params } = this.props.navigation.state;
     return (
       <ScrollView style={styles.container}>
-        <Text>UserInfoChangeScreen Container</Text>
+        <Text>{params.page}</Text>
       </ScrollView>
     )
   }

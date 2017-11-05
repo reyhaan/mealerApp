@@ -9,10 +9,7 @@ const PrimaryNav = StackNavigator({
         screen: LoginScreen
     },
     SignUpScreen: {
-        screen: SignUpScreen,
-        navigationOptions: {
-            headerTitle: 'Sign Up',
-        },
+        screen: SignUpScreen
     },
     TabsView: {
         screen: TabsView
@@ -20,7 +17,7 @@ const PrimaryNav = StackNavigator({
 }, {
     // Default config for all screens
     headerMode: 'none',
-    initialRouteName: 'LoginScreen',
+    initialRouteName: 'TabsView',
     navigationOptions: {
         headerStyle: styles.header
     }

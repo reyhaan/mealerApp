@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
-import {View, StatusBar} from 'react-native'
+import {View, StatusBar, Alert} from 'react-native'
 import AppNavigationContainer from '../Navigation/AppNavigationContainer'
 import {connect} from 'react-redux'
 import {Font} from 'expo'
 import styles from './Styles/RootContainerStyles'
+import {LoginScreen} from './index'
+import authenticationService from '../Services/authentication-service'
 
 class RootContainer extends Component {
     state = {
@@ -11,28 +13,37 @@ class RootContainer extends Component {
     };
 
     async componentDidMount() {
-        await Font.loadAsync({
-            'ProximaNova-Regular': require('../../assets/fonts/ProximaNova-Regular.ttf'),
-            'ProximaNova-Bold': require('../../assets/fonts/ProximaNova-Bold.ttf')
-        });
-        this.setState({fontLoaded: true});
+        try {
+            const currentUser = await authenticationService.currentUser();
+            await Font.loadAsync({
+                'ProximaNova-Regular': require('../../assets/fonts/ProximaNova-Regular.ttf'),
+                'ProximaNova-Bold': require('../../assets/fonts/ProximaNova-Bold.ttf')
+            });
+            this.setState({
+                fontLoaded: true,
+                currentUser: currentUser
+            });
+        } catch (err) {
+            Alert.alert('Error', err);
+        }
     }
 
     render() {
-        return (
-            this.state.fontLoaded ? (
-                <View style={styles.applicationView}>
-                    <StatusBar 
-                        barStyle='light-content'
-                    />
-                    <AppNavigationContainer/>
-                </View>
-            ) : null
-        )
+        if (this.state.fontLoaded) {
+            if (this.state.currentUser) {
+                return (
+                    <View style={styles.applicationView}><StatusBar barStyle='light-content'/>
+                        <AppNavigationContainer/>
+                    </View>
+                )
+            } else {
+                return <LoginScreen/>;
+            }
+        } else {
+            return null;
+        }
     }
 }
 
-// wraps dispatch to create nicer functions to call within our component
-const mapDispatchToProps = (dispatch) => ({});
-
+const mapDispatchToProps = dispatch => ({});
 export default connect(null, mapDispatchToProps)(RootContainer)

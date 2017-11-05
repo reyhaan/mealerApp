@@ -42,7 +42,7 @@ const tabNavigatorConfig = {
         },
         indicatorStyle: styles.indicator,
     }
-}
+};
 
 const tabsList = {
     One: {

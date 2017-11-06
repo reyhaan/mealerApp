@@ -16,35 +16,72 @@ const styles = CooksTabStyle
 class CooksTab extends Component {
   constructor (props) {
     super(props)
-    
-    const dataObjects = [
-      {title: '1 Title', description: 'First Description'},
-      {title: '2 Title', description: 'Second Description'},
-      {title: '3 Title', description: 'Third Description'},
-      {title: '4 Title', description: 'Fourth Description'},
-      {title: '5 Title', description: 'Fifth Description'},
-      {title: '6 Title', description: 'Sixth Description'},
-      {title: '7 Title', description: 'Seventh Description'},
-      {title: '8 Title', description: 'Second Description'},
-      {title: '9 Title', description: 'Third Description'},
-      {title: '10 Title', description: 'Fourth Description'},
-      {title: '11 Title', description: 'Fifth Description'},
-      {title: '12 Title', description: 'Sixth Description'},
-      {title: '13 Title', description: 'Second Description'},
-      {title: '14 Title', description: 'Third Description'},
-      {title: '15 Title', description: 'Fourth Description'},
-      {title: '16 Title', description: 'Fifth Description'},
-      {title: '17 Title', description: 'Sixth Description'},
-      {title: '18 Title', description: 'Second Description'},
-      {title: '19 Title', description: 'Third Description'},
-      {title: '20 Title', description: 'Fourth Description'},
-      {title: '21 Title', description: 'Fifth Description'},
-      {title: '22 Title', description: 'Sixth Description'},
-      {title: '23 Title', description: 'Second Description'},
-      {title: '24 Title', description: 'Third Description'},
-      {title: '25 Title', description: 'Fourth Description'},
-      {title: '26 Title', description: 'Fifth Description'},
-      {title: '27 Title', description: 'Sixth Description'}
+
+    const userObject = [
+      {
+        name: "Mohammad Rehaan",
+        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        cousineType: "Indian",
+        rating: 3.6,
+        quotaLimit: 30,
+        quotaUsed: 24
+      },
+      {
+        name: "Mohammad Rehaan",
+        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        cousineType: "Indian",
+        rating: 3.6,
+        quotaLimit: 30,
+        quotaUsed: 24
+      },
+      {
+        name: "Mohammad Rehaan",
+        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        cousineType: "Indian",
+        rating: 3.6,
+        quotaLimit: 30,
+        quotaUsed: 24
+      },
+      {
+        name: "Mohammad Rehaan",
+        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        cousineType: "Indian",
+        rating: 3.6,
+        quotaLimit: 30,
+        quotaUsed: 24
+      },
+      {
+        name: "Mohammad Rehaan",
+        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        cousineType: "Indian",
+        rating: 3.6,
+        quotaLimit: 30,
+        quotaUsed: 24
+      },
+      {
+        name: "Mohammad Rehaan",
+        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        cousineType: "Indian",
+        rating: 3.6,
+        quotaLimit: 30,
+        quotaUsed: 24
+      },
+      {
+        name: "Mohammad Rehaan",
+        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        cousineType: "Indian",
+        rating: 3.6,
+        quotaLimit: 30,
+        quotaUsed: 24
+      },
+      {
+        name: "Mohammad Rehaan",
+        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        cousineType: "Indian",
+        rating: 3.6,
+        quotaLimit: 30,
+        quotaUsed: 24
+      }
     ]
 
     const rowHasChanged = (r1, r2) => r1 !== r2
@@ -52,7 +89,7 @@ class CooksTab extends Component {
     const ds = new ListView.DataSource({rowHasChanged})
 
     this.state = {
-      dataSource: ds.cloneWithRows(dataObjects)
+      dataSource: ds.cloneWithRows(userObject)
     }
 
   }
@@ -77,21 +114,21 @@ class CooksTab extends Component {
                   <Avatar
                     medium
                     rounded
-                    source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"}}
+                    source={{uri: rowData.avatar}}
                   />
               </Col>
               <Col>
                   <Row style={{ height: 20}}>
-                      <Text style={styles.boldLabel}>Mohammad Rehaan</Text>
+                      <Text style={styles.boldLabel}>{rowData.name}</Text>
                   </Row>
                   <Row style={{ height: 18 }}>
-                      <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: Indian</Text>
+                      <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: {rowData.cousineType}</Text>
                   </Row>
                   <Row style={{ height: 22 }}>
                     <Rating
                       type="star"
                       fractions={1}
-                      startingValue={3.6}
+                      startingValue={rowData.rating}
                       readonly
                       imageSize={10}
                       onFinishRating={this.ratingCompleted}
@@ -103,7 +140,7 @@ class CooksTab extends Component {
                         <Text style={{ fontSize: 12, fontWeight: 'bold', color: Colors.background }} >View More</Text>
                     </Col>
                     <Col>
-                        <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 10 }} >Quota: 24/30</Text>
+                        <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 10 }} >Quota: {rowData.quotaUsed}/{rowData.quotaLimit}</Text>
                     </Col>
                   </Row>
               </Col>

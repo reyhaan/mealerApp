@@ -23,7 +23,7 @@ class OrdersTab extends Component {
     return (
       <ScrollView style={styles.container}>
         <Header
-          centerComponent = {{ text: 'ORDERS', style: { color: '#fff' } }}
+          centerComponent = {{ text: 'ORDERS', style: { color: '#fff', fontWeight: 'bold' } }}
           backgroundColor = {Colors.background}
           outerContainerStyles = { styles.headerOuterContainer }
         />

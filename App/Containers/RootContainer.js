@@ -30,7 +30,7 @@ class RootContainer extends Component {
 
     render() {
         if (this.state.fontLoaded) {
-            if (this.state.currentUser) {
+            if (true || this.state.currentUser) {
                 return (
                     <View style={styles.applicationView}><StatusBar barStyle='light-content'/>
                         <AppNavigationContainer/>

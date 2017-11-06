@@ -49,7 +49,7 @@ class SettingsTab extends Component {
       <ScrollView style={styles.container}>
 
         <Header
-          centerComponent = {{ text: 'SETTINGS', style: { color: '#fff' } }}
+          centerComponent = {{ text: 'SETTINGS', style: { color: '#fff', fontWeight: 'bold' } }}
           backgroundColor = {Colors.background}
           outerContainerStyles = { styles.headerOuterContainer }
         />

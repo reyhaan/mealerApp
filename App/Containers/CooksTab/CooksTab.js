@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import { CooksTabStyle } from '../Styles'
-import { Header, SearchBar, Avatar } from 'react-native-elements' 
+import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import { Colors, Fonts } from '../../Themes'
@@ -78,8 +78,6 @@ class CooksTab extends Component {
                     medium
                     rounded
                     source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"}}
-                    onPress={() => console.log("Works!")}
-                    activeOpacity={0.7}
                   />
               </Col>
               <Col>
@@ -90,7 +88,15 @@ class CooksTab extends Component {
                       <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: Indian</Text>
                   </Row>
                   <Row style={{ height: 22 }}>
-                      <Text style={{ fontSize: 11, color: Colors.charcoal }} >Rating: 4.5</Text>
+                    <Rating
+                      type="star"
+                      fractions={1}
+                      startingValue={3.6}
+                      readonly
+                      imageSize={10}
+                      onFinishRating={this.ratingCompleted}
+                      style={{ paddingVertical: 2 }}
+                    />
                   </Row>
                   <Row style={{ height: 18 }}>
                     <Col>
@@ -103,8 +109,6 @@ class CooksTab extends Component {
               </Col>
           </Grid>
         </View>
-        {/* <Text style={styles.boldLabel}>{rowData.title}</Text>
-        <Text style={styles.label}>{rowData.description}</Text> */}
       </View>
     )
   }

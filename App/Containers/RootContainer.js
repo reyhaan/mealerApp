@@ -9,6 +9,7 @@ import authenticationService from '../Services/authentication-service'
 
 class RootContainer extends Component {
     state = {
+        currentUser: null,
         fontLoaded: false,
     };
 
@@ -31,6 +32,7 @@ class RootContainer extends Component {
     render() {
         if (this.state.fontLoaded) {
             if (true || this.state.currentUser) {
+            console.log('currentUser:' + this.state.currentUser);
                 return (
                     <View style={styles.applicationView}><StatusBar barStyle='light-content'/>
                         <AppNavigationContainer/>

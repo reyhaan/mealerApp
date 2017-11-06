@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import { CooksTabStyle } from '../Styles'
-import { Header, SearchBar } from 'react-native-elements' 
+import { Header, SearchBar, Avatar } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
-import { Colors } from '../../Themes'
+import { Colors, Fonts } from '../../Themes'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -74,24 +74,30 @@ class CooksTab extends Component {
         <View style={styles.rowInnerContainer}>
           <Grid>
               <Col style={{ width: 60 }}>
-                  <Text>1</Text>
+                  <Avatar
+                    medium
+                    rounded
+                    source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg"}}
+                    onPress={() => console.log("Works!")}
+                    activeOpacity={0.7}
+                  />
               </Col>
               <Col>
-                  <Row>
+                  <Row style={{ height: 20}}>
                       <Text style={styles.boldLabel}>Mohammad Rehaan</Text>
                   </Row>
-                  <Row>
-                      <Text>Cousine Type: Indian</Text>
+                  <Row style={{ height: 18 }}>
+                      <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: Indian</Text>
                   </Row>
-                  <Row>
-                      <Text>Rating: 4.5</Text>
+                  <Row style={{ height: 22 }}>
+                      <Text style={{ fontSize: 11, color: Colors.charcoal }} >Rating: 4.5</Text>
                   </Row>
-                  <Row>
+                  <Row style={{ height: 18 }}>
                     <Col>
-                        <Text>View More</Text>
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: Colors.background }} >View More</Text>
                     </Col>
                     <Col>
-                        <Text>Quota: 24/30</Text>
+                        <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 10 }} >Quota: 24/30</Text>
                     </Col>
                   </Row>
               </Col>

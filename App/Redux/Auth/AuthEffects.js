@@ -39,12 +39,10 @@ authEffect.signUp = function* (userCredentials) {
 // Authentication effect of signing out
 authEffect.signOut = function* () {
     try {
-        const signOut = yield call(authenticationService.signOut);
-        if (signOut){
-            AsyncStorage.setItem('userSession', null);
-            yield put(signOutSuccessful);
-            NavigationActions.navigate({routeName: 'LoginScreen'})
-        }
+        yield call(authenticationService.signOut);
+        yield call(AsyncStorage.removeItem, 'userSession');
+        yield put(signOutSuccessful());
+        yield put(NavigationActions.navigate({routeName: 'LoginScreen'}));
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {

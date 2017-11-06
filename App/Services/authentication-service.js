@@ -22,11 +22,6 @@ authentication.signOut = () => {
     return firebase.auth().signOut();
 };
 
-// Save user session after signing in
-authentication.saveUserSession = (user) => {
-    AsyncStorage.setItem('userSession', JSON.stringify(user));
-};
-
 // Get the current signed in user information
 authentication.currentUser = () => {
     return new Promise((resolve, reject) => {

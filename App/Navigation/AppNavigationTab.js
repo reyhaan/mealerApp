@@ -104,9 +104,6 @@ const RootStack = StackNavigator({
     Root: {
         screen: TabsView,
         navigationOptions: ({navigation}) => ({
-            // TODO: grab this string from state object which tracks the currently active tab
-            title: 'Available Cooks',
-            headerTitleStyle: { alignSelf: 'center' },
             header: null
         })
     },

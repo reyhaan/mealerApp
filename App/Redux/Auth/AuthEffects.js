@@ -12,7 +12,7 @@ const authEffect = {};
 authEffect.signIn = function* (userCredentials) {
     try {
         const user = yield call(authenticationService.signIn, userCredentials.data);
-        authenticationService.saveUserSession(user);
+        AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield put(signInSuccessful(user));
         yield put(NavigationActions.navigate({routeName: 'TabsView'}));
     } catch (error) {

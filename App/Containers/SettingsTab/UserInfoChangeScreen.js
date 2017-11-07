@@ -6,13 +6,9 @@ import {UserInfoChangeScreenStyle} from '../Styles'
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-const styles = UserInfoChangeScreenStyle
+const styles = UserInfoChangeScreenStyle;
 
 class UserInfoChangeScreen extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
-  }
 
   render () {
     const { params } = this.props.navigation.state;
@@ -27,11 +23,11 @@ class UserInfoChangeScreen extends Component {
 const mapStateToProps = (state) => {
   return {
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfoChangeScreen)

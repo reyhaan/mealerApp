@@ -13,7 +13,6 @@ authentication.signIn = (userCredentials) => {
 // Sign up user
 authentication.signUp = (userCredentials) => {
     userCredentials.email = userCredentials.email.toLowerCase();
-    userCredentials.password = userCredentials.password.toLowerCase();
     return firebase.auth().createUserWithEmailAndPassword(userCredentials.email, userCredentials.password);
 };
 

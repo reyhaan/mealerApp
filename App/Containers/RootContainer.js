@@ -6,6 +6,7 @@ import {Font} from 'expo'
 import styles from './Styles/RootContainerStyles'
 import {LoginScreen} from './index'
 import authenticationService from '../Services/authentication-service'
+import * as ReactNavigation from 'react-navigation'
 
 class RootContainer extends Component {
     state = {
@@ -30,12 +31,17 @@ class RootContainer extends Component {
     }
 
     render() {
-        const {nav, auth} = this.props;
+        const {dispatch, nav, auth} = this.props;
+        const navigation = ReactNavigation.addNavigationHelpers({
+            dispatch,
+            state: nav
+        });
+
         if (this.state.fontLoaded) {
             if (this.state.currentUser || auth.user) {
                 return (
                     <View style={styles.applicationView}><StatusBar barStyle='light-content'/>
-                        <AppNavigationContainer/>
+                        <AppNavigationContainer navigation={navigation}/>
                     </View>
                 )
             } else {
@@ -47,6 +53,6 @@ class RootContainer extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({dispatch});
 const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(RootContainer)

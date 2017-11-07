@@ -92,5 +92,5 @@ class LoginScreen extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(UserActionCreators, dispatch));
-const mapStateToProps = state => ({nav: state.navigation});
+const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

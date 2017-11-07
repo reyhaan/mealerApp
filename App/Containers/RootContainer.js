@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, StatusBar, Alert} from 'react-native'
+import {View, StatusBar, Alert, AsyncStorage} from 'react-native'
 import AppNavigationContainer from '../Navigation/AppNavigationContainer'
 import {connect} from 'react-redux'
 import {Font} from 'expo'
@@ -30,9 +30,9 @@ class RootContainer extends Component {
     }
 
     render() {
+        const {nav, auth} = this.props;
         if (this.state.fontLoaded) {
-            if (this.state.currentUser) {
-            console.log('currentUser:' + this.state.currentUser);
+            if (this.state.currentUser || auth.user) {
                 return (
                     <View style={styles.applicationView}><StatusBar barStyle='light-content'/>
                         <AppNavigationContainer/>
@@ -48,4 +48,5 @@ class RootContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({});
-export default connect(null, mapDispatchToProps)(RootContainer)
+const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
+export default connect(mapStateToProps, mapDispatchToProps)(RootContainer)

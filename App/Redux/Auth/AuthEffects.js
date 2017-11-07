@@ -13,8 +13,8 @@ authEffect.signIn = function* (userCredentials) {
     try {
         const user = yield call(authenticationService.signIn, userCredentials.data);
         AsyncStorage.setItem('userSession', JSON.stringify(user));
-        yield put(signInSuccessful(user));
         yield put(NavigationActions.navigate({routeName: 'TabsView'}));
+        yield put(signInSuccessful(user));
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {
@@ -26,7 +26,6 @@ authEffect.signIn = function* (userCredentials) {
 authEffect.signUp = function* (userCredentials) {
     try {
         const user = yield call(authenticationService.signUp, userCredentials.data);
-        // TODO: Store the user info in session
         yield put(signUpSuccessful(user));
         yield put(NavigationActions.navigate({routeName: 'TabsView'}));
     } catch (error) {

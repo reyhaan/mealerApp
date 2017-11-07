@@ -10,8 +10,9 @@ export default function auth(state = initialState, action) {
                 user: action.data,
             });
         case authAction.signUpSuccessful:
-            console.log('sign up successful');
-            return state;
+            return Object.assign({}, state, {
+                user: action.data,
+            });
         case authAction.signOutSuccessful:
             console.log('sign out successful');
             return state;

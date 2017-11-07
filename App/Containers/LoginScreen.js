@@ -39,8 +39,6 @@ class LoginScreen extends Component {
     };
 
     render() {
-        console.log(this.state);
-
         if (this.state.showSignUpScreen) {
             return <SignUpScreen/>
         } else {

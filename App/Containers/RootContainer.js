@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {View, StatusBar, Alert} from 'react-native'
+import {View, StatusBar, Alert, AsyncStorage} from 'react-native'
 import AppNavigationContainer from '../Navigation/AppNavigationContainer'
 import {connect} from 'react-redux'
 import {Font} from 'expo'
 import styles from './Styles/RootContainerStyles'
 import {LoginScreen} from './index'
 import authenticationService from '../Services/authentication-service'
+import * as ReactNavigation from 'react-navigation'
 
 class RootContainer extends Component {
     state = {
@@ -30,12 +31,17 @@ class RootContainer extends Component {
     }
 
     render() {
+        const {dispatch, nav, auth} = this.props;
+        const navigation = ReactNavigation.addNavigationHelpers({
+            dispatch,
+            state: nav
+        });
+
         if (this.state.fontLoaded) {
-            if (true || this.state.currentUser) {
-            console.log('currentUser:' + this.state.currentUser);
+            if (true || this.state.currentUser || auth.user) {
                 return (
                     <View style={styles.applicationView}><StatusBar barStyle='light-content'/>
-                        <AppNavigationContainer/>
+                        <AppNavigationContainer navigation={navigation}/>
                     </View>
                 )
             } else {
@@ -47,5 +53,6 @@ class RootContainer extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({});
-export default connect(null, mapDispatchToProps)(RootContainer)
+const mapDispatchToProps = dispatch => ({dispatch});
+const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
+export default connect(mapStateToProps, mapDispatchToProps)(RootContainer)

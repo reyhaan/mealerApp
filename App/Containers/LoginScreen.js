@@ -5,8 +5,9 @@ import {Button, FormInput, Text, CheckBox} from 'react-native-elements'
 import {Images, Fonts} from '../Themes'
 import {connect} from 'react-redux'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { Colors } from '../Themes/'
+import {Colors} from '../Themes/'
 import {bindActionCreators} from 'redux'
+import {SignUpScreen} from './index'
 import * as UserActionCreators from '../Redux/Auth/AuthRedux'
 
 
@@ -14,83 +15,90 @@ class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked : false,
-            userLoginInfo : {'email':'', 'password':''}
+            showSignUpScreen: false,
+            checked: false,
+            userLoginInfo: {'email': '', 'password': ''}
         }
     }
-    toggleCheckBox = ()=>{
-        this.setState({checked : !this.state.checked})
+
+    toggleSignUpPage = () => {
+        this.setState({showSignUpScreen: !this.state.showSignUpScreen})
     };
-    navigateToSignUpScreen = (navigation) => {
-        navigation.navigate('SignUpScreen')
+    toggleCheckBox = () => {
+        this.setState({checked: !this.state.checked})
     };
     getUserLoginInfo = (id, e) => {
-            this.setState({userLoginInfo: Object.assign({}, this.state.userLoginInfo, {[id] : e})});
+        this.setState({userLoginInfo: Object.assign({}, this.state.userLoginInfo, {[id]: e})});
     };
 
     login = () => {
         let {email, password} = this.state.userLoginInfo;
-        if(email && password){
+        if (email && password) {
             this.props.signIn({email, password});
         }
     };
+
     render() {
-        return (
-            <ScrollView style={LoginScreenStyle.container}>
-                <View style={LoginScreenStyle.centered}>
-                    <Image source={Images.logo} style={LoginScreenStyle.logo}/>
-                    <Image source={Images.mealerLogo} style={LoginScreenStyle.mealerLogo}/>
-                </View>
+        if (this.state.showSignUpScreen) {
+            return <SignUpScreen/>
+        } else {
+            return (
+                <ScrollView style={LoginScreenStyle.container}>
+                    <View style={LoginScreenStyle.centered}>
+                        <Image source={Images.logo} style={LoginScreenStyle.logo}/>
+                        <Image source={Images.mealerLogo} style={LoginScreenStyle.mealerLogo}/>
+                    </View>
 
-                <View style={[LoginScreenStyle.section, {marginBottom: 5}]}>
-                    <FormInput
-                        underlineColorAndroid="transparent"
-                        inputStyle={LoginScreenStyle.inputField}
-                        containerStyle={LoginScreenStyle.inputContainer}
-                        onChangeText={(e)=>this.getUserLoginInfo('email', e)}
-                        placeholder="EMAIL"/>
+                    <View style={[LoginScreenStyle.section, {marginBottom: 5}]}>
+                        <FormInput
+                            underlineColorAndroid="transparent"
+                            inputStyle={LoginScreenStyle.inputField}
+                            containerStyle={LoginScreenStyle.inputContainer}
+                            onChangeText={(e) => this.getUserLoginInfo('email', e)}
+                            placeholder="EMAIL"/>
 
-                    <FormInput
-                        underlineColorAndroid="transparent"
-                        inputStyle={LoginScreenStyle.inputField}
-                        containerStyle={LoginScreenStyle.inputContainer}
-                        onChangeText={(e)=>this.getUserLoginInfo('password', e)}
-                        placeholder="PASSWORD"
-                        secureTextEntry={true}/>
-                    <View style={LoginScreenStyle.forgotPasswordView}>
-                        <CheckBox 
-                            title='Remember me'
-                            iconLeft
-                            checked={this.state.checked}
-                            checkedColor={'white'}
-                            uncheckedColor={'white'}
-                            textStyle={LoginScreenStyle.checkBoxTextStyle}
-                            containerStyle={LoginScreenStyle.checkBoxContainerStyle}
-                            onPress={this.toggleCheckBox}
-                        />
-                        <Text style={LoginScreenStyle.forgotPasswordTextStyle}>
-                            Forgot Password?
-                        </Text>
-                    </View >
-                    <View Style={LoginScreenStyle.loginButtonView}>
-                    <Button
+                        <FormInput
+                            underlineColorAndroid="transparent"
+                            inputStyle={LoginScreenStyle.inputField}
+                            containerStyle={LoginScreenStyle.inputContainer}
+                            onChangeText={(e) => this.getUserLoginInfo('password', e)}
+                            placeholder="PASSWORD"
+                            secureTextEntry={true}/>
+                        <View style={LoginScreenStyle.forgotPasswordView}>
+                            <CheckBox
+                                title='Remember me'
+                                iconLeft
+                                checked={this.state.checked}
+                                checkedColor={'white'}
+                                uncheckedColor={'white'}
+                                textStyle={LoginScreenStyle.checkBoxTextStyle}
+                                containerStyle={LoginScreenStyle.checkBoxContainerStyle}
+                                onPress={this.toggleCheckBox}
+                            />
+                            <Text style={LoginScreenStyle.forgotPasswordTextStyle}>
+                                Forgot Password?
+                            </Text>
+                        </View>
+                        <View Style={LoginScreenStyle.loginButtonView}>
+                            <Button
                                 /*containerViewStyle={LoginScreenStyle.loginButtonView}*/
                                 buttonStyle={[LoginScreenStyle.primaryButton]}
                                 textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
                                 title={`LOGIN`}
                                 onPress={this.login}/></View>
-                    <View style={[LoginScreenStyle.signUpView]}>
+                        <View style={[LoginScreenStyle.signUpView]}>
                             <Text h5 style={LoginScreenStyle.registerButton}> Not Registered?</Text>
-                            <TouchableOpacity onPress={() => this.navigateToSignUpScreen(this.props.navigation)}>
+                            <TouchableOpacity onPress={() => this.toggleSignUpPage()}>
                                 <Text h5 style={LoginScreenStyle.signUpButton}>SIGN UP!</Text>
                             </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-            </ScrollView>
-        )
+                </ScrollView>
+            )
+        }
     }
 }
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(UserActionCreators, dispatch));
-const mapStateToProps = state => ({nav: state.navigation});
+const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

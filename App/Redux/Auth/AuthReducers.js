@@ -6,11 +6,13 @@ let initialState = {};
 export default function auth(state = initialState, action) {
     switch (action.type) {
         case authAction.signInSuccessful:
-            console.log('sign in successful');
-            return state;
+            return Object.assign({}, state, {
+                user: action.data,
+            });
         case authAction.signUpSuccessful:
-            console.log('sign up successful');
-            return state;
+            return Object.assign({}, state, {
+                user: action.data,
+            });
         case authAction.signOutSuccessful:
             console.log('sign out successful');
             return state;

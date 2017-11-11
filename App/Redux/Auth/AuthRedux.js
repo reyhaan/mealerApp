@@ -1,31 +1,36 @@
 import {takeLatest} from 'redux-saga/effects'
 import AuthEffect from './AuthEffects'
 
-function action(type, data) {
+function createAction(type, data) {
     return {type, data};
 }
 
-// All authentication actions
-export const authAction = {
+/******************************* ACTIONS *************************************/
+export const authActions = {
     signIn: 'signIn',
     signInSuccessful: 'signInSuccessful',
     signUp: 'signUp',
     signUpSuccessful: 'signUpSuccessful',
     signOut: 'signOut',
     signOutSuccessful: 'signOutSuccessful',
+    showActivityIndicator: 'showActivityIndicator',
+
 };
 
-/******************************* ACTIONS *************************************/
-export const signIn = (data) => action(authAction.signIn, data);
-export const signInSuccessful = (data) => action(authAction.signInSuccessful, data);
-export const signUp = (data) => action(authAction.signUp, data);
-export const signUpSuccessful = (data) => action(authAction.signUpSuccessful, data);
-export const signOut = (data) => action(authAction.signOut, data);
-export const signOutSuccessful = (data) => action(authAction.signOutSuccessful, data);
+/******************************* ACTION CREATORS *************************************/
+export const authActionCreators = {
+    signIn: (data) => createAction(authActions.signIn, data),
+    signInSuccessful: (data) => createAction(authActions.signInSuccessful, data),
+    signUp: (data) => createAction(authActions.signUp, data),
+    signUpSuccessful: (data) => createAction(authActions.signUpSuccessful, data),
+    signOut: (data) => createAction(authActions.signOut, data),
+    signOutSuccessful: (data) => createAction(authActions.signOutSuccessful, data),
+    showActivityIndicator: (data) => createAction(authActions.showActivityIndicator, data)
+};
 
-/******************************* WATCHERS *************************************/
+/******************************* SAGA WATCHERS & EFFECTS *************************************/
 export const authSagas = [
-    takeLatest(authAction.signIn, AuthEffect.signIn),
-    takeLatest(authAction.signUp, AuthEffect.signUp),
-    takeLatest(authAction.signOut, AuthEffect.signOut),
+    takeLatest(authActions.signIn, AuthEffect.signIn),
+    takeLatest(authActions.signUp, AuthEffect.signUp),
+    takeLatest(authActions.signOut, AuthEffect.signOut),
 ];

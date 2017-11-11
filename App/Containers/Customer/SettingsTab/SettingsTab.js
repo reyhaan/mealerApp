@@ -2,11 +2,11 @@ import React, {Component} from 'react'
 import {ScrollView} from 'react-native'
 import {connect} from 'react-redux'
 import {Button, Text, List, ListItem} from 'react-native-elements'
-import {SettingsTabStyle} from '../Styles'
+import {SettingsTabStyle} from '../../Styles'
 import {Header} from 'react-native-elements'
 import {bindActionCreators} from 'redux'
-import {Colors} from '../../Themes'
-import * as UserActionCreators from '../../Redux/Auth/AuthRedux'
+import {Colors} from '../../../Themes'
+import * as UserActionCreators from '../../../Redux/Auth/AuthRedux'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -39,7 +39,7 @@ class SettingsTab extends Component {
         return (
             <ScrollView style={styles.container}>
                 <Header
-                    centerComponent={{text: 'SETTINGS', style: {color: '#fff'}}}
+                    centerComponent={{text: 'SETTINGS', style: {color: '#fff', fontWeight: 'bold'}}}
                     backgroundColor={Colors.background}
                     outerContainerStyles={styles.headerOuterContainer}/>
 

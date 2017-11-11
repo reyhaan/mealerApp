@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, View, ListView } from 'react-native'
 import { connect } from 'react-redux'
-import { CooksTabStyle } from '../Styles'
+import { CooksTabStyle } from '../../Styles'
 import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
-import { Colors, Fonts } from '../../Themes'
+import { Colors, Fonts } from '../../../Themes'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'

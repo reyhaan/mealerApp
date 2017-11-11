@@ -8,7 +8,7 @@ import styles from './Styles/NavigationStyles'
 const PrimaryNav = StackNavigator({
   InfoTab: { screen: InfoTab },
     LoginScreen: {
-        screen: TabsView
+        screen: LoginScreen
     },
     SignUpScreen: {
         screen: SignUpScreen

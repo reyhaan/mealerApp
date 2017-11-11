@@ -33,7 +33,7 @@ export default StyleSheet.create({
   },
   boldLabel: {
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: Fonts.type.bold
   },
   label: {

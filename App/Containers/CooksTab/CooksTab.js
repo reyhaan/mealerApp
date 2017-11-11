@@ -20,7 +20,7 @@ class CooksTab extends Component {
     const userObject = [
       {
         name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
         rating: 3.6,
         quotaLimit: 30,
@@ -28,7 +28,7 @@ class CooksTab extends Component {
       },
       {
         name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
         rating: 3.6,
         quotaLimit: 30,
@@ -36,7 +36,7 @@ class CooksTab extends Component {
       },
       {
         name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
         rating: 3.6,
         quotaLimit: 30,
@@ -44,7 +44,7 @@ class CooksTab extends Component {
       },
       {
         name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
         rating: 3.6,
         quotaLimit: 30,
@@ -52,7 +52,7 @@ class CooksTab extends Component {
       },
       {
         name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
+        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
         rating: 3.6,
         quotaLimit: 30,
@@ -127,6 +127,7 @@ class CooksTab extends Component {
                   <Row style={{ height: 22 }}>
                     <Rating
                       type="star"
+                      ratingColor={Colors.pink2}
                       fractions={1}
                       startingValue={rowData.rating}
                       readonly

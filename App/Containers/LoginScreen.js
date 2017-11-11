@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
+import {ScrollView, View, Image, TouchableOpacity, Alert, ActivityIndicator} from 'react-native'
 import {LoginScreenStyle} from './Styles'
 import {Button, FormInput, Text, CheckBox} from 'react-native-elements'
 import {Images, Fonts} from '../Themes'
@@ -8,8 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import {Colors} from '../Themes/'
 import {bindActionCreators} from 'redux'
 import {SignUpScreen} from './index'
-import * as UserActionCreators from '../Redux/Auth/AuthRedux'
-
+import {authActionCreators} from '../Redux/Auth/AuthRedux'
+import {LoadingSpinner} from '../Components'
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -35,6 +35,8 @@ class LoginScreen extends Component {
         let {email, password} = this.state.userLoginInfo;
         if (email && password) {
             this.props.signIn({email, password});
+        } else {
+            Alert.alert("", "Please enter your email and password",)
         }
     };
 
@@ -54,12 +56,15 @@ class LoginScreen extends Component {
                             underlineColorAndroid="transparent"
                             inputStyle={LoginScreenStyle.inputField}
                             containerStyle={LoginScreenStyle.inputContainer}
+                            autoCapitalize="none"
+                            keyboardType="email-address"
                             onChangeText={(e) => this.getUserLoginInfo('email', e)}
                             placeholder="EMAIL"/>
-
                         <FormInput
                             underlineColorAndroid="transparent"
                             inputStyle={LoginScreenStyle.inputField}
+                            autoCapitalize="none"
+                            keyboardType="email-address"
                             containerStyle={LoginScreenStyle.inputContainer}
                             onChangeText={(e) => this.getUserLoginInfo('password', e)}
                             placeholder="PASSWORD"
@@ -73,19 +78,19 @@ class LoginScreen extends Component {
                                 uncheckedColor={'white'}
                                 textStyle={LoginScreenStyle.checkBoxTextStyle}
                                 containerStyle={LoginScreenStyle.checkBoxContainerStyle}
-                                onPress={this.toggleCheckBox}
-                            />
+                                onPress={this.toggleCheckBox}/>
                             <Text style={LoginScreenStyle.forgotPasswordTextStyle}>
                                 Forgot Password?
                             </Text>
                         </View>
                         <View Style={LoginScreenStyle.loginButtonView}>
+                            <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
                             <Button
-                                /*containerViewStyle={LoginScreenStyle.loginButtonView}*/
                                 buttonStyle={[LoginScreenStyle.primaryButton]}
                                 textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
                                 title={`LOGIN`}
-                                onPress={this.login}/></View>
+                                onPress={this.login}/>
+                        </View>
                         <View style={[LoginScreenStyle.signUpView]}>
                             <Text h5 style={LoginScreenStyle.registerButton}> Not Registered?</Text>
                             <TouchableOpacity onPress={() => this.toggleSignUpPage()}>
@@ -99,6 +104,6 @@ class LoginScreen extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(UserActionCreators, dispatch));
+const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
 const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

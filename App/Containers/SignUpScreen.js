@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {Button, FormInput, List, ListItem, Text} from 'react-native-elements'
 import {connect} from 'react-redux'
-import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
+import {ScrollView, View, Image, Alert, TouchableOpacity, ActivityIndicator} from 'react-native'
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 import {bindActionCreators} from 'redux'
-import * as UserActionCreators from '../Redux/Auth/AuthRedux'
+import {authActionCreators} from '../Redux/Auth/AuthRedux'
 import {LoginScreen} from './index'
-
+import {LoadingSpinner} from '../Components'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -48,6 +48,8 @@ class SignUpScreen extends Component {
         const {email, password} = this.state;
         if (email && password) {
             this.props.signUp({email, password});
+        } else {
+            Alert.alert("", "Please enter your email and password",)
         }
     };
 
@@ -92,14 +94,17 @@ class SignUpScreen extends Component {
                         {/*placeholder="NAME"/>*/}
 
                         <FormInput
-                            keyboardType="email-address"
                             underlineColorAndroid="transparent"
+                            autoCapitalize="none"
+                            keyboardType="email-address"
                             inputStyle={SignUpScreenStyle.inputField}
                             containerStyle={SignUpScreenStyle.inputContainer}
                             onChangeText={(e) => this.formUpdate('email', e)}
                             placeholder="EMAIL"/>
                         <FormInput
                             secureTextEntry={true}
+                            autoCapitalize="none"
+                            keyboardType="email-address"
                             underlineColorAndroid="transparent"
                             inputStyle={SignUpScreenStyle.inputField}
                             containerStyle={SignUpScreenStyle.inputContainer}
@@ -118,6 +123,8 @@ class SignUpScreen extends Component {
 
                         {/*{this.userTypeDropDown()}*/}
 
+                        {/*<LoadingSpinner show={this.props.auth.showActivityIndicator}/>*/}
+                        <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
                         <Button
                             buttonStyle={SignUpScreenStyle.signUpButton}
                             textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
@@ -140,6 +147,6 @@ class SignUpScreen extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(UserActionCreators, dispatch));
+const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
 const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)

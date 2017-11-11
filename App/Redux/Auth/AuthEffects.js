@@ -26,6 +26,7 @@ authEffect.signIn = function* (userCredentials) {
 // Authentication effect of signing up
 authEffect.signUp = function* (userCredentials) {
     try {
+        yield put(authActionCreators.showActivityIndicator(true));
         yield call(authenticationService.signUp, userCredentials.data);
         const user = yield call(authenticationService.signIn, userCredentials.data);
         AsyncStorage.setItem('userSession', JSON.stringify(user));
@@ -34,7 +35,7 @@ authEffect.signUp = function* (userCredentials) {
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {
-        // finally
+        yield put(authActionCreators.showActivityIndicator(false));
     }
 };
 

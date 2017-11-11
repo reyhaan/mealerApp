@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {Button, FormInput, List, ListItem, Text} from 'react-native-elements'
 import {connect} from 'react-redux'
-import {ScrollView, View, Image, TouchableOpacity, ActivityIndicator} from 'react-native'
+import {ScrollView, View, Image, Alert, TouchableOpacity, ActivityIndicator} from 'react-native'
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 import {bindActionCreators} from 'redux'
 import {authActionCreators} from '../Redux/Auth/AuthRedux'
 import {LoginScreen} from './index'
-
+import {LoadingSpinner} from '../Components'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -48,6 +48,8 @@ class SignUpScreen extends Component {
         const {email, password} = this.state;
         if (email && password) {
             this.props.signUp({email, password});
+        } else {
+            Alert.alert("", "Please enter your email and password",)
         }
     };
 
@@ -121,6 +123,8 @@ class SignUpScreen extends Component {
 
                         {/*{this.userTypeDropDown()}*/}
 
+                        {/*<LoadingSpinner show={this.props.auth.showActivityIndicator}/>*/}
+                        <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
                         <Button
                             buttonStyle={SignUpScreenStyle.signUpButton}
                             textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}

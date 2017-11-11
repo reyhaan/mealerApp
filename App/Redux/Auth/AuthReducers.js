@@ -1,18 +1,18 @@
-import {authAction} from './AuthRedux';
+import {authActions} from './AuthRedux';
 
 let initialState = {};
 
 export default function auth(state = initialState, action) {
     switch (action.type) {
-        case authAction.signInSuccessful:
+        case authActions.signInSuccessful:
             return Object.assign({}, state, {
                 user: action.data,
             });
-        case authAction.signUpSuccessful:
+        case authActions.signUpSuccessful:
             return Object.assign({}, state, {
                 user: action.data,
             });
-        case authAction.showActivityIndicator:
+        case authActions.showActivityIndicator:
             return Object.assign({}, state, {
                 showActivityIndicator: action.data,
             });

@@ -5,7 +5,7 @@ import {ScrollView, View, Image, TouchableOpacity, ActivityIndicator} from 'reac
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 import {bindActionCreators} from 'redux'
-import * as UserActionCreators from '../Redux/Auth/AuthRedux'
+import {authActionCreators} from '../Redux/Auth/AuthRedux'
 import {LoginScreen} from './index'
 
 
@@ -143,6 +143,6 @@ class SignUpScreen extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(UserActionCreators, dispatch));
+const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
 const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)

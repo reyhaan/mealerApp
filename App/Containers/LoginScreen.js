@@ -8,8 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import {Colors} from '../Themes/'
 import {bindActionCreators} from 'redux'
 import {SignUpScreen} from './index'
-import * as UserActionCreators from '../Redux/Auth/AuthRedux'
-
+import {authActionCreators} from '../Redux/Auth/AuthRedux'
+import {LoadingSpinner} from '../Components'
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -84,14 +84,7 @@ class LoginScreen extends Component {
                             </Text>
                         </View>
                         <View Style={LoginScreenStyle.loginButtonView}>
-                            {
-                                this.props.auth.showActivityIndicator ?
-                                    <View style={LoginScreenStyle.spinnerContainer}>
-                                        <ActivityIndicator color='black' size='large'
-                                                           style={LoginScreenStyle.spinner}/>
-                                    </View>
-                                    : null
-                            }
+                            <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
                             <Button
                                 buttonStyle={[LoginScreenStyle.primaryButton]}
                                 textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
@@ -111,6 +104,6 @@ class LoginScreen extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(UserActionCreators, dispatch));
+const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
 const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

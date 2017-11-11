@@ -1,7 +1,7 @@
 import {put, call} from 'redux-saga/effects'
 import {NavigationActions} from 'react-navigation';
 import {Alert} from 'react-native';
-import {showActivityIndicator, signInSuccessful, signOutSuccessful, signUpSuccessful} from './AuthRedux';
+import {authActionCreators} from './AuthRedux';
 import authenticationService from '../../Services/authentication-service'
 import {AsyncStorage} from 'react-native';
 
@@ -11,15 +11,15 @@ const authEffect = {};
 // Authentication effect of signing in
 authEffect.signIn = function* (userCredentials) {
     try {
-        yield put(showActivityIndicator(true));
+        yield put(authActionCreators.showActivityIndicator(true));
         const user = yield call(authenticationService.signIn, userCredentials.data);
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield put(NavigationActions.navigate({routeName: 'TabsView'}));
-        yield put(signInSuccessful(user));
+        yield put(authActionCreators.signInSuccessful(user));
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {
-        yield put(showActivityIndicator(false));
+        yield put(authActionCreators.showActivityIndicator(false));
     }
 };
 
@@ -29,7 +29,7 @@ authEffect.signUp = function* (userCredentials) {
         yield call(authenticationService.signUp, userCredentials.data);
         const user = yield call(authenticationService.signIn, userCredentials.data);
         AsyncStorage.setItem('userSession', JSON.stringify(user));
-        yield put(signUpSuccessful(user));
+        yield put(authActionCreators.signUpSuccessful(user));
         yield put(NavigationActions.navigate({routeName: 'TabsView'}));
     } catch (error) {
         Alert.alert('Error', error.message,)

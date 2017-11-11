@@ -53,7 +53,7 @@ const merchantTabsList = {
             // tabBarLabel: 'COOKS',
             tabBarIcon: ({tintColor}) => (
                 <Image
-                    source={Images.cooksWhite}
+                    source={Images.menuWhite}
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),

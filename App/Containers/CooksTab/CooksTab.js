@@ -141,7 +141,7 @@ class CooksTab extends Component {
                         <Text style={{ fontSize: 12, fontWeight: 'bold', color: Colors.background }} >View More</Text>
                     </Col>
                     <Col>
-                        <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 10 }} >Quota: {rowData.quotaUsed}/{rowData.quotaLimit}</Text>
+                        <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 5 }} >Remaining: {rowData.quotaUsed}/{rowData.quotaLimit}</Text>
                     </Col>
                   </Row>
               </Col>

@@ -18,15 +18,15 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.clear,
     marginVertical: 0,
-    height: 120,
-    paddingRight: 15,
-    paddingLeft: 15,
-    paddingBottom: 10,
+    height: 110,
+    paddingRight: 10,
+    paddingLeft: 10,
+    paddingBottom: 0,
     paddingTop: 10
   },
   rowInnerContainer: {
     flex: 1,
-    height: 100,
+    height: 90,
     backgroundColor: Colors.snow,
     borderRadius: 3,
     padding: 10
@@ -41,7 +41,7 @@ export default StyleSheet.create({
     color: Colors.snow
   },
   listContent: {
-    marginTop: 5,
+    marginTop: 0,
     paddingBottom: 10
   }
 })

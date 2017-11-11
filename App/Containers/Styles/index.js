@@ -4,6 +4,7 @@ import CooksTabStyle from './CooksTabStyle/CooksTabStyle'
 import OrdersTabStyle from './OrdersTabStyle/OrdersTabStyle'
 import SettingsTabStyle from './SettingsTabStyle/SettingsTabStyle'
 import UserInfoChangeScreenStyle from './SettingsTabStyle/UserInfoChangeScreenStyle'
+import MenuTabStyle from './Merchant/MenuTabStyle/MenuTabStyle'
 
 export {
     LoginScreenStyle,
@@ -11,5 +12,6 @@ export {
     CooksTabStyle,
     OrdersTabStyle,
     SettingsTabStyle,
-    UserInfoChangeScreenStyle
+    UserInfoChangeScreenStyle,
+    MenuTabStyle
 }

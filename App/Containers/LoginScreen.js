@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
+import {ScrollView, View, Image, TouchableOpacity, Alert, ActivityIndicator} from 'react-native'
 import {LoginScreenStyle} from './Styles'
 import {Button, FormInput, Text, CheckBox} from 'react-native-elements'
 import {Images, Fonts} from '../Themes'
@@ -35,6 +35,8 @@ class LoginScreen extends Component {
         let {email, password} = this.state.userLoginInfo;
         if (email && password) {
             this.props.signIn({email, password});
+        } else {
+            Alert.alert("", "Please enter your email and password",)
         }
     };
 
@@ -54,12 +56,15 @@ class LoginScreen extends Component {
                             underlineColorAndroid="transparent"
                             inputStyle={LoginScreenStyle.inputField}
                             containerStyle={LoginScreenStyle.inputContainer}
+                            autoCapitalize="none"
+                            keyboardType="email-address"
                             onChangeText={(e) => this.getUserLoginInfo('email', e)}
                             placeholder="EMAIL"/>
-
                         <FormInput
                             underlineColorAndroid="transparent"
                             inputStyle={LoginScreenStyle.inputField}
+                            autoCapitalize="none"
+                            keyboardType="email-address"
                             containerStyle={LoginScreenStyle.inputContainer}
                             onChangeText={(e) => this.getUserLoginInfo('password', e)}
                             placeholder="PASSWORD"
@@ -73,19 +78,26 @@ class LoginScreen extends Component {
                                 uncheckedColor={'white'}
                                 textStyle={LoginScreenStyle.checkBoxTextStyle}
                                 containerStyle={LoginScreenStyle.checkBoxContainerStyle}
-                                onPress={this.toggleCheckBox}
-                            />
+                                onPress={this.toggleCheckBox}/>
                             <Text style={LoginScreenStyle.forgotPasswordTextStyle}>
                                 Forgot Password?
                             </Text>
                         </View>
                         <View Style={LoginScreenStyle.loginButtonView}>
+                            {
+                                this.props.auth.showActivityIndicator ?
+                                    <View style={LoginScreenStyle.spinnerContainer}>
+                                        <ActivityIndicator color='black' size='large'
+                                                           style={LoginScreenStyle.spinner}/>
+                                    </View>
+                                    : null
+                            }
                             <Button
-                                /*containerViewStyle={LoginScreenStyle.loginButtonView}*/
                                 buttonStyle={[LoginScreenStyle.primaryButton]}
                                 textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
                                 title={`LOGIN`}
-                                onPress={this.login}/></View>
+                                onPress={this.login}/>
+                        </View>
                         <View style={[LoginScreenStyle.signUpView]}>
                             <Text h5 style={LoginScreenStyle.registerButton}> Not Registered?</Text>
                             <TouchableOpacity onPress={() => this.toggleSignUpPage()}>

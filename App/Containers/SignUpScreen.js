@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Button, FormInput, List, ListItem, Text} from 'react-native-elements'
 import {connect} from 'react-redux'
-import {ScrollView, View, Image, TouchableOpacity} from 'react-native'
+import {ScrollView, View, Image, TouchableOpacity, ActivityIndicator} from 'react-native'
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 import {bindActionCreators} from 'redux'
@@ -92,14 +92,17 @@ class SignUpScreen extends Component {
                         {/*placeholder="NAME"/>*/}
 
                         <FormInput
-                            keyboardType="email-address"
                             underlineColorAndroid="transparent"
+                            autoCapitalize="none"
+                            keyboardType="email-address"
                             inputStyle={SignUpScreenStyle.inputField}
                             containerStyle={SignUpScreenStyle.inputContainer}
                             onChangeText={(e) => this.formUpdate('email', e)}
                             placeholder="EMAIL"/>
                         <FormInput
                             secureTextEntry={true}
+                            autoCapitalize="none"
+                            keyboardType="email-address"
                             underlineColorAndroid="transparent"
                             inputStyle={SignUpScreenStyle.inputField}
                             containerStyle={SignUpScreenStyle.inputContainer}

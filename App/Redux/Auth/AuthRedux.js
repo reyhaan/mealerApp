@@ -13,15 +13,17 @@ export const authAction = {
     signUpSuccessful: 'signUpSuccessful',
     signOut: 'signOut',
     signOutSuccessful: 'signOutSuccessful',
+    showActivityIndicator: 'showActivityIndicator',
 };
 
-/******************************* ACTIONS *************************************/
+/******************************* ACTION CREATORS *************************************/
 export const signIn = (data) => action(authAction.signIn, data);
 export const signInSuccessful = (data) => action(authAction.signInSuccessful, data);
 export const signUp = (data) => action(authAction.signUp, data);
 export const signUpSuccessful = (data) => action(authAction.signUpSuccessful, data);
 export const signOut = (data) => action(authAction.signOut, data);
 export const signOutSuccessful = (data) => action(authAction.signOutSuccessful, data);
+export const showActivityIndicator = (data) => action(authAction.showActivityIndicator, data);
 
 /******************************* WATCHERS *************************************/
 export const authSagas = [

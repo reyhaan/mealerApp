@@ -2,7 +2,6 @@ import {authAction} from './AuthRedux';
 
 let initialState = {};
 
-//Todo: Update the states properly
 export default function auth(state = initialState, action) {
     switch (action.type) {
         case authAction.signInSuccessful:
@@ -13,9 +12,10 @@ export default function auth(state = initialState, action) {
             return Object.assign({}, state, {
                 user: action.data,
             });
-        case authAction.signOutSuccessful:
-            console.log('sign out successful');
-            return state;
+        case authAction.showActivityIndicator:
+            return Object.assign({}, state, {
+                showActivityIndicator: action.data,
+            });
         default:
             return state;
     }

@@ -10,7 +10,9 @@ import {
     CooksTab,
     OrdersTab,
     SettingsTab,
-    UserInfoChangeScreen
+    UserInfoChangeScreen,
+    InfoTab,
+    MenuTab
 } from '../Containers'
 
 const tabNavigatorConfig = {
@@ -46,7 +48,7 @@ const tabNavigatorConfig = {
 
 const merchantTabsList = {
     One: {
-        screen: CooksTab,
+        screen: MenuTab,
         navigationOptions: {
             // tabBarLabel: 'COOKS',
             tabBarIcon: ({tintColor}) => (
@@ -86,7 +88,7 @@ const merchantTabsList = {
     },
 
     Four: {
-        screen: OrdersTab,
+        screen: InfoTab,
         navigationOptions: {
             // tabBarLabel: 'SETTINGS',
             tabBarIcon: ({tintColor}) => (

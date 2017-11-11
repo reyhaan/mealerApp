@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView, Text } from 'react-native'
 import { connect } from 'react-redux'
-import {UserInfoChangeScreenStyle} from '../Styles'
+import {UserInfoChangeScreenStyle} from '../../Styles'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 

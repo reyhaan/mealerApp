@@ -5,18 +5,18 @@ import { MenuTabStyle } from '../../Styles'
 import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid'; 
 
-import { Colors, Images } from '../../../Themes'
-
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import { Colors, Images } from '../../../Themes';
+import {fetchMenuCreator} from '../../../Redux/Menu/MenuActions';
+import {bindActionCreators} from 'redux';
+import {LoadingSpinner} from '../../../Components'
 
 // Styles
-
 const styles = MenuTabStyle;
 
 class MenuTab extends Component {
   constructor (props) {
     super(props)
+    this.props.fetchMenuCreator();
 
     const userObject = [
       {
@@ -24,49 +24,26 @@ class MenuTab extends Component {
         itemImage: Images.biryani,
         itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
         itemCost: 6.99
-      },
-      {
-        itemName: "Chicken Biryani",
-        itemImage: Images.biryani,
-        itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-        itemCost: 6.99
-      },
-      {
-        itemName: "Chicken Biryani",
-        itemImage: Images.biryani,
-        itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-        itemCost: 6.99
-      },
-      {
-        itemName: "Chicken Biryani",
-        itemImage: Images.biryani,
-        itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-        itemCost: 6.99
-      },
-      {
-        itemName: "Chicken Biryani",
-        itemImage: Images.biryani,
-        itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-        itemCost: 6.99
-      },
-      {
-        itemName: "Chicken Biryani",
-        itemImage: Images.biryani,
-        itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-        itemCost: 6.99
-      }
-    ]
+      }];
 
     const rowHasChanged = (r1, r2) => r1 !== r2
 
     const ds = new ListView.DataSource({rowHasChanged})
 
     this.state = {
-      dataSource: ds.cloneWithRows(userObject)
+      menuObject : userObject,
+      dataSource:  ds.cloneWithRows(userObject)
     }
 
   }
+  getMenu = ()=>{
+    const rowHasChanged = (r1, r2) => r1 !== r2
+    const ds = new ListView.DataSource({rowHasChanged});
+    return this.props.fetchMenuReducer ? ()=>{this.setState({
+          dataSource : ds.cloneWithRows(this.props.fetchMenuReducer)
+        }); console.log(this.props.fetchMenuReducer); return true} : false;
 
+  }
   _renderRow (rowData) {
     return (
       <View style={styles.row}>
@@ -102,36 +79,38 @@ class MenuTab extends Component {
   }
 
   render () {
-    return (
-      <View style={styles.container}>
+        return (
+          <View style={styles.container}>
 
-        <Header
-          centerComponent = {{ text: 'MENU', style: { color: '#fff', fontWeight: 'bold' } }}
-          backgroundColor = {Colors.background}
-          outerContainerStyles = { styles.headerOuterContainer }
-        />
+            <Header
+              centerComponent = {{ text: 'MENU', style: { color: '#fff', fontWeight: 'bold' } }}
+              backgroundColor = {Colors.background}
+              outerContainerStyles = { styles.headerOuterContainer }
+            />
 
-        <ListView
-          contentContainerStyle={styles.listContent}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          enableEmptySections
-          pageSize={15}
-        /> 
+            <ListView
+              contentContainerStyle={styles.listContent}
+              dataSource={this.state.dataSource}
+              renderRow={this._renderRow}
+              enableEmptySections
+              pageSize={15}
+            /> 
 
-      </View>
-    )
+          </View>
+        )
+    
   }
 }
 
 const mapStateToProps = (state) => {
   return {
+    fetchMenuReducer: state.fetchMenuReducer,
+    auth : state.auth
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-  }
+  return bindActionCreators({fetchMenuCreator : fetchMenuCreator}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuTab)

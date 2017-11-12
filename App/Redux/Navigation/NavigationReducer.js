@@ -1,7 +1,7 @@
-import AppNavigation from '../../Navigation/Navigation'
+import Navigation from '../../Navigation/Navigation'
 
 export default (state, action) => {
-    const newState = AppNavigation.router.getStateForAction(action, state);
+    const newState = Navigation.router.getStateForAction(action, state);
     return newState || state
 };
 

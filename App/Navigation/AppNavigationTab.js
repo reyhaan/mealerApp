@@ -12,7 +12,8 @@ import {
     SettingsTab,
     UserInfoChangeScreen,
     InfoTab,
-    MenuTab
+    MenuTab,
+    CreateMenuItemScreen
 } from '../Containers'
 
 const tabNavigatorConfig = {
@@ -174,17 +175,24 @@ const RootStack = StackNavigator({
             title: `${navigation.state.params.page}`,
         }),
     },
+    CreateMenuItemScreen: {
+        screen: CreateMenuItemScreen,
+        navigationOptions: ({navigation}) => ({
+            title: "CREATE"
+        }),
+    }
 }, {
     navigationOptions: ({navigation}) => ({
+        header: null,
         // title: `${navigation.state.params}`,
-        headerStyle: {
-            backgroundColor: Colors.background
-        },
-        headerBackTitle: null,
-        headerBackTitleStyle: {
-            color: Colors.snow
-        },
-        headerTintColor: Colors.snow,
+        // headerStyle: {
+        //     backgroundColor: Colors.background
+        // },
+        // headerBackTitle: null,
+        // headerBackTitleStyle: {
+        //     color: Colors.snow
+        // },
+        // headerTintColor: Colors.snow,
     }),
     cardStyle: {
         backgroundColor: Colors.background,

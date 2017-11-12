@@ -4,6 +4,7 @@ const colors = {
   pink: '#EE388D',
   pink2: '#7041C9',
   pinkLight1: '#B27CF4',
+  green: '#5E9E14',
   clear: 'rgba(0,0,0,0)',
   facebook: '#9A61DF',
   transparent: 'rgba(0,0,0,0)',

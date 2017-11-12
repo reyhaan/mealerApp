@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import { MenuTabStyle } from '../../Styles'
-import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
+import { Header, SearchBar, Avatar, Rating, Icon } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid'; 
+import {NavigationActions} from 'react-navigation';
 
 import { Colors, Images } from '../../../Themes'
 
@@ -18,7 +19,7 @@ class MenuTab extends Component {
   constructor (props) {
     super(props)
 
-    const userObject = [
+    const menuObject = [
       {
         itemName: "Chicken Biryani",
         itemImage: Images.biryani,
@@ -62,7 +63,7 @@ class MenuTab extends Component {
     const ds = new ListView.DataSource({rowHasChanged})
 
     this.state = {
-      dataSource: ds.cloneWithRows(userObject)
+      dataSource: ds.cloneWithRows(menuObject)
     }
 
   }
@@ -101,11 +102,32 @@ class MenuTab extends Component {
     return this.state.dataSource.getRowCount() === 0
   }
 
+  addMenuItemButton = () => {
+    return (
+      <Icon
+        name='add'
+        color={Colors.snow}
+        onPress={() => this.props.navigation.navigate("CreateMenuItemScreen")}
+      />
+    )
+  }
+
+  editMenuButton = () => {
+    return (
+      <Icon
+        name='edit'
+        color={Colors.snow}
+      />
+    )
+  }
+
   render () {
     return (
       <View style={styles.container}>
 
         <Header
+          leftComponent = {this.editMenuButton()}
+          rightComponent = {this.addMenuItemButton()}
           centerComponent = {{ text: 'MENU', style: { color: '#fff', fontWeight: 'bold' } }}
           backgroundColor = {Colors.background}
           outerContainerStyles = { styles.headerOuterContainer }

@@ -30,7 +30,9 @@ const images = {
   ordersWhite: require('../Images/Icons/icon_orders_white.png'),
   infoIcon: require('../Images/Icons/info_icon.png'),
   menuWhite: require('../Images/Icons/icon_menu_white.png'),
-  biryani: require('../Images/biryani.png')
+  biryani: require('../Images/biryani.png'),
+  addItemImage: require('../Images/add_item_image.png'),
+  addItemImage2x: require('../Images/add_item_image_2x.png')
 
 }
 

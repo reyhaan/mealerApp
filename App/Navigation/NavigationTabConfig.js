@@ -10,7 +10,7 @@ const tabNavigatorConfig = {
         headerMode: 'none',
         headerStyle: styles.header
     },
-    initialRouteName: 'One',
+    initialRouteName: 'Two',
     tabBarOptions: {
         activeTintColor: Colors.snow,
         inactiveTintColor: Colors.pinkLight1,

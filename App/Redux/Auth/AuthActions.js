@@ -14,7 +14,6 @@ export const authActions = {
     signOut: 'signOut',
     signOutSuccessful: 'signOutSuccessful',
     showActivityIndicator: 'showActivityIndicator',
-
 };
 
 /******************************* ACTION CREATORS *************************************/

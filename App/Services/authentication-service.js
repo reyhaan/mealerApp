@@ -20,6 +20,11 @@ authentication.signOut = () => {
     return db.firebase.auth().signOut();
 };
 
+// Fetch the user
+authentication.fetchUser = (id) => {
+    return db.user(id).once('value')
+};
+
 // Get the current signed in user information
 authentication.currentUser = () => {
     return new Promise((resolve, reject) => {

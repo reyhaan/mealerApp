@@ -1,12 +1,12 @@
-import {StackNavigator, TabNavigator} from 'react-navigation'
+import {StackNavigator} from 'react-navigation'
 import InfoTab from '../Containers/InfoTab'
 import {SignUpScreen, LoginScreen} from '../Containers'
-import TabsView from './AppNavigationTab'
+import TabsView from './NavigationTab'
 import styles from './Styles/NavigationStyles'
 
 // Manifest of possible screens
-const PrimaryNav = StackNavigator({
-  InfoTab: { screen: InfoTab },
+export default StackNavigator({
+    InfoTab: { screen: InfoTab },
     LoginScreen: {
         screen: LoginScreen
     },
@@ -24,5 +24,3 @@ const PrimaryNav = StackNavigator({
         headerStyle: styles.header
     }
 });
-
-export default PrimaryNav

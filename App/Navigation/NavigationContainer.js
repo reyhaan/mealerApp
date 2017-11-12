@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import AppNavigation from './AppNavigation'
+import AppNavigation from './Navigation'
 
 class NavigationContainer extends Component {
     render() {

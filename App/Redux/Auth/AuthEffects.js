@@ -12,7 +12,8 @@ const authEffect = {};
 authEffect.signIn = function* (userCredentials) {
     try {
         yield put(authActionCreators.showActivityIndicator(true));
-        const user = yield call(authenticationService.signIn, userCredentials.data);
+        let user = yield call(authenticationService.signIn, userCredentials.data);
+        user = yield call(authenticationService.fetchUser, user.uid);
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield put(NavigationActions.navigate({routeName: 'TabsView'}));
         yield put(authActionCreators.signInSuccessful(user));
@@ -28,14 +29,15 @@ authEffect.signUp = function* (userCredentials) {
     try {
         yield put(authActionCreators.showActivityIndicator(true));
         yield call(authenticationService.signUp, userCredentials.data);
-        const user = yield call(authenticationService.signIn, userCredentials.data);
-        yield call([db.user(user.uid), db.user(user.uid).set], {
+        let user = yield call(authenticationService.signIn, userCredentials.data);
+        user = {
             email: userCredentials.data.email,
             uid: user.uid,
             name: userCredentials.data.name,
             type: userCredentials.data.type
-        });
+        };
         AsyncStorage.setItem('userSession', JSON.stringify(user));
+        yield call([db.user(user.uid), db.user(user.uid).set], user);
         yield put(authActionCreators.signUpSuccessful(user));
         yield put(NavigationActions.navigate({routeName: 'TabsView'}));
     } catch (error) {

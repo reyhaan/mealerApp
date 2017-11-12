@@ -1,24 +1,23 @@
-import firebase from '../Config/firebaseConfig'
+import db from '../Config/database'
 import {AsyncStorage, Alert} from 'react-native';
 
 let authentication = {};
-export default authentication;
 
 // Sign user in
 authentication.signIn = (userCredentials) => {
     userCredentials.email = userCredentials.email.toLowerCase();
-    return firebase.auth().signInWithEmailAndPassword(userCredentials.email, userCredentials.password);
+    return db.firebase.auth().signInWithEmailAndPassword(userCredentials.email, userCredentials.password);
 };
 
 // Sign up user
 authentication.signUp = (userCredentials) => {
     userCredentials.email = userCredentials.email.toLowerCase();
-    return firebase.auth().createUserWithEmailAndPassword(userCredentials.email, userCredentials.password);
+    return db.firebase.auth().createUserWithEmailAndPassword(userCredentials.email, userCredentials.password);
 };
 
 // Sign user out
 authentication.signOut = () => {
-    return firebase.auth().signOut();
+    return db.firebase.auth().signOut();
 };
 
 // Get the current signed in user information
@@ -31,5 +30,7 @@ authentication.currentUser = () => {
         })
     });
 };
+
+export default authentication;
 
 

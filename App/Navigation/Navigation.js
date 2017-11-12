@@ -17,10 +17,12 @@ import {
 // Determine what type of tab to show
 let activeTab = TabNavigator(MerchantTab, NavigationTabConfig);
 authenticationService.currentUser().then(user => {
-    // user.type = "merchant";
-    user.type = "customer";
-    console.log(user);
-    activeTab = user.type === "merchant" ? MerchantTab : CustomerTab;
+    if (user && user.type){
+        // user.type = "merchant";
+        user.type = "customer";
+        console.log(user);
+        activeTab = user.type === "merchant" ? MerchantTab : CustomerTab;
+    }
 });
 
 const TabsScreen = StackNavigator(

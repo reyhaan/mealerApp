@@ -4,6 +4,8 @@ import CooksTab from './Customer/CooksTab/CooksTab'
 import OrdersTab from './Customer/OrdersTab/OrdersTab'
 import SettingsTab from './Customer/SettingsTab/SettingsTab'
 import UserInfoChangeScreen from './Customer/SettingsTab/UserInfoChangeScreen'
+import InfoTab from './InfoTab'
+import MenuTab from './Merchant/MenuTab/MenuTab'
 
 export {
     LoginScreen,
@@ -11,5 +13,7 @@ export {
     CooksTab,
     OrdersTab,
     SettingsTab,
-    UserInfoChangeScreen
+    UserInfoChangeScreen,
+    InfoTab,
+    MenuTab
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, Platform, Image } from 'react-native'
+import { ScrollView, Text, View, Platform, Image, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { Header, Icon, Button, FormInput, FormLabel } from 'react-native-elements'
 import { Colors, Fonts, Metrics } from '../../../Themes'
@@ -33,66 +33,68 @@ class CreateMenuItemScreen extends Component {
 
   render () {
     return (
-      <View style = {styles.container}>
-        <Header
-          leftComponent = {this._backButton()}
-          rightComponent = {null}
-          centerComponent = {{ text: 'ADD ITEM', style: { color: Colors.snow, fontWeight: 'bold' } }}
-          backgroundColor = {Colors.background}
-          outerContainerStyles = { styles.headerOuterContainer }
-        />
-
-        <Grid>
-            <Row style={{ height: 200 }}>
-              <MlImagePicker callback={(url) => {console.log(url)}}></MlImagePicker>
-            </Row>
-
-            <Row size={1} style={{backgroundColor: Colors.cloud }}>
-              <View style={styles.formContainer}>
-                <FormLabel labelStyle={styles.formLabel}>NAME</FormLabel>
-                <FormInput
-                  underlineColorAndroid="transparent"
-                  autoCapitalize="none"
-                  containerStyle={styles.inputContainer}
-                  keyboardType="email-address" />
-
-                <FormLabel labelStyle={styles.formLabel}>DETAIL</FormLabel>
-                <FormInput
-                  underlineColorAndroid="transparent"
-                  inputStyle={styles.inputField}
-                  containerStyle={styles.inputContainer}
-                  autoCapitalize="none" />
-
-                <FormLabel labelStyle={styles.formLabel}>COST</FormLabel>
-                <FormInput
-                  underlineColorAndroid="transparent"
-                  inputStyle={styles.inputField}
-                  containerStyle={styles.inputContainer}
-                  autoCapitalize="none" />
-
-                <Row style={{height: 40, marginTop: Metrics.doubleBaseMargin}}>
-
-                  <Col size={1}>
-                    <Button
-                      buttonStyle={[styles.greenButton]}
-                      textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                      title={`DONE`} />
-                  </Col>
-                  
-                  <Col size={1}>
-                    <Button
-                      buttonStyle={[styles.cancelButton]}
-                      textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                      title={`CANCEL`} />
-                  </Col>
-
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <View style = {styles.container}>
+          <Header
+            leftComponent = {this._backButton()}
+            rightComponent = {null}
+            centerComponent = {{ text: 'ADD ITEM', style: { color: Colors.snow, fontWeight: 'bold' } }}
+            backgroundColor = {Colors.background}
+            outerContainerStyles = { styles.headerOuterContainer }
+          />
+          <ScrollView>
+            <Grid>
+                <Row style={{ height: 200 }}>
+                  <MlImagePicker callback={(url) => {console.log(url)}}></MlImagePicker>
                 </Row>
-              </View>
-            </Row>
 
-        </Grid>
-        
-      </View>
+                <Row size={1} style={{backgroundColor: Colors.cloud }}>
+                  <View style={styles.formContainer}>
+                    <FormLabel labelStyle={styles.formLabel}>NAME</FormLabel>
+                    <FormInput
+                      underlineColorAndroid="transparent"
+                      autoCapitalize="none"
+                      containerStyle={styles.inputContainer}
+                      keyboardType="email-address" />
+
+                    <FormLabel labelStyle={styles.formLabel}>DETAIL</FormLabel>
+                    <FormInput
+                      underlineColorAndroid="transparent"
+                      inputStyle={styles.inputField}
+                      containerStyle={styles.inputContainer}
+                      autoCapitalize="none" />
+
+                    <FormLabel labelStyle={styles.formLabel}>COST</FormLabel>
+                    <FormInput
+                      underlineColorAndroid="transparent"
+                      inputStyle={styles.inputField}
+                      containerStyle={styles.inputContainer}
+                      autoCapitalize="none" />
+
+                    <Row style={{height: 40, marginTop: Metrics.doubleBaseMargin, marginBottom: Metrics.doubleBaseMargin}}>
+
+                      <Col size={1}>
+                        <Button
+                          buttonStyle={[styles.greenButton]}
+                          textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
+                          title={`DONE`} />
+                      </Col>
+                      
+                      <Col size={1}>
+                        <Button
+                          buttonStyle={[styles.cancelButton]}
+                          textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
+                          title={`CANCEL`} />
+                      </Col>
+
+                    </Row>
+                  </View>
+                </Row>
+
+            </Grid>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
     )
   }
 }

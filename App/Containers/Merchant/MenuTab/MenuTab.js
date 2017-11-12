@@ -6,7 +6,7 @@ import { Header, SearchBar, Avatar, Rating } from 'react-native-elements'
 import { Col, Row, Grid } from 'react-native-easy-grid'; 
 
 import { Colors, Images } from '../../../Themes';
-import {fetchMenuCreator} from '../../../Redux/Menu/MenuActions';
+import {menuCreators} from '../../../Redux/Menu/MenuActions';
 import {bindActionCreators} from 'redux';
 import {LoadingSpinner} from '../../../Components'
 
@@ -26,24 +26,14 @@ class MenuTab extends Component {
         itemCost: 6.99
       }];
 
-    const rowHasChanged = (r1, r2) => r1 !== r2
-
-    const ds = new ListView.DataSource({rowHasChanged})
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+    console.log(this.props.menu)
 
     this.state = {
-      menuObject : userObject,
       dataSource:  ds.cloneWithRows(userObject)
     }
-
   }
-  getMenu = ()=>{
-    const rowHasChanged = (r1, r2) => r1 !== r2
-    const ds = new ListView.DataSource({rowHasChanged});
-    return this.props.fetchMenuReducer ? ()=>{this.setState({
-          dataSource : ds.cloneWithRows(this.props.fetchMenuReducer)
-        }); console.log(this.props.fetchMenuReducer); return true} : false;
 
-  }
   _renderRow (rowData) {
     return (
       <View style={styles.row}>
@@ -103,14 +93,15 @@ class MenuTab extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("stat:", state)
   return {
-    fetchMenuReducer: state.fetchMenuReducer,
+    menu: state.menu,
     auth : state.auth
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({fetchMenuCreator : fetchMenuCreator}, dispatch);
+  return bindActionCreators(menuCreators, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuTab)

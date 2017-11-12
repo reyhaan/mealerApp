@@ -41,14 +41,12 @@ export default StyleSheet.create({
     },
     userTypePickerBtn:{
         marginTop:10,
-        marginLeft:4,
-        width:266,
         backgroundColor:Colors.backgroundDarker
     },
     userTypePickerDropDown:{
         marginTop:10,
-        marginLeft:20,
-        width:265,
+        marginLeft: 18,
+        marginRight: 18,
 
     },
     userTypePickerTitle:{

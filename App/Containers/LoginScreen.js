@@ -18,7 +18,13 @@ class LoginScreen extends Component {
             showSignUpScreen: false,
             checked: false,
             userLoginInfo: {'email': '', 'password': ''}
-        }
+        };
+
+        // this.state = {
+        //     showSignUpScreen: false,
+        //     checked: false,
+        //     userLoginInfo: {'email': 'rrr@rrr.com', 'password': 'rrrrrr'}
+        // };
     }
 
     toggleSignUpPage = () => {

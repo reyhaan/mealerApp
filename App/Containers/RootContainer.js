@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View, StatusBar, Alert, AsyncStorage} from 'react-native'
-import AppNavigationContainer from '../Navigation/AppNavigationContainer'
+import AppNavigationContainer from '../Navigation/NavigationContainer'
 import {connect} from 'react-redux'
 import {Font} from 'expo'
 import styles from './Styles/RootContainerStyles'

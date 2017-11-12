@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { ScrollView, Text } from 'react-native'
+import { ScrollView, View, Text } from 'react-native'
 import { connect } from 'react-redux'
-import {OrdersTabStyle} from '../../Styles'
+import {OrdersTabStyle} from '../Styles'
 import { Header } from 'react-native-elements' 
+import { IndividualOrderList } from '../../Components'
 
-import { Colors } from '../../../Themes'
+import { Colors } from '../../Themes'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -21,13 +22,20 @@ class OrdersTab extends Component {
 
   render () {
     return (
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <Header
           centerComponent = {{ text: 'ORDERS', style: { color: '#fff', fontWeight: 'bold' } }}
           backgroundColor = {Colors.background}
           outerContainerStyles = { styles.headerOuterContainer }
         />
-      </ScrollView>
+
+        <ScrollView>
+
+          <IndividualOrderList></IndividualOrderList>
+
+        </ScrollView>
+
+      </View>
     )
   }
 }

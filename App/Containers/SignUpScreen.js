@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {Button, FormInput, List, ListItem, Text} from 'react-native-elements'
 import {connect} from 'react-redux'
-import {ScrollView, View, Image, Alert, TouchableOpacity, ActivityIndicator} from 'react-native'
+import {ScrollView, View, Image, Alert} from 'react-native'
 import {Images, Fonts} from '../Themes'
 import {SignUpScreenStyle} from './Styles'
 import {bindActionCreators} from 'redux'
-import {authActionCreators} from '../Redux/Auth/AuthRedux'
+import {authActionCreators} from '../Redux/Auth/AuthActions'
 import {LoginScreen} from './index'
 import {LoadingSpinner} from '../Components'
 
@@ -17,10 +17,19 @@ class SignUpScreen extends Component {
         name: "",
         email: "",
         password: "",
-        userType: 'customer',
+        type: 'customer',
         userTypeDropDown: false,
         userTypeTitle: customerTitle
     };
+
+    // state = {
+    //     name: "john kenedy",
+    //     email: "rrr@rrr.com",
+    //     password: "rrrrrr",
+    //     type: 'customer',
+    //     userTypeDropDown: false,
+    //     userTypeTitle: customerTitle
+    // };
 
     toggleLoginScreen = () => {
         this.setState({showLoginScreen: !this.state.showLoginScreen})
@@ -35,7 +44,7 @@ class SignUpScreen extends Component {
     onSelectUserType = (value) => {
         this.toggleUserTypeDropDown();
         this.setState({
-            userType: value,
+            type: value,
             userTypeTitle: value === 'customer' ? customerTitle : merchantTitle
         });
     };
@@ -45,35 +54,15 @@ class SignUpScreen extends Component {
     };
 
     signUp = () => {
-        const {email, password} = this.state;
-        if (email && password) {
-            this.props.signUp({email, password});
+        const {email, password, name, type} = this.state;
+        if (email && password && name && type) {
+            this.props.signUp({name, email, password, type});
         } else {
-            Alert.alert("", "Please enter your email and password",)
+            Alert.alert("", "Enter your name, email & password")
         }
     };
 
     //TODO: Add form validation for email and password
-
-    userTypeDropDown = () => {
-        if (this.state.userTypeDropDown) {
-            return (
-                <List containerStyle={SignUpScreenStyle.userTypePickerDropDown}>
-                    <ListItem titleStyle={SignUpScreenStyle.userTypePickerTitle} hideChevron={true}
-                              title={"I AM A CUSTOMER"} onPress={() => {
-                        this.onSelectUserType("customer")
-                    }}/>
-                    <ListItem titleStyle={SignUpScreenStyle.userTypePickerTitle} hideChevron={true}
-                              title={"I AM A MERCHANT"} onPress={() => {
-                        this.onSelectUserType("merchant")
-                    }}/>
-                </List>
-            )
-        } else {
-            return null
-        }
-    };
-
     render() {
         if (this.state.showLoginScreen) {
             return <LoginScreen/>
@@ -85,14 +74,13 @@ class SignUpScreen extends Component {
                         <Image source={Images.mealerLogo} style={SignUpScreenStyle.mealerLogo}/>
                     </View>
 
-                    <View style={[SignUpScreenStyle.section, {marginBottom: 10}]}>
-                        {/*<FormInput*/}
-                        {/*underlineColorAndroid="transparent"*/}
-                        {/*inputStyle={SignUpScreenStyle.inputField}*/}
-                        {/*containerStyle={SignUpScreenStyle.inputContainer}*/}
-                        {/*onChangeText={(e) => this.formUpdate('name', e)}*/}
-                        {/*placeholder="NAME"/>*/}
-
+                    <View style={[SignUpScreenStyle.section]}>
+                        <FormInput
+                            underlineColorAndroid="transparent"
+                            inputStyle={SignUpScreenStyle.inputField}
+                            containerStyle={SignUpScreenStyle.inputContainer}
+                            onChangeText={(e) => this.formUpdate('name', e)}
+                            placeholder="NAME"/>
                         <FormInput
                             underlineColorAndroid="transparent"
                             autoCapitalize="none"
@@ -112,18 +100,27 @@ class SignUpScreen extends Component {
                             placeholder="PASSWORD"/>
 
                         {/*/!*Todo use TouchableOpacity for this button instead since icon is not showing properly*!/*/}
-                        {/*<Button*/}
-                        {/*buttonStyle={SignUpScreenStyle.userTypePickerBtn}*/}
-                        {/*fontWeight={'600'}*/}
-                        {/*iconRight={{name: 'check'}}*/}
-                        {/*title={this.state.userTypeTitle}*/}
-                        {/*onPress={() => {*/}
-                        {/*this.toggleUserTypeDropDown()*/}
-                        {/*}}/>*/}
+                        <Button
+                            buttonStyle={SignUpScreenStyle.userTypePickerBtn}
+                            fontWeight={'500'}
+                            iconRight={{name: 'check'}}
+                            title={this.state.userTypeTitle}
+                            onPress={() => {
+                                this.toggleUserTypeDropDown()
+                            }}/>
 
-                        {/*{this.userTypeDropDown()}*/}
+                        {this.state.userTypeDropDown ?
+                            <List containerStyle={SignUpScreenStyle.userTypePickerDropDown}>
+                                <ListItem titleStyle={SignUpScreenStyle.userTypePickerTitle} hideChevron={true}
+                                          title={"I AM A CUSTOMER"} onPress={() => {
+                                    this.onSelectUserType("customer")
+                                }}/>
+                                <ListItem titleStyle={SignUpScreenStyle.userTypePickerTitle} hideChevron={true}
+                                          title={"I AM A MERCHANT"} onPress={() => {
+                                    this.onSelectUserType("merchant")
+                                }}/>
+                            </List> : null}
 
-                        {/*<LoadingSpinner show={this.props.auth.showActivityIndicator}/>*/}
                         <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
                         <Button
                             buttonStyle={SignUpScreenStyle.signUpButton}

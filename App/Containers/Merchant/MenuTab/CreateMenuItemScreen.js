@@ -17,7 +17,7 @@ class CreateMenuItemScreen extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      image: null
+
     }
   }
 
@@ -31,19 +31,7 @@ class CreateMenuItemScreen extends Component {
     )
   }
 
-  _pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
-
-    if (!result.cancelled) {
-      this.setState({ image: result.uri });
-    }
-  };
-
   render () {
-    let { image } = this.state;
     return (
       <View style = {styles.container}>
         <Header
@@ -73,18 +61,14 @@ class CreateMenuItemScreen extends Component {
                   underlineColorAndroid="transparent"
                   inputStyle={styles.inputField}
                   containerStyle={styles.inputContainer}
-                  autoCapitalize="none"
-                  keyboardType="email-address"
-                  onChangeText={(e) => this.getUserLoginInfo('email', e)} />
+                  autoCapitalize="none" />
 
                 <FormLabel labelStyle={styles.formLabel}>COST</FormLabel>
                 <FormInput
                   underlineColorAndroid="transparent"
                   inputStyle={styles.inputField}
                   containerStyle={styles.inputContainer}
-                  autoCapitalize="none"
-                  keyboardType="email-address"
-                  onChangeText={(e) => this.getUserLoginInfo('email', e)} />
+                  autoCapitalize="none" />
 
                 <Row style={{height: 40, marginTop: Metrics.doubleBaseMargin}}>
 
@@ -92,22 +76,19 @@ class CreateMenuItemScreen extends Component {
                     <Button
                       buttonStyle={[styles.greenButton]}
                       textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                      title={`DONE`}
-                      onPress={this.login}/>
+                      title={`DONE`} />
                   </Col>
                   
                   <Col size={1}>
                     <Button
                       buttonStyle={[styles.cancelButton]}
                       textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                      title={`CANCEL`}
-                      onPress={this.login}/>
+                      title={`CANCEL`} />
                   </Col>
 
                 </Row>
               </View>
             </Row>
-
 
         </Grid>
         

@@ -11,38 +11,54 @@ export default class MlImagePicker extends Component {
 	constructor (props) {
 		super(props)
 
-    const menuObject = [
+    this.orders = [
       {
         itemName: "Chicken Biryani",
         itemImage: Images.biryani,
         itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-        itemCost: 6.99
+				itemCost: 6.99,
+				quantity: 2
       },
       {
         itemName: "Chicken Biryani",
         itemImage: Images.biryani,
         itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-        itemCost: 6.99
+				itemCost: 6.99,
+				quantity: 1
       },
       {
         itemName: "Chicken Biryani",
         itemImage: Images.biryani,
         itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-        itemCost: 6.99
+				itemCost: 6.99,
+				quantity: 5
       }
-    ]
+		]
+		
+		this.orderObject = {
+			orders: this.orders,
+			customerName: "Mohammad Rehaan"
+		}
 
 		const rowHasChanged = (r1, r2) => r1 !== r2
 
 		const ds = new ListView.DataSource({rowHasChanged})
 
 		this.state = {
-				dataSource: ds.cloneWithRows(menuObject)
+				dataSource: ds.cloneWithRows(this.orderObject.orders)
 		}
 
 	}
 
-	_renderRow (rowData) {
+	_calculateTotalCost = () => {
+		let total = 0;
+		for(let i = 0; i < this.orderObject.orders.length; i++) {
+			total += this.orderObject.orders[i].itemCost
+		}
+		return total;
+	}
+
+	_renderRow = (rowData) => {
     return (
       <View style={styles.row}>
         <View style={styles.rowInnerContainer}>
@@ -82,8 +98,10 @@ export default class MlImagePicker extends Component {
         <Grid>
 					<Col style={{ padding: 10 }}>
 
-						<Row style={{ height: 45, backgroundColor: Colors.bloodOrange }}>
-						
+						<Row style={{ paddingLeft: 10 }}>
+							<Text style={{ color: Colors.snow }} >From
+								<Text style={{ fontWeight: 'bold', color: Colors.snow }}>: { this.orderObject.customerName }</Text>
+							</Text>
 						</Row>
 
 						<Row size={1} style={styles.listContainer}>
@@ -96,8 +114,10 @@ export default class MlImagePicker extends Component {
 							/> 
 						</Row>
 
-						<Row style={{ height: 45, backgroundColor: Colors.charcoal }}>
-						
+						<Row style={{ alignItems: 'flex-end', justifyContent: 'flex-end', paddingRight: 10 }}>
+							<Text style={{ color: Colors.snow }}>Total
+								<Text style={{ color: Colors.snow, fontWeight: 'bold' }}>: $ {this._calculateTotalCost()}</Text>
+							</Text>
 						</Row>
 
 					</Col>

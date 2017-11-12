@@ -32,6 +32,9 @@ class OrdersTab extends Component {
         <ScrollView>
 
           <IndividualOrderList></IndividualOrderList>
+          <IndividualOrderList></IndividualOrderList>
+          <IndividualOrderList></IndividualOrderList>
+          <IndividualOrderList></IndividualOrderList>
 
         </ScrollView>
 

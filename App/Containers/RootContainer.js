@@ -38,7 +38,7 @@ class RootContainer extends Component {
         });
 
         if (this.state.fontLoaded) {
-            if (true || this.state.currentUser || auth.user) {
+            if (this.state.currentUser || auth.user) {
                 return (
                     <View style={styles.applicationView}><StatusBar barStyle='light-content'/>
                         <AppNavigationContainer navigation={navigation}/>

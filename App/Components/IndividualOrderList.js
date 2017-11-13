@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
 import { View, Text, Image, TouchableOpacity, ListView } from 'react-native'
-import { Header, Icon, Button, Avatar } from 'react-native-elements'
+import { Header, Icon, Button, Avatar, ButtonGroup } from 'react-native-elements'
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import { Colors, Fonts, Images } from '../Themes'
@@ -45,7 +45,10 @@ export default class MlImagePicker extends Component {
 		const ds = new ListView.DataSource({rowHasChanged})
 
 		this.state = {
-				dataSource: ds.cloneWithRows(this.orderObject.orders)
+        dataSource: ds.cloneWithRows(this.orderObject.orders),
+        index: 4,
+        isMerchant: true,
+        isCustomer: false
 		}
 
 	}
@@ -53,7 +56,7 @@ export default class MlImagePicker extends Component {
 	_calculateTotalCost = () => {
 		let total = 0;
 		for(let i = 0; i < this.orderObject.orders.length; i++) {
-			total += this.orderObject.orders[i].itemCost
+			total += (this.orderObject.orders[i].itemCost * this.orderObject.orders[i].quantity)
 		}
 		return total;
 	}
@@ -77,9 +80,11 @@ export default class MlImagePicker extends Component {
                       <Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={2} >{rowData.itemDetail}</Text>
                   </Row>
               </Col>
-              <Col style={{ width: 60 }}>
+              <Col style={{ width: 80 }}>
                   <Row style={{ height: 20, flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                      <Text style={styles.boldLabel}>$ {rowData.itemCost}</Text>
+                    <Text style={styles.itemCost}>$ {rowData.itemCost}
+                      <Text style={{ color: Colors.background, fontSize: 12 }}> x {rowData.quantity}</Text>
+                    </Text>
                   </Row>
               </Col>
           </Grid>
@@ -92,7 +97,51 @@ export default class MlImagePicker extends Component {
     return this.state.dataSource.getRowCount() === 0
   }
 
+  _updateIndex = (index) => {
+    this.setState({index})
+  }
+
+  _setButtonColor = () => {
+    switch (this.state.index) {
+      case 0:
+        return Colors.error
+        break;
+      
+      case 1:
+        return Colors.darkOrange
+        break;
+      
+      case 2:
+        return Colors.green
+        break;
+      
+      default:
+        return Colors.snow
+    }
+  }
+
+  _getOrderStatus = () => {
+    let status = 'CONFIRMED'
+    switch (status) {
+      case 'CANCELLED':
+        return (<Text style={{ color: Colors.pink, fontWeight: 'bold', fontSize: 12 }}>: CANCELLED</Text>)
+        break;
+      
+      case 'CONFIRMED':
+        return (<Text style={{ color: Colors.orange, fontWeight: 'bold', fontSize: 12 }}>: CONFIRMED</Text>)
+        break;
+      
+      case 'DELIVERED':
+        return (<Text style={{ color: Colors.green, fontWeight: 'bold', fontSize: 12 }}>: DELIVERED</Text>)
+        break;
+      
+      default:
+        return (<Text style={{ color: Colors.darkOrange, fontWeight: 'bold', fontSize: 12 }}>: CONFIRMED</Text>)
+    }
+  }
+
   render () {
+    let { isMerchant, isCustomer } = this.state
     return (
       <View style={styles.container}>
         <Grid>
@@ -114,10 +163,36 @@ export default class MlImagePicker extends Component {
 							/> 
 						</Row>
 
-						<Row style={{ alignItems: 'flex-end', justifyContent: 'flex-end', paddingRight: 10 }}>
-							<Text style={{ color: Colors.snow }}>Total
-								<Text style={{ color: Colors.snow, fontWeight: 'bold' }}>: $ {this._calculateTotalCost()}</Text>
-							</Text>
+						<Row>
+
+              {isMerchant &&
+                <Col size={2}>
+                  <ButtonGroup
+                    selectedBackgroundColor={this._setButtonColor()}
+                    onPress={this._updateIndex}
+                    selectedIndex={this.state.index}
+                    buttons={['CANCEL', 'CONFIRM', 'DELIVERED']}
+                    containerStyle={{height: 30, borderWidth: 0, borderRadius: 2, backgroundColor: Colors.backgroundDarker}}
+                    containerBorderRadius={2}
+                    textStyle={{ fontSize: 10, color: Colors.snow }}
+                    selectedTextStyle={{ color: Colors.snow }}
+                    innerBorderStyle={{ color: Colors.background }} />
+                </Col>
+              }
+
+              {isCustomer &&
+                <Col size={2} style={{ paddingLeft: 10 }}>
+                  <Text style={{ color: Colors.snow }}>Status
+                    <Text style={{ color: Colors.snow, fontWeight: 'bold' }}>: {this._getOrderStatus()}</Text>
+                  </Text>
+                </Col>
+              }
+
+              <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 10 }}>
+                <Text style={{ color: Colors.snow }}>Total
+                  <Text style={{ color: Colors.snow, fontWeight: 'bold' }}>: $ {this._calculateTotalCost()}</Text>
+                </Text>
+              </Col>
 						</Row>
 
 					</Col>

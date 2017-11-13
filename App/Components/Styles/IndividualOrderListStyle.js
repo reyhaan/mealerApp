@@ -31,7 +31,13 @@ export default StyleSheet.create({
   boldLabel: {
     fontWeight: 'bold',
     fontSize: 12,
-    fontFamily: Fonts.type.bold
+    fontFamily: Fonts.type.bold,
+  },
+  itemCost: {
+    fontWeight: 'bold',
+    fontSize: 12,
+    fontFamily: Fonts.type.bold,
+    color: Colors.background
   },
   label: {
     textAlign: 'center',

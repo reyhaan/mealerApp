@@ -69,7 +69,7 @@ const TabsScreen = StackNavigator(
 // Manifest of possible screens
 export default StackNavigator({
     LoginScreen: {
-        screen: LoginScreen
+        screen: TabsScreen
     },
     SignUpScreen: {
         screen: SignUpScreen

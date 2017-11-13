@@ -53,7 +53,7 @@ export default class MlImagePicker extends Component {
 	_calculateTotalCost = () => {
 		let total = 0;
 		for(let i = 0; i < this.orderObject.orders.length; i++) {
-			total += this.orderObject.orders[i].itemCost
+			total += (this.orderObject.orders[i].itemCost * this.orderObject.orders[i].quantity)
 		}
 		return total;
 	}
@@ -77,9 +77,11 @@ export default class MlImagePicker extends Component {
                       <Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={2} >{rowData.itemDetail}</Text>
                   </Row>
               </Col>
-              <Col style={{ width: 60 }}>
+              <Col style={{ width: 80 }}>
                   <Row style={{ height: 20, flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                      <Text style={styles.boldLabel}>$ {rowData.itemCost}</Text>
+                      <Text style={styles.itemCost}>$ {rowData.itemCost}
+                        <Text style={{ color: Colors.background, fontSize: 12 }}> x {rowData.quantity}</Text>
+                      </Text>
                   </Row>
               </Col>
           </Grid>

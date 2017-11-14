@@ -50,6 +50,11 @@ const style = {
   description: {
     fontFamily: type.base,
     fontSize: size.medium
+  },
+  bold: {
+    fontFamily: type.bold,
+    fontWeight: '800',
+    fontSize: size.medium
   }
 }
 

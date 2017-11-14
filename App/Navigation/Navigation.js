@@ -63,11 +63,11 @@ const TabsScreen = StackNavigator(
             backgroundColor: Colors.background,
             // paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
         }
-    });
+    }
+);
 
 // Manifest of possible screens
 export default StackNavigator({
-    InfoTab: {screen: InfoTab},
     LoginScreen: {
         screen: LoginScreen
     },

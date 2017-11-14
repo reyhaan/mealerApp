@@ -1,9 +1,10 @@
 import {Colors} from '../Themes'
 import {TabNavigator, StackNavigator} from 'react-navigation'
-import NavigationTabConfig from './NavigationTabConfig'
 import authenticationService from '../Services/authentication-service'
 import CustomerTab from './CustomerTabConfig'
 import MerchantTab from './MerchantTabConfig'
+import styles from './Styles/NavigationStyles'
+import {Platform} from 'react-native'
 import {
     LoginScreen,
     SignUpScreen,
@@ -11,9 +12,41 @@ import {
     CreateMenuItemScreen
 } from '../Containers'
 
+const tabNavigatorConfig = {
+    swipeEnabled: false,
+    animationEnabled: false,
+    tabBarPosition: 'bottom',
+    navigationOptions: {
+        headerMode: 'none',
+        headerStyle: styles.header
+    },
+    initialRouteName: 'Two',
+    tabBarOptions: {
+        activeTintColor: Colors.snow,
+        inactiveTintColor: Colors.pinkLight1,
+        showIcon: true,
+        showLabel: false,
+        labelStyle: {
+            fontSize: 11,
+            fontWeight: 'bold',
+            marginTop: (Platform.OS === 'ios') ? -2 : 2,
+            paddingBottom: (Platform.OS === 'ios') ? 6 : 0
+        },
+        style: {
+            backgroundColor: Colors.backgroundDarker,
+            height: (Platform.OS === 'ios') ? 48 : 48
+        },
+        tabStyle: {
+            borderColor: Colors.backgroundDarker
+        },
+        indicatorStyle: styles.indicator,
+    }
+};
 
-// Determine what type of tab to show
-let activeTab = TabNavigator(MerchantTab, NavigationTabConfig);
+
+/******************************* Determine what type of tab to show *************************************/
+let activeTab = TabNavigator(MerchantTab, tabNavigatorConfig);
+
 authenticationService.currentUser().then(user => {
     if (user && user.type) {
         // user.type = "merchant";
@@ -22,9 +55,9 @@ authenticationService.currentUser().then(user => {
         activeTab = user.type === "merchant" ? MerchantTab : CustomerTab;
     }
 });
+/******************************* ************************************* *************************************/
 
-const TabsScreen = StackNavigator(
-    {
+const TabsScreen = StackNavigator({
         Root: {
             screen: activeTab,
             navigationOptions: ({navigation}) => ({

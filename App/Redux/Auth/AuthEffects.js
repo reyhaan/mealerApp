@@ -15,8 +15,9 @@ authEffect.signIn = function* (userCredentials) {
         let user = yield call(authenticationService.signIn, userCredentials.data);
         user = yield call(authenticationService.fetchUser, user.uid);
         AsyncStorage.setItem('userSession', JSON.stringify(user));
-        yield put(NavigationActions.navigate({routeName: 'TabsView'}));
         yield put(authActionCreators.signInSuccessful(user));
+        yield put(NavigationActions.navigate({routeName: 'TabsScreen'}));
+
     } catch (error) {
         Alert.alert('Error', error.message);
     } finally {
@@ -39,7 +40,7 @@ authEffect.signUp = function* (userCredentials) {
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield call([db.user(user.uid), db.user(user.uid).set], user);
         yield put(authActionCreators.signUpSuccessful(user));
-        yield put(NavigationActions.navigate({routeName: 'TabsView'}));
+        yield put(NavigationActions.navigate({routeName: 'TabsScreen'}));
     } catch (error) {
         Alert.alert('Error', error.message);
     } finally {

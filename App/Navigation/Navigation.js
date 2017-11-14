@@ -1,8 +1,6 @@
 import {Colors} from '../Themes'
 import {TabNavigator, StackNavigator} from 'react-navigation'
-import authenticationService from '../Services/authentication-service'
-import CustomerTab from './CustomerTabConfig'
-import MerchantTab from './MerchantTabConfig'
+import {merchantTabsConfig} from './MerchantNavigation'
 import styles from './Styles/NavigationStyles'
 import {Platform} from 'react-native'
 import {
@@ -12,7 +10,7 @@ import {
     CreateMenuItemScreen
 } from '../Containers'
 
-const tabNavigatorConfig = {
+export const tabNavigatorConfig = {
     swipeEnabled: false,
     animationEnabled: false,
     tabBarPosition: 'bottom',
@@ -43,23 +41,9 @@ const tabNavigatorConfig = {
     }
 };
 
-
-/******************************* Determine what type of tab to show *************************************/
-let activeTab = TabNavigator(MerchantTab, tabNavigatorConfig);
-
-authenticationService.currentUser().then(user => {
-    if (user && user.type) {
-        // user.type = "merchant";
-        user.type = "customer";
-        console.log(user);
-        activeTab = user.type === "merchant" ? MerchantTab : CustomerTab;
-    }
-});
-/******************************* ************************************* *************************************/
-
-const TabsScreen = StackNavigator({
+export const TabsScreen = StackNavigator({
         Root: {
-            screen: activeTab,
+            screen: TabNavigator(merchantTabsConfig, tabNavigatorConfig),
             navigationOptions: ({navigation}) => ({
                 header: null
             })
@@ -102,3 +86,18 @@ export default StackNavigator({
     headerMode: 'none',
     initialRouteName: 'TabsScreen',
 });
+
+
+
+
+
+
+
+// authenticationService.currentUser().then(user => {
+//     if (user && user.type) {
+//         // user.type = "merchant";
+//         user.type = "customer";
+//         console.log(user);
+//         activeTab = user.type === "merchant" ? MerchantTab : CustomerTab;
+//     }
+// });

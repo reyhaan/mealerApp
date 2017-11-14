@@ -1,0 +1,119 @@
+import React from 'react'
+import {Colors} from '../Themes'
+import {Image} from 'react-native'
+import styles from './Styles/NavigationStyles'
+import {Images} from '../Themes'
+import {tabNavigatorConfig} from './Navigation'
+import {TabNavigator, StackNavigator} from 'react-navigation'
+import {
+    OrdersTab,
+    SettingsTab,
+    InfoTab,
+    MenuTab,
+    LoginScreen,
+    SignUpScreen,
+    UserInfoChangeScreen,
+    CreateMenuItemScreen
+} from '../Containers'
+
+export const  merchantTabsConfig = {
+    One: {
+        screen: MenuTab,
+        navigationOptions: {
+            // tabBarLabel: 'COOKS',
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={Images.menuWhite}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+            headerStyle: styles.header
+        },
+    },
+
+    Two: {
+        screen: OrdersTab,
+        navigationOptions: {
+            // tabBarLabel: 'ORDERS',
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={Images.ordersWhite}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        },
+    },
+
+    Three: {
+        screen: SettingsTab,
+        navigationOptions: {
+            // tabBarLabel: 'SETTINGS',
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={Images.settingsWhite}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        },
+    },
+
+    Four: {
+        screen: InfoTab,
+        navigationOptions: {
+            // tabBarLabel: 'SETTINGS',
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={Images.infoIcon}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        },
+    }
+};
+
+
+const TabsScreen = StackNavigator({
+        Root: {
+            screen: TabNavigator(merchantTabsConfig, tabNavigatorConfig),
+            navigationOptions: ({navigation}) => ({
+                header: null
+            })
+        },
+        UserInfoChangeScreen: {
+            screen: UserInfoChangeScreen,
+            navigationOptions: ({navigation}) => ({
+                title: `${navigation.state.params.page}`,
+            }),
+        },
+        CreateMenuItemScreen: {
+            screen: CreateMenuItemScreen,
+            navigationOptions: ({navigation}) => ({
+                title: "CREATE"
+            }),
+        }
+    }, {
+        navigationOptions: ({navigation}) => ({
+            header: null,
+        }),
+        cardStyle: {
+            backgroundColor: Colors.background
+        }
+    }
+);
+
+// Manifest of possible screens
+export default StackNavigator({
+    LoginScreen: {
+        screen: LoginScreen
+    },
+    SignUpScreen: {
+        screen: SignUpScreen
+    },
+    TabsScreen: {
+        screen: TabsScreen
+    }
+}, {
+    // Default config for all screens
+    headerMode: 'none',
+    initialRouteName: 'TabsScreen',
+});

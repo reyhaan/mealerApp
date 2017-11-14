@@ -3,20 +3,19 @@ import {Image} from 'react-native'
 import styles from './Styles/NavigationStyles'
 import {Images} from '../Themes'
 import {
+    CooksTab,
     OrdersTab,
     SettingsTab,
-    InfoTab,
-    MenuTab,
 } from '../Containers'
 
-const  merchantTabsList = {
+const customerTabsConfig = {
     One: {
-        screen: MenuTab,
+        screen: CooksTab,
         navigationOptions: {
             // tabBarLabel: 'COOKS',
             tabBarIcon: ({tintColor}) => (
                 <Image
-                    source={Images.menuWhite}
+                    source={Images.cooksWhite}
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
@@ -51,7 +50,7 @@ const  merchantTabsList = {
     },
 
     Four: {
-        screen: InfoTab,
+        screen: OrdersTab,
         navigationOptions: {
             // tabBarLabel: 'SETTINGS',
             tabBarIcon: ({tintColor}) => (
@@ -63,4 +62,5 @@ const  merchantTabsList = {
         },
     }
 };
-export default merchantTabsList;
+
+export default customerTabsConfig;

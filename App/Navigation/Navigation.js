@@ -1,4 +1,3 @@
-import styles from './Styles/NavigationStyles'
 import {Colors} from '../Themes'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import NavigationTabConfig from './NavigationTabConfig'
@@ -9,7 +8,6 @@ import {
     LoginScreen,
     SignUpScreen,
     UserInfoChangeScreen,
-    InfoTab,
     CreateMenuItemScreen
 } from '../Containers'
 
@@ -17,7 +15,7 @@ import {
 // Determine what type of tab to show
 let activeTab = TabNavigator(MerchantTab, NavigationTabConfig);
 authenticationService.currentUser().then(user => {
-    if (user && user.type){
+    if (user && user.type) {
         // user.type = "merchant";
         user.type = "customer";
         console.log(user);
@@ -45,23 +43,12 @@ const TabsScreen = StackNavigator(
                 title: "CREATE"
             }),
         }
-    },
-    {
+    }, {
         navigationOptions: ({navigation}) => ({
             header: null,
-            // title: `${navigation.state.params}`,
-            // headerStyle: {
-            //     backgroundColor: Colors.background
-            // },
-            // headerBackTitle: null,
-            // headerBackTitleStyle: {
-            //     color: Colors.snow
-            // },
-            // headerTintColor: Colors.snow,
         }),
         cardStyle: {
-            backgroundColor: Colors.background,
-            // paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+            backgroundColor: Colors.background
         }
     }
 );
@@ -81,7 +68,4 @@ export default StackNavigator({
     // Default config for all screens
     headerMode: 'none',
     initialRouteName: 'TabsScreen',
-    navigationOptions: {
-        headerStyle: styles.header
-    }
 });

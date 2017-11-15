@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Image, TouchableOpacity, Alert, ActivityIndicator} from 'react-native'
+import {ScrollView, View, Image, TouchableOpacity, Alert} from 'react-native'
 import {LoginScreenStyle} from './Styles'
-import {Button, FormInput, Text, CheckBox} from 'react-native-elements'
+import {Button, FormInput, Text} from 'react-native-elements'
 import {Images, Fonts} from '../Themes'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -14,24 +14,23 @@ import authenticationService from '../Services/authentication-service'
 class LoginScreen extends Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     showSignUpScreen: false,
-        //     checked: false,
-        //     userLoginInfo: {'email': '', 'password': ''}
-        // };
-
         this.state = {
             showSignUpScreen: false,
             checked: false,
-            userLoginInfo: {'email': 'rrr@rrr.com', 'password': 'rrrrrr'}
+            userLoginInfo: {'email': '', 'password': ''}
         };
+
+        // this.state = {
+        //     showSignUpScreen: false,
+        //     checked: false,
+        //     userLoginInfo: {'email': 'rrr@rrr.com', 'password': 'rrrrrr'}
+        // };
     }
 
     async componentDidMount() {
         try {
             const currentUser = await authenticationService.currentUser();
             const {navigation} = this.props;
-
             if (currentUser && currentUser.type === "customer") {
                 navigation.navigate('CustomerTab')
             } else if (currentUser && currentUser.type === "merchant") {
@@ -95,18 +94,6 @@ class LoginScreen extends Component {
                             placeholder="PASSWORD"
                             secureTextEntry={true}/>
                         <View style={LoginScreenStyle.forgotPasswordView}>
-                            {/*<CheckBox*/}
-                            {/*title='Remember me'*/}
-                            {/*iconLeft*/}
-                            {/*checked={this.state.checked}*/}
-                            {/*checkedColor={'white'}*/}
-                            {/*uncheckedColor={'white'}*/}
-                            {/*textStyle={LoginScreenStyle.checkBoxTextStyle}*/}
-                            {/*containerStyle={LoginScreenStyle.checkBoxContainerStyle}*/}
-                            {/*onPress={this.toggleCheckBox}/>*/}
-                            {/*<Text style={LoginScreenStyle.forgotPasswordTextStyle}>*/}
-                            {/*Forgot Password?*/}
-                            {/*</Text>*/}
                         </View>
                         <View Style={LoginScreenStyle.loginButtonView}>
                             <LoadingSpinner show={this.props.auth.showActivityIndicator}/>

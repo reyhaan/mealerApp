@@ -18,7 +18,6 @@ const merchantTabsConfig = {
     One: {
         screen: MenuTab,
         navigationOptions: {
-            // tabBarLabel: 'COOKS',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.menuWhite}
@@ -32,7 +31,6 @@ const merchantTabsConfig = {
     Two: {
         screen: OrdersTab,
         navigationOptions: {
-            // tabBarLabel: 'ORDERS',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.ordersWhite}
@@ -45,7 +43,6 @@ const merchantTabsConfig = {
     Three: {
         screen: SettingsTab,
         navigationOptions: {
-            // tabBarLabel: 'SETTINGS',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.settingsWhite}
@@ -58,7 +55,6 @@ const merchantTabsConfig = {
     Four: {
         screen: InfoTab,
         navigationOptions: {
-            // tabBarLabel: 'SETTINGS',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.infoIcon}

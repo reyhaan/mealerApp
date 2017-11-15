@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, FormInput, List, ListItem, Text} from 'react-native-elements'
+import {Button, FormInput, List, ListItem} from 'react-native-elements'
 import {connect} from 'react-redux'
 import {ScrollView, View, Image, Alert} from 'react-native'
 import {Images, Fonts} from '../Themes'
@@ -13,23 +13,23 @@ const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
 
 class SignUpScreen extends Component {
-    // state = {
-    //     name: "",
-    //     email: "",
-    //     password: "",
-    //     type: 'customer',
-    //     userTypeDropDown: false,
-    //     userTypeTitle: customerTitle
-    // };
-
     state = {
-        name: "john kenedy",
-        email: "rrr@rrr.com",
-        password: "rrrrrr",
+        name: "",
+        email: "",
+        password: "",
         type: 'customer',
         userTypeDropDown: false,
         userTypeTitle: customerTitle
     };
+
+    // state = {
+    //     name: "john kenedy",
+    //     email: "rrr@rrr.com",
+    //     password: "rrrrrr",
+    //     type: 'customer',
+    //     userTypeDropDown: false,
+    //     userTypeTitle: customerTitle
+    // };
 
     toggleLoginScreen = () => {
         this.setState({showLoginScreen: !this.state.showLoginScreen})

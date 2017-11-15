@@ -12,8 +12,6 @@ menuEffects.getFoodMenu = function* (){
     try{
         const menu = yield call(foodMenuQueries.getAllFoodMenu);
         yield put(menuCreators.fetchMenuSuccessful(menu))
-        
-        console.log(menu);
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {

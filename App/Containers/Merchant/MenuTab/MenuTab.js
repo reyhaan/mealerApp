@@ -17,24 +17,41 @@ class MenuTab extends Component {
   constructor (props) {
     super(props)
     this.props.fetchMenuCreator();
-
-    const userObject = [
-      {
-        itemName: "Chicken Biryani",
-        itemImage: Images.biryani,
-        itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-        itemCost: 6.99
-      }];
-
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-    console.log(this.props.menu)
-
     this.state = {
-      dataSource:  ds.cloneWithRows(userObject)
+      dataSource:  null, 
+      isMounted: false
     }
+  }
+  setDataSource =()=>{
+    const menuList = this.props.menu;
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.setState({dataSource:  ds.cloneWithRows(menuList)});
+    
+  }
+  componentDidMount(){
+    return this.setState({isMounted: true});
+  }
+
+  componentWillReceiveProps(){
+    setTimeout(()=>{
+      if(this.state.isMounted){
+        this.componentDidReceiveProps()
+      }
+    })
+  }
+
+  componentDidReceiveProps(){
+    this.setDataSource();
+  }
+  
+  componentWillUnmount(){
+    return this.setState({isMounted: false});
   }
 
   _renderRow (rowData) {
+    const ItemCostStyle = { height: 20, 
+      flex: 1, flexDirection: 'column', 
+      justifyContent: 'center', alignItems: 'center'}
     return (
       <View style={styles.row}>
         <View style={styles.rowInnerContainer}>
@@ -50,11 +67,12 @@ class MenuTab extends Component {
                       <Text style={styles.boldLabel}>{rowData.itemName}</Text>
                   </Row>
                   <Row style={{ height: 26 }}>
-                      <Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={2} >{rowData.itemDetail}</Text>
+                      <Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={2}>
+                      {rowData.itemDetail}</Text>
                   </Row>
               </Col>
               <Col style={{ width: 60 }}>
-                  <Row style={{ height: 20, flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                  <Row style={ItemCostStyle}>
                       <Text style={styles.boldLabel}>$ {rowData.itemCost}</Text>
                   </Row>
               </Col>
@@ -69,15 +87,14 @@ class MenuTab extends Component {
   }
 
   render () {
+        if(this.props.menu.length>0 && this.state.dataSource){
         return (
           <View style={styles.container}>
-
             <Header
               centerComponent = {{ text: 'MENU', style: { color: '#fff', fontWeight: 'bold' } }}
               backgroundColor = {Colors.background}
               outerContainerStyles = { styles.headerOuterContainer }
             />
-
             <ListView
               contentContainerStyle={styles.listContent}
               dataSource={this.state.dataSource}
@@ -85,15 +102,13 @@ class MenuTab extends Component {
               enableEmptySections
               pageSize={15}
             /> 
-
           </View>
-        )
-    
+        ) }
+        return (<LoadingSpinner show={true} />)
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log("stat:", state)
   return {
     menu: state.menu,
     auth : state.auth

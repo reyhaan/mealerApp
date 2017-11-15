@@ -13,23 +13,23 @@ const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
 
 class SignUpScreen extends Component {
-    state = {
-        name: "",
-        email: "",
-        password: "",
-        type: 'customer',
-        userTypeDropDown: false,
-        userTypeTitle: customerTitle
-    };
-
     // state = {
-    //     name: "john kenedy",
-    //     email: "rrr@rrr.com",
-    //     password: "rrrrrr",
+    //     name: "",
+    //     email: "",
+    //     password: "",
     //     type: 'customer',
     //     userTypeDropDown: false,
     //     userTypeTitle: customerTitle
     // };
+
+    state = {
+        name: "john kenedy",
+        email: "rrr@rrr.com",
+        password: "rrrrrr",
+        type: 'customer',
+        userTypeDropDown: false,
+        userTypeTitle: customerTitle
+    };
 
     toggleLoginScreen = () => {
         this.setState({showLoginScreen: !this.state.showLoginScreen})
@@ -145,5 +145,5 @@ class SignUpScreen extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
-const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
+const mapStateToProps = state => ({auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)

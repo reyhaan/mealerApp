@@ -4,31 +4,46 @@ import {LoginScreenStyle} from './Styles'
 import {Button, FormInput, Text, CheckBox} from 'react-native-elements'
 import {Images, Fonts} from '../Themes'
 import {connect} from 'react-redux'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import {Colors} from '../Themes/'
 import {bindActionCreators} from 'redux'
 import {SignUpScreen} from './index'
 import {authActionCreators} from '../Redux/Auth/AuthActions'
 import {LoadingSpinner} from '../Components'
+import authenticationService from '../Services/authentication-service'
+
 
 class LoginScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showSignUpScreen: false,
-            checked: false,
-            userLoginInfo: {'email': '', 'password': ''}
-        };
-
         // this.state = {
         //     showSignUpScreen: false,
         //     checked: false,
-        //     userLoginInfo: {'email': 'rrr@rrr.com', 'password': 'rrrrrr'}
+        //     userLoginInfo: {'email': '', 'password': ''}
         // };
+
+        this.state = {
+            showSignUpScreen: false,
+            checked: false,
+            userLoginInfo: {'email': 'rrr@rrr.com', 'password': 'rrrrrr'}
+        };
+    }
+
+    async componentDidMount() {
+        try {
+            const currentUser = await authenticationService.currentUser();
+            const {navigation} = this.props;
+
+            if (currentUser && currentUser.type === "customer") {
+                navigation.navigate('CustomerTab')
+            } else if (currentUser && currentUser.type === "merchant") {
+                navigation.navigate('MerchantTab')
+            }
+        } catch (err) {
+            Alert.alert('Error', err);
+        }
     }
 
     toggleSignUpPage = () => {
-        this.setState({showSignUpScreen: !this.state.showSignUpScreen})
+        this.setState({showSignUpScreen: !this.state.showSignUpScreen});
     };
     toggleCheckBox = () => {
         this.setState({checked: !this.state.checked})
@@ -111,5 +126,5 @@ class LoginScreen extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
-const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
+const mapStateToProps = state => ({auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

@@ -1,12 +1,17 @@
 import React from 'react'
+import {Colors} from '../../Themes/index'
 import {Image} from 'react-native'
-import styles from './Styles/NavigationStyles'
-import {Images} from '../Themes'
+import styles from '../Styles/NavigationStyles'
+import {Images} from '../../Themes/index'
+import {TabNavigator, StackNavigator} from 'react-navigation'
+import {tabNavigatorConfig} from '../Navigation'
 import {
     CooksTab,
     OrdersTab,
     SettingsTab,
-} from '../Containers'
+    UserInfoChangeScreen,
+    CreateMenuItemScreen
+} from '../../Containers/index'
 
 const customerTabsConfig = {
     One: {
@@ -63,4 +68,31 @@ const customerTabsConfig = {
     }
 };
 
-export default customerTabsConfig;
+export default StackNavigator({
+        Root: {
+            screen: TabNavigator(customerTabsConfig, tabNavigatorConfig),
+            navigationOptions: ({navigation}) => ({
+                header: null
+            })
+        },
+        UserInfoChangeScreen: {
+            screen: UserInfoChangeScreen,
+            navigationOptions: ({navigation}) => ({
+                title: `${navigation.state.params.page}`,
+            }),
+        },
+        CreateMenuItemScreen: {
+            screen: CreateMenuItemScreen,
+            navigationOptions: ({navigation}) => ({
+                title: "CREATE"
+            }),
+        }
+    }, {
+        navigationOptions: ({navigation}) => ({
+            header: null,
+        }),
+        cardStyle: {
+            backgroundColor: Colors.background
+        }
+    }
+);

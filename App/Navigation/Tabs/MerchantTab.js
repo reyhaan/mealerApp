@@ -1,22 +1,20 @@
 import React from 'react'
-import {Colors} from '../Themes'
+import {Colors} from '../../Themes/index'
 import {Image} from 'react-native'
-import styles from './Styles/NavigationStyles'
-import {Images} from '../Themes'
-import {tabNavigatorConfig} from './Navigation'
+import styles from '../Styles/NavigationStyles'
+import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
+import {tabNavigatorConfig} from '../Navigation'
 import {
     OrdersTab,
     SettingsTab,
     InfoTab,
     MenuTab,
-    LoginScreen,
-    SignUpScreen,
     UserInfoChangeScreen,
     CreateMenuItemScreen
-} from '../Containers'
+} from '../../Containers/index'
 
-export const  merchantTabsConfig = {
+const merchantTabsConfig = {
     One: {
         screen: MenuTab,
         navigationOptions: {
@@ -71,8 +69,7 @@ export const  merchantTabsConfig = {
     }
 };
 
-
-const TabsScreen = StackNavigator({
+export default StackNavigator({
         Root: {
             screen: TabNavigator(merchantTabsConfig, tabNavigatorConfig),
             navigationOptions: ({navigation}) => ({
@@ -100,20 +97,3 @@ const TabsScreen = StackNavigator({
         }
     }
 );
-
-// Manifest of possible screens
-export default StackNavigator({
-    LoginScreen: {
-        screen: LoginScreen
-    },
-    SignUpScreen: {
-        screen: SignUpScreen
-    },
-    TabsScreen: {
-        screen: TabsScreen
-    }
-}, {
-    // Default config for all screens
-    headerMode: 'none',
-    initialRouteName: 'TabsScreen',
-});

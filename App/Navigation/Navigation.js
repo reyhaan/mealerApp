@@ -1,13 +1,12 @@
 import {Colors} from '../Themes'
-import {TabNavigator, StackNavigator} from 'react-navigation'
-import {merchantTabsConfig} from './MerchantNavigation'
+import {StackNavigator} from 'react-navigation'
 import styles from './Styles/NavigationStyles'
 import {Platform} from 'react-native'
+import MerchantTab from './Tabs/MerchantTab'
+import CustomerTab from './Tabs/CustomerTab'
 import {
     LoginScreen,
     SignUpScreen,
-    UserInfoChangeScreen,
-    CreateMenuItemScreen
 } from '../Containers'
 
 export const tabNavigatorConfig = {
@@ -41,34 +40,6 @@ export const tabNavigatorConfig = {
     }
 };
 
-export const TabsScreen = StackNavigator({
-        Root: {
-            screen: TabNavigator(merchantTabsConfig, tabNavigatorConfig),
-            navigationOptions: ({navigation}) => ({
-                header: null
-            })
-        },
-        UserInfoChangeScreen: {
-            screen: UserInfoChangeScreen,
-            navigationOptions: ({navigation}) => ({
-                title: `${navigation.state.params.page}`,
-            }),
-        },
-        CreateMenuItemScreen: {
-            screen: CreateMenuItemScreen,
-            navigationOptions: ({navigation}) => ({
-                title: "CREATE"
-            }),
-        }
-    }, {
-        navigationOptions: ({navigation}) => ({
-            header: null,
-        }),
-        cardStyle: {
-            backgroundColor: Colors.background
-        }
-    }
-);
 
 // Manifest of possible screens
 export default StackNavigator({
@@ -78,26 +49,14 @@ export default StackNavigator({
     SignUpScreen: {
         screen: SignUpScreen
     },
-    TabsScreen: {
-        screen: TabsScreen
+    MerchantTab: {
+        screen: MerchantTab
+    },
+    CustomerTab: {
+        screen: CustomerTab
     }
 }, {
     // Default config for all screens
     headerMode: 'none',
-    initialRouteName: 'TabsScreen',
+    initialRouteName: 'LoginScreen',
 });
-
-
-
-
-
-
-
-// authenticationService.currentUser().then(user => {
-//     if (user && user.type) {
-//         // user.type = "merchant";
-//         user.type = "customer";
-//         console.log(user);
-//         activeTab = user.type === "merchant" ? MerchantTab : CustomerTab;
-//     }
-// });

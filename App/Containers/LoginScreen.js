@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Image, TouchableOpacity, Alert, ActivityIndicator} from 'react-native'
+import {ScrollView, View, Image, TouchableOpacity, Alert} from 'react-native'
 import {LoginScreenStyle} from './Styles'
-import {Button, FormInput, Text, CheckBox} from 'react-native-elements'
+import {Button, FormInput, Text} from 'react-native-elements'
 import {Images, Fonts} from '../Themes'
 import {connect} from 'react-redux'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import {Colors} from '../Themes/'
 import {bindActionCreators} from 'redux'
 import {SignUpScreen} from './index'
 import {authActionCreators} from '../Redux/Auth/AuthActions'
 import {LoadingSpinner} from '../Components'
+import authenticationService from '../Services/authentication-service'
+
 
 class LoginScreen extends Component {
     constructor(props) {
@@ -27,8 +27,26 @@ class LoginScreen extends Component {
         // };
     }
 
+    async componentDidMount() {
+        try {
+            const currentUser = await authenticationService.currentUser();
+            const {navigation} = this.props;
+            if (currentUser && currentUser.type === "customer") {
+                navigation.navigate('CustomerTab')
+            } else if (currentUser && currentUser.type === "merchant") {
+                navigation.navigate('MerchantTab')
+            }
+
+            // navigation.navigate('CustomerTab')
+            // navigation.navigate('MerchantTab')
+
+        } catch (err) {
+            Alert.alert('Error', err);
+        }
+    }
+
     toggleSignUpPage = () => {
-        this.setState({showSignUpScreen: !this.state.showSignUpScreen})
+        this.setState({showSignUpScreen: !this.state.showSignUpScreen});
     };
     toggleCheckBox = () => {
         this.setState({checked: !this.state.checked})
@@ -76,18 +94,6 @@ class LoginScreen extends Component {
                             placeholder="PASSWORD"
                             secureTextEntry={true}/>
                         <View style={LoginScreenStyle.forgotPasswordView}>
-                            {/*<CheckBox*/}
-                            {/*title='Remember me'*/}
-                            {/*iconLeft*/}
-                            {/*checked={this.state.checked}*/}
-                            {/*checkedColor={'white'}*/}
-                            {/*uncheckedColor={'white'}*/}
-                            {/*textStyle={LoginScreenStyle.checkBoxTextStyle}*/}
-                            {/*containerStyle={LoginScreenStyle.checkBoxContainerStyle}*/}
-                            {/*onPress={this.toggleCheckBox}/>*/}
-                            {/*<Text style={LoginScreenStyle.forgotPasswordTextStyle}>*/}
-                            {/*Forgot Password?*/}
-                            {/*</Text>*/}
                         </View>
                         <View Style={LoginScreenStyle.loginButtonView}>
                             <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
@@ -111,5 +117,5 @@ class LoginScreen extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
-const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
+const mapStateToProps = state => ({auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

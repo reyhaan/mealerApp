@@ -4,7 +4,8 @@ import {authSagas} from './Auth/AuthActions';
 
 const sagas = function* root() {
     yield all([
-        ...authSagas, menuSagas
+        ...authSagas,
+        ...menuSagas
     ])
 };
 

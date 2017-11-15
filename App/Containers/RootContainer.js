@@ -8,6 +8,17 @@ import {LoginScreen} from './index'
 import authenticationService from '../Services/authentication-service'
 import * as ReactNavigation from 'react-navigation'
 
+
+// authenticationService.currentUser().then(user => {
+//     if (user && user.type) {
+//         // user.type = "merchant";
+//         user.type = "customer";
+//         console.log(user);
+//         activeTab = user.type === "merchant" ? MerchantTab : CustomerTab;
+//     }
+// });
+
+
 class RootContainer extends Component {
     state = {
         currentUser: null,

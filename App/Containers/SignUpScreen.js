@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, FormInput, List, ListItem, Text} from 'react-native-elements'
+import {Button, FormInput, List, ListItem} from 'react-native-elements'
 import {connect} from 'react-redux'
 import {ScrollView, View, Image, Alert} from 'react-native'
 import {Images, Fonts} from '../Themes'
@@ -145,5 +145,5 @@ class SignUpScreen extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
-const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
+const mapStateToProps = state => ({auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)

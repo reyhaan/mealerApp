@@ -22,7 +22,13 @@ authentication.signOut = () => {
 
 // Fetch the user
 authentication.fetchUser = (id) => {
-    return db.user(id).once('value')
+    return new Promise((resolve, reject) => {
+        db.user(id).once('value').then((snapshot) => {
+            resolve(snapshot.val());
+        }).catch(error =>{
+            reject (error);
+        })
+    });
 };
 
 // Get the current signed in user information

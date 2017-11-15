@@ -16,7 +16,7 @@ authEffect.signIn = function* (userCredentials) {
         user = yield call(authenticationService.fetchUser, user.uid);
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield put(authActionCreators.signInSuccessful(user));
-        yield put(NavigationActions.navigate({routeName: 'TabsScreen'}));
+        yield put(NavigationActions.navigate({routeName: user.type === "merchant" ? 'MerchantTab' : 'CustomerTab'}));
 
     } catch (error) {
         Alert.alert('Error', error.message);
@@ -40,7 +40,7 @@ authEffect.signUp = function* (userCredentials) {
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield call([db.user(user.uid), db.user(user.uid).set], user);
         yield put(authActionCreators.signUpSuccessful(user));
-        yield put(NavigationActions.navigate({routeName: 'TabsScreen'}));
+        yield put(NavigationActions.navigate({routeName: user.type === "merchant" ? 'MerchantTab' : 'CustomerTab'}));
     } catch (error) {
         Alert.alert('Error', error.message);
     } finally {

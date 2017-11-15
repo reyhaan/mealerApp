@@ -4,7 +4,7 @@ import {Image} from 'react-native'
 import styles from '../Styles/NavigationStyles'
 import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
-import {tabNavigatorConfig} from '../Navigation'
+import tabNavigatorConfig from './TabConfig'
 import {
     OrdersTab,
     SettingsTab,

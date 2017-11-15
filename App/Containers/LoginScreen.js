@@ -37,6 +37,10 @@ class LoginScreen extends Component {
             } else if (currentUser && currentUser.type === "merchant") {
                 navigation.navigate('MerchantTab')
             }
+
+            // navigation.navigate('CustomerTab')
+            // navigation.navigate('MerchantTab')
+
         } catch (err) {
             Alert.alert('Error', err);
         }

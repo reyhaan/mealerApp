@@ -4,11 +4,12 @@ import {Image} from 'react-native'
 import styles from '../Styles/NavigationStyles'
 import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
-import {tabNavigatorConfig} from '../Navigation'
+import tabNavigatorConfig from './TabConfig'
 import {
     CooksTab,
     OrdersTab,
     SettingsTab,
+    InfoTab,
     UserInfoChangeScreen,
     CreateMenuItemScreen
 } from '../../Containers/index'
@@ -55,7 +56,7 @@ const customerTabsConfig = {
     },
 
     Four: {
-        screen: OrdersTab,
+        screen: InfoTab,
         navigationOptions: {
             // tabBarLabel: 'SETTINGS',
             tabBarIcon: ({tintColor}) => (

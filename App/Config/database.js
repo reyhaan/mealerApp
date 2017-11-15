@@ -1,15 +1,27 @@
 import * as firebase from 'firebase';
 
+const database = {};
+
 // Initialize Firebase
-const firebaseConfig = {
+firebase.initializeApp({
     apiKey: "AIzaSyC0L2KrdGf3dEytlugKapfeTaazRyBfgno",
     authDomain: "mealer-app.firebaseapp.com",
     databaseURL: "https://mealer-app.firebaseio.com",
     projectId: "mealer-app",
     storageBucket: "mealer-app.appspot.com",
     messagingSenderId: "256455255788"
+});
+
+// firebase reference
+database.firebase = firebase;
+
+// user reference
+database.user = (id) => {
+    if (id){
+        return firebase.database().ref('users/' + id);
+    } else {
+        return firebase.database().ref('users/');
+    }
 };
 
-firebase.initializeApp(firebaseConfig);
-
-export default firebase;
+export default database;

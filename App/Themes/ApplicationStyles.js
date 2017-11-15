@@ -49,14 +49,22 @@ const ApplicationStyles = {
       backgroundColor: Colors.pink,
       borderRadius: 3
     },
+    cancelButton: {
+      backgroundColor: Colors.backgroundDarker,
+      borderRadius: 3
+    },
+    greenButton: {
+      backgroundColor: Colors.green,
+      borderRadius: 3
+    },
     inputContainer: {
       paddingLeft: 10,
       backgroundColor: Colors.snow,
       borderRadius: 3,
-      marginTop: Metrics.doubleBaseMargin
+      marginTop: Metrics.doubleBaseMargin,
+      maxHeight: 45
     },
     inputField: {
-
     }
   },
   darkLabelContainer: {

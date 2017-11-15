@@ -1,4 +1,4 @@
-import firebase from '../Config/firebaseConfig';
+import firebase from '../Config/database';
 import {  Images } from '../Themes';
 
 let foodMenuQueries = {};

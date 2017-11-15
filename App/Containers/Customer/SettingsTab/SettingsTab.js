@@ -6,7 +6,7 @@ import {SettingsTabStyle} from '../../Styles'
 import {Header} from 'react-native-elements'
 import {bindActionCreators} from 'redux'
 import {Colors} from '../../../Themes'
-import {authActionCreators} from '../../../Redux/Auth/AuthRedux'
+import {authActionCreators} from '../../../Redux/Auth/AuthActions'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -82,6 +82,6 @@ class SettingsTab extends Component {
 
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
-const mapStateToProps = state => ({nav: state.navigation});
+const mapStateToProps = state => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsTab)

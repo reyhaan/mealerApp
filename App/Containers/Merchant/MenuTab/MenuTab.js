@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import { MenuTabStyle } from '../../Styles'
-import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
+import { Header, SearchBar, Avatar, Rating, Icon } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid'; 
+import {NavigationActions} from 'react-navigation';
 
 import { Colors, Images } from '../../../Themes';
 import {menuCreators} from '../../../Redux/Menu/MenuActions';
@@ -86,11 +87,32 @@ class MenuTab extends Component {
     return this.state.dataSource.getRowCount() === 0
   }
 
+  addMenuItemButton = () => {
+    return (
+      <Icon
+        name='add'
+        color={Colors.snow}
+        onPress={() => this.props.navigation.navigate("CreateMenuItemScreen")}
+      />
+    )
+  }
+
+  editMenuButton = () => {
+    return (
+      <Icon
+        name='edit'
+        color={Colors.snow}
+      />
+    )
+  }
+
   render () {
         if(this.props.menu.length>0 && this.state.dataSource){
         return (
           <View style={styles.container}>
             <Header
+              leftComponent = {this.editMenuButton()}
+              rightComponent = {this.addMenuItemButton()}
               centerComponent = {{ text: 'MENU', style: { color: '#fff', fontWeight: 'bold' } }}
               backgroundColor = {Colors.background}
               outerContainerStyles = { styles.headerOuterContainer }

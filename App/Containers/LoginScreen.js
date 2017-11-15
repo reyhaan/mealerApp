@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import {Colors} from '../Themes/'
 import {bindActionCreators} from 'redux'
 import {SignUpScreen} from './index'
-import {authActionCreators} from '../Redux/Auth/AuthRedux'
+import {authActionCreators} from '../Redux/Auth/AuthActions'
 import {LoadingSpinner} from '../Components'
 
 class LoginScreen extends Component {
@@ -18,7 +18,13 @@ class LoginScreen extends Component {
             showSignUpScreen: false,
             checked: false,
             userLoginInfo: {'email': '', 'password': ''}
-        }
+        };
+
+        // this.state = {
+        //     showSignUpScreen: false,
+        //     checked: false,
+        //     userLoginInfo: {'email': 'rrr@rrr.com', 'password': 'rrrrrr'}
+        // };
     }
 
     toggleSignUpPage = () => {
@@ -70,18 +76,18 @@ class LoginScreen extends Component {
                             placeholder="PASSWORD"
                             secureTextEntry={true}/>
                         <View style={LoginScreenStyle.forgotPasswordView}>
-                            <CheckBox
-                                title='Remember me'
-                                iconLeft
-                                checked={this.state.checked}
-                                checkedColor={'white'}
-                                uncheckedColor={'white'}
-                                textStyle={LoginScreenStyle.checkBoxTextStyle}
-                                containerStyle={LoginScreenStyle.checkBoxContainerStyle}
-                                onPress={this.toggleCheckBox}/>
-                            <Text style={LoginScreenStyle.forgotPasswordTextStyle}>
-                                Forgot Password?
-                            </Text>
+                            {/*<CheckBox*/}
+                            {/*title='Remember me'*/}
+                            {/*iconLeft*/}
+                            {/*checked={this.state.checked}*/}
+                            {/*checkedColor={'white'}*/}
+                            {/*uncheckedColor={'white'}*/}
+                            {/*textStyle={LoginScreenStyle.checkBoxTextStyle}*/}
+                            {/*containerStyle={LoginScreenStyle.checkBoxContainerStyle}*/}
+                            {/*onPress={this.toggleCheckBox}/>*/}
+                            {/*<Text style={LoginScreenStyle.forgotPasswordTextStyle}>*/}
+                            {/*Forgot Password?*/}
+                            {/*</Text>*/}
                         </View>
                         <View Style={LoginScreenStyle.loginButtonView}>
                             <LoadingSpinner show={this.props.auth.showActivityIndicator}/>

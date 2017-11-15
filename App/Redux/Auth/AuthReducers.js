@@ -1,4 +1,4 @@
-import {authActions} from './AuthRedux';
+import {authActions} from './AuthActions';
 
 let initialState = {};
 

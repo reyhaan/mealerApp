@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View, StatusBar, Alert, AsyncStorage} from 'react-native'
-import AppNavigationContainer from '../Navigation/AppNavigationContainer'
+import Navigation from '../Navigation/Navigation'
 import {connect} from 'react-redux'
 import {Font} from 'expo'
 import styles from './Styles/RootContainerStyles'
@@ -30,6 +30,10 @@ class RootContainer extends Component {
         }
     }
 
+    navigationContainer = (navigation)=>{
+        return <Navigation navigation={navigation}/>
+    };
+
     render() {
         const {dispatch, nav, auth} = this.props;
         const navigation = ReactNavigation.addNavigationHelpers({
@@ -41,7 +45,7 @@ class RootContainer extends Component {
             if (this.state.currentUser || auth.user) {
                 return (
                     <View style={styles.applicationView}><StatusBar barStyle='light-content'/>
-                        <AppNavigationContainer navigation={navigation}/>
+                        {this.navigationContainer(navigation)}
                     </View>
                 )
             } else {

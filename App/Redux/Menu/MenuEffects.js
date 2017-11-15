@@ -1,7 +1,7 @@
 import {put, call} from 'redux-saga/effects'
 import {NavigationActions} from 'react-navigation';
 import {Alert} from 'react-native';
-import {authActionCreators} from '../Auth/AuthRedux';
+import {authActionCreators} from '../Auth/AuthActions';
 import foodMenuQueries from '../../Services/menu-service';
 import {menuCreators } from './MenuActions'
 

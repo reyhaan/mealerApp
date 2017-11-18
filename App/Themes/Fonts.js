@@ -1,6 +1,6 @@
 const type = {
-  base: 'ProximaNova-Regular',
-  bold: 'ProximaNova-Bold',
+  base: 'proximanova-regular',
+  bold: 'proximanova-bold',
   emphasis: 'HelveticaNeue-Italic'
 }
 

@@ -29,8 +29,8 @@ class RootContainer extends Component {
         try {
             const currentUser = await authenticationService.currentUser();
             await Font.loadAsync({
-                'ProximaNova-Regular': require('../../assets/fonts/ProximaNova-Regular.ttf'),
-                'ProximaNova-Bold': require('../../assets/fonts/ProximaNova-Bold.ttf')
+                'proximanova-regular': require('../../assets/fonts/ProximaNova-Regular.ttf'),
+                'proximanova-bold': require('../../assets/fonts/ProximaNova-Bold.ttf')
             });
             this.setState({
                 fontLoaded: true,

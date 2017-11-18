@@ -8,11 +8,6 @@ import {bindActionCreators} from 'redux'
 import {Colors} from '../../../Themes'
 import {authActionCreators} from '../../../Redux/Auth/AuthActions'
 
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
-
-// import Header from '../../Components/Header'
-
 // Styles
 const styles = SettingsTabStyle
 
@@ -34,7 +29,13 @@ const list = [
     }
 ];
 
+
 class SettingsTab extends Component {
+    
+    onSignOut = () => {
+        this.props.signOut()
+    }
+
     render() {
         return (
             <ScrollView style={styles.container}>
@@ -43,13 +44,12 @@ class SettingsTab extends Component {
                     backgroundColor={Colors.background}
                     outerContainerStyles={styles.headerOuterContainer}/>
 
-                {/* <Header style={{marginBottom: 40}} /> */}
                 <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
                     {list.map((l, i) => (
                         <ListItem
                             underlayColor={Colors.backgroundDarker}
                             onPress={() => {
-                                this.props.navigation.navigate(l.screen, {page: l.name})
+                                this.props.navigation.navigate(l.screen, {page: l.name.toUpperCase()})
                             }}
                             chevronColor='#FFFFFF'
                             titleStyle={styles.listTitle}
@@ -62,7 +62,7 @@ class SettingsTab extends Component {
                     <ListItem
                         underlayColor={Colors.backgroundDarker}
                         onPress={() => {
-                            this.props.signOut()
+                            this.onSignOut()
                         }}
                         chevronColor='#FFFFFF'
                         titleStyle={styles.listTitle}

@@ -1,5 +1,3 @@
-import {Images} from '../Themes';
-
 export default {
     customerUser: {
         email: "customer@mealer.com",
@@ -17,37 +15,37 @@ export default {
         menu:[
             {
                 itemName: "Chicken Biryani",
-                itemImage: Images.biryani,
+                itemImage: 'https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507',
                 itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
                 itemCost: 6.99
             },
             {
                 itemName: "Chicken Biryani",
-                itemImage: Images.biryani,
+                itemImage: 'https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507',
                 itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
                 itemCost: 6.99
             },
             {
                 itemName: "Chicken Biryani",
-                itemImage: Images.biryani,
+                itemImage: 'https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507',
                 itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
                 itemCost: 6.99
             },
             {
                 itemName: "Chicken Biryani",
-                itemImage: Images.biryani,
+                itemImage: 'https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507',
                 itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
                 itemCost: 6.99
             },
             {
                 itemName: "Chicken Biryani",
-                itemImage: Images.biryani,
+                itemImage: 'https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507',
                 itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
                 itemCost: 6.99
             },
             {
                 itemName: "Chicken Biryani",
-                itemImage: Images.biryani,
+                itemImage: 'https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507',
                 itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
                 itemCost: 6.99
             }

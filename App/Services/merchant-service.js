@@ -4,8 +4,12 @@ let merchant = {};
 
 merchant.createMenu = (userId, menu) => {
     let userMenuRef = database.user(userId + '/menu');
-    let newMenuRef = userMenuRef.push();
-    return newMenuRef.set(menu);
+    return userMenuRef.push().set(menu);
+};
+
+merchant.removeMenu = (userId, menuId) => {
+    let userMenuRef = database.user(userId + '/menu/' + menuId);
+    return userMenuRef.remove();
 };
 
 merchant.getMenu = (userId) => {

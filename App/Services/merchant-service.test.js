@@ -1,5 +1,10 @@
 import merchantService from './merchant-service';
 import testData from './test-data-service';
+import database from '../Config/database';
+
+afterAll(() => {
+    return database.firebase.database().goOffline();
+});
 
 describe('merchant-service', function () {
     let createdMenu = null;

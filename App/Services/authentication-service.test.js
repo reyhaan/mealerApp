@@ -1,5 +1,10 @@
 import authenticationService from './authentication-service';
 import testData from './test-data-service';
+import database from '../Config/database';
+
+afterAll(() => {
+    return database.firebase.database().goOffline();
+});
 
 describe('authentication-service', function () {
     test('fetch merchantUser user', async () => {

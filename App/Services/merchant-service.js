@@ -1,19 +1,28 @@
 import database from '../Config/database';
-import testData from './test-data-service';
 
 let merchant = {};
 
 merchant.createMenu = (userId, menu) => {
     let userMenuRef = database.user(userId + '/menu');
     let newMenuRef = userMenuRef.push();
-
     return newMenuRef.set(menu);
 };
 
-merchant.getMenu = () => {
-    return new Promise((resolve) => {
-        resolve(testData.merchantUser.menu);
-    })
+merchant.getMenu = (userId) => {
+    return new Promise((resolve, reject) => {
+        let userMenuRef = database.user(userId + '/menu' );
+        userMenuRef.once('value').then((snapshot) => {
+            let menus = [];
+            snapshot.forEach(function (childSnapshot) {
+                let id = childSnapshot.key;
+                let data = childSnapshot.val();
+                menus.push({id, ...data});
+            });
+            resolve(menus);
+        }).catch(error => {
+            reject(error);
+        })
+    });
 };
 
 export default merchant;

@@ -7,6 +7,12 @@ merchant.createMenu = (userId, menu) => {
     return userMenuRef.push().set(menu);
 };
 
+merchant.updateMenu = (userId, menu) => {
+    const {id} = menu;
+    let userMenuRef = database.user(userId + '/menu/' + id);
+    return userMenuRef.update(menu);
+};
+
 merchant.removeMenu = (userId, menuId) => {
     let userMenuRef = database.user(userId + '/menu/' + menuId);
     return userMenuRef.remove();
@@ -26,6 +32,17 @@ merchant.getMenu = (userId) => {
         }).catch(error => {
             reject(error);
         })
+    });
+};
+
+merchant.getMenuById = (userId, menuId) => {
+    return new Promise((resolve, reject) => {
+        let userMenuRef = database.user(userId + '/menu/' + menuId );
+        userMenuRef.once('value').then((snapshot) => {
+            resolve(snapshot.val());
+        }).catch(error =>{
+            reject (error);
+        });
     });
 };
 

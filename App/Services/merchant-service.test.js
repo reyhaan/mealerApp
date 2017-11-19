@@ -25,6 +25,26 @@ describe('merchant-service', function () {
         }
     });
 
+    test('should update merchant menu', async () => {
+        try {
+            createdMenu.itemName = "john snow";
+            createdMenu.itemCost = 10000.00;
+            await merchantService.updateMenu(testData.merchantUser.uid, createdMenu);
+        } catch (err) {
+            expect(err).toBeUndefined();
+        }
+    });
+
+    test('should get merchant menu by Id', async () => {
+        try {
+            const menu = await merchantService.getMenuById(testData.merchantUser.uid, createdMenu.id);
+            expect(menu.itemName).toEqual("john snow");
+            expect(menu.itemCost).toEqual(10000.00);
+        } catch (err) {
+            expect(err).toBeUndefined();
+        }
+    });
+
     test('should delete a merchant menu', async () => {
         try {
             await merchantService.removeMenu(testData.merchantUser.uid, createdMenu.id);

@@ -6,6 +6,8 @@ import {UserInfoChangeScreenStyle} from '../../Styles'
 import { Colors, Fonts, Metrics } from '../../../Themes'
 import { NavigationActions } from 'react-navigation'
 import { Col, Row, Grid } from 'react-native-easy-grid'
+import SettingsService from '../../../Services/settings-service'
+import authentication from '../../../Services/authentication-service'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -22,6 +24,13 @@ class UserInfoChangeScreen extends Component {
         onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
       />
     )
+  }
+
+  _updateUserDetails = () => {
+    let user = authentication.currentUser().then((data) => {
+      console.log(data)
+    })
+    // SettingsService.updateUserInfo(user.uid)
   }
 
   render () {
@@ -59,40 +68,41 @@ class UserInfoChangeScreen extends Component {
                       </View>
                     }
 
-                  {/* DISPLAY NAME CHANGE */}
-                  { params.page === "DISPLAY NAME" &&
-                    <View>
-                      <FormLabel labelStyle={styles.formLabel}>DISPLAY NAME</FormLabel>
-                      <FormInput
-                        underlineColorAndroid="transparent"
-                        inputStyle={styles.inputField}
-                        containerStyle={styles.inputContainer}
-                        autoCapitalize="none" />
-                    </View>
-                  }
+                    {/* DISPLAY NAME CHANGE */}
+                    { params.page === "DISPLAY NAME" &&
+                      <View>
+                        <FormLabel labelStyle={styles.formLabel}>DISPLAY NAME</FormLabel>
+                        <FormInput
+                          underlineColorAndroid="transparent"
+                          inputStyle={styles.inputField}
+                          containerStyle={styles.inputContainer}
+                          autoCapitalize="none" />
+                      </View>
+                    }
 
-                  {/* PASSWORD CHANGE */}
-                  { params.page === "PASSWORD" &&
-                    <View>
-                      <FormLabel labelStyle={styles.formLabel}>PASSWORD</FormLabel>
-                      <FormInput
-                        underlineColorAndroid="transparent"
-                        inputStyle={styles.inputField}
-                        containerStyle={styles.inputContainer}
-                        autoCapitalize="none" />
+                    {/* PASSWORD CHANGE */}
+                    { params.page === "PASSWORD" &&
+                      <View>
+                        <FormLabel labelStyle={styles.formLabel}>PASSWORD</FormLabel>
+                        <FormInput
+                          underlineColorAndroid="transparent"
+                          inputStyle={styles.inputField}
+                          containerStyle={styles.inputContainer}
+                          autoCapitalize="none" />
 
-                      <FormLabel labelStyle={styles.formLabel}>CONFIRM PASSWORD</FormLabel>
-                      <FormInput
-                        underlineColorAndroid="transparent"
-                        inputStyle={styles.inputField}
-                        containerStyle={styles.inputContainer}
-                        autoCapitalize="none" />
-                    </View>
-                  }
+                        <FormLabel labelStyle={styles.formLabel}>CONFIRM PASSWORD</FormLabel>
+                        <FormInput
+                          underlineColorAndroid="transparent"
+                          inputStyle={styles.inputField}
+                          containerStyle={styles.inputContainer}
+                          autoCapitalize="none" />
+                      </View>
+                    }
                     <Row style={{height: 40, marginTop: Metrics.doubleBaseMargin, marginBottom: Metrics.doubleBaseMargin}}>
 
                       <Col size={1}>
                         <Button
+                          onPress={() => {this._updateUserDetails()}}
                           buttonStyle={[styles.greenButton]}
                           textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
                           title={`UPDATE`} />

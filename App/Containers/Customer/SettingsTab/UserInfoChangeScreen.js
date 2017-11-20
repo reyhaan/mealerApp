@@ -38,13 +38,13 @@ class UserInfoChangeScreen extends Component {
   }
 
   _updateUserDetails = () => {
-    console.log(this.props.user);
+    console.log(this.props);
 
     var data = {
       userDetails: {
-        address: "some address",
-        phone: "123123123",
-        name: "somename"
+        address: "810 Edgeworth Avenue",
+        phone: "6132345467",
+        name: "Rehaan"
       }
     }
 

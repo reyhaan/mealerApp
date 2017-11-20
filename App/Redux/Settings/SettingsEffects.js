@@ -9,7 +9,7 @@ const settingsEffects = {};
 
 settingsEffects.updateUserInfo = function* (userDetails){
     try{
-        yield call(SettingsService.updateUserInfo(userDetails));
+        yield call(SettingsService.updateUserInfo, userDetails);
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {

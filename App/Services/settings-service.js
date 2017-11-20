@@ -4,13 +4,11 @@ import {AsyncStorage, Alert} from 'react-native';
 let SettingsService = {};
 
 // Update user's details
-SettingsService.updateUserInfo = (userId) => {
-    let menu = {
-        something: "cool",
-        key: "value"
-    }
+SettingsService.updateUserInfo = (data) => {
+    let userId = data.uid;
+    let userInfo = data.userDetails;
     let userRef = db.user(userId+"/");
-    return userRef.set(menu);
+    return userRef.update(userInfo);
 };
 
 // Fetch user's details

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, View, Platform, Image, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 import { Header, Icon, Button, FormInput, FormLabel } from 'react-native-elements'
 import {UserInfoChangeScreenStyle} from '../../Styles'
 import { Colors, Fonts, Metrics } from '../../../Themes'
@@ -8,6 +9,7 @@ import { NavigationActions } from 'react-navigation'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import SettingsService from '../../../Services/settings-service'
 import authentication from '../../../Services/authentication-service'
+import { settingsActionCreators } from '../../../Redux/Settings/SettingsActions'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 
@@ -15,6 +17,15 @@ import authentication from '../../../Services/authentication-service'
 const styles = UserInfoChangeScreenStyle;
 
 class UserInfoChangeScreen extends Component {
+
+  constructor (props) {
+    super(props)
+
+    this.state = {
+
+    }
+
+  }
 
   _backButton = () => {
     return(
@@ -27,10 +38,21 @@ class UserInfoChangeScreen extends Component {
   }
 
   _updateUserDetails = () => {
-    let user = authentication.currentUser().then((data) => {
-      console.log(data)
+    console.log(this.props.user);
+
+    var data = {
+      userDetails: {
+        address: "some address",
+        phone: "123123123",
+        name: "somename"
+      }
+    }
+
+    authentication.currentUser().then((user) => {
+      data.uid = user.uid
+      this.props.updateUserInfo(data)
+      // SettingsService.updateUserInfo(user.uid, data)
     })
-    // SettingsService.updateUserInfo(user.uid)
   }
 
   render () {
@@ -122,12 +144,12 @@ class UserInfoChangeScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    user: state
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-  }
+  return bindActionCreators(settingsActionCreators, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfoChangeScreen)

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Provider} from 'react-redux'
 import RootContainer from './App/Containers/RootContainer'
 import createStore from './App/Redux/createStore'
+import './App/Config/ReactotronConfig'
 
 /**
  * Provides an entry point into our application.  Both index.ios.js and index.android.js

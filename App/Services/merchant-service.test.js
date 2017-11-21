@@ -112,13 +112,14 @@ describe('merchant-service', function () {
         }
     });
 
-    // test.only('should get merchant order by status', async () => {
-    //     try {
-    //         const menu = await merchantService.getOrdersByStatus(merchantUser.uid, "new");
-    //
-    //     } catch (err) {
-    //         expect(err).toBeUndefined();
-    //     }
-    // });
+    test('should get merchant order by status', async () => {
+        try {
+            const orders = await merchantService.getOrdersByStatus(merchantUser.uid, "new");
+            expect(orders.length).toBeGreaterThan(0);
+            expect(orders[0].status).toEqual("new");
+        } catch (err) {
+            expect(err).toBeUndefined();
+        }
+    });
 });
 

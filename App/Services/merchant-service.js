@@ -39,7 +39,7 @@ merchant.removeMenu = (userId, menuId) => {
  */
 merchant.getMenu = (userId) => {
     return new Promise((resolve, reject) => {
-        let userMenuRef = database.user(userId + '/menu' );
+        let userMenuRef = database.user(userId + '/menu');
         userMenuRef.once('value').then((snapshot) => {
             let menus = [];
             snapshot.forEach(function (childSnapshot) {
@@ -60,11 +60,11 @@ merchant.getMenu = (userId) => {
  */
 merchant.getMenuById = (userId, menuId) => {
     return new Promise((resolve, reject) => {
-        let userMenuRef = database.user(userId + '/menu/' + menuId );
+        let userMenuRef = database.user(userId + '/menu/' + menuId);
         userMenuRef.once('value').then((snapshot) => {
             resolve(snapshot.val());
-        }).catch(error =>{
-            reject (error);
+        }).catch(error => {
+            reject(error);
         });
     });
 };
@@ -85,7 +85,7 @@ merchant.createOrder = (userId, order) => {
  */
 merchant.getOrders = (userId) => {
     return new Promise((resolve, reject) => {
-        let userMenuRef = database.user(userId + '/orders' );
+        let userMenuRef = database.user(userId + '/orders');
         userMenuRef.once('value').then((snapshot) => {
             let menus = [];
             snapshot.forEach(function (childSnapshot) {
@@ -118,11 +118,11 @@ merchant.updateOrder = (userId, order) => {
  */
 merchant.getOrderById = (userId, orderId) => {
     return new Promise((resolve, reject) => {
-        let userOrderRef = database.user(userId + '/orders/' + orderId );
+        let userOrderRef = database.user(userId + '/orders/' + orderId);
         userOrderRef.once('value').then((snapshot) => {
             resolve(snapshot.val());
-        }).catch(error =>{
-            reject (error);
+        }).catch(error => {
+            reject(error);
         });
     });
 };
@@ -142,17 +142,18 @@ merchant.removeOrder = (userId, orderId) => {
  * @param userId: string
  * @param status: string
  */
-
-
-// TODO: come back to this
 merchant.getOrdersByStatus = (userId, status) => {
     return new Promise((resolve, reject) => {
-        let usersRef = database.firebase.database().ref("users/");
+        let usersRef = database.firebase.database().ref("users/" + userId);
         let ordersRef = usersRef.child("orders");
-
-        ordersRef.equalTo(status).on("child_added", function(data) {
-            console.log(data);
-            resolve(data);
+        let orders = [];
+        ordersRef.orderByChild("status").equalTo(status).once("value").then((snapshot) => {
+            snapshot.forEach(function (childSnapshot) {
+                let id = childSnapshot.key;
+                let data = childSnapshot.val();
+                orders.push({id, ...data});
+            });
+            resolve(orders);
         });
     });
 };

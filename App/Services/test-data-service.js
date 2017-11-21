@@ -39,22 +39,13 @@ export class User {
         }
     }
 
-    menus() {
-        return [this.menu(), this.menu(), this.menu(), this.menu(), this.menu()]
-    }
-
     order() {
         return {
-            id: "",
-            date: "",
-            userId: "",
-            status: "",
+            date: "2/20/2017",
+            userId: customer.uid,
+            status: "new",
             orderedCount: 2,
             menu: this.menu()
         }
-    }
-
-    orders() {
-        return [this.order(), this.order(), this.order(), this.order(), this.order()]
     }
 }

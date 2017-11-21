@@ -85,7 +85,6 @@ class UserInfoChangeScreen extends Component {
           password: value
         })
         break;
-
     }
   }
 

@@ -11,7 +11,8 @@ import {
     SettingsTab,
     InfoTab,
     UserInfoChangeScreen,
-    CreateMenuItemScreen
+    CreateMenuItemScreen,
+    CookDetails
 } from '../../Containers/index'
 
 const customerTabsConfig = {
@@ -78,10 +79,10 @@ export default StackNavigator({
                 title: `${navigation.state.params.page}`,
             }),
         },
-        CreateMenuItemScreen: {
-            screen: CreateMenuItemScreen,
+        CookDetails: {
+            screen: CookDetails,
             navigationOptions: ({navigation}) => ({
-                title: "CREATE"
+                title: "COOK"
             }),
         }
     }, {

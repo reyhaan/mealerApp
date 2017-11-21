@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, ListView, FlatList, TouchableOpacity } from 'react-native'
+import { ScrollView, Text, View, ListView } from 'react-native'
 import { connect } from 'react-redux'
-import { CooksTabStyle } from '../../Styles'
+import { CookDetailsStyle } from '../../Styles'
 import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
@@ -11,9 +11,9 @@ import { Colors, Fonts } from '../../../Themes'
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-const styles = CooksTabStyle
+const styles = CookDetailsStyle
 
-class CooksTab extends Component {
+class CookDetails extends Component {
   constructor (props) {
     super(props)
 
@@ -104,55 +104,50 @@ class CooksTab extends Component {
         placeholder='Type Here...' />
     )
   }
-  
+
   _renderRow (rowData) {
     return (
-      <TouchableOpacity onPress={() => {
-        console.log("CLICKED BRO!!")
-        this.props.navigation.navigate('CookDetails')
-      }}>
-        <View style={styles.row}>
-          <View style={styles.rowInnerContainer}>
-            <Grid>
-                <Col style={{ width: 60 }}>
-                    <Avatar
-                      medium
-                      rounded
-                      source={{uri: rowData.avatar}}
+      <View style={styles.row}>
+        <View style={styles.rowInnerContainer}>
+          <Grid>
+              <Col style={{ width: 60 }}>
+                  <Avatar
+                    medium
+                    rounded
+                    source={{uri: rowData.avatar}}
+                  />
+              </Col>
+              <Col>
+                  <Row style={{ height: 20}}>
+                      <Text style={styles.boldLabel}>{rowData.name}</Text>
+                  </Row>
+                  <Row style={{ height: 18 }}>
+                      <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: {rowData.cousineType}</Text>
+                  </Row>
+                  <Row style={{ height: 22 }}>
+                    <Rating
+                      type="star"
+                      ratingColor={Colors.pink2}
+                      fractions={1}
+                      startingValue={rowData.rating}
+                      readonly
+                      imageSize={10}
+                      onFinishRating={this.ratingCompleted}
+                      style={{ paddingVertical: 2 }}
                     />
-                </Col>
-                <Col>
-                    <Row style={{ height: 20}}>
-                        <Text style={styles.boldLabel}>{rowData.name}</Text>
-                    </Row>
-                    <Row style={{ height: 18 }}>
-                        <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: {rowData.cousineType}</Text>
-                    </Row>
-                    <Row style={{ height: 22 }}>
-                      <Rating
-                        type="star"
-                        ratingColor={Colors.pink2}
-                        fractions={1}
-                        startingValue={rowData.rating}
-                        readonly
-                        imageSize={10}
-                        onFinishRating={this.ratingCompleted}
-                        style={{ paddingVertical: 2 }}
-                      />
-                    </Row>
-                    <Row style={{ height: 18 }}>
-                      <Col>
-                          <Text style={{ fontSize: 12, fontWeight: 'bold', color: Colors.background }} >View More</Text>
-                      </Col>
-                      <Col>
-                          <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 5 }} >Remaining: {rowData.quotaUsed}/{rowData.quotaLimit}</Text>
-                      </Col>
-                    </Row>
-                </Col>
-            </Grid>
-          </View>
+                  </Row>
+                  <Row style={{ height: 18 }}>
+                    <Col>
+                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: Colors.background }} >View More</Text>
+                    </Col>
+                    <Col>
+                        <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 5 }} >Remaining: {rowData.quotaUsed}/{rowData.quotaLimit}</Text>
+                    </Col>
+                  </Row>
+              </Col>
+          </Grid>
         </View>
-      </TouchableOpacity>
+      </View>
     )
   }
 
@@ -161,6 +156,8 @@ class CooksTab extends Component {
   }
 
   render () {
+
+
     return (
       <View style = {styles.container}>
         <Header
@@ -171,18 +168,13 @@ class CooksTab extends Component {
           outerContainerStyles = { styles.headerOuterContainer }
         />
 
-        {/* <ListView
+        <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
           enableEmptySections
           pageSize={15}
-        /> */}
-
-        <FlatList
-          data={this.state.dataSource}
-          renderItem={(item) => this._renderRow(item)}
-        /> 
+        />   
 
       </View>
     )
@@ -199,4 +191,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CooksTab)
+export default connect(mapStateToProps, mapDispatchToProps)(CookDetails)

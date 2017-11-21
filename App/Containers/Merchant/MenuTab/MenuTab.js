@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import { MenuTabStyle } from '../../Styles'
-import { Header, SearchBar, Avatar, Rating, Icon } from 'react-native-elements' 
-import { Col, Row, Grid } from 'react-native-easy-grid'; 
+import { Header, SearchBar, Avatar, Rating, Icon } from 'react-native-elements'
+import { Col, Row, Grid } from 'react-native-easy-grid';
 import {NavigationActions} from 'react-navigation';
 
 import { Colors, Images } from '../../../Themes';
@@ -19,7 +19,7 @@ class MenuTab extends Component {
     super(props)
     this.props.fetchMenuCreator();
     this.state = {
-      dataSource:  null, 
+      dataSource:  null,
       isMounted: false
     }
   }
@@ -27,31 +27,29 @@ class MenuTab extends Component {
     const menuList = this.props.menu;
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.setState({dataSource:  ds.cloneWithRows(menuList)});
-    
+
   }
   componentDidMount(){
     return this.setState({isMounted: true});
   }
 
   componentWillReceiveProps(){
-    setTimeout(()=>{
       if(this.state.isMounted){
         this.componentDidReceiveProps()
       }
-    })
   }
 
   componentDidReceiveProps(){
     this.setDataSource();
   }
-  
+
   componentWillUnmount(){
     return this.setState({isMounted: false});
   }
 
   _renderRow (rowData) {
-    const ItemCostStyle = { height: 20, 
-      flex: 1, flexDirection: 'column', 
+    const ItemCostStyle = { height: 20,
+      flex: 1, flexDirection: 'column',
       justifyContent: 'center', alignItems: 'center'}
     return (
       <View style={styles.row}>
@@ -123,7 +121,7 @@ class MenuTab extends Component {
               renderRow={this._renderRow}
               enableEmptySections
               pageSize={15}
-            /> 
+            />
           </View>
         ) }
         return (<LoadingSpinner show={true} />)

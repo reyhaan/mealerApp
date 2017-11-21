@@ -1,5 +1,5 @@
 import db from '../Config/database'
-import {AsyncStorage, Alert} from 'react-native';
+import {AsyncStorage} from 'react-native';
 
 let authentication = {};
 

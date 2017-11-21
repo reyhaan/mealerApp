@@ -26,8 +26,8 @@
     "react-dom": "16.0.0-alpha.12",
     "react-native-scripts": "1.6.0",
     "react-test-renderer": "16.0.0-beta.5",
-    "reactotron-react-native": "^1.12.0",
-    "reactotron-redux": "^1.11.1",
+    "reactotron-react-native": "^1.12.3",
+    "reactotron-redux": "^1.12.2",
     "reactotron-redux-saga": "^1.11.1",
     "snazzy": "^7.0.0",
     "standard": "10.0.2"
@@ -41,7 +41,6 @@
     "test": "node node_modules/jest/bin/jest.js --watch",
     "android:shake": "$ANDROID_HOME/platform-tools/adb devices | grep '\\t' | awk '{print $1}' | sed 's/\\s//g' | xargs -I {} $ANDROID_HOME/platform-tools/adb -s {} shell input keyevent 82"
   },
-
   "dependencies": {
     "@expo/vector-icons": "^6.1.0",
     "antd-mobile": "^2.0.1",

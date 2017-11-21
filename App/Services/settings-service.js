@@ -7,9 +7,8 @@ let SettingsService = {};
 SettingsService.updateUserInfo = (payload) => {
     let data = payload.data
     let userId = data.uid;
-    let userInfo = data.userDetails;
     let userRef = db.user(userId+"/");
-    return userRef.update(userInfo);
+    return userRef.update(data);
 };
 
 // Fetch user's details

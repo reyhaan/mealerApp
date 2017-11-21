@@ -11,7 +11,7 @@ export default {
         headerMode: 'none',
         headerStyle: styles.header
     },
-    initialRouteName: 'Two',
+    initialRouteName: 'One',
     tabBarOptions: {
         activeTintColor: Colors.snow,
         inactiveTintColor: Colors.pinkLight1,

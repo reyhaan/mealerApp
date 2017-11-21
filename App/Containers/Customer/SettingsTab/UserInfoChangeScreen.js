@@ -22,12 +22,24 @@ class UserInfoChangeScreen extends Component {
     super(props)
 
     this.state = {
-
+      user: '',
+      name: '',
+      address: '',
+      phone: '',
+      password: 'bleh'
     }
 
   }
 
-  _backButton = () => {
+  componentDidMount() {
+    authentication.currentUser().then((user) => {
+      this.setState({
+        user: user
+      });
+    });
+  }
+
+  backButton = () => {
     return(
       <Icon
         name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
@@ -37,22 +49,43 @@ class UserInfoChangeScreen extends Component {
     )
   }
 
-  _updateUserDetails = () => {
-    console.log(this.props);
-
-    var data = {
-      userDetails: {
-        address: "810 Edgeworth Avenue",
-        phone: "6132345467",
-        name: "Rehaan"
-      }
+  updateUserDetails = () => {
+    let data = {
+      name: this.state.name || this.state.user.name,
+      address: this.state.address || this.state.user.address,
+      phone: this.state.phone || this.state.user.phone,
+      password: this.state.password || this.state.user.password,
+      uid: this.state.user.uid
     }
+    this.props.updateUserInfo(data)
+  }
 
-    authentication.currentUser().then((user) => {
-      data.uid = user.uid
-      this.props.updateUserInfo(data)
-      // SettingsService.updateUserInfo(user.uid, data)
-    })
+  getUserInfo = (inputType, value) => {
+    switch(inputType) {
+      case "address":
+        this.setState({
+          address: value
+        })
+        break;
+
+      case "phone":
+        this.setState({
+          phone: value
+        })
+        break;
+
+      case "name":
+        this.setState({
+          name: value
+        })
+        break;
+
+      case "password":
+        this.setState({
+          password: value
+        })
+        break;
+    }
   }
 
   render () {
@@ -62,7 +95,7 @@ class UserInfoChangeScreen extends Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <View style={styles.container}>
           <Header
-            leftComponent = {this._backButton()}
+            leftComponent = {this.backButton()}
             centerComponent = {{ text: params.page, style: { color: '#fff', fontWeight: 'bold' } }}
             backgroundColor = {Colors.background}
             outerContainerStyles = { styles.headerOuterContainer }
@@ -76,6 +109,8 @@ class UserInfoChangeScreen extends Component {
                       <View>
                           <FormLabel labelStyle={styles.formLabel}>ADDRESS</FormLabel>
                           <FormInput
+                            onChangeText={(value) => this.getUserInfo('address', value)}
+                            defaultValue={this.state.user ? this.state.user.address : ''}
                             underlineColorAndroid="transparent"
                             autoCapitalize="none"
                             containerStyle={styles.inputContainer}
@@ -83,6 +118,8 @@ class UserInfoChangeScreen extends Component {
       
                           <FormLabel labelStyle={styles.formLabel}>PHONE NUMBER</FormLabel>
                           <FormInput
+                            onChangeText={(value) => this.getUserInfo('phone', value)}
+                            defaultValue={this.state.user ? this.state.user.phone : ''}
                             underlineColorAndroid="transparent"
                             autoCapitalize="none"
                             containerStyle={styles.inputContainer}
@@ -95,6 +132,8 @@ class UserInfoChangeScreen extends Component {
                       <View>
                         <FormLabel labelStyle={styles.formLabel}>DISPLAY NAME</FormLabel>
                         <FormInput
+                          onChangeText={(value) => this.getUserInfo('name', value)}
+                          defaultValue={this.state.user ? this.state.user.name : ''}
                           underlineColorAndroid="transparent"
                           inputStyle={styles.inputField}
                           containerStyle={styles.inputContainer}
@@ -107,6 +146,8 @@ class UserInfoChangeScreen extends Component {
                       <View>
                         <FormLabel labelStyle={styles.formLabel}>PASSWORD</FormLabel>
                         <FormInput
+                          onChangeText={(value) => this.getUserInfo('password', value)}
+                          defaultValue={this.state.user ? this.state.user.password : ''}
                           underlineColorAndroid="transparent"
                           inputStyle={styles.inputField}
                           containerStyle={styles.inputContainer}
@@ -114,6 +155,8 @@ class UserInfoChangeScreen extends Component {
 
                         <FormLabel labelStyle={styles.formLabel}>CONFIRM PASSWORD</FormLabel>
                         <FormInput
+                          onChangeText={(value) => this.getUserInfo('confirmPassword', value)}
+                          defaultValue={this.state.user ? this.state.user.confirmPassword : ''}
                           underlineColorAndroid="transparent"
                           inputStyle={styles.inputField}
                           containerStyle={styles.inputContainer}
@@ -124,7 +167,7 @@ class UserInfoChangeScreen extends Component {
 
                       <Col size={1}>
                         <Button
-                          onPress={() => {this._updateUserDetails()}}
+                          onPress={() => {this.updateUserDetails()}}
                           buttonStyle={[styles.greenButton]}
                           textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
                           title={`UPDATE`} />

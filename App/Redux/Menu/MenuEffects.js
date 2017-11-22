@@ -1,13 +1,15 @@
 import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
 import merchantService from '../../Services/merchant-service';
+import authentication from '../../Services/authentication-service';
 import {menuCreators } from './MenuActions'
 
 const menuEffects = {};
 
 menuEffects.getFoodMenu = function* (){
     try{
-        const menu = yield call(merchantService.getMenu);
+        const user = yield call(authentication.currentUser)
+        const menu = yield call(merchantService.getMenu, user.uid)
         yield put(menuCreators.fetchMenuSuccessful(menu))
     } catch (error) {
         Alert.alert('Error', error.message,)
@@ -15,5 +17,23 @@ menuEffects.getFoodMenu = function* (){
 
     }
 };
+
+menuEffects.createFoodMenu = function* (foodDetails){
+    try{
+        const user = yield call(authentication.currentUser)
+        if(user){
+            // addedMenuItem => is to be returned by firebase for now we are using static data
+            const addedMenuItem = foodDetails.data
+            yield call(merchantService.createMenu, user.uid, foodDetails.data)
+            yield put(menuCreators.createMenuSuccessful(addedMenuItem))
+        }
+        else{
+            yield put(menuCreators.createMenuFailure("Unable to create menu, you may not be logged in"))
+        }
+    }
+    catch(error){
+        Alert.alert('Error', error.message)
+    }
+}
 
 export default menuEffects;

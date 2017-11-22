@@ -18,33 +18,6 @@ class MenuTab extends Component {
   constructor (props) {
     super(props)
     this.props.fetchMenuCreator();
-    this.state = {
-      dataSource:  null,
-      isMounted: false
-    }
-  }
-  setDataSource =()=>{
-    const menuList = this.props.menu;
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.setState({dataSource:  ds.cloneWithRows(menuList)});
-
-  }
-  componentDidMount(){
-    return this.setState({isMounted: true});
-  }
-
-  componentWillReceiveProps(){
-      if(this.state.isMounted){
-        this.componentDidReceiveProps()
-      }
-  }
-
-  componentDidReceiveProps(){
-    this.setDataSource();
-  }
-
-  componentWillUnmount(){
-    return this.setState({isMounted: false});
   }
 
   _renderRow (rowData) {
@@ -58,7 +31,7 @@ class MenuTab extends Component {
               <Col style={{ width: 60 }}>
                   <Avatar
                     medium
-                    source={rowData.itemImage}
+                    source={{uri:rowData.itemImage}}
                   />
               </Col>
               <Col>
@@ -103,9 +76,25 @@ class MenuTab extends Component {
       />
     )
   }
+  createListView = () => {
+    let data
+    if(this.props.menu){
+      const {menu} = this.props
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      data = {dataSource:  ds.cloneWithRows(menu)}
+      console.log('here:', menu)
+      return (<ListView
+        contentContainerStyle={styles.listContent}
+        dataSource={data.dataSource}
+        renderRow={this._renderRow}
+        enableEmptySections
+        pageSize={15}
+      />)
+    }
+    else return (<LoadingSpinner show={true} />)
 
+  }
   render () {
-        if(this.props.menu.length>0 && this.state.dataSource){
         return (
           <View style={styles.container}>
             <Header
@@ -115,16 +104,9 @@ class MenuTab extends Component {
               backgroundColor = {Colors.background}
               outerContainerStyles = { styles.headerOuterContainer }
             />
-            <ListView
-              contentContainerStyle={styles.listContent}
-              dataSource={this.state.dataSource}
-              renderRow={this._renderRow}
-              enableEmptySections
-              pageSize={15}
-            />
+            {this.createListView()}
           </View>
-        ) }
-        return (<LoadingSpinner show={true} />)
+        ) 
   }
 }
 

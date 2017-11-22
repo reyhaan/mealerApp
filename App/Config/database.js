@@ -18,9 +18,9 @@ database.firebase = firebase;
 // user reference
 database.user = (id) => {
     if (id){
-        return firebase.database().ref('users/' + id);
+        return firebase.database().ref('users').child(id);
     } else {
-        return firebase.database().ref('users/');
+        return firebase.database().ref('users');
     }
 };
 

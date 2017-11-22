@@ -21,9 +21,9 @@ afterAll(async () => {
         expect(err).toBeUndefined();
     }
 
-    // remove any connection.
+    // remove any database connections.
     try {
-        database.firebase.database().goOffline();
+        await database.firebase.database().goOffline();
     } catch (err) {
         expect(err).toBeUndefined();
     }
@@ -32,7 +32,13 @@ afterAll(async () => {
 describe('merchant-service', function () {
     test('should create merchant menu', async () => {
         try {
-            await merchantService.createMenu(merchantUser.uid, merchantUser.menu());
+            const menu = await merchantService.createMenu(merchantUser.uid, merchantUser.menu());
+            expect(menu.id).toBeTruthy();
+            expect(menu.itemCost).toEqual(merchantUser.menu().itemCost);
+            expect(menu.itemDetail).toEqual(merchantUser.menu().itemDetail);
+            expect(menu.itemName).toEqual(merchantUser.menu().itemName);
+            expect(menu.itemImage).toEqual(merchantUser.menu().itemImage);
+            createdMenu = menu;
         } catch (err) {
             expect(err).toBeUndefined();
         }
@@ -42,11 +48,10 @@ describe('merchant-service', function () {
         try {
             const menus = await merchantService.getMenu(merchantUser.uid);
             expect(menus.length).toBeGreaterThan(0);
-            expect(menus[0].itemCost).toBeTruthy();
-            expect(menus[0].itemDetail).toBeTruthy();
-            expect(menus[0].itemName).toBeTruthy();
-            expect(menus[0].itemImage).toBeTruthy();
-            createdMenu = menus[0];
+            expect(menus[0].itemCost).toEqual(createdMenu.itemCost);
+            expect(menus[0].itemDetail).toEqual(createdMenu.itemDetail);
+            expect(menus[0].itemName).toEqual(createdMenu.itemName);
+            expect(menus[0].itemImage).toEqual(createdMenu.itemImage);
         } catch (err) {
             expect(err).toBeUndefined();
         }
@@ -56,7 +61,12 @@ describe('merchant-service', function () {
         try {
             createdMenu.itemName = "john snow";
             createdMenu.itemCost = 10000.00;
-            await merchantService.updateMenu(merchantUser.uid, createdMenu);
+            const menu = await merchantService.updateMenu(merchantUser.uid, createdMenu);
+            expect(menu.id).toEqual(createdMenu.id);
+            expect(menu.itemCost).toEqual(createdMenu.itemCost);
+            expect(menu.itemDetail).toEqual(merchantUser.menu().itemDetail);
+            expect(menu.itemName).toEqual(createdMenu.itemName);
+            expect(menu.itemImage).toEqual(merchantUser.menu().itemImage);
         } catch (err) {
             expect(err).toBeUndefined();
         }
@@ -65,8 +75,11 @@ describe('merchant-service', function () {
     test('should get merchant menu by Id', async () => {
         try {
             const menu = await merchantService.getMenuById(merchantUser.uid, createdMenu.id);
-            expect(menu.itemName).toEqual("john snow");
-            expect(menu.itemCost).toEqual(10000.00);
+            expect(menu.id).toEqual(createdMenu.id);
+            expect(menu.itemCost).toEqual(createdMenu.itemCost);
+            expect(menu.itemDetail).toEqual(merchantUser.menu().itemDetail);
+            expect(menu.itemName).toEqual(createdMenu.itemName);
+            expect(menu.itemImage).toEqual(merchantUser.menu().itemImage);
         } catch (err) {
             expect(err).toBeUndefined();
         }
@@ -74,7 +87,12 @@ describe('merchant-service', function () {
 
     test('should add order to merchant', async () => {
         try {
-            await merchantService.createOrder(merchantUser.uid, merchantUser.order());
+            const order = await merchantService.createOrder(merchantUser.uid, merchantUser.order());
+            expect(order.id).toBeTruthy();
+            expect(order.userId).toEqual(merchantUser.order().userId);
+            expect(order.status).toEqual(merchantUser.order().status);
+            expect(order.menu).toEqual(merchantUser.order().menu);
+            createdOrder = order;
         } catch (err) {
             expect(err).toBeUndefined();
         }
@@ -88,7 +106,6 @@ describe('merchant-service', function () {
             expect(orders[0].userId).toBeTruthy();
             expect(orders[0].status).toBeTruthy();
             expect(orders[0].menu).toBeTruthy();
-            createdOrder = orders[0];
         } catch (err) {
             expect(err).toBeUndefined();
         }
@@ -97,7 +114,11 @@ describe('merchant-service', function () {
     test('should update merchant order', async () => {
         try {
             createdOrder.status = "accepted";
-            await merchantService.updateOrder(merchantUser.uid, createdOrder);
+            const order = await merchantService.updateOrder(merchantUser.uid, createdOrder);
+            expect(order.id).toEqual(createdOrder.id);
+            expect(order.userId).toEqual(merchantUser.order().userId);
+            expect(order.status).toEqual(createdOrder.status);
+            expect(order.menu).toEqual(merchantUser.order().menu);
         } catch (err) {
             expect(err).toBeUndefined();
         }

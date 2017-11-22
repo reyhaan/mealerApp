@@ -43,7 +43,7 @@ merchant.updateMenu = async (userId, menu) => {
  */
 merchant.removeMenu = async (userId, menuId) => {
     try {
-        let userMenuRef = await database.user(userId).child('menu').child(menuId);
+        let userMenuRef = database.user(userId).child('menu').child(menuId);
         return userMenuRef.remove();
     } catch (err) {
         return {error: true, message: err};
@@ -156,7 +156,7 @@ merchant.getOrderById = async (userId, orderId) => {
  */
 merchant.removeOrder = async (userId, orderId) => {
     try {
-        let userOrderRef = await database.user(userId).child('orders').child(orderId);
+        let userOrderRef = database.user(userId).child('orders').child(orderId);
         return userOrderRef.remove();
     } catch (err) {
         return {error: true, message: err};

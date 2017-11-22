@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, ListView } from 'react-native'
+import { ScrollView, Text, View, ListView, TouchableHighlight, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { CookDetailsStyle } from '../../Styles'
-import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
-import { Col, Row, Grid } from 'react-native-easy-grid';
+import { Header, SearchBar, Avatar, Rating, Icon } from 'react-native-elements' 
+import { Col, Row, Grid } from 'react-native-easy-grid'
+import TestData from '../../../Services/test-data-service'
+import { NavigationActions } from 'react-navigation'
+import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog'
 
 import { Colors, Fonts } from '../../../Themes'
 
@@ -13,79 +16,19 @@ import { Colors, Fonts } from '../../../Themes'
 // Styles
 const styles = CookDetailsStyle
 
+let _this
+
+const slideAnimation = new SlideAnimation({
+  slideFrom: 'bottom',
+});
+
 class CookDetails extends Component {
   constructor (props) {
     super(props)
 
-    const userObject = [
-      {
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      }
-    ]
-
+    _this = this
+    const userObject = TestData.merchantUser.menu;
     const rowHasChanged = (r1, r2) => r1 !== r2
-
     const ds = new ListView.DataSource({rowHasChanged})
 
     this.state = {
@@ -105,49 +48,45 @@ class CookDetails extends Component {
     )
   }
 
+  showAddItemToOrderDialog = () => {
+    _this.popupDialog.show();
+  }
+
   _renderRow (rowData) {
+    const ItemCostStyle = { height: 20, 
+      flex: 1, flexDirection: 'column', 
+      justifyContent: 'center', alignItems: 'center'}
     return (
+      <TouchableOpacity onPress={() => {
+        _this.showAddItemToOrderDialog()
+      }}>
       <View style={styles.row}>
         <View style={styles.rowInnerContainer}>
           <Grid>
               <Col style={{ width: 60 }}>
                   <Avatar
                     medium
-                    rounded
-                    source={{uri: rowData.avatar}}
+                    source={{ uri: rowData.itemImage }}
                   />
               </Col>
               <Col>
                   <Row style={{ height: 20}}>
-                      <Text style={styles.boldLabel}>{rowData.name}</Text>
+                      <Text style={styles.boldLabel}>{rowData.itemName}</Text>
                   </Row>
-                  <Row style={{ height: 18 }}>
-                      <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: {rowData.cousineType}</Text>
+                  <Row style={{ height: 26 }}>
+                      <Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={2}>
+                      {rowData.itemDetail}</Text>
                   </Row>
-                  <Row style={{ height: 22 }}>
-                    <Rating
-                      type="star"
-                      ratingColor={Colors.pink2}
-                      fractions={1}
-                      startingValue={rowData.rating}
-                      readonly
-                      imageSize={10}
-                      onFinishRating={this.ratingCompleted}
-                      style={{ paddingVertical: 2 }}
-                    />
-                  </Row>
-                  <Row style={{ height: 18 }}>
-                    <Col>
-                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: Colors.background }} >View More</Text>
-                    </Col>
-                    <Col>
-                        <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 5 }} >Remaining: {rowData.quotaUsed}/{rowData.quotaLimit}</Text>
-                    </Col>
+              </Col>
+              <Col style={{ width: 60 }}>
+                  <Row style={ItemCostStyle}>
+                      <Text style={styles.boldLabel}>$ {rowData.itemCost}</Text>
                   </Row>
               </Col>
           </Grid>
         </View>
       </View>
+      </TouchableOpacity>
     )
   }
 
@@ -155,15 +94,22 @@ class CookDetails extends Component {
     return this.state.dataSource.getRowCount() === 0
   }
 
+  _backButton = () => {
+    return(
+      <Icon
+        name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
+        color={Colors.snow}
+        onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
+      />
+    )
+  }
+
   render () {
-
-
     return (
       <View style = {styles.container}>
         <Header
-          leftComponent = {{ icon: 'filter', color: '#fff', type: 'font-awesome' }}
-          centerComponent = {{ text: 'COOKS', style: { color: '#fff', fontWeight: 'bold' } }}
-          rightComponent = {{ icon: 'search', color: '#fff' }}
+          leftComponent = {this._backButton()}
+          centerComponent = {{ text: 'COOK DETAILS', style: { color: '#fff', fontWeight: 'bold' } }}
           backgroundColor = {Colors.background}
           outerContainerStyles = { styles.headerOuterContainer }
         />
@@ -174,7 +120,16 @@ class CookDetails extends Component {
           renderRow={this._renderRow}
           enableEmptySections
           pageSize={15}
-        />   
+        />
+
+        <PopupDialog
+          ref={(popupDialog) => { this.popupDialog = popupDialog; }}
+          dialogAnimation={slideAnimation}
+        >
+          <View>
+            <Text>Hello</Text>
+          </View>
+        </PopupDialog> 
 
       </View>
     )

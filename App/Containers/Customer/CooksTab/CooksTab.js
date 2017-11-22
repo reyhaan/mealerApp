@@ -13,10 +13,14 @@ import { Colors, Fonts } from '../../../Themes'
 // Styles
 const styles = CooksTabStyle
 
+let _this;
+
 class CooksTab extends Component {
   constructor (props) {
     super(props)
 
+    _this = this;
+    
     const userObject = [
       {
         name: "Mohammad Rehaan",
@@ -108,8 +112,7 @@ class CooksTab extends Component {
   _renderRow (rowData) {
     return (
       <TouchableOpacity onPress={() => {
-        console.log("CLICKED BRO!!")
-        this.props.navigation.navigate('CookDetails')
+        _this.props.navigation.navigate('CookDetails')
       }}>
         <View style={styles.row}>
           <View style={styles.rowInnerContainer}>
@@ -171,18 +174,13 @@ class CooksTab extends Component {
           outerContainerStyles = { styles.headerOuterContainer }
         />
 
-        {/* <ListView
+        <ListView
           contentContainerStyle={styles.listContent}
           dataSource={this.state.dataSource}
           renderRow={this._renderRow}
           enableEmptySections
           pageSize={15}
-        /> */}
-
-        <FlatList
-          data={this.state.dataSource}
-          renderItem={(item) => this._renderRow(item)}
-        /> 
+        />
 
       </View>
     )

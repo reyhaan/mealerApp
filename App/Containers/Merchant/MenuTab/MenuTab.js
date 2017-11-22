@@ -24,9 +24,10 @@ class MenuTab extends Component {
     }
   }
   setDataSource =()=>{
-    const menuList = this.props.menu;
+    const {menu} = this.props;
+    console.log('here:', menu)
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.setState({dataSource:  ds.cloneWithRows(menuList)});
+    this.setState({dataSource:  ds.cloneWithRows(menu)});
     
   }
   componentDidMount(){
@@ -60,7 +61,7 @@ class MenuTab extends Component {
               <Col style={{ width: 60 }}>
                   <Avatar
                     medium
-                    source={rowData.itemImage}
+                    source={{uri:rowData.itemImage}}
                   />
               </Col>
               <Col>

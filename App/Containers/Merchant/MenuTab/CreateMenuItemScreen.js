@@ -6,10 +6,9 @@ import { Colors, Fonts, Metrics } from '../../../Themes'
 import { NavigationActions } from 'react-navigation'
 import { ImagePicker } from 'expo';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import { MlImagePicker } from '../../../Components'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
-
+import { MlImagePicker } from '../../../Components';
+import {menuCreators} from '../../../Redux/Menu/MenuActions';
+import {bindActionCreators} from 'redux';
 // Styles
 import styles from '../../Styles/Merchant/MenuTabStyle/CreateMenuItemScreenStyle'
 
@@ -17,8 +16,46 @@ class CreateMenuItemScreen extends Component {
   constructor (props) {
     super(props)
     this.state = {
-
+      itemName : "",
+      itemDetail : "",
+      itemImage: "https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/" +
+      "v1438133716000/photosp/ig-498695320661758884_396353171/stock-photo-food-soup-healthy-foods-health-recipe-vegan-food-and-drink-stew-ig-498695320661758884_396353171.jpg",
+      itemCost: 0.00
     }
+  }
+
+  createNewMenu = (event, id) =>{
+    id === 'itemCost' && (typeof event === 'string' || event instanceof String) ?
+    this.setState({[id] : parseFloat(event)}) : this.setState({[id] : event});
+  }
+
+  resetState = () =>{
+    this.setState({itemName: "", itemCost: 0.00, itemDetail: ""})
+  }
+
+  onMenuSubmit(){
+    const {itemName, _, itemImage, itemCost} = this.state;
+    if(itemName && itemImage){
+      if((typeof itemCost === 'number' || typeof itemCost === 'Number') && itemCost > 0){
+        const cost = this.state.itemCost;
+        this.setState({itemCost: cost.toFixed(2)}, () => {
+          this.props.createMenu(this.state);
+          this.resetState()
+          this.props.navigation.dispatch(NavigationActions.back())
+        })
+      }
+      //todo display error
+      else alert("Cost value is invalid")
+    }
+    else{
+      //todo display error
+      alert("Please check form values")
+    }
+  }
+
+  onCancelMenu = () =>{
+    this.resetState();
+    this.props.navigation.dispatch(NavigationActions.back())
   }
 
   _backButton = () => {
@@ -55,21 +92,24 @@ class CreateMenuItemScreen extends Component {
                       underlineColorAndroid="transparent"
                       autoCapitalize="none"
                       containerStyle={styles.inputContainer}
-                      keyboardType="email-address" />
+                      keyboardType="email-address"
+                      onChangeText={(event) => this.createNewMenu(event, 'itemName')}/>
 
                     <FormLabel labelStyle={styles.formLabel}>DETAIL</FormLabel>
                     <FormInput
                       underlineColorAndroid="transparent"
                       inputStyle={styles.inputField}
                       containerStyle={styles.inputContainer}
-                      autoCapitalize="none" />
+                      autoCapitalize="none" 
+                      onChangeText={(event) => this.createNewMenu(event, 'itemDetail')}/>
 
                     <FormLabel labelStyle={styles.formLabel}>COST</FormLabel>
                     <FormInput
                       underlineColorAndroid="transparent"
                       inputStyle={styles.inputField}
                       containerStyle={styles.inputContainer}
-                      autoCapitalize="none" />
+                      autoCapitalize="none" 
+                      onChangeText={(event) => this.createNewMenu(event, 'itemCost')}/>
 
                     <Row style={{height: 40, marginTop: Metrics.doubleBaseMargin, marginBottom: Metrics.doubleBaseMargin}}>
 
@@ -77,14 +117,16 @@ class CreateMenuItemScreen extends Component {
                         <Button
                           buttonStyle={[styles.greenButton]}
                           textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                          title={`DONE`} />
+                          title={`DONE`} 
+                          onPress={() => this.onMenuSubmit()}/>
                       </Col>
                       
                       <Col size={1}>
                         <Button
                           buttonStyle={[styles.cancelButton]}
                           textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                          title={`CANCEL`} />
+                          title={`CANCEL`} 
+                          onPress={() => this.onCancelMenu()}/>
                       </Col>
 
                     </Row>
@@ -105,8 +147,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-  }
+  return bindActionCreators(menuCreators, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateMenuItemScreen)

@@ -24,8 +24,7 @@ menuEffects.createFoodMenu = function* (foodDetails){
         if(user){
             // addedMenuItem => is to be returned by firebase for now we are using static data
             const addedMenuItem = foodDetails.data
-            yield call(merchantService.createMenu, user.uid, foodDetails.data);
-            console.log("added:", addedMenuItem)
+            yield call(merchantService.createMenu, user.uid, foodDetails.data)
             yield put(menuCreators.createMenuSuccessful(addedMenuItem))
         }
         else{

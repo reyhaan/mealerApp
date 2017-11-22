@@ -9,6 +9,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { MlImagePicker } from '../../../Components';
 import {menuCreators} from '../../../Redux/Menu/MenuActions';
 import {bindActionCreators} from 'redux';
+import {Alert} from 'react-native';
 // Styles
 import styles from '../../Styles/Merchant/MenuTabStyle/CreateMenuItemScreenStyle'
 
@@ -24,36 +25,36 @@ class CreateMenuItemScreen extends Component {
     }
   }
 
-  createNewMenu = (event, id) =>{
+  createNewMenu = (event, id) => {
     id === 'itemCost' && (typeof event === 'string' || event instanceof String) ?
-    this.setState({[id] : parseFloat(event)}) : this.setState({[id] : event});
+    this.setState({[id] : parseFloat(event)}) : this.setState({[id] : event})
   }
 
-  resetState = () =>{
+  resetState = () => {
     this.setState({itemName: "", itemCost: 0.00, itemDetail: ""})
   }
 
-  onMenuSubmit(){
+  onMenuSubmit () {
     const {itemName, _, itemImage, itemCost} = this.state;
     if(itemName && itemImage){
       if((typeof itemCost === 'number' || typeof itemCost === 'Number') && itemCost > 0){
         const cost = this.state.itemCost;
         this.setState({itemCost: cost.toFixed(2)}, () => {
-          this.props.createMenu(this.state);
+          this.props.createMenu(this.state)
           this.resetState()
           this.props.navigation.dispatch(NavigationActions.back())
         })
       }
       //todo display error
-      else alert("Cost value is invalid")
+      else Alert.alert("Cost value is invalid")
     }
     else{
       //todo display error
-      alert("Please check form values")
+      Alert.alert("Please check form values")
     }
   }
 
-  onCancelMenu = () =>{
+  onCancelMenu = () => {
     this.resetState();
     this.props.navigation.dispatch(NavigationActions.back())
   }

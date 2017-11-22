@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, ListView } from 'react-native'
 import { connect } from 'react-redux'
 import { MenuTabStyle } from '../../Styles'
-import { Header, SearchBar, Avatar, Rating, Icon } from 'react-native-elements' 
-import { Col, Row, Grid } from 'react-native-easy-grid'; 
+import { Header, SearchBar, Avatar, Rating, Icon } from 'react-native-elements'
+import { Col, Row, Grid } from 'react-native-easy-grid';
 import {NavigationActions} from 'react-navigation';
 
 import { Colors, Images } from '../../../Themes';
@@ -21,8 +21,8 @@ class MenuTab extends Component {
   }
 
   _renderRow (rowData) {
-    const ItemCostStyle = { height: 20, 
-      flex: 1, flexDirection: 'column', 
+    const ItemCostStyle = { height: 20,
+      flex: 1, flexDirection: 'column',
       justifyContent: 'center', alignItems: 'center'}
     return (
       <View style={styles.row}>

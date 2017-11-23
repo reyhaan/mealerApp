@@ -1,5 +1,5 @@
 import {takeLatest} from 'redux-saga/effects';
-import menuEffects from './MenuEffects';
+import MenuSaga from './MenuSaga';
 
 
 /******************************* ACTIONS *************************************/
@@ -9,7 +9,7 @@ export const menuActions = {
     CREATE_MENU : "CREATE_MENU",
     CREATE_MENU_SUCCESSFUL : "CREATE_MENU_SUCCESSFUL",
     CREATE_MENU_FAILURE: "CREATE_MENU_FAILURE"
-}
+};
 
 /******************************* ACTION CREATORS *************************************/
 function createAction(type, data) {
@@ -23,8 +23,8 @@ export const menuCreators = {
     createMenuFailure: (error) => createAction(menuActions.CREATE_MENU_FAILURE, error)
 };
 
-/******************************* SAGA WATCHERS & EFFECTS *************************************/
-export const menuSagas = [
-    takeLatest(menuActions.FETCH_MENU, menuEffects.getFoodMenu),
-    takeLatest(menuActions.CREATE_MENU, menuEffects.createFoodMenu)
+/******************************* SAGA WATCHERS *************************************/
+export const menuActionWatchers = [
+    takeLatest(menuActions.FETCH_MENU, MenuSaga.getFoodMenu),
+    takeLatest(menuActions.CREATE_MENU, MenuSaga.createFoodMenu)
 ];

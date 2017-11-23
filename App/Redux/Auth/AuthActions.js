@@ -1,5 +1,5 @@
 import {takeLatest} from 'redux-saga/effects'
-import AuthEffect from './AuthEffects'
+import AuthSaga from './AuthSaga'
 
 function createAction(type, data) {
     return {type, data};
@@ -27,9 +27,9 @@ export const authActionCreators = {
     showActivityIndicator: (data) => createAction(authActions.showActivityIndicator, data)
 };
 
-/******************************* SAGA WATCHERS & EFFECTS *************************************/
-export const authSagas = [
-    takeLatest(authActions.signIn, AuthEffect.signIn),
-    takeLatest(authActions.signUp, AuthEffect.signUp),
-    takeLatest(authActions.signOut, AuthEffect.signOut),
+/******************************* ACTION WATCHERS *************************************/
+export const authActionWatchers = [
+    takeLatest(authActions.signIn, AuthSaga.signIn),
+    takeLatest(authActions.signUp, AuthSaga.signUp),
+    takeLatest(authActions.signOut, AuthSaga.signOut),
 ];

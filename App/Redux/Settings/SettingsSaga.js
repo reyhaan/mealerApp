@@ -1,8 +1,5 @@
-import {put, call} from 'redux-saga/effects'
-import {NavigationActions} from 'react-navigation';
+import {call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
-import {authActionCreators} from '../Auth/AuthActions';
-import {settingsCreators } from './SettingsActions'
 import SettingsService from '../../Services/settings-service'
 
 const settingsEffects = {};
@@ -15,6 +12,6 @@ settingsEffects.updateUserInfo = function* (userDetails){
     } finally {
 
     }
-}
+};
 
 export default settingsEffects;

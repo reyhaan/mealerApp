@@ -1,13 +1,13 @@
 import {all} from 'redux-saga/effects';
-import {menuSagas} from './Menu/MenuActions';
-import {authSagas} from './Auth/AuthActions';
-import {settingsSagas} from './Settings/SettingsActions';
+import {menuActionWatchers} from './Menu/MenuActions';
+import {authActionWatchers} from './Auth/AuthActions';
+import {settingsActionWatchers} from './Settings/SettingsActions';
 
 const sagas = function* root() {
     yield all([
-        ...authSagas,
-        ...menuSagas,
-        ...settingsSagas
+        ...authActionWatchers,
+        ...menuActionWatchers,
+        ...settingsActionWatchers
     ])
 };
 

@@ -1,12 +1,17 @@
 import authenticationService from './authentication-service';
-import {merchant, customer , User} from './test-data-service';
+import {merchant, customer, User} from './test-data-service';
 import database from '../Config/database';
 
 const merchantUser = new User(merchant);
 const customerUser = new User(customer);
 
-afterAll(() => {
-    return database.firebase.database().goOffline();
+afterAll(async () => {
+    // remove any database connections.
+    try {
+        await database.firebase.database().goOffline();
+    } catch (err) {
+        expect(err).toBeUndefined();
+    }
 });
 
 describe('authentication-service', function () {

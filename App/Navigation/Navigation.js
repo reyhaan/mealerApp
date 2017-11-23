@@ -4,6 +4,7 @@ import CustomerTab from './Tabs/CustomerTab'
 import {
     LoginScreen,
     SignUpScreen,
+    EditMenuScreen
 } from '../Containers'
 
 
@@ -20,6 +21,9 @@ export default StackNavigator({
     },
     CustomerTab: {
         screen: CustomerTab
+    },
+    EditMenuScreen: {
+        screen: EditMenuScreen
     }
 }, {
     // Default config for all screens

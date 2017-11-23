@@ -15,8 +15,8 @@ merchant.createMenu = async (userId, menu) => {
         await menuRef.child(menuKey).set(menu);
         const menuSnapshot = await menuRef.child(menuKey).once('value');
         return {id: menuSnapshot.key, ...menuSnapshot.val()};
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -31,8 +31,8 @@ merchant.updateMenu = async (userId, menu) => {
         await userMenuRef.update(menu);
         const menuSnapshot = await userMenuRef.once('value');
         return {id: menuSnapshot.key, ...menuSnapshot.val()};
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -45,8 +45,8 @@ merchant.removeMenu = async (userId, menuId) => {
     try {
         let userMenuRef = database.user(userId).child('menu').child(menuId);
         return userMenuRef.remove();
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -64,8 +64,8 @@ merchant.getMenu = async (userId) => {
             menus.push({id, ...data});
         });
         return menus;
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -78,8 +78,8 @@ merchant.getMenuById = async (userId, menuId) => {
     try {
         let menu = await database.user(userId).child('menu').child(menuId).once('value');
         return {id: menu.key, ...menu.val()}
-    } catch (err) {
-        reject({error: true, message: err});
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -95,8 +95,8 @@ merchant.createOrder = async (userId, order) => {
         await orderRef.child(orderKey).set(order);
         const orderSnapshot = await orderRef.child(orderKey).once('value');
         return {id: orderSnapshot.key, ...orderSnapshot.val()};
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -114,8 +114,8 @@ merchant.getOrders = async (userId) => {
             menus.push({id, ...data});
         });
         return menus;
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -130,8 +130,8 @@ merchant.updateOrder = async (userId, order) => {
         await userOrderRef.update(order);
         const orderSnapshot = await userOrderRef.once('value');
         return {id: orderSnapshot.key, ...orderSnapshot.val()};
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -144,8 +144,8 @@ merchant.getOrderById = async (userId, orderId) => {
     try {
         let userOrderSnapshot = await database.user(userId).child('orders').child(orderId).once('value');
         return {id: userOrderSnapshot.key, ...userOrderSnapshot.val()};
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -158,8 +158,8 @@ merchant.removeOrder = async (userId, orderId) => {
     try {
         let userOrderRef = database.user(userId).child('orders').child(orderId);
         return userOrderRef.remove();
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 
@@ -178,8 +178,8 @@ merchant.getOrdersByStatus = async (userId, status) => {
             orders.push({id, ...data});
         });
         return orders;
-    } catch (err) {
-        return {error: true, message: err};
+    } catch (error) {
+        return {error};
     }
 };
 

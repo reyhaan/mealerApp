@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView, View, Text } from 'react-native'
 import { connect } from 'react-redux'
-import {OrdersTabStyle} from '../Styles'
+import OrdersTabStyle from './OrdersTab.style'
 import { Header } from 'react-native-elements' 
 import { IndividualOrderList } from '../../Components'
 

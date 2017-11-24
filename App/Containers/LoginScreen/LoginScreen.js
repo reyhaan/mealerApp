@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import {ScrollView, View, Image, TouchableOpacity, Alert} from 'react-native'
-import {LoginScreenStyle} from './Styles'
+import LoginScreenStyle from './LoginScreen.style'
 import {Button, FormInput, Text} from 'react-native-elements'
-import {Images, Fonts} from '../Themes'
+import {Images, Fonts} from '../../Themes/index'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {SignUpScreen} from './index'
-import {authActionCreators} from '../Redux/Auth/AuthActions'
-import {LoadingSpinner} from '../Components'
-import authenticationService from '../Services/authentication-service'
+import {SignUpScreen} from '../index'
+import {authActionCreators} from '../../Redux/Auth/AuthActions'
+import {LoadingSpinner} from '../../Components/index'
+import authenticationService from '../../Services/authentication-service'
 
 
 class LoginScreen extends Component {

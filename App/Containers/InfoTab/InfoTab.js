@@ -6,8 +6,8 @@ import { Header } from 'react-native-elements'
 // import YourActions from '../Redux/YourRedux'
 
 // Styles
-import styles from './Styles/InfoTabStyle'
-import { Colors, Fonts, Images, Metrics } from '../Themes'
+import styles from './InfoTab.style'
+import { Colors, Fonts, Images, Metrics } from '../../Themes/index'
 
 class InfoTab extends Component {
   // constructor (props) {

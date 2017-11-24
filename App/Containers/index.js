@@ -5,7 +5,7 @@ import OrdersTab from './OrdersTab/OrdersTab'
 import SettingsTab from './Customer/SettingsTab/SettingsTab'
 import UserInfoChangeScreen from './Customer/SettingsTab/UserInfoChangeScreen'
 import InfoTab from './InfoTab/InfoTab'
-import MenuTab from './Merchant/MenuTab/MenuTab'
+import MenuTab from './Merchant/MenuTab/MenuScreen'
 import EditMenuScreen from './Merchant/MenuTab/EditMenuScreen'
 
 export {

@@ -136,18 +136,35 @@ class CooksTab extends Component {
                       style={{ paddingVertical: 2 }}
                     />
                   </Row>
-                  <Row style={{ height: 18 }}>
-                    <Col>
-                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: Colors.background }} >View More</Text>
-                    </Col>
-                    <Col>
-                        <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 5 }} >Remaining: {rowData.quotaUsed}/{rowData.quotaLimit}</Text>
-                    </Col>
-                  </Row>
               </Col>
-          </Grid>
+              <Col>
+                    <Row style={{ height: 20}}>
+                        <Text style={styles.boldLabel}>{rowData.name}</Text>
+                    </Row>
+                    <Row style={{ height: 18 }}>
+                        <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: {rowData.cousineType}</Text>
+                    </Row>
+                    <Row style={{ height: 22 }}>
+                      <Rating
+                        type="star"
+                        ratingColor={Colors.pink2}
+                        fractions={1}
+                        startingValue={rowData.rating}
+                        readonly
+                        imageSize={10}
+                        onFinishRating={this.ratingCompleted}
+                        style={{ paddingVertical: 2 }}
+                      />
+                    </Row>
+                    <Row style={{ height: 18 }}>
+                      <Col>
+                          <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 5 }} >Remaining: {rowData.quotaUsed}/{rowData.quotaLimit}</Text>
+                      </Col>
+                    </Row>
+                </Col>
+            </Grid>
+          </View>
         </View>
-      </View>
     )
   }
 

@@ -4,12 +4,12 @@ import { Colors, Metrics, Fonts } from '../../../Themes/index'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background
+    backgroundColor: Colors.snow
   },
   headerOuterContainer: {
     width: Metrics.screenWidth,
     backgroundColor: Colors.background,
-    borderBottomColor: Colors.pink2,
+    borderBottomColor: Colors.background,
     borderBottomWidth: 1,
     padding: 15,
     height: 75,
@@ -22,13 +22,14 @@ export default StyleSheet.create({
     paddingRight: 10,
     paddingLeft: 10,
     paddingBottom: 0,
-    paddingTop: 10
+    paddingTop: 0
   },
   rowInnerContainer: {
     flex: 1,
     height: 90,
     backgroundColor: Colors.snow,
-    borderRadius: 3,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.lightGray,
     padding: 10
   },
   boldLabel: {

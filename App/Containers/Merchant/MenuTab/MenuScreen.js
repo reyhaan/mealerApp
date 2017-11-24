@@ -38,7 +38,8 @@ class MenuTab extends Component {
         console.log("list pressed");
     };
 
-    _renderItem = (item) => {
+    _renderItem = (data) => {
+        const {item} = data;
         return (
             <TouchableOpacity onPress={this._onPress} style={style.itemContainer}>
                 <Grid>
@@ -79,7 +80,7 @@ class MenuTab extends Component {
                 <FlatList
                     style={{backgroundColor: '#fff'}}
                     data={menus}
-                    renderItem={({item}) => this._renderItem(item)}
+                    renderItem={this._renderItem}
                 />
             </View>
         )

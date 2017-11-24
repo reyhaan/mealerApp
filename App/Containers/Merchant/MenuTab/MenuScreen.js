@@ -14,9 +14,7 @@ class MenuTab extends Component {
         super(props);
         this.props.fetchMerchantMenu();
     }
-
-    state = {selected: (new Map(): Map<string, boolean>)};
-
+    
     addMenuItemButton = () => {
         return (
             <Icon

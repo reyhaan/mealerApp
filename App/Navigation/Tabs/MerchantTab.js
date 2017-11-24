@@ -1,7 +1,7 @@
 import React from 'react'
 import {Colors} from '../../Themes/index'
 import {Image} from 'react-native'
-import styles from '../Styles/NavigationStyles'
+import styles from '../Navigation.style'
 import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
@@ -18,6 +18,7 @@ const merchantTabsConfig = {
     One: {
         screen: MenuTab,
         navigationOptions: {
+            tabBarLabel: 'Menu',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.menuWhite}
@@ -31,6 +32,7 @@ const merchantTabsConfig = {
     Two: {
         screen: OrdersTab,
         navigationOptions: {
+            tabBarLabel: 'Orders',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.ordersWhite}
@@ -43,6 +45,7 @@ const merchantTabsConfig = {
     Three: {
         screen: SettingsTab,
         navigationOptions: {
+            tabBarLabel: 'Settings',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.settingsWhite}
@@ -55,6 +58,7 @@ const merchantTabsConfig = {
     Four: {
         screen: InfoTab,
         navigationOptions: {
+            tabBarLabel: 'About',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.infoIcon}
@@ -89,7 +93,7 @@ export default StackNavigator({
             header: null,
         }),
         cardStyle: {
-            backgroundColor: Colors.background
+            // backgroundColor: Colors.background
         }
     }
 );

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Colors} from '../../Themes/index'
 import {Image} from 'react-native'
-import styles from '../Styles/NavigationStyles'
+import styles from '../Navigation.style'
 import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'

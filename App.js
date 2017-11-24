@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Provider} from 'react-redux'
 import RootContainer from './App/Containers/RootContiner/RootContainer'
-import createStore from './App/Redux/createStore'
+import createStore from './App/Redux/CreateStore'
 import './App/Config/ReactotronConfig'
 
 /**

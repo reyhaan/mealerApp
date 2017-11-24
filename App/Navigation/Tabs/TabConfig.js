@@ -1,7 +1,7 @@
 import styles from '../Navigation.style'
 import {Colors} from '../../Themes'
 
-import {Platform} from 'react-native'
+import { Platform } from 'react-native'
 
 export default {
     swipeEnabled: false,
@@ -13,10 +13,10 @@ export default {
     },
     initialRouteName: 'One',
     tabBarOptions: {
-        activeTintColor: Colors.snow,
-        inactiveTintColor: Colors.pinkLight1,
+        activeTintColor: (Platform.OS === 'ios') ? Colors.backgroundLighter : Colors.background,
+        inactiveTintColor: (Platform.OS === 'ios') ? Colors.lightGray : Colors.gray,
         showIcon: true,
-        showLabel: true,
+        showLabel: false,
         labelStyle: {
             fontSize: 10,
             fontWeight: 'bold',
@@ -24,11 +24,22 @@ export default {
             paddingBottom: (Platform.OS === 'ios') ? 6 : 0
         },
         style: {
-            backgroundColor: Colors.backgroundDarker,
-            height: (Platform.OS === 'ios') ? 48 : 48
+            backgroundColor: Colors.snow,
+            height: (Platform.OS === 'ios') ? 48 : 48,
+            shadowColor: '#000',
+            shadowOpacity: 0.4,
+            shadowRadius: 3,
+            shadowOffset: {
+              height: 3,
+            },
+            zIndex: 1,
+            elevation: 3,
+            paddingBottom: 2,
+            borderColor: (Platform.OS === 'ios') ? Colors.clear : Colors.lightGray,
+            borderTopWidth: (Platform.OS === 'ios') ? 0 : 1
         },
         tabStyle: {
-            borderColor: Colors.backgroundDarker
+            borderColor: Colors.snow
         },
         indicatorStyle: styles.indicator,
     }

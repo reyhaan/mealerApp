@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, ListView } from 'react-native'
+import { ScrollView, Text, View, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import CooksTabStyle  from './CooksTab.style'
 import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
@@ -19,6 +19,7 @@ class CooksTab extends Component {
 
     const userObject = [
       {
+        key: 1,
         name: "Mohammad Rehaan",
         avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
@@ -27,6 +28,7 @@ class CooksTab extends Component {
         quotaUsed: 24
       },
       {
+        key: 2,
         name: "Mohammad Rehaan",
         avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
@@ -35,6 +37,7 @@ class CooksTab extends Component {
         quotaUsed: 24
       },
       {
+        key: 3,
         name: "Mohammad Rehaan",
         avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
@@ -43,6 +46,7 @@ class CooksTab extends Component {
         quotaUsed: 24
       },
       {
+        key: 4,
         name: "Mohammad Rehaan",
         avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
@@ -51,6 +55,7 @@ class CooksTab extends Component {
         quotaUsed: 24
       },
       {
+        key: 5,
         name: "Mohammad Rehaan",
         avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
         cousineType: "Indian",
@@ -59,6 +64,7 @@ class CooksTab extends Component {
         quotaUsed: 24
       },
       {
+        key: 6,
         name: "Mohammad Rehaan",
         avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
         cousineType: "Indian",
@@ -67,6 +73,7 @@ class CooksTab extends Component {
         quotaUsed: 24
       },
       {
+        key: 7,
         name: "Mohammad Rehaan",
         avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
         cousineType: "Indian",
@@ -75,6 +82,7 @@ class CooksTab extends Component {
         quotaUsed: 24
       },
       {
+        key: 8,
         name: "Mohammad Rehaan",
         avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
         cousineType: "Indian",
@@ -84,12 +92,12 @@ class CooksTab extends Component {
       }
     ]
 
-    const rowHasChanged = (r1, r2) => r1 !== r2
+    // const rowHasChanged = (r1, r2) => r1 !== r2
 
-    const ds = new ListView.DataSource({rowHasChanged})
+    // const ds = new ListView.DataSource({rowHasChanged})
 
     this.state = {
-      dataSource: ds.cloneWithRows(userObject)
+      dataSource: userObject
     }
 
   }
@@ -117,37 +125,36 @@ class CooksTab extends Component {
                     source={{uri: rowData.avatar}}
                   />
               </Col>
-              <Col>
-                  <Row style={{ height: 20}}>
-                      <Text style={styles.boldLabel}>{rowData.name}</Text>
-                  </Row>
-                  <Row style={{ height: 18 }}>
-                      <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: {rowData.cousineType}</Text>
-                  </Row>
-                  <Row style={{ height: 22 }}>
-                    <Rating
-                      type="star"
-                      ratingColor={Colors.pink2}
-                      fractions={1}
-                      startingValue={rowData.rating}
-                      readonly
-                      imageSize={10}
-                      onFinishRating={this.ratingCompleted}
-                      style={{ paddingVertical: 2 }}
-                    />
-                  </Row>
-                  <Row style={{ height: 18 }}>
-                    <Col>
-                        <Text style={{ fontSize: 12, fontWeight: 'bold', color: Colors.background }} >View More</Text>
-                    </Col>
-                    <Col>
-                        <Text style={{ fontSize: 12, textAlign: 'right', paddingRight: 5 }} >Remaining: {rowData.quotaUsed}/{rowData.quotaLimit}</Text>
-                    </Col>
-                  </Row>
+              <Col style={{ paddingLeft: 5 }}>
+                <Row style={{ height: 20}}>
+                    <Text style={styles.boldLabel}>{rowData.name}</Text>
+                </Row>
+                <Row style={{ height: 18 }}>
+                    <Text style={{fontSize: 12, color: Colors.charcoal}} >Cousine Type 
+                      <Text style={{ fontWeight: 'bold' }}>: {rowData.cousineType}</Text>
+                    </Text>
+                </Row>
+                <Row style={{ height: 18 }}>
+                  <Col>
+                      <Text style={{ fontSize: 12, textAlign: 'left', paddingRight: 5, color: Colors.charcoal }} >{rowData.quotaUsed} of {rowData.quotaLimit} left</Text>
+                  </Col>
+                </Row>
+                <Row style={{ height: 22 }}>
+                  <Rating
+                    type="star"
+                    ratingColor={Colors.pink2}
+                    fractions={1}
+                    startingValue={rowData.rating}
+                    readonly
+                    imageSize={10}
+                    onFinishRating={this.ratingCompleted}
+                    style={{ paddingVertical: 2 }}
+                  />
+                </Row>
               </Col>
-          </Grid>
+            </Grid>
+          </View>
         </View>
-      </View>
     )
   }
 
@@ -168,12 +175,10 @@ class CooksTab extends Component {
           outerContainerStyles = { styles.headerOuterContainer }
         />
 
-        <ListView
+        <FlatList
           contentContainerStyle={styles.listContent}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          enableEmptySections
-          pageSize={15}
+          data={this.state.dataSource}
+          renderItem={({item}) => this._renderRow(item)}
         />   
 
       </View>

@@ -1,5 +1,6 @@
 const colors = {
-  background: '#572FB6',
+  background: '#D7452D',// '#FD5946', //'#EF0632', //'#D54A58', // '#FD4B54',
+  backgroundLighter: '#EA6D59', // '#EF5D45',
   backgroundDarker: '#4C2A9E',
   pink: '#EE388D',
   pink2: '#7041C9',
@@ -12,6 +13,8 @@ const colors = {
   transparent: 'rgba(0,0,0,0)',
   silver: '#F7F7F7',
   steel: '#CCCCCC',
+  gray: '#777777',
+  lightGray: '#F0F0F0',
   error: 'rgba(200, 0, 0, 0.8)',
   ricePaper: 'rgba(255,255,255, 0.75)',
   frost: '#D8D8D8',

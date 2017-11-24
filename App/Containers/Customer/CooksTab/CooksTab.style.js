@@ -18,7 +18,7 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.clear,
     marginVertical: 0,
-    height: 110,
+    height: 100,
     paddingRight: 10,
     paddingLeft: 10,
     paddingBottom: 0,
@@ -30,11 +30,12 @@ export default StyleSheet.create({
     backgroundColor: Colors.snow,
     borderBottomWidth: 1,
     borderBottomColor: Colors.lightGray,
-    padding: 10
+    padding: 10,
+    paddingTop: 15
   },
   boldLabel: {
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: Fonts.type.bold
   },
   label: {

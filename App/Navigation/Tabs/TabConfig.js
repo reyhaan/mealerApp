@@ -1,7 +1,7 @@
 import styles from '../Navigation.style'
 import {Colors} from '../../Themes'
 
-import {Platform} from 'react-native'
+import { Platform } from 'react-native'
 
 export default {
     swipeEnabled: false,
@@ -34,7 +34,9 @@ export default {
             },
             zIndex: 1,
             elevation: 3,
-            paddingBottom: 2
+            paddingBottom: 2,
+            borderColor: (Platform.OS === 'ios') ? Colors.clear : Colors.lightGray,
+            borderTopWidth: (Platform.OS === 'ios') ? 0 : 1
         },
         tabStyle: {
             borderColor: Colors.snow

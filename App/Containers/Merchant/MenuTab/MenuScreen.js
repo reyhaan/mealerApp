@@ -14,7 +14,7 @@ class MenuTab extends Component {
         super(props);
         this.props.fetchMerchantMenu();
     }
-    
+
     addMenuItemButton = () => {
         return (
             <Icon

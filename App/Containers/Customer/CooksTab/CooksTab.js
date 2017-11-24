@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, ListView } from 'react-native'
+import { ScrollView, Text, View, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import CooksTabStyle  from './CooksTab.style'
 import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
@@ -84,12 +84,12 @@ class CooksTab extends Component {
       }
     ]
 
-    const rowHasChanged = (r1, r2) => r1 !== r2
+    // const rowHasChanged = (r1, r2) => r1 !== r2
 
-    const ds = new ListView.DataSource({rowHasChanged})
+    // const ds = new ListView.DataSource({rowHasChanged})
 
     this.state = {
-      dataSource: ds.cloneWithRows(userObject)
+      dataSource: userObject
     }
 
   }
@@ -116,26 +116,6 @@ class CooksTab extends Component {
                     rounded
                     source={{uri: rowData.avatar}}
                   />
-              </Col>
-              <Col>
-                  <Row style={{ height: 20}}>
-                      <Text style={styles.boldLabel}>{rowData.name}</Text>
-                  </Row>
-                  <Row style={{ height: 18 }}>
-                      <Text style={{fontSize: 11, color: Colors.charcoal}} >Cousine Type: {rowData.cousineType}</Text>
-                  </Row>
-                  <Row style={{ height: 22 }}>
-                    <Rating
-                      type="star"
-                      ratingColor={Colors.pink2}
-                      fractions={1}
-                      startingValue={rowData.rating}
-                      readonly
-                      imageSize={10}
-                      onFinishRating={this.ratingCompleted}
-                      style={{ paddingVertical: 2 }}
-                    />
-                  </Row>
               </Col>
               <Col>
                     <Row style={{ height: 20}}>
@@ -185,12 +165,10 @@ class CooksTab extends Component {
           outerContainerStyles = { styles.headerOuterContainer }
         />
 
-        <ListView
+        <FlatList
           contentContainerStyle={styles.listContent}
-          dataSource={this.state.dataSource}
-          renderRow={this._renderRow}
-          enableEmptySections
-          pageSize={15}
+          data={this.state.dataSource}
+          renderItem={({item}) => this._renderRow(item)}
         />   
 
       </View>

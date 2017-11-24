@@ -16,7 +16,7 @@ export default {
         activeTintColor: (Platform.OS === 'ios') ? Colors.backgroundLighter : Colors.background,
         inactiveTintColor: (Platform.OS === 'ios') ? Colors.lightGray : Colors.gray,
         showIcon: true,
-        showLabel: true,
+        showLabel: false,
         labelStyle: {
             fontSize: 10,
             fontWeight: 'bold',

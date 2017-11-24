@@ -7,7 +7,7 @@ import styles from './RootContainer.styles'
 import {LoginScreen} from '../index'
 import authenticationService from '../../Services/authentication-service'
 import * as ReactNavigation from 'react-navigation'
-
+import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
 
 // authenticationService.currentUser().then(user => {
 //     if (user && user.type) {
@@ -27,11 +27,21 @@ class RootContainer extends Component {
 
     async componentDidMount() {
         try {
+            // Calls to initialize app
             const currentUser = await authenticationService.currentUser();
             await Font.loadAsync({
                 'proximanova-regular': require('../../../assets/fonts/ProximaNova-Regular.ttf'),
                 'proximanova-bold': require('../../../assets/fonts/ProximaNova-Bold.ttf')
             });
+
+            if (currentUser && currentUser.type === "merchant") {
+
+            }
+
+            if (currentUser && currentUser.type === "customer") {
+
+            }
+
             this.setState({
                 fontLoaded: true,
                 currentUser: currentUser

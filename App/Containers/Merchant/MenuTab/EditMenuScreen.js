@@ -6,7 +6,7 @@ import {Colors, Fonts, Metrics} from '../../../Themes'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {MlImagePicker} from '../../../Components';
-import {menuCreators} from '../../../Redux/Menu/MenuActions';
+import {menuCreators} from '../../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 // Styles

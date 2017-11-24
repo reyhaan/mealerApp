@@ -1,4 +1,4 @@
-import styles from '../Styles/NavigationStyles'
+import styles from '../Navigation.style'
 import {Colors} from '../../Themes'
 
 import {Platform} from 'react-native'
@@ -11,14 +11,14 @@ export default {
         headerMode: 'none',
         headerStyle: styles.header
     },
-    initialRouteName: 'Two',
+    initialRouteName: 'One',
     tabBarOptions: {
         activeTintColor: Colors.snow,
         inactiveTintColor: Colors.pinkLight1,
         showIcon: true,
-        showLabel: false,
+        showLabel: true,
         labelStyle: {
-            fontSize: 11,
+            fontSize: 10,
             fontWeight: 'bold',
             marginTop: (Platform.OS === 'ios') ? -2 : 2,
             paddingBottom: (Platform.OS === 'ios') ? 6 : 0

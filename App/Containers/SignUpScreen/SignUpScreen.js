@@ -2,12 +2,12 @@ import React, {Component} from 'react'
 import {Button, FormInput, List, ListItem} from 'react-native-elements'
 import {connect} from 'react-redux'
 import {ScrollView, View, Image, Alert} from 'react-native'
-import {Images, Fonts} from '../Themes'
-import {SignUpScreenStyle} from './Styles'
+import {Images, Fonts} from '../../Themes/index'
+import SignUpScreenStyle from './SignUpScreen.style'
 import {bindActionCreators} from 'redux'
-import {authActionCreators} from '../Redux/Auth/AuthActions'
-import {LoginScreen} from './index'
-import {LoadingSpinner} from '../Components'
+import {authActionCreators} from '../../Redux/Auth/AuthActions'
+import {LoginScreen} from '../index'
+import {LoadingSpinner} from '../../Components/index'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";

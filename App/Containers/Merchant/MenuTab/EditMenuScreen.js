@@ -10,7 +10,7 @@ import {menuCreators} from '../../../Redux/Menu/MenuActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 // Styles
-import styles from '../../Styles/Merchant/MenuTabStyle/EditMenuScreenStyle'
+import styles from './EditMenuScreen.style'
 
 class EditMenuScreen extends Component {
     constructor(props) {

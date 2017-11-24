@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {View, StatusBar, Alert, AsyncStorage} from 'react-native'
-import Navigation from '../Navigation/Navigation'
+import Navigation from '../../Navigation/Navigation'
 import {connect} from 'react-redux'
 import {Font} from 'expo'
-import styles from './Styles/RootContainerStyles'
-import {LoginScreen} from './index'
-import authenticationService from '../Services/authentication-service'
+import styles from './RootContainer.styles'
+import {LoginScreen} from '../index'
+import authenticationService from '../../Services/authentication-service'
 import * as ReactNavigation from 'react-navigation'
 
 
@@ -29,8 +29,8 @@ class RootContainer extends Component {
         try {
             const currentUser = await authenticationService.currentUser();
             await Font.loadAsync({
-                'proximanova-regular': require('../../assets/fonts/ProximaNova-Regular.ttf'),
-                'proximanova-bold': require('../../assets/fonts/ProximaNova-Bold.ttf')
+                'proximanova-regular': require('../../../assets/fonts/ProximaNova-Regular.ttf'),
+                'proximanova-bold': require('../../../assets/fonts/ProximaNova-Bold.ttf')
             });
             this.setState({
                 fontLoaded: true,

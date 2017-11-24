@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, View, ListView } from 'react-native'
 import { connect } from 'react-redux'
-import { MenuTabStyle } from '../../Styles'
+import MenuTabStyle from './MenuTab.style'
 import { Header, SearchBar, Avatar, Rating, Icon } from 'react-native-elements'
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {NavigationActions} from 'react-navigation';

@@ -3,7 +3,7 @@ import { ScrollView, Text, View, Platform, Image, KeyboardAvoidingView } from 'r
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { Header, Icon, Button, FormInput, FormLabel } from 'react-native-elements'
-import {UserInfoChangeScreenStyle} from '../../Styles'
+import UserInfoChangeScreenStyle from './UserInfoChangeScreen.style'
 import { Colors, Fonts, Metrics } from '../../../Themes'
 import { NavigationActions } from 'react-navigation'
 import { Col, Row, Grid } from 'react-native-easy-grid'

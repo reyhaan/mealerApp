@@ -22,7 +22,8 @@ const customerTabsConfig = {
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
-            headerStyle: styles.header
+            headerStyle: styles.header,
+            title: 'Chef'
         },
     },
 
@@ -35,6 +36,7 @@ const customerTabsConfig = {
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
+            title: 'Orders'
         },
     },
 
@@ -47,6 +49,7 @@ const customerTabsConfig = {
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
+            title: 'Settings'
         },
     },
 
@@ -59,6 +62,7 @@ const customerTabsConfig = {
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
+            title: 'Info'
         },
     }
 };

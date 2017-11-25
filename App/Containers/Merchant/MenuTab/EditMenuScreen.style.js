@@ -5,7 +5,7 @@ export default StyleSheet.create({
     ...ApplicationStyles.screen,
     container: {
         flex: 1,
-        backgroundColor: Colors.background
+        backgroundColor: Colors.white
     },
     headerOuterContainer: {
         width: Metrics.screenWidth,
@@ -24,19 +24,16 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     formContainer: {
-        flex: 1,
-        marginLeft: 25,
-        marginRight: 25
+        marginLeft: 5,
+        marginRight: 5
     },
     formLabel: {
-        color: Colors.snow,
         marginLeft: -1,
         marginBottom: 4
     },
     formInput: {
         height:40,
         borderWidth: 1,
-        backgroundColor: 'white',
         borderRadius: 5,
         padding:5
     },

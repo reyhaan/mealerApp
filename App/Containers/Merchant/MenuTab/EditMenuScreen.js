@@ -1,14 +1,15 @@
 import React, {Component} from 'react'
 import {ScrollView, View, Platform, KeyboardAvoidingView, TextInput, Text} from 'react-native'
 import {connect} from 'react-redux'
-import {Header, Icon, Button, FormInput, FormLabel} from 'react-native-elements'
+import {Header, Icon,} from 'react-native-elements'
 import {Colors, Fonts, Metrics} from '../../../Themes'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {MlImagePicker} from '../../../Components';
+import {AppImagePicker} from '../../../Components';
 import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
+import { Form, Item, Input, Label, Button } from 'native-base';
 // Styles
 import styles from './EditMenuScreen.style'
 
@@ -63,6 +64,9 @@ class EditMenuScreen extends Component {
             <Icon
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
                 color={Colors.snow}
+                size={40}
+                iconStyle={{marginTop: 30}}
+                underlayColor={'transparent'}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
             />
         )
@@ -75,44 +79,50 @@ class EditMenuScreen extends Component {
                     <Header leftComponent={this._backButton()} rightComponent={null}
                             centerComponent={{text: 'ADD ITEM', style: {color: Colors.snow, fontWeight: 'bold'}}}
                             backgroundColor={Colors.background}
-                            outerContainerStyles={styles.headerOuterContainer}/>
+                    />
                     <View style={styles.formContainer}>
-
-                        <View style={{height: 150}}>
-                            <MlImagePicker style={{height: 150}} callback={(url) => {
+                        <View style={{maxHeight: 140, height: 140}}>
+                            <AppImagePicker style={{maxHeight: 140, height: 140}} callback={(url) => {
                                 console.log(url)
-                            }}></MlImagePicker>
+                            }}/>
                         </View>
 
-                        <FormLabel labelStyle={styles.formLabel}>Name</FormLabel>
-                        <TextInput style={styles.formInput}
-                                   autoCapitalize="none"
-                                   onChangeText={(event) => this.createNewMenu(event, 'itemName')}
-                                   underlineColorAndroid="transparent"/>
+                        <Form>
+                            <Item floatingLabel>
+                                <Label>Name</Label>
+                                <Input autoCapitalize="none"
+                                       onChangeText={(event) => this.createNewMenu(event, 'itemName')}
+                                       underlineColorAndroid="transparent" />
+                            </Item>
+                            <Item floatingLabel>
+                                <Label>Price</Label>
+                                <Input keyboardType="numeric"
+                                       onChangeText={(event) => this.createNewMenu(event, 'itemCost')}
+                                       underlineColorAndroid="transparent" />
+                            </Item>
 
-                        <FormLabel labelStyle={styles.formLabel}>Price</FormLabel>
-                        <TextInput style={styles.formInput}
-                                   keyboardType="numeric"
-                                   onChangeText={(event) => this.createNewMenu(event, 'itemCost')}
-                                   underlineColorAndroid="transparent"/>
-
-                        <FormLabel labelStyle={styles.formLabel}>Item Detail</FormLabel>
-                        <TextInput style={styles.formInputExtendedHeight}
-                                   autogrow={true}
-                                   maxHeight={100}
-                                   minHeight={80}
-                                   multiline={true}
-                                   onChangeText={(event) => this.createNewMenu(event, 'itemDetail')}
-                                   underlineColorAndroid="transparent"/>
+                            <Item floatingLabel>
+                                <Label>Item Detail</Label>
+                                <Input autogrow={true}
+                                       maxHeight={150}
+                                       minHeight={80}
+                                       multiline={true}
+                                       onChangeText={(event) => this.createNewMenu(event, 'itemDetail')}
+                                       underlineColorAndroid="transparent" />
+                            </Item>
+                        </Form>
 
                         <Row style={{
                             height: 40,
                             marginTop: Metrics.doubleBaseMargin,
-                            marginBottom: Metrics.doubleBaseMargin
+                            marginBottom: Metrics.doubleBaseMargin,
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
                         }}>
 
-                            <Col size={1}>
-                                <Button
+                            <Col size={1} style={{marginRight:10, marginLeft:10}}>
+                                <Button success block
                                     buttonStyle={[styles.greenButton]}
                                     textStyle={{
                                         textAlign: 'center',
@@ -120,11 +130,13 @@ class EditMenuScreen extends Component {
                                         fontWeight: 'bold'
                                     }}
                                     title={`DONE`}
-                                    onPress={() => this.onMenuSubmit()}/>
+                                    onPress={() => this.onMenuSubmit()}>
+                                    <Text style={{color:Colors.white}}>Save</Text>
+                                </Button>
                             </Col>
 
-                            <Col size={1}>
-                                <Button
+                            <Col size={1} style={{marginRight:10, marginLeft:10}}>
+                                <Button danger block bordered
                                     buttonStyle={[styles.cancelButton]}
                                     textStyle={{
                                         textAlign: 'center',
@@ -132,7 +144,9 @@ class EditMenuScreen extends Component {
                                         fontWeight: 'bold'
                                     }}
                                     title={`CANCEL`}
-                                    onPress={() => this.onCancelMenu()}/>
+                                    onPress={() => this.onCancelMenu()}>
+                                    <Text style={{color:Colors.fire}}>Cancel</Text>
+                                </Button>
                             </Col>
                         </Row>
                     </View>

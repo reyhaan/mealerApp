@@ -16,49 +16,52 @@ export default StyleSheet.create({
     itemContainer: {
         height: 120,
         marginTop: 1,
-        marginBottom: 2,
+        marginBottom: 0,
         marginLeft: 4,
         marginRight: 4,
         borderLeftWidth: 0,
         borderTopWidth: 0,
         borderRightWidth: 0,
-        borderBottomWidth: 0.7,
-        borderColor: '#d6d7da',
+        borderBottomWidth: 1,
+        borderColor: Colors.lightGray,
     },
     itemName: {
-        marginTop:5,
-        fontWeight:"600",
-        marginLeft: 4,
+        marginTop: 12,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        fontSize: 16
     },
     itemDetails: {
-        fontWeight:"200",
-        fontSize:13,
+        fontSize:14,
         marginTop:5,
-        marginLeft: 4,
+        marginLeft: 10,
     },
     itemCost: {
-        marginTop:5,
-        marginLeft: 4,
+        marginTop:10,
+        marginLeft: 10,
+        fontWeight: 'bold', 
+        fontSize: 14
     },
 
     // FULL MODE STYLES
 
     fullModeItemContainer: {
-        height: 300,
-        marginTop: 1,
-        marginBottom: 2,
-        marginLeft: 4,
-        marginRight: 4,
+        height: 200,
+        marginTop: 0,
+        marginBottom: 10,
+        marginLeft: 5,
+        marginRight: 5,
         borderLeftWidth: 0,
         borderTopWidth: 0,
         borderRightWidth: 0,
-        borderBottomWidth: 0.7,
-        borderColor: '#d6d7da',
+        backgroundColor: Colors.orange
     },
     fullModeItemName: {
         marginTop:5,
-        fontWeight:"600",
-        marginLeft: 4,
+        fontWeight:'bold',
+        marginLeft: 10,
+        color: Colors.charcoal,
+        fontSize: 16
     },
     fullModeItemDetails: {
         fontWeight:"200",
@@ -68,6 +71,9 @@ export default StyleSheet.create({
     },
     fullModeItemCost: {
         marginTop:5,
-        marginLeft: 4,
+        marginRight: 10,
+        textAlign: 'right',
+        fontSize: 14,
+        fontWeight: 'bold'
     },
 })

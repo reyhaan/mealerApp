@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {SignUpScreen} from '../index'
 import {authActionCreators} from '../../Redux/Auth/AuthActions'
+import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {LoadingSpinner} from '../../Components/index'
 import authenticationService from '../../Services/authentication-service'
 
@@ -30,7 +31,11 @@ class LoginScreen extends Component {
     async componentDidMount() {
         try {
             const currentUser = await authenticationService.currentUser();
-            const {navigation} = this.props;
+            const {navigation, dispatch} = this.props;
+            if (currentUser){
+                this.props.setUser(currentUser);
+            }
+
             if (currentUser && currentUser.type === "customer") {
                 navigation.navigate('CustomerTab')
             } else if (currentUser && currentUser.type === "merchant") {
@@ -116,6 +121,11 @@ class LoginScreen extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        ...authActionCreators, 
+        ...settingsActionCreators},
+         dispatch);
+};
 const mapStateToProps = state => ({auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

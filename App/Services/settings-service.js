@@ -4,12 +4,25 @@ import {AsyncStorage, Alert} from 'react-native';
 let SettingsService = {};
 
 // Update user's details
-SettingsService.updateUserInfo = (payload) => {
-    let data = payload.data
-    let userId = data.uid;
-    let userInfo = data.userDetails;
-    let userRef = db.user(userId+"/");
-    return userRef.update(userInfo);
+
+/**
+ * Update Order for a merchant
+ * @param userId: string
+ * @param order: object
+ */
+SettingsService.updateUserInfo = async (payload) => {
+    try {
+        const data = payload.data
+        const userId = data.uid;
+        const userInfo = data.userDetails;
+        const userRef = db.user(userId);
+        await userRef.update(userInfo);
+        const userSnapshot = await userRef.once('value');
+        const result = {uid: userSnapshot.key, ...userSnapshot.val()}
+        return result;
+    } catch (error) {
+        return {error};
+    }
 };
 
 // Fetch user's details

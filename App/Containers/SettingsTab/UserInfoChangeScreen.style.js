@@ -24,7 +24,15 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   inputField: {
-
+    height: 40,
+    borderWidth: 1,
+    backgroundColor: 'white',
+    borderRadius: 2,
+    padding: 5,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 10,
+    borderColor: 'white'
   },
   formLabel: {
       color: Colors.snow,

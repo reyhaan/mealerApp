@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, Platform, Image, KeyboardAvoidingView } from 'react-native'
+import { ScrollView, Text, View, Platform, Image, KeyboardAvoidingView, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { Header, Icon, Button, FormInput, FormLabel } from 'react-native-elements'
@@ -10,9 +10,8 @@ import { Col, Row, Grid } from 'react-native-easy-grid'
 import SettingsService from '../../Services/settings-service'
 import authentication from '../../Services/authentication-service'
 import { settingsActionCreators } from '../../Redux/Settings/SettingsActions'
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
-
+import authenticationService from '../../Services/authentication-service'
+import {Alert} from 'react-native';
 // Styles
 const styles = UserInfoChangeScreenStyle;
 
@@ -20,11 +19,24 @@ class UserInfoChangeScreen extends Component {
 
   constructor (props) {
     super(props)
-
     this.state = {
-
+      name: '',
+      address: '',
+      phone: '',
+      email: ''
     }
+  }
 
+  componentDidMount() {
+    const currentUser = this.props.settings.user;
+    currentUser
+    ? this.setState({
+      name: currentUser.name || '',
+      address: currentUser.address || '',
+      phone: currentUser.phone || '',
+      email: currentUser.email || ''
+    })
+    : Alert.alert('Error:', 'unable to retrieve your info')
   }
 
   _backButton = () => {
@@ -38,21 +50,21 @@ class UserInfoChangeScreen extends Component {
   }
 
   _updateUserDetails = () => {
-    console.log(this.props);
-
-    var data = {
-      userDetails: {
-        address: "810 Edgeworth Avenue",
-        phone: "6132345467",
-        name: "Rehaan"
-      }
+    const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state
+    const existingUser = this.props.settings.user
+    if(newName && newEmail){
+      ((existingUser.name !== newName) 
+      || (existingUser.address !== newAddress)
+      || (existingUser.email !== newEmail)
+      || (existingUser.phone !== newPhone))
+      ? this.props.updateUserInfo({ uid: existingUser.uid, userDetails: this.state })
+      : '' 
     }
+    else Alert.alert('Name and Email is required')
+  }
 
-    authentication.currentUser().then((user) => {
-      data.uid = user.uid
-      this.props.updateUserInfo(data)
-      // SettingsService.updateUserInfo(user.uid, data)
-    })
+  onInputChange = (value, name) => {
+    this.setState({[name]: value})
   }
 
   render () {
@@ -72,26 +84,59 @@ class UserInfoChangeScreen extends Component {
                 <Row size={1} style={{backgroundColor: Colors.cloud }}>
                   <View style={styles.formContainer}>
                     {/* ADDRESS CHANGE */}
-                    { params.page === "ADDRESS" &&
-                      <View>
+                    { params.page === "UPDATE PROFILE" &&
+                      <View >
+                          <FormLabel labelStyle={styles.formLabel}>DISPLAY NAME</FormLabel>
+                          <TextInput
+                            underlineColorAndroid="transparent"
+                            style={styles.inputField}
+                            autoCapitalize="none" 
+                            value={this.state.name}
+                            onChangeText={(value) => this.onInputChange(value, 'name')}/>
+
                           <FormLabel labelStyle={styles.formLabel}>ADDRESS</FormLabel>
-                          <FormInput
+                          <TextInput
                             underlineColorAndroid="transparent"
                             autoCapitalize="none"
-                            containerStyle={styles.inputContainer}
-                            keyboardType="email-address" />
-      
+                            style={styles.inputField}
+                            keyboardType="default"
+                            value={this.state.address}
+                            onChangeText={(value) => this.onInputChange(value, 'address')} />
+
+                          <FormLabel labelStyle={styles.formLabel}>EMAIL</FormLabel>
+                          <TextInput
+                            underlineColorAndroid="transparent"
+                            autoCapitalize="none"
+                            style={styles.inputField}
+                            keyboardType="email-address"
+                            value={this.state.email} 
+                            onChangeText={(value) => this.onInputChange(value, 'email')}/>
+
                           <FormLabel labelStyle={styles.formLabel}>PHONE NUMBER</FormLabel>
-                          <FormInput
+                          <TextInput
                             underlineColorAndroid="transparent"
                             autoCapitalize="none"
-                            containerStyle={styles.inputContainer}
-                            keyboardType="email-address" />
+                            style={styles.inputField}
+                            keyboardType="number-pad"
+                            value={this.state.phone}
+                            onChangeText={(value) => this.onInputChange(value, 'phone')} />
+
+                          <FormLabel labelStyle={styles.formLabel}>PASSWORD</FormLabel>
+                          <TextInput
+                            underlineColorAndroid="transparent"
+                            style={styles.inputField}
+                            autoCapitalize="none" />
+
+                          <FormLabel labelStyle={styles.formLabel}>CONFIRM PASSWORD</FormLabel>
+                          <TextInput
+                            underlineColorAndroid="transparent"
+                            style={styles.inputField}
+                            autoCapitalize="none" />
                       </View>
                     }
 
                     {/* DISPLAY NAME CHANGE */}
-                    { params.page === "DISPLAY NAME" &&
+                    { params.page === "DELIVERY ADDRESS" &&
                       <View>
                         <FormLabel labelStyle={styles.formLabel}>DISPLAY NAME</FormLabel>
                         <FormInput
@@ -103,7 +148,25 @@ class UserInfoChangeScreen extends Component {
                     }
 
                     {/* PASSWORD CHANGE */}
-                    { params.page === "PASSWORD" &&
+                    { params.page === "ACCOUNT CREDITS" &&
+                      <View>
+                        <FormLabel labelStyle={styles.formLabel}>PASSWORD</FormLabel>
+                        <FormInput
+                          underlineColorAndroid="transparent"
+                          inputStyle={styles.inputField}
+                          containerStyle={styles.inputContainer}
+                          autoCapitalize="none" />
+
+                        <FormLabel labelStyle={styles.formLabel}>CONFIRM PASSWORD</FormLabel>
+                        <FormInput
+                          underlineColorAndroid="transparent"
+                          inputStyle={styles.inputField}
+                          containerStyle={styles.inputContainer}
+                          autoCapitalize="none" />
+                      </View>
+                    }
+                    {/* REFER FRIENDS*/}
+                    { params.page === "REFER FRIENDS" &&
                       <View>
                         <FormLabel labelStyle={styles.formLabel}>PASSWORD</FormLabel>
                         <FormInput
@@ -144,7 +207,9 @@ class UserInfoChangeScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state
+    menu: state.menu,
+    auth: state.auth,
+    settings: state.settings
   }
 };
 

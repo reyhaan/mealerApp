@@ -10,9 +10,6 @@ import {
     OrdersTab,
     SettingsTab,
     InfoTab,
-    UserInfoChangeScreen,
-    EditMenuScreen,
-    CookDetailsScreen
 } from '../../Containers/index'
 
 const customerTabsConfig = {
@@ -72,25 +69,6 @@ export default StackNavigator({
             navigationOptions: ({navigation}) => ({
                 header: null
             })
-        },
-        UserInfoChangeScreen: {
-            screen: UserInfoChangeScreen,
-            navigationOptions: ({navigation}) => ({
-                title: `${navigation.state.params.page}`,
-            }),
-        },
-        CookDetailsScreen: {
-            screen: CookDetailsScreen,
-            navigationOptions: ({navigation}) => ({
-                
-            }),
-        }
-    }, {
-        navigationOptions: ({navigation}) => ({
-            header: null,
-        }),
-        cardStyle: {
-            backgroundColor: Colors.background
         }
     }
 );

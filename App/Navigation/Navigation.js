@@ -4,9 +4,10 @@ import CustomerTab from './Tabs/CustomerTab'
 import {
     LoginScreen,
     SignUpScreen,
-    EditMenuScreen
+    EditMenuScreen,
+    UserInfoChangeScreen,
+    CookDetailsScreen
 } from '../Containers'
-
 
 // Manifest of possible screens
 export default StackNavigator({
@@ -22,11 +23,20 @@ export default StackNavigator({
     CustomerTab: {
         screen: CustomerTab
     },
+    UserInfoChangeScreen: {
+        screen: UserInfoChangeScreen
+    },
     EditMenuScreen: {
         screen: EditMenuScreen
+    },
+    CookDetailsScreen: {
+        screen: CookDetailsScreen
     }
 }, {
     // Default config for all screens
     headerMode: 'none',
     initialRouteName: 'LoginScreen',
+    navigationOptions: ({navigation}) => ({
+        header: null,
+    })
 });

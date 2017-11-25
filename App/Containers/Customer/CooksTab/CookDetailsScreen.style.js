@@ -14,7 +14,7 @@ export default StyleSheet.create({
         height: 75,
     },
     itemContainer: {
-        height: 120,
+        height: 115,
         marginTop: 1,
         marginBottom: 0,
         marginLeft: 4,

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Platform } from 'react-native'
 import { Header, Icon, Button, Avatar } from 'react-native-elements'
 import { ImagePicker } from 'expo';
 import { Grid, Col, Row } from 'react-native-easy-grid'
+import { NavigationActions } from 'react-navigation'
 
-import { Colors, Fonts, Images } from '../Themes'
+import { Colors, Fonts, Images, Metrics } from '../Themes'
 import styles from './Styles/UserProfileHeaderStyle'
 
 export default class UserProfileHeader extends Component {
@@ -15,6 +16,17 @@ export default class UserProfileHeader extends Component {
       image: null
     }
   }
+
+  _backButton = () => {
+    console.log(this.props)
+    return (
+        <Icon
+            name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
+            color={Colors.snow}
+            onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
+        />
+    )
+  };
 
   render () {
     let { image } = this.state;
@@ -28,7 +40,13 @@ export default class UserProfileHeader extends Component {
                 <Grid>
 
                     <Row style={{ height: 250, backgroundColor: Colors.clear }}>
-
+                      <Row style={{ height: 45, marginTop: Metrics.doubleBaseMargin, marginLeft: 10 }}>
+                        <Icon
+                            name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
+                            color={Colors.snow}
+                            onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
+                        />
+                      </Row>
                     </Row>
 
                     <Row style={{ height: 50, backgroundColor: "rgba(0, 0, 0, 0.4)", flexDirection: 'column', justifyContent: 'space-between' }}>

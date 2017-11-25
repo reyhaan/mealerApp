@@ -90,7 +90,6 @@ class CookDetailsScreen extends Component {
             islistMode: true,
             isFullMode: false
         }
-
     }
     
     addMenuItemButton = () => {
@@ -98,7 +97,7 @@ class CookDetailsScreen extends Component {
             <Icon
                 name='add'
                 color={Colors.snow}
-                onPress={() => this.props.navigation.navigate("CreateMenuItemScreen")}
+                onPress={() => this.props.navigation.navigate("EditMenuScreen")}
             />
         )
     };

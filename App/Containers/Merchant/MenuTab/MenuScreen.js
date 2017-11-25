@@ -20,7 +20,7 @@ class MenuTab extends Component {
             <Icon
                 name='add'
                 color={Colors.snow}
-                onPress={() => this.props.navigation.navigate("CreateMenuItemScreen")}
+                onPress={() => this.props.navigation.navigate("EditMenuScreen")}
             />
         )
     };

@@ -1,5 +1,4 @@
 import React from 'react'
-import {Colors} from '../../Themes/index'
 import {Image} from 'react-native'
 import styles from '../Navigation.style'
 import {Images} from '../../Themes/index'
@@ -9,14 +8,12 @@ import {
     OrdersTab,
     SettingsTab,
     InfoTab,
-    MenuTab,
-    UserInfoChangeScreen,
-    EditMenuScreen
+    MenuScreen
 } from '../../Containers/index'
 
 const merchantTabsConfig = {
     One: {
-        screen: MenuTab,
+        screen: MenuScreen,
         navigationOptions: {
             tabBarLabel: 'Menu',
             tabBarIcon: ({tintColor}) => (
@@ -70,30 +67,10 @@ const merchantTabsConfig = {
 };
 
 export default StackNavigator({
-        Root: {
-            screen: TabNavigator(merchantTabsConfig, tabNavigatorConfig),
-            navigationOptions: ({navigation}) => ({
-                header: null
-            })
-        },
-        UserInfoChangeScreen: {
-            screen: UserInfoChangeScreen,
-            navigationOptions: ({navigation}) => ({
-                title: `${navigation.state.params.page}`,
-            }),
-        },
-        CreateMenuItemScreen: {
-            screen: EditMenuScreen,
-            navigationOptions: ({navigation}) => ({
-                title: "CREATE"
-            }),
-        }
-    }, {
+    Root: {
+        screen: TabNavigator(merchantTabsConfig, tabNavigatorConfig),
         navigationOptions: ({navigation}) => ({
-            header: null,
-        }),
-        cardStyle: {
-            // backgroundColor: Colors.background
-        }
+            header: null
+        })
     }
-);
+});

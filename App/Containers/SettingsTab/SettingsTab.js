@@ -13,17 +13,22 @@ const styles = SettingsTabStyle
 
 const list = [
     {
-        name: 'Address',
+        name: 'Update Profile',
         icon: 'home',
         screen: 'UserInfoChangeScreen'
     },
     {
-        name: 'Display Name',
+        name: 'Delivery Address',
         icon: 'user',
         screen: 'UserInfoChangeScreen'
     },
     {
-        name: 'Password',
+        name: 'Account Credits',
+        icon: 'lock',
+        screen: 'UserInfoChangeScreen'
+    },
+    {
+        name: 'Refer Friends',
         icon: 'lock',
         screen: 'UserInfoChangeScreen'
     }
@@ -47,7 +52,7 @@ class SettingsTab extends Component {
                 <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
                     {list.map((l, i) => (
                         <ListItem
-                            underlayColor={Colors.backgroundDarker}
+                            underlayColor={Colors.backgroundDarker} //to be changed
                             onPress={() => {
                                 this.props.navigation.navigate(l.screen, {page: l.name.toUpperCase()})
                             }}
@@ -60,7 +65,7 @@ class SettingsTab extends Component {
                         />
                     ))}
                     <ListItem
-                        underlayColor={Colors.backgroundDarker}
+                        underlayColor={Colors.backgroundDarker} // to be changed
                         onPress={() => {
                             this.onSignOut()
                         }}

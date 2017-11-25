@@ -1,12 +1,14 @@
-import {call} from 'redux-saga/effects'
+import {call, put} from 'redux-saga/effects'
 import {Alert} from 'react-native';
 import SettingsService from '../../Services/settings-service'
+import { settingsActionCreators } from './SettingsActions'
 
-const settingsEffects = {};
+const settingsEffects = {}; 
 
 settingsEffects.updateUserInfo = function* (userDetails){
     try{
-        yield call(SettingsService.updateUserInfo, userDetails);
+        const newUser = yield call(SettingsService.updateUserInfo, userDetails);
+        yield put(settingsActionCreators.setUser(newUser));
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet, Platform} from 'react-native'
 import {Colors, Metrics, Fonts} from '../../../Themes/index'
 
 export default StyleSheet.create({
@@ -14,7 +14,7 @@ export default StyleSheet.create({
         height: 75,
     },
     itemContainer: {
-        height: 120,
+        height: 115,
         marginTop: 1,
         marginBottom: 0,
         marginLeft: 4,
@@ -29,12 +29,14 @@ export default StyleSheet.create({
         marginTop: 12,
         fontWeight: 'bold',
         marginLeft: 10,
-        fontSize: 16
+        fontSize: 16,
+        color: Colors.background
     },
     itemDetails: {
         fontSize:14,
         marginTop:5,
         marginLeft: 10,
+        color: Colors.gray
     },
     itemCost: {
         marginTop:10,
@@ -46,22 +48,28 @@ export default StyleSheet.create({
     // FULL MODE STYLES
 
     fullModeItemContainer: {
-        height: 200,
+        height: 255,
         marginTop: 0,
         marginBottom: 10,
-        marginLeft: 5,
-        marginRight: 5,
-        borderLeftWidth: 0,
-        borderTopWidth: 0,
-        borderRightWidth: 0,
-        backgroundColor: Colors.orange
+        marginLeft: 10,
+        marginRight: 10,
+        backgroundColor: Colors.snow,
+        borderRadius: 3,
+        shadowColor: '#000',
+        shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
+        shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+        shadowOffset: {
+          height: (Platform.OS === 'ios') ? 2 : 3,
+        },
+        zIndex: 1,
+        elevation: 1
     },
     fullModeItemName: {
-        marginTop:5,
+        marginTop: (Platform.OS === 'ios') ? 10 : 8,
         fontWeight:'bold',
-        marginLeft: 10,
-        color: Colors.charcoal,
-        fontSize: 16
+        marginLeft: 15,
+        fontSize: 16,
+        color: Colors.background
     },
     fullModeItemDetails: {
         fontWeight:"200",
@@ -70,10 +78,10 @@ export default StyleSheet.create({
         marginLeft: 4,
     },
     fullModeItemCost: {
-        marginTop:5,
-        marginRight: 10,
+        marginTop: (Platform.OS === 'ios') ? 10 : 8,
+        marginRight: 20,
         textAlign: 'right',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold'
     },
 })

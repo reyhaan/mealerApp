@@ -120,14 +120,14 @@ class CookDetailsScreen extends Component {
         return (
             <TouchableOpacity onPress={this._onPress} style={style.itemContainer}>
                 <Grid>
-                    <Col style={{ width: Metrics.screenWidth - 120 }}>
+                    <Col style={{ width: Metrics.screenWidth - 120, marginTop: (Platform.OS === 'ios' ? 5 : 0) }}>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemName}>{item.itemName}</Text>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemDetails}>{item.itemDetail}</Text>
                         <Text style={style.itemCost}>${item.itemCost}</Text>
                     </Col>
                     <Col style={{ width: 100, paddingRight: 0 }}>
                         <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <Image style={{width: 100, height: 90, borderRadius: 2}}
+                            <Image style={{width: 100, height: 80, borderRadius: 2}}
                                    source={{uri: item.itemImage}}/>
                         </View>
                     </Col>
@@ -138,16 +138,16 @@ class CookDetailsScreen extends Component {
 
     _renderFullModeItem = (item) => {
         return (
-            <TouchableWithoutFeedback onPress={this._onPress} style={style.fullModeItemContainer}>
+            <TouchableOpacity onPress={this._onPress} style={style.fullModeItemContainer}>
                 <Grid>
                     <Row style={{ height: 210 }}>
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                            <Image style={{height: 200, width: Metrics.screenWidth, resizeMode: 'cover'}}
+                            <Image style={{height: 200, width: Metrics.screenWidth - 20, resizeMode: 'cover', marginTop: -3, borderTopLeftRadius: 3, borderTopRightRadius: 3}}
                                 source={{uri: item.itemImage}}/>
                         </View>
                     </Row>
 
-                    <Row style={{ height: 45, borderBottomWidth: 1, borderBottomColor: Colors.lightGray }}>
+                    <Row style={{ height: 45 }}>
                         <Col size={2}>
                             <Text ellipsizeMode="tail" numberOfLines={2} style={style.fullModeItemName}>{item.itemName}</Text>
                         </Col>
@@ -157,7 +157,7 @@ class CookDetailsScreen extends Component {
                     </Row>
                     
                 </Grid>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
         )
     };
 
@@ -199,7 +199,7 @@ class CookDetailsScreen extends Component {
 
                 {/* <LoadingSpinner show={!this.props.menu.length}/> */}
 
-                <UserProfileHeader></UserProfileHeader>
+                <UserProfileHeader navigation={this.props.navigation}></UserProfileHeader>
 
                 <View style={{ height: 50, borderBottomColor: Colors.lightGray, borderBottomWidth: 1, backgroundColor: Colors.silver }}>
                     <Grid>
@@ -239,7 +239,7 @@ class CookDetailsScreen extends Component {
 
                 { this.state.isFullMode &&
                     <FlatList
-                        style={{backgroundColor: '#fff'}}
+                        style={{backgroundColor: '#fff', marginTop: 10}}
                         data={this.state.menu}
                         renderItem={({item}) => this._renderFullModeItem(item)}
                     />

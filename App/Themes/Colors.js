@@ -1,5 +1,5 @@
 const colors = {
-  background: '#D7452D',// '#FD5946', //'#EF0632', //'#D54A58', // '#FD4B54',
+  background: '#D7452D',// '#FD5946', //'#EF0632', //'#D54A58', // '#FD4B54', // '#D7452D'
   backgroundLighter: '#EA6D59', // '#EF5D45',
   backgroundDarker: '#4C2A9E',
   pink: '#EE388D',
@@ -14,6 +14,8 @@ const colors = {
   silver: '#F7F7F7',
   steel: '#CCCCCC',
   gray: '#777777',
+  gray2: '#EEEEEE',
+  gray3: '#999999',
   lightGray: '#F0F0F0',
   error: 'rgba(200, 0, 0, 0.8)',
   ricePaper: 'rgba(255,255,255, 0.75)',

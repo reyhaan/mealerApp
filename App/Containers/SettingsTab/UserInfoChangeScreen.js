@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import { Header, Icon, Button, FormInput, FormLabel } from 'react-native-elements'
 import UserInfoChangeScreenStyle from './UserInfoChangeScreen.style'
-import { Colors, Fonts, Metrics } from '../../../Themes'
+import { Colors, Fonts, Metrics } from '../../Themes/index'
 import { NavigationActions } from 'react-navigation'
 import { Col, Row, Grid } from 'react-native-easy-grid'
-import SettingsService from '../../../Services/settings-service'
-import authentication from '../../../Services/authentication-service'
-import { settingsActionCreators } from '../../../Redux/Settings/SettingsActions'
+import SettingsService from '../../Services/settings-service'
+import authentication from '../../Services/authentication-service'
+import { settingsActionCreators } from '../../Redux/Settings/SettingsActions'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
 

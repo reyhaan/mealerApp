@@ -67,7 +67,7 @@ export default StyleSheet.create({
         height: 200, 
         width: Metrics.screenWidth - 20, 
         resizeMode: 'cover', 
-        marginTop: -5, 
+        marginTop: 0, 
         borderRadius: 3,
         shadowColor: '#000',
         shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
@@ -80,21 +80,15 @@ export default StyleSheet.create({
     fullModeItemName: {
         marginTop: (Platform.OS === 'ios') ? 2 : 0,
         marginLeft: 20,
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: 'bold',
         color: Colors.background
-    },
-    fullModeItemDetails: {
-        fontWeight:"200",
-        fontSize:13,
-        marginTop:5,
-        marginLeft: 4,
     },
     fullModeItemCost: {
         marginTop: (Platform.OS === 'ios') ? 2 : 0,
         marginRight: 20,
         textAlign: 'right',
-        fontSize: 18,
+        fontSize: 14,
         fontWeight: 'bold'
     },
 })

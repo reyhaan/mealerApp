@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, ListView, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableHighlight, TouchableWithoutFeedback} from 'react-native'
+import {Text, View, ListView, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableHighlight, TouchableWithoutFeedback, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import style from './CookDetailsScreen.style'
 import {Header, Avatar, Icon} from 'react-native-elements'
@@ -9,11 +9,108 @@ import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
 import {LoadingSpinner, UserProfileHeader} from '../../../Components/index'
 import { NavigationActions } from 'react-navigation'
+import * as Animatable from 'react-native-animatable';
+
+const selectOpened = (opened, style) => opened ? style.opened : style.closed;
+
+const getStyles = (opened, left) => StyleSheet.create({
+    menuScreenContainer: {
+        flex: 1,
+    },
+    headerOuterContainer: {
+        width: Metrics.screenWidth,
+        backgroundColor: Colors.background,
+        borderBottomColor: Colors.backgroundLighter,
+        borderBottomWidth: 1,
+        padding: 15,
+        height: 75,
+    },
+    itemContainer: selectOpened( opened, {
+        height: 115,
+        marginTop: 1,
+        marginBottom: 0,
+        marginLeft: 4,
+        marginRight: 4,
+        borderLeftWidth: 0,
+        borderTopWidth: 0,
+        borderRightWidth: 0,
+        borderBottomWidth: 1,
+        borderColor: Colors.lightGray,
+    }),
+    itemName: {
+        marginTop: 12,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        fontSize: 16,
+        color: Colors.background
+    },
+    itemDetails: {
+        fontSize:14,
+        marginTop:5,
+        marginLeft: 10,
+        color: Colors.gray
+    },
+    itemCost: {
+        marginTop:10,
+        marginLeft: 10,
+        fontWeight: 'bold', 
+        fontSize: 14
+    },
+
+    // FULL MODE STYLES
+
+    fullModeItemContainer: {
+        height: 265,
+        marginTop: 5,
+        marginBottom: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        backgroundColor: Colors.snow,
+        borderRadius: 3,
+        shadowColor: '#000',
+        shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
+        shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+        shadowOffset: {
+          height: (Platform.OS === 'ios') ? 2 : 3,
+        },
+        elevation: 1
+    },
+    fullModeItemImage: {
+        height: 200, 
+        width: Metrics.screenWidth - 20, 
+        resizeMode: 'cover', 
+        marginTop: 0, 
+        borderRadius: 3,
+        shadowColor: '#000',
+        shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
+        shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+        shadowOffset: {
+          height: (Platform.OS === 'ios') ? 2 : 3,
+        },
+        zIndex: 1
+    },
+    fullModeItemName: {
+        marginTop: (Platform.OS === 'ios') ? 2 : 0,
+        marginLeft: 20,
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: Colors.background
+    },
+    fullModeItemCost: {
+        marginTop: (Platform.OS === 'ios') ? 2 : 0,
+        marginRight: 20,
+        textAlign: 'right',
+        fontSize: 14,
+        fontWeight: 'bold'
+    }
+})
 
 class CookDetailsScreen extends Component {
     constructor(props) {
         super(props);
         // this.props.fetchMerchantMenu();
+
+        this.state = { opened: false };
 
         const _menu = [
             {
@@ -111,33 +208,49 @@ class CookDetailsScreen extends Component {
         )
     };
 
-    _onPress = () => {
-        console.log("list pressed");
+    onPress = (mode) => {
+        switch(mode) {
+            case 'list':
+            console.log(this)
+                this.refs.view.bounce(800).then((endState) => console.log(endState.finished ? 'bounce finished' : 'bounce cancelled'));
+                break;
+
+            case 'full':
+                
+                break;
+        }
     };
+
+    componentWillUpdate() {
+        const animation = LayoutAnimation.create(500, 'easeInEaseOut', 'opacity');
+        LayoutAnimation.configureNext(animation);
+    }
 
     _renderListModeItem = (item) => {
         return (
-            <TouchableOpacity onPress={this._onPress} style={style.itemContainer}>
-                <Grid>
-                    <Col style={{ width: 100, paddingLeft: 5 }}>
-                        <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <Image style={{width: 100, height: 100, borderRadius: 2}}
-                                   source={{uri: item.itemImage}}/>
-                        </View>
-                    </Col>
-                    <Col size={1} style={{ paddingLeft: 5, marginTop: (Platform.OS === 'ios' ? 5 : 0) }}>
-                        <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemName}>{item.itemName}</Text>
-                        <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemDetails}>{item.itemDetail}</Text>
-                        <Text style={style.itemCost}>${item.itemCost}</Text>
-                    </Col>
-                </Grid>
+            <TouchableOpacity onPress={() => this.onPress('list')} style={style.itemContainer}>
+                <Animatable.View ref="view">
+                    <Grid>
+                        <Col style={{ width: 100, paddingLeft: 5 }}>
+                            <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                                <Image style={{width: 100, height: 100, borderRadius: 2}}
+                                    source={{uri: item.itemImage}}/>
+                            </View>
+                        </Col>
+                        <Col size={1} style={{ paddingLeft: 5, marginTop: (Platform.OS === 'ios' ? 5 : 0) }}>
+                            <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemName}>{item.itemName}</Text>
+                            <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemDetails}>{item.itemDetail}</Text>
+                            <Text style={style.itemCost}>${item.itemCost}</Text>
+                        </Col>
+                    </Grid>
+                </Animatable.View>
             </TouchableOpacity>
         )
     };
 
     _renderFullModeItem = (item) => {
         return (
-            <TouchableOpacity onPress={this._onPress} style={style.fullModeItemContainer}>
+            <TouchableOpacity onPress={this.onPress('full')} style={style.fullModeItemContainer}>
                 <Grid>
                     <Row style={{ height: 200 }}>
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderTopLeftRadius: 3, borderTopRightRadius: 3}}>

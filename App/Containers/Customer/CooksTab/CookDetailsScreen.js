@@ -119,16 +119,16 @@ class CookDetailsScreen extends Component {
         return (
             <TouchableOpacity onPress={this._onPress} style={style.itemContainer}>
                 <Grid>
-                    <Col style={{ width: Metrics.screenWidth - 120, marginTop: (Platform.OS === 'ios' ? 5 : 0) }}>
+                    <Col style={{ width: 100, paddingLeft: 5 }}>
+                        <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                            <Image style={{width: 100, height: 100, borderRadius: 2}}
+                                   source={{uri: item.itemImage}}/>
+                        </View>
+                    </Col>
+                    <Col size={1} style={{ paddingLeft: 5, marginTop: (Platform.OS === 'ios' ? 5 : 0) }}>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemName}>{item.itemName}</Text>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemDetails}>{item.itemDetail}</Text>
                         <Text style={style.itemCost}>${item.itemCost}</Text>
-                    </Col>
-                    <Col style={{ width: 100, paddingRight: 0 }}>
-                        <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                            <Image style={{width: 100, height: 80, borderRadius: 2}}
-                                   source={{uri: item.itemImage}}/>
-                        </View>
                     </Col>
                 </Grid>
             </TouchableOpacity>
@@ -139,19 +139,19 @@ class CookDetailsScreen extends Component {
         return (
             <TouchableOpacity onPress={this._onPress} style={style.fullModeItemContainer}>
                 <Grid>
-                    <Row style={{ height: 210 }}>
-                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                            <Image style={{height: 200, width: Metrics.screenWidth - 20, resizeMode: 'cover', marginTop: -3, borderTopLeftRadius: 3, borderTopRightRadius: 3}}
+                    <Row style={{ height: 200 }}>
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderTopLeftRadius: 3, borderTopRightRadius: 3}}>
+                            <Image style={style.fullModeItemImage}
                                 source={{uri: item.itemImage}}/>
                         </View>
                     </Row>
 
-                    <Row style={{ height: 45 }}>
-                        <Col size={2}>
+                    <Row style={{ height: 60 }}>
+                        <Col size={2} style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
                             <Text ellipsizeMode="tail" numberOfLines={2} style={style.fullModeItemName}>{item.itemName}</Text>
                         </Col>
-                        <Col size={1}>
-                            <Text style={style.fullModeItemCost}>${item.itemCost}</Text>
+                        <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
+                            <Text style={style.fullModeItemCost}>$ {item.itemCost}</Text>
                         </Col>
                     </Row>
                     
@@ -210,7 +210,7 @@ class CookDetailsScreen extends Component {
                             <TouchableOpacity>
                                 <Icon
                                     name={'view-list'}
-                                    color={Colors.gray3}
+                                    color={ (this.state.islistMode) ? Colors.background : Colors.gray3}
                                     onPress={() => this.switchView('list')}
                                 />
                             </TouchableOpacity>
@@ -220,7 +220,7 @@ class CookDetailsScreen extends Component {
                             <TouchableOpacity>
                                 <Icon
                                     name={'view-stream'}
-                                    color={Colors.gray3}
+                                    color={ (this.state.isFullMode) ? Colors.background : Colors.gray3}
                                     onPress={() => this.switchView('full')}
                                 />
                             </TouchableOpacity>
@@ -238,7 +238,7 @@ class CookDetailsScreen extends Component {
 
                 { this.state.isFullMode &&
                     <FlatList
-                        style={{backgroundColor: '#fff', marginTop: 10}}
+                        style={{backgroundColor: Colors.backgroundGray, paddingTop: 10}}
                         data={this.state.menu}
                         renderItem={({item}) => this._renderFullModeItem(item)}
                     />

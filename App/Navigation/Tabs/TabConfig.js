@@ -20,11 +20,12 @@ export default {
         labelStyle: {
             fontSize: 10,
             fontWeight: 'bold',
-            marginTop: (Platform.OS === 'ios') ? -2 : 2,
+            marginTop: (Platform.OS === 'ios') ? -2 : 0,
             paddingBottom: (Platform.OS === 'ios') ? 6 : 0
         },
         style: {
             backgroundColor: Colors.snow,
+            paddingTop: (Platform.OS === 'ios') ? 5 : 0,
             height: (Platform.OS === 'ios') ? 48 : 48,
             shadowColor: '#000',
             shadowOpacity: 0.4,
@@ -39,7 +40,8 @@ export default {
             borderTopWidth: (Platform.OS === 'ios') ? 0 : 1
         },
         tabStyle: {
-            borderColor: Colors.snow
+            borderColor: Colors.snow,
+            paddingTop: 4
         },
         indicatorStyle: styles.indicator,
     }

@@ -48,8 +48,8 @@ export default StyleSheet.create({
     // FULL MODE STYLES
 
     fullModeItemContainer: {
-        height: 255,
-        marginTop: 0,
+        height: 265,
+        marginTop: 5,
         marginBottom: 10,
         marginLeft: 10,
         marginRight: 10,
@@ -61,14 +61,27 @@ export default StyleSheet.create({
         shadowOffset: {
           height: (Platform.OS === 'ios') ? 2 : 3,
         },
-        zIndex: 1,
         elevation: 1
     },
+    fullModeItemImage: {
+        height: 200, 
+        width: Metrics.screenWidth - 20, 
+        resizeMode: 'cover', 
+        marginTop: -5, 
+        borderRadius: 3,
+        shadowColor: '#000',
+        shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
+        shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+        shadowOffset: {
+          height: (Platform.OS === 'ios') ? 2 : 3,
+        },
+        zIndex: 1
+    },
     fullModeItemName: {
-        marginTop: (Platform.OS === 'ios') ? 10 : 8,
-        fontWeight:'bold',
-        marginLeft: 15,
+        marginTop: (Platform.OS === 'ios') ? 2 : 0,
+        marginLeft: 20,
         fontSize: 16,
+        fontWeight: 'bold',
         color: Colors.background
     },
     fullModeItemDetails: {
@@ -78,10 +91,10 @@ export default StyleSheet.create({
         marginLeft: 4,
     },
     fullModeItemCost: {
-        marginTop: (Platform.OS === 'ios') ? 10 : 8,
+        marginTop: (Platform.OS === 'ios') ? 2 : 0,
         marginRight: 20,
         textAlign: 'right',
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold'
     },
 })

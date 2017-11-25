@@ -14,9 +14,9 @@ export default {
     initialRouteName: 'One',
     tabBarOptions: {
         activeTintColor: (Platform.OS === 'ios') ? Colors.backgroundLighter : Colors.background,
-        inactiveTintColor: (Platform.OS === 'ios') ? Colors.lightGray : Colors.gray,
+        inactiveTintColor: (Platform.OS === 'ios') ? Colors.steel : Colors.gray,
         showIcon: true,
-        showLabel: false,
+        showLabel: true,
         labelStyle: {
             fontSize: 10,
             fontWeight: 'bold',

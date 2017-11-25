@@ -78,7 +78,7 @@ class MenuTab extends Component {
                 <LoadingSpinner show={!this.props.menu.length}/>
 
                 <FlatList
-                    style={{backgroundColor: '#fff'}}
+                    style={{backgroundColor: Colors.white}}
                     data={menus}
                     renderItem={this._renderItem}
                 />

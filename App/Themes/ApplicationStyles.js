@@ -49,10 +49,6 @@ const ApplicationStyles = {
       backgroundColor: Colors.pink,
       borderRadius: 3
     },
-    cancelButton: {
-      backgroundColor: Colors.backgroundDarker,
-      borderRadius: 3
-    },
     greenButton: {
       backgroundColor: Colors.green,
       borderRadius: 3

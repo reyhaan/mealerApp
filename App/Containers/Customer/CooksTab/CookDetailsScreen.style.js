@@ -48,8 +48,8 @@ export default StyleSheet.create({
     // FULL MODE STYLES
 
     fullModeItemContainer: {
-        height: 255,
-        marginTop: 0,
+        height: 245,
+        marginTop: 5,
         marginBottom: 10,
         marginLeft: 10,
         marginRight: 10,

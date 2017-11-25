@@ -35,8 +35,8 @@ export default StyleSheet.create({
   },
   boldLabel: {
     fontWeight: 'bold',
-    fontSize: 14,
-    fontFamily: Fonts.type.bold
+    fontSize: 16,
+    color: Colors.charcoal
   },
   label: {
     textAlign: 'center',

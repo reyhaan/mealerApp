@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, ListView, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableHighlight, TouchableWithoutFeedback} from 'react-native'
+import {Text, View, ListView, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableHighlight, TouchableWithoutFeedback, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import style from './CookDetailsScreen.style'
 import {Header, Avatar, Icon} from 'react-native-elements'
@@ -7,8 +7,10 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors, Metrics} from '../../../Themes';
 import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
-import {LoadingSpinner, UserProfileHeader} from '../../../Components/index'
+import {LoadingSpinner, UserProfileHeader, AddToCartModal} from '../../../Components/index'
 import { NavigationActions } from 'react-navigation'
+import * as Animatable from 'react-native-animatable'
+import Modal from 'react-native-modal'
 
 class CookDetailsScreen extends Component {
     constructor(props) {
@@ -85,12 +87,23 @@ class CookDetailsScreen extends Component {
             }
         ]
 
-        this.state ={
+        this.state = {
             menu: _menu,
-            islistMode: true,
-            isFullMode: false
+            islistMode: false,
+            isFullMode: true,
+            isModalVisible: false,
+            activeItem: {
+                itemName: '',
+                itemImage: '',
+                itemDetail: '',
+                itemCost: ''
+            }
         }
     }
+    
+    _showModal = () => this.setState({ isModalVisible: true })
+
+    _hideModal = () => this.setState({ isModalVisible: false })
     
     addMenuItemButton = () => {
         return (
@@ -111,18 +124,37 @@ class CookDetailsScreen extends Component {
         )
     };
 
-    _onPress = () => {
-        console.log("list pressed");
+    onPress = (mode, activeItem) => {
+        switch(mode) {
+            case 'list':
+                this.setState({
+                    activeItem: activeItem
+                })
+                this._showModal()
+                break;
+            // TODO: made 2 cases because I want to apply transitions instead of dialog box
+            case 'full':
+                this.setState({
+                    activeItem: activeItem
+                })
+                this._showModal()
+                break;
+        }
     };
+
+    _renderListModeItem() {
+        const animation = LayoutAnimation.create(500, 'easeInEaseOut', 'opacity');
+        LayoutAnimation.configureNext(animation);
+    }
 
     _renderListModeItem = (item) => {
         return (
-            <TouchableOpacity onPress={this._onPress} style={style.itemContainer}>
+            <TouchableOpacity onPress={() => this.onPress('list', item)} style={style.itemContainer}>
                 <Grid>
                     <Col style={{ width: 100, paddingLeft: 5 }}>
                         <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                             <Image style={{width: 100, height: 100, borderRadius: 2}}
-                                   source={{uri: item.itemImage}}/>
+                                source={{uri: item.itemImage}}/>
                         </View>
                     </Col>
                     <Col size={1} style={{ paddingLeft: 5, marginTop: (Platform.OS === 'ios' ? 5 : 0) }}>
@@ -137,7 +169,7 @@ class CookDetailsScreen extends Component {
 
     _renderFullModeItem = (item) => {
         return (
-            <TouchableOpacity onPress={this._onPress} style={style.fullModeItemContainer}>
+            <TouchableOpacity onPress={() => this.onPress('full', item)} style={style.fullModeItemContainer}>
                 <Grid>
                     <Row style={{ height: 200 }}>
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderTopLeftRadius: 3, borderTopRightRadius: 3}}>
@@ -196,6 +228,8 @@ class CookDetailsScreen extends Component {
         return (
             <ScrollView style={{flex: 1,backgroundColor: '#fff'}}>
 
+                <AddToCartModal visible={this.state.isModalVisible} activeItem={this.state.activeItem} ></AddToCartModal>
+
                 {/* <LoadingSpinner show={!this.props.menu.length}/> */}
 
                 <UserProfileHeader navigation={this.props.navigation}></UserProfileHeader>
@@ -243,6 +277,7 @@ class CookDetailsScreen extends Component {
                         renderItem={({item}) => this._renderFullModeItem(item)}
                     />
                 }
+
             </ScrollView>
         )
     }

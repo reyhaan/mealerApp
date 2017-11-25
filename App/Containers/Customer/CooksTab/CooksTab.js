@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, FlatList } from 'react-native'
+import { ScrollView, Text, View, FlatList, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import CooksTabStyle  from './CooksTab.style'
 import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
@@ -115,46 +115,51 @@ class CooksTab extends Component {
 
   _renderRow (rowData) {
     return (
+      <TouchableOpacity onPress={
+        () => this.props.navigation.navigate('CookDetailsScreen')
+      }
+      >
       <View style={styles.row}>
         <View style={styles.rowInnerContainer}>
           <Grid>
-              <Col style={{ width: 60 }}>
-                  <Avatar
-                    medium
-                    rounded
-                    source={{uri: rowData.avatar}}
-                  />
-              </Col>
-              <Col style={{ paddingLeft: 5 }}>
-                <Row style={{ height: 20}}>
-                    <Text style={styles.boldLabel}>{rowData.name}</Text>
-                </Row>
-                <Row style={{ height: 18 }}>
-                    <Text style={{fontSize: 12, color: Colors.charcoal}} >Cousine Type 
-                      <Text style={{ fontWeight: 'bold' }}>: {rowData.cousineType}</Text>
-                    </Text>
-                </Row>
-                <Row style={{ height: 18 }}>
-                  <Col>
-                      <Text style={{ fontSize: 12, textAlign: 'left', paddingRight: 5, color: Colors.charcoal }} >{rowData.quotaUsed} of {rowData.quotaLimit} left</Text>
-                  </Col>
-                </Row>
-                <Row style={{ height: 22 }}>
-                  <Rating
-                    type="star"
-                    ratingColor={Colors.pink2}
-                    fractions={1}
-                    startingValue={rowData.rating}
-                    readonly
-                    imageSize={10}
-                    onFinishRating={this.ratingCompleted}
-                    style={{ paddingVertical: 2 }}
-                  />
-                </Row>
-              </Col>
-            </Grid>
-          </View>
+            <Col style={{ width: 60 }}>
+                <Avatar
+                  medium
+                  rounded
+                  source={{uri: rowData.avatar}}
+                />
+            </Col>
+            <Col style={{ paddingLeft: 5 }}>
+              <Row style={{ height: 20}}>
+                  <Text style={styles.boldLabel}>{rowData.name}</Text>
+              </Row>
+              <Row style={{ height: 18 }}>
+                  <Text style={{fontSize: 12, color: Colors.charcoal}} >Cousine Type 
+                    <Text style={{ fontWeight: 'bold' }}>: {rowData.cousineType}</Text>
+                  </Text>
+              </Row>
+              <Row style={{ height: 18 }}>
+                <Col>
+                    <Text style={{ fontSize: 12, textAlign: 'left', paddingRight: 5, color: Colors.charcoal }} >{rowData.quotaUsed} of {rowData.quotaLimit} left</Text>
+                </Col>
+              </Row>
+              <Row style={{ height: 22 }}>
+                <Rating
+                  type="star"
+                  ratingColor={Colors.pink2}
+                  fractions={1}
+                  startingValue={rowData.rating}
+                  readonly
+                  imageSize={10}
+                  onFinishRating={this.ratingCompleted}
+                  style={{ paddingVertical: 2 }}
+                />
+              </Row>
+            </Col>
+          </Grid>
         </View>
+      </View>
+      </TouchableOpacity>
     )
   }
 

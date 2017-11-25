@@ -7,6 +7,7 @@ import UserInfoChangeScreen from './Customer/SettingsTab/UserInfoChangeScreen'
 import InfoTab from './InfoTab/InfoTab'
 import MenuTab from './Merchant/MenuTab/MenuScreen'
 import EditMenuScreen from './Merchant/MenuTab/EditMenuScreen'
+import CookDetailsScreen from './Customer/CooksTab/CookDetailsScreen'
 
 export {
     LoginScreen,
@@ -17,5 +18,6 @@ export {
     UserInfoChangeScreen,
     InfoTab,
     MenuTab,
-    EditMenuScreen
+    EditMenuScreen,
+    CookDetailsScreen
 }

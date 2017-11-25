@@ -138,16 +138,16 @@ class CookDetailsScreen extends Component {
 
     _renderFullModeItem = (item) => {
         return (
-            <TouchableWithoutFeedback onPress={this._onPress} style={style.fullModeItemContainer}>
+            <TouchableOpacity onPress={this._onPress} style={style.fullModeItemContainer}>
                 <Grid>
                     <Row style={{ height: 210 }}>
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                            <Image style={{height: 200, width: Metrics.screenWidth, resizeMode: 'cover'}}
+                            <Image style={{height: 200, width: Metrics.screenWidth - 20, resizeMode: 'cover', marginTop: -3, borderRadius: 3}}
                                 source={{uri: item.itemImage}}/>
                         </View>
                     </Row>
 
-                    <Row style={{ height: 45, borderBottomWidth: 1, borderBottomColor: Colors.lightGray }}>
+                    <Row style={{ height: 45 }}>
                         <Col size={2}>
                             <Text ellipsizeMode="tail" numberOfLines={2} style={style.fullModeItemName}>{item.itemName}</Text>
                         </Col>
@@ -157,7 +157,7 @@ class CookDetailsScreen extends Component {
                     </Row>
                     
                 </Grid>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
         )
     };
 
@@ -239,7 +239,7 @@ class CookDetailsScreen extends Component {
 
                 { this.state.isFullMode &&
                     <FlatList
-                        style={{backgroundColor: '#fff'}}
+                        style={{backgroundColor: '#fff', marginTop: 10}}
                         data={this.state.menu}
                         renderItem={({item}) => this._renderFullModeItem(item)}
                     />

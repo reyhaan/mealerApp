@@ -4,6 +4,7 @@ import AppImagePicker from './AppImagePicker'
 import IndividualOrderList from './IndividualOrderList'
 import UserProfileHeader from './UserProfileHeader'
 import AddToCartModal from './AddToCartModal'
+import AddToCartButton from './AddToCartButton'
 
 export {
     Header,
@@ -11,5 +12,6 @@ export {
     AppImagePicker,
     IndividualOrderList,
     UserProfileHeader,
-    AddToCartModal
+    AddToCartModal,
+    AddToCartButton
 };

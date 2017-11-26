@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, Image, TouchableOpacity} from 'react-native'
+import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native'
 import {ImagePicker} from 'expo';
 import {Colors, Fonts, Images} from '../Themes'
 import {Button} from 'native-base';
@@ -7,6 +7,7 @@ import style from './Styles/AddToCartModalStyle'
 import Modal from 'react-native-modal'
 import {Col, Row, Grid} from 'react-native-easy-grid'
 import {Header, Avatar, Icon} from 'react-native-elements'
+import { AddToCartButton } from './index';
 
 export default class AddToCartModal extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ export default class AddToCartModal extends Component {
 
     render() {
         return (
-            <Modal isVisible={this.state.isModalVisible} backdropOpacity={0.4} onBackButtonPress={() => this._hideModal()} style={{  }}>
+            <Modal isVisible={this.state.isModalVisible} backdropOpacity={0.4} onBackButtonPress={() => this._hideModal()} style={style.modalContainer}>
                 <View style={style.addItemModal}>
                     <Grid>
                         <Row style={{ height: 200 }}>
@@ -58,11 +59,13 @@ export default class AddToCartModal extends Component {
                         </Row>
 
                         <Row style={{ padding: 10, borderTopWidth: 1, borderTopColor: Colors.lightGray, marginTop: 10 }}>
-                            <Text ellipsizeMode="tail" style={style.modal_itemDetails}>{this.state.activeItem.itemDetail}</Text>
+                            <ScrollView style={{ flex: 1 }}>
+                                <Text ellipsizeMode="tail" style={style.modal_itemDetails}>{this.state.activeItem.itemDetail}</Text>
+                            </ScrollView>
                         </Row>
 
-                        <Row>
-
+                        <Row style={{ height: 60 }}>
+                            <AddToCartButton></AddToCartButton>
                         </Row>
                     </Grid>
                 </View>

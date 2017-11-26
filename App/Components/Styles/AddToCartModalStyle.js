@@ -4,11 +4,16 @@ import {Colors, Metrics, Fonts} from '../../Themes'
 export default StyleSheet.create({
     // MODAL style
 
+    modalContainer: {
+        height: 200
+    },
+
     addItemModal: {
         flex: 1, 
         backgroundColor: Colors.snow, 
         borderRadius: 5,
-        marginTop: (Platform.OS === 'ios') ? 10 : 0
+        marginTop: (Platform.OS === 'ios') ? 10 : 0,
+        height: 200
     },
     modal_itemName: {
         marginTop: (Platform.OS === 'ios') ? 2 : 10,

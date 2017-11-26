@@ -1,0 +1,67 @@
+import React, {Component} from 'react'
+import {View, Text, Image, TouchableOpacity} from 'react-native'
+import {ImagePicker} from 'expo';
+import {Colors, Fonts, Images} from '../Themes'
+import {Button} from 'native-base';
+import style from './Styles/AddToCartButtonStyle'
+import {Col, Row, Grid} from 'react-native-easy-grid'
+import {Icon} from 'react-native-elements'
+
+export default class AddToCartButton extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            itemCount: 1
+        }
+    }
+
+    componentWillReceiveProps(newProps) {
+
+    }
+
+    decreaseItemCount = () => {
+        this.setState({
+            itemCount: this.state.itemCount - 1
+        })
+    }
+
+    increaseItemCount = () => {
+        this.setState({
+            itemCount: this.state.itemCount + 1
+        })
+    }
+
+    render() {
+        return (
+            <View style={style.container}>
+                <Grid style={{ borderRadius: 5 }}>
+                    <Col size={1} style={style.minusItem}>
+                        <Icon
+                            name={'minus'}
+                            color={Colors.snow}
+                            type='font-awesome'
+                            onPress={() => this.decreaseItemCount()}
+                        />
+                    </Col>
+                    
+                    <Col size={1} style={style.itemCount}>
+                        <Text style={[Fonts.style.bold, { fontSize: 20, fontWeight: 'bold', color: Colors.snow }]}>{this.state.itemCount}</Text>
+                    </Col>
+                    
+                    <Col size={1} style={style.addItem}>
+                        <Icon
+                            name={'plus'}
+                            color={Colors.snow}
+                            type='font-awesome'
+                            onPress={() => this.increaseItemCount()}
+                        />
+                    </Col>
+                    
+                    <Col size={3} style={style.addToCartButton}>
+                        <Text style={style.buttonText} >ADD TO CART</Text>
+                    </Col>
+                </Grid>
+            </View>
+        )
+    }
+}

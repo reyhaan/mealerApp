@@ -8,13 +8,20 @@ import { NavigationActions } from 'react-navigation'
 
 import { Colors, Fonts, Images, Metrics } from '../Themes'
 import styles from './Styles/UserProfileHeaderStyle'
+import _ from 'lodash'
 
 export default class UserProfileHeader extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      image: null
+      user: ''
     }
+  }
+
+  componentDidMount = () => {
+    this.setState({
+      user: this.props.user
+    })
   }
 
   _backButton = () => {
@@ -42,7 +49,7 @@ export default class UserProfileHeader extends Component {
   }
   
   render () {
-    let { image } = this.state;
+    let { user } = this.props;
     return (
       <View style={styles.mainContainer}>
       <StatusBar barStyle='dark-content'/>
@@ -74,7 +81,7 @@ export default class UserProfileHeader extends Component {
             <Grid>
 
                 <Row style={{ height: 40, alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
-                  <Text style={styles.userName}>Mohammad Rehaan</Text>
+                  <Text style={styles.userName}>{user.name}</Text>
                 </Row>
 
                 <Row style={{ height: 30, alignItems: 'center', justifyContent: 'center' }}>
@@ -102,7 +109,7 @@ export default class UserProfileHeader extends Component {
                   
                   <Col size={1} style={{ }}>
                     <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                      <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.background }}>4.0</Text>
+                      <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.background }}>{user.rating}</Text>
                     </Row>
                     <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
                       <Text style={{ color: Colors.gray, fontSize: 12 }}>RATING</Text>
@@ -111,7 +118,7 @@ export default class UserProfileHeader extends Component {
                   
                   <Col size={1} style={{ }}>
                     <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                      <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.background }}>14</Text>
+                      <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.background }}>{_.keys(user.menu).length}</Text>
                     </Row>
                     <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
                       <Text style={{ color: Colors.gray, fontSize: 12 }}>ITEMS</Text>

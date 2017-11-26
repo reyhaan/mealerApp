@@ -5,7 +5,7 @@ const initialState = {
 };
 export function customer(state=initialState, action){
     switch(action.type){
-        case customerActions.FETCH_COOKS:
+        case customerActions.FETCH_COOKS_SUCCESSFUL:
             return Object.assign({}, state, {
                 cooks: action.data,
             });

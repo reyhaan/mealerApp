@@ -1,4 +1,4 @@
-import db from '../Config/database'
+import database from '../Config/database'
 
 let customer = {};
 
@@ -8,18 +8,18 @@ customer.createOrder = (order) => {
 };
 
 /**
- * Query orders by status
- * @param userId: string
- * @param status: string
+ * Query Cooks
  */
-merchant.getCooks = async () => {
+customer.fetchCooks = async () => {
     try {
         const cooks = [];
-        const snapshot = await database.child("users").orderByChild("rating").equalTo("merchant").once("value");
+        const snapshot = await database.firebase.database().ref("users").once("value");
         snapshot.forEach(function (childSnapshot) {
             let id = childSnapshot.key;
             let data = childSnapshot.val();
-            cooks.push({id, ...data});
+            if (data.type === "merchant") {
+                cooks.push({id, ...data});
+            }
         });
         return cooks;
     } catch (error) {

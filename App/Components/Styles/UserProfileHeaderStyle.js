@@ -3,30 +3,31 @@ import { Colors, Fonts, Metrics } from '../../Themes'
 
 export default StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   mainContainer: {
     alignItems: 'center', 
     justifyContent: 'center', 
-    height: 300, 
-    backgroundColor: Colors.border
+    height: 300,
+    backgroundColor: Colors.snow
   },
   subContainer: {
     flex: 1,
     // alignItems: 'center', 
     // justifyContent: 'center', 
-    height: 50,
+    flexDirection: 'row',
+    height: 50
   },
   userImage: {
-      width: Metrics.screenWidth,
-      height: 300,
-      resizeMode: 'cover'
+      width: 100,
+      height: 100,
+      resizeMode: 'cover',
+      borderRadius: 50,
+      marginTop: 50
   },
   userName: {
-    color: Colors.snow, 
+    color: Colors.background, 
     fontWeight: 'bold', 
-    fontSize: 20, 
-    marginTop: (Platform.OS === 'ios') ? 15 : 12, 
-    paddingLeft: 10
+    fontSize: 20,
   }
 })

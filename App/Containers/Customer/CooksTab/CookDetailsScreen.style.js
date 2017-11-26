@@ -7,9 +7,8 @@ export default StyleSheet.create({
     },
     headerOuterContainer: {
         width: Metrics.screenWidth,
-        backgroundColor: Colors.background,
-        borderBottomColor: Colors.backgroundLighter,
-        borderBottomWidth: 1,
+        backgroundColor: Colors.clear,
+        borderBottomWidth: 0,
         padding: 15,
         height: 75,
     },
@@ -80,7 +79,7 @@ export default StyleSheet.create({
     fullModeItemName: {
         marginTop: (Platform.OS === 'ios') ? 2 : 0,
         marginLeft: 20,
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 'bold',
         color: Colors.background
     },

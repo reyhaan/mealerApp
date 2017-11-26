@@ -20,28 +20,21 @@ class MenuTab extends Component {
             <Icon
                 name='add'
                 color={Colors.snow}
+                iconStyle={{marginTop: 20, }}
+                size={35}
                 onPress={() => this.props.navigation.navigate("EditMenuScreen")}
             />
         )
     };
 
-    editMenuButton = () => {
-        return (
-            <Icon
-                name='edit'
-                color={Colors.snow}
-            />
-        )
-    };
-
-    _onPress = () => {
-        console.log("list pressed");
+    _onPress = (item) => {
+        this.props.navigation.navigate("EditMenuScreen", {item})
     };
 
     _renderItem = (data) => {
         const {item} = data;
         return (
-            <TouchableOpacity onPress={this._onPress} style={style.itemContainer}>
+            <TouchableOpacity onPress={() => this._onPress(item)} style={style.itemContainer}>
                 <Grid>
                     <Col size={65}>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemName}>{item.itemName}</Text>
@@ -60,25 +53,27 @@ class MenuTab extends Component {
     };
 
     render() {
-        const menus = this.props.menu.map(menu => {
-            menu.key = menu.id;
-            return menu
-        });
+        let menus = [];
+        if (this.props.merchant && this.props.merchant.menus) {
+            menus = this.props.merchant.menus.map(menu => {
+                menu.key = menu.id;
+                return menu
+            });
+        }
 
         return (
-            <View style={{flex: 1,backgroundColor: '#fff'}}>
+            <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <Header
-                    leftComponent={this.editMenuButton()}
                     rightComponent={this.addMenuItemButton()}
                     centerComponent={{text: 'MENU', style: {color: '#fff', fontWeight: 'bold'}}}
                     backgroundColor={Colors.background}
                     outerContainerStyles={style.headerOuterContainer}
                 />
 
-                <LoadingSpinner show={!this.props.menu.length}/>
+                <LoadingSpinner show={!menus.length}/>
 
                 <FlatList
-                    style={{backgroundColor: Colors.white}}
+                    style={{backgroundColor: style.white}}
                     data={menus}
                     renderItem={this._renderItem}
                 />
@@ -89,7 +84,7 @@ class MenuTab extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        menu: state.menu,
+        merchant: state.merchant,
         auth: state.auth
     }
 };

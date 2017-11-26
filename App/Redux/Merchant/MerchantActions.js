@@ -7,8 +7,9 @@ export const merchantActions = {
     FETCH_MERCHANT_MENU : 'MERCHANT_MENU',
     FETCH_MENU_SUCCESSFUL : 'FETCH_MENU_SUCCESSFUL',
     CREATE_MENU : "CREATE_MENU",
-    CREATE_MENU_SUCCESSFUL : "CREATE_MENU_SUCCESSFUL",
-    CREATE_MENU_FAILURE: "CREATE_MENU_FAILURE"
+    UPDATE_MENU : "UPDATE_MENU",
+    REMOVE_MENU : "REMOVE_MENU",
+    SHOW_ACTIVITY_INDICATOR: 'SHOW_ACTIVITY_INDICATOR',
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -19,12 +20,15 @@ export const merchantActionCreators = {
     fetchMerchantMenu: ()=> createAction(merchantActions.FETCH_MERCHANT_MENU),
     fetchMenuSuccessful: (data)=> createAction(merchantActions.FETCH_MENU_SUCCESSFUL, data),
     createMenu: (data)=> createAction(merchantActions.CREATE_MENU, data),
-    createMenuSuccessful: (data)=> createAction(merchantActions.CREATE_MENU_SUCCESSFUL, data),
-    createMenuFailure: (error) => createAction(merchantActions.CREATE_MENU_FAILURE, error)
+    updateMenu: (data)=> createAction(merchantActions.UPDATE_MENU, data),
+    removeMenu: (data)=> createAction(merchantActions.REMOVE_MENU, data),
+    showActivityIndicator: (data)=> createAction(merchantActions.SHOW_ACTIVITY_INDICATOR, data),
 };
 
 /******************************* SAGA WATCHERS *************************************/
 export const merchantActionWatchers = [
     takeLatest(merchantActions.FETCH_MERCHANT_MENU, MerchantSaga.fetchMerchantMenu),
-    takeLatest(merchantActions.CREATE_MENU, MerchantSaga.createMenu)
+    takeLatest(merchantActions.CREATE_MENU, MerchantSaga.createMenu),
+    takeLatest(merchantActions.UPDATE_MENU, MerchantSaga.updateMenu),
+    takeLatest(merchantActions.REMOVE_MENU, MerchantSaga.removeMenu)
 ];

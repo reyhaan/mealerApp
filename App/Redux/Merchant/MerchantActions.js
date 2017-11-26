@@ -9,6 +9,7 @@ export const merchantActions = {
     CREATE_MENU : "CREATE_MENU",
     UPDATE_MENU : "UPDATE_MENU",
     REMOVE_MENU : "REMOVE_MENU",
+    SHOW_ACTIVITY_INDICATOR: 'SHOW_ACTIVITY_INDICATOR',
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -21,6 +22,7 @@ export const merchantActionCreators = {
     createMenu: (data)=> createAction(merchantActions.CREATE_MENU, data),
     updateMenu: (data)=> createAction(merchantActions.UPDATE_MENU, data),
     removeMenu: (data)=> createAction(merchantActions.REMOVE_MENU, data),
+    showActivityIndicator: (data)=> createAction(merchantActions.SHOW_ACTIVITY_INDICATOR, data),
 };
 
 /******************************* SAGA WATCHERS *************************************/

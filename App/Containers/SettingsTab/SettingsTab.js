@@ -21,16 +21,6 @@ const list = [
         name: 'Delivery Address',
         icon: 'user',
         screen: 'UserInfoChangeScreen'
-    },
-    {
-        name: 'Account Credits',
-        icon: 'lock',
-        screen: 'UserInfoChangeScreen'
-    },
-    {
-        name: 'Refer Friends',
-        icon: 'lock',
-        screen: 'UserInfoChangeScreen'
     }
 ];
 
@@ -52,14 +42,13 @@ class SettingsTab extends Component {
                 <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
                     {list.map((l, i) => (
                         <ListItem
-                            underlayColor={Colors.backgroundDarker} //to be changed
                             onPress={() => {
                                 this.props.navigation.navigate(l.screen, {page: l.name.toUpperCase()})
                             }}
-                            chevronColor='#FFFFFF'
+                            chevronColor={Colors.background}
                             titleStyle={styles.listTitle}
                             containerStyle={styles.listItem}
-                            leftIcon={{name: l.icon, type: 'font-awesome', style: {color: '#FFFFFF', fontSize: 18}}}
+                            leftIcon={{name: l.icon, type: 'font-awesome', style: {color: Colors.background, fontSize: 18}}}
                             key={i}
                             title={l.name}
                         />
@@ -69,13 +58,13 @@ class SettingsTab extends Component {
                         onPress={() => {
                             this.onSignOut()
                         }}
-                        chevronColor='#FFFFFF'
+                        chevronColor={Colors.background}
                         titleStyle={styles.listTitle}
                         containerStyle={styles.listItem}
                         leftIcon={{
                             name: 'sign-out',
                             type: 'font-awesome',
-                            style: {color: '#FFFFFF', fontSize: 18}
+                            style: {color: Colors.background, fontSize: 18}
                         }}
                         title={'Logout'}
                     />

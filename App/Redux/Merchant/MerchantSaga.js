@@ -41,7 +41,7 @@ menuEffects.updateMenu = function* (menu) {
 menuEffects.removeMenu = function* (menu) {
     try {
         const user = yield call(authentication.currentUser);
-        yield call(merchantService.removeMenu, user.uid, menu.data);
+        yield call(merchantService.removeMenu, user.uid, menu.data.id);
         yield put(merchantActionCreators.fetchMerchantMenu());
     }
     catch (error) {

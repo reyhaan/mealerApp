@@ -20,16 +20,9 @@ class MenuTab extends Component {
             <Icon
                 name='add'
                 color={Colors.snow}
+                iconStyle={{marginTop: 20, }}
+                size={35}
                 onPress={() => this.props.navigation.navigate("EditMenuScreen")}
-            />
-        )
-    };
-
-    editMenuButton = () => {
-        return (
-            <Icon
-                name='edit'
-                color={Colors.snow}
             />
         )
     };
@@ -71,7 +64,6 @@ class MenuTab extends Component {
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <Header
-                    leftComponent={this.editMenuButton()}
                     rightComponent={this.addMenuItemButton()}
                     centerComponent={{text: 'MENU', style: {color: '#fff', fontWeight: 'bold'}}}
                     backgroundColor={Colors.background}

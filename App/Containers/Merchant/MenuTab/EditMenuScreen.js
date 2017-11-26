@@ -12,24 +12,26 @@ import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
 import styles from './EditMenuScreen.style'
 
+let item = {
+    itemName: "",
+    itemDetail: "",
+    itemImage: "",
+    itemCost: ""
+};
+
 class EditMenuScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = item
     }
 
     componentDidMount() {
         const {state} = this.props.navigation;
-        let item = {
-            itemName: "",
-            itemDetail: "",
-            itemImage: "",
-            itemCost: ""
-        };
         if (state.params && state.params.item) {
             item = state.params.item;
         }
         this.setState({
+            id: item.id,
             itemName: item.itemName,
             itemDetail: item.itemDetail,
             itemImage: item.itemImage,
@@ -55,7 +57,7 @@ class EditMenuScreen extends Component {
     onMenuSubmit() {
         let {itemName, itemCost, itemDetail, itemImage} = this.state;
 
-        //TODO: Fix
+        //TODO: Fix, actually save the user image
         itemImage = "https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/" +
             "v1438133716000/photosp/ig-498695320661758884_396353171/stock-photo-food-soup-healthy-foods-health-recipe-vegan-food-and-drink-stew-ig-498695320661758884_396353171.jpg"
 
@@ -69,7 +71,11 @@ class EditMenuScreen extends Component {
                 itemCost: itemCost,
                 itemImage: itemImage //TODO: Fix
             }, () => {
-                this.props.createMenu(this.state);
+                if (this.state.id){
+                    this.props.updateMenu(this.state);
+                } else  {
+                    this.props.createMenu(this.state);
+                }
                 this.resetForm();
                 this.props.navigation.dispatch(NavigationActions.back())
             });
@@ -79,9 +85,12 @@ class EditMenuScreen extends Component {
         }
     }
 
-    onCancelMenu = () => {
+    removeMenu = () => {
+
+
+        this.props.removeMenu(this.state);
         this.resetForm();
-        this.props.navigation.dispatch(NavigationActions.back())
+        this.props.navigation.dispatch(NavigationActions.back());
     };
 
     _backButton = () => {
@@ -90,7 +99,7 @@ class EditMenuScreen extends Component {
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
                 color={Colors.snow}
                 size={40}
-                iconStyle={{marginTop: 30}}
+                iconStyle={{marginTop: 30, marginLeft:-15}}
                 underlayColor={'transparent'}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
             />
@@ -172,8 +181,8 @@ class EditMenuScreen extends Component {
                                             fontWeight: 'bold'
                                         }}
                                         title={`CANCEL`}
-                                        onPress={() => this.onCancelMenu()}>
-                                    <Text style={{color: Colors.fire}}>Cancel</Text>
+                                        onPress={() => this.removeMenu()}>
+                                    <Text style={{color: Colors.fire}}>Remove</Text>
                                 </Button>
                             </Col>
                         </Row>

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, View, FlatList, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux';
 import CooksTabStyle  from './CooksTab.style'
 import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import { Colors, Fonts } from '../../../Themes'
+import { customerActionCreators } from '../../../Redux/Customer/CustomerActions'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -16,6 +18,8 @@ const styles = CooksTabStyle
 class CooksTab extends Component {
   constructor (props) {
     super(props)
+
+    this.props.fetchCooks()
 
     const userObject = [
       {
@@ -91,21 +95,27 @@ class CooksTab extends Component {
         quotaUsed: 24
       }
     ]
-
+    
     this.state = {
-      dataSource: userObject
+      dataSource: []
     }
-
+    
   }
-
+  
+  componentWillReceiveProps = (newProps) => {
+    this.setState({
+      dataSource: newProps.cooks
+    })
+  }
+  
   searchComponent() {
     return (
       <SearchBar
-        darkTheme
-        clearIcon
-        containerStyle={{backgroundColor: Colors.background, borderBottomColor: Colors.pink2}}
-        inputStyle={{backgroundColor: Colors.background, color: Colors.snow }}
-        placeholder='Type Here...' />
+      darkTheme
+      clearIcon
+      containerStyle={{backgroundColor: Colors.background, borderBottomColor: Colors.pink2}}
+      inputStyle={{backgroundColor: Colors.background, color: Colors.snow }}
+      placeholder='Type Here...' />
     )
   }
 
@@ -165,7 +175,6 @@ class CooksTab extends Component {
 
   render () {
 
-
     return (
       <View style = {styles.container}>
         <Header
@@ -189,12 +198,12 @@ class CooksTab extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    cooks: state.customer.cooks
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-  }
+  return bindActionCreators(customerActionCreators, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CooksTab)

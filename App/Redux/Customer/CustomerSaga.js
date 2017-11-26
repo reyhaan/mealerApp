@@ -8,9 +8,8 @@ const customerEffects = {};
 
 customerEffects.fetchCooks = function* () {
     try {
-        const user = yield call(authentication.currentUser);
-        const menus = yield call(merchantService.getMenu, user.uid);
-        yield put(merchantActionCreators.fetchMenuSuccessful(menus))
+        const cooks = yield call(customerService.fetchCooks);
+        yield put(customerActionCreators.fetchCooksSuccessful(cooks));
     } catch (error) {
         Alert.alert('Error', error.message,)
     }

@@ -11,84 +11,15 @@ import {LoadingSpinner, UserProfileHeader, AddToCartModal} from '../../../Compon
 import { NavigationActions } from 'react-navigation'
 import * as Animatable from 'react-native-animatable'
 import Modal from 'react-native-modal'
+import { actionChannel } from 'redux-saga/effects';
+import _ from 'lodash'
 
 class CookDetailsScreen extends Component {
     constructor(props) {
         super(props);
-        // this.props.fetchMerchantMenu();
-
-        const _menu = [
-            {
-                "key": 1,
-                "countryOfOrigin" : "Nigeria",
-                "itemCost" : 6.99,
-                "itemDetail" : "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-                "itemImage" : "https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507",
-                "itemName" : "Chicken Biryani"
-            },
-            {
-                "key": 2,
-                "countryOfOrigin" : "Nigeria",
-                "itemCost" : 6.99,
-                "itemDetail" : "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-                "itemImage" : "https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507",
-                "itemName" : "Chicken Biryani"
-            },
-            {
-                "key": 3,
-                "countryOfOrigin" : "Nigeria",
-                "itemCost" : 6.99,
-                "itemDetail" : "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-                "itemImage" : "https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507",
-                "itemName" : "Chicken Biryani"
-            },
-            {
-                "key": 4,
-                "countryOfOrigin" : "Nigeria",
-                "itemCost" : 6.99,
-                "itemDetail" : "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-                "itemImage" : "https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507",
-                "itemName" : "Chicken Biryani"
-            },
-            {
-                "key": 5,
-                "itemCost" : "8.00",
-                "itemDetail" : "food",
-                "itemImage" : "https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/v1438133716000/photosp/ig-498695320661758884_396353171/stock-photo-food-soup-healthy-foods-health-recipe-vegan-food-and-drink-stew-ig-498695320661758884_396353171.jpg",
-                "itemName" : "test"
-            },
-            {
-                "key": 6,
-                "itemCost" : "10000.00",
-                "itemDetail" : "we’re",
-                "itemImage" : "https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/v1438133716000/photosp/ig-498695320661758884_396353171/stock-photo-food-soup-healthy-foods-health-recipe-vegan-food-and-drink-stew-ig-498695320661758884_396353171.jpg",
-                "itemName" : "chicken feet"
-            },
-            {
-                "key": 7,
-                "itemCost" : "20.00",
-                "itemDetail" : "www we",
-                "itemImage" : "https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/v1438133716000/photosp/ig-498695320661758884_396353171/stock-photo-food-soup-healthy-foods-health-recipe-vegan-food-and-drink-stew-ig-498695320661758884_396353171.jpg",
-                "itemName" : "taofiki "
-            },
-            {
-                "key": 8,
-                "itemCost" : "34.55",
-                "itemDetail" : "ffggg",
-                "itemImage" : "https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/v1438133716000/photosp/ig-498695320661758884_396353171/stock-photo-food-soup-healthy-foods-health-recipe-vegan-food-and-drink-stew-ig-498695320661758884_396353171.jpg",
-                "itemName" : "gggggg"
-            },
-            {
-                "key": 9,
-                "itemCost" : "21.99",
-                "itemDetail" : "Ksdsdksd",
-                "itemImage" : "https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/v1438133716000/photosp/ig-498695320661758884_396353171/stock-photo-food-soup-healthy-foods-health-recipe-vegan-food-and-drink-stew-ig-498695320661758884_396353171.jpg",
-                "itemName" : "test"
-            }
-        ]
 
         this.state = {
-            menu: _menu,
+            menu: [],
             islistMode: false,
             isFullMode: true,
             isModalVisible: false,
@@ -97,7 +28,18 @@ class CookDetailsScreen extends Component {
                 itemImage: '',
                 itemDetail: '',
                 itemCost: ''
-            }
+            },
+            activeMerchant: ''
+        }
+    }
+
+    componentDidMount() {
+        const {state} = this.props.navigation;
+        if (state.params && state.params.selectedCook) {
+            this.setState({
+                activeMerchant: state.params.selectedCook,
+                menu: _.values(state.params.selectedCook.menu)
+            })
         }
     }
     
@@ -234,7 +176,7 @@ class CookDetailsScreen extends Component {
 
                 {/* <LoadingSpinner show={!this.props.menu.length}/> */}
 
-                <UserProfileHeader navigation={this.props.navigation}></UserProfileHeader>
+                <UserProfileHeader navigation={this.props.navigation} user={this.state.activeMerchant}></UserProfileHeader>
 
                 <View style={{ height: 50, borderBottomColor: Colors.lightGray, borderBottomWidth: 1, backgroundColor: Colors.silver }}>
                     <Grid>

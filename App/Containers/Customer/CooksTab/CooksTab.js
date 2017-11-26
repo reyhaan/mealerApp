@@ -5,12 +5,8 @@ import {bindActionCreators} from 'redux';
 import CooksTabStyle  from './CooksTab.style'
 import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid';
-
 import { Colors, Fonts } from '../../../Themes'
 import { customerActionCreators } from '../../../Redux/Customer/CustomerActions'
-
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
 
 // Styles
 const styles = CooksTabStyle
@@ -20,81 +16,6 @@ class CooksTab extends Component {
     super(props)
 
     this.props.fetchCooks()
-
-    const userObject = [
-      {
-        key: 1,
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        key: 2,
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        key: 3,
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        key: 4,
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        key: 5,
-        name: "Mohammad Rehaan",
-        avatar: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        key: 6,
-        name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        key: 7,
-        name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      },
-      {
-        key: 8,
-        name: "Mohammad Rehaan",
-        avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-        cousineType: "Indian",
-        rating: 3.6,
-        quotaLimit: 30,
-        quotaUsed: 24
-      }
-    ]
     
     this.state = {
       dataSource: []
@@ -103,8 +24,14 @@ class CooksTab extends Component {
   }
   
   componentWillReceiveProps = (newProps) => {
+
+    let cooks = newProps.cooks.map(cook => {
+        cook.key = cook.id;
+        return cook
+    });
+
     this.setState({
-      dataSource: newProps.cooks
+      dataSource: cooks
     })
   }
   
@@ -122,7 +49,7 @@ class CooksTab extends Component {
   _renderRow (rowData) {
     return (
       <TouchableOpacity onPress={
-        () => this.props.navigation.navigate('CookDetailsScreen')
+        () => this.props.navigation.navigate('CookDetailsScreen', {selectedCook: rowData})
       }
       >
       <View style={styles.row}>
@@ -167,10 +94,6 @@ class CooksTab extends Component {
       </View>
       </TouchableOpacity>
     )
-  }
-
-  _noRowData () {
-    return this.state.dataSource.getRowCount() === 0
   }
 
   render () {

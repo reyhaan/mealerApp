@@ -19,12 +19,12 @@ export default class UserProfileHeader extends Component {
 
   _backButton = () => {
     return (
-        <Icon
-            name={'close'}
-            color={Colors.gray}
-            style={{ padding: 10 }}
-            onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
-        />
+      <Icon
+          name={'close'}
+          color={Colors.gray}
+          style={{ padding: 10 }}
+          onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
+      />
     )
   };
 
@@ -114,7 +114,7 @@ export default class UserProfileHeader extends Component {
                       <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.background }}>14</Text>
                     </Row>
                     <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
-                      <Text style={{ color: Colors.gray, fontSize: 12 }}>RECIPES</Text>
+                      <Text style={{ color: Colors.gray, fontSize: 12 }}>ITEMS</Text>
                     </Row>
                   </Col>
                 </Row>

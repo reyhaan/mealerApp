@@ -207,13 +207,15 @@ class CookDetailsScreen extends Component {
             case 'list':
                 this.setState({
                     isFullMode: false,
-                    islistMode: true
+                    islistMode: true,
+                    isModalVisible: false
                 })
                 break;
             case 'full':
                 this.setState({
                     isFullMode: true,
-                    islistMode: false
+                    islistMode: false,
+                    isModalVisible: false
                 })
                 break;
         }
@@ -237,7 +239,7 @@ class CookDetailsScreen extends Component {
                 <View style={{ height: 50, borderBottomColor: Colors.lightGray, borderBottomWidth: 1, backgroundColor: Colors.silver }}>
                     <Grid>
                         <Col size={1} style={{ alignItems: 'flex-start', justifyContent: 'center', paddingLeft: 10 }}>
-                            <Text style={{ color: Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>RECIPES</Text>
+                            <Text style={{ color: Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>ITEMS</Text>
                         </Col>
 
                         <Col style={{ width: 50, backgroundColor: Colors.clear, borderLeftWidth: 1, borderLeftColor: Colors.gray2, paddingTop: 12 }}>

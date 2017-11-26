@@ -92,10 +92,6 @@ class CooksTab extends Component {
       }
     ]
 
-    // const rowHasChanged = (r1, r2) => r1 !== r2
-
-    // const ds = new ListView.DataSource({rowHasChanged})
-
     this.state = {
       dataSource: userObject
     }

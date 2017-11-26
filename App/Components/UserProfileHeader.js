@@ -20,8 +20,8 @@ export default class UserProfileHeader extends Component {
   _backButton = () => {
     return (
         <Icon
-            name={Platform.OS === 'ios' ? 'arrow-back' : 'arrow-back'}
-            color={Colors.charcoal}
+            name={'close'}
+            color={Colors.gray}
             style={{ padding: 10 }}
             onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
         />
@@ -33,7 +33,7 @@ export default class UserProfileHeader extends Component {
       <Icon
           name={'ios-information-circle-outline'}
           type='ionicon'
-          color={Colors.charcoal}
+          color={Colors.gray}
           size={28}
           style={{ padding: 10 }}
           onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
@@ -48,8 +48,8 @@ export default class UserProfileHeader extends Component {
       <StatusBar barStyle='dark-content'/>
 
         <Grid>
-            <Col size={1} style={{ alignItems: 'flex-start' }}>
-              <View style={{ marginTop: 40, marginLeft: 20 }}>
+            <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ marginTop: 45 }}>
                 {this._backButton()}
               </View>
             </Col>
@@ -61,8 +61,8 @@ export default class UserProfileHeader extends Component {
               </Image>
             </Col>
 
-            <Col size={1} style={{ alignItems: 'flex-end' }}>
-              <View style={{ marginTop: 40, marginRight: 20 }}>
+            <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ marginTop: 45 }}>
                 {this._infoButton()}
               </View>
             </Col>

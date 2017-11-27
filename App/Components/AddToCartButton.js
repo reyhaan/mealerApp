@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, Image, TouchableOpacity} from 'react-native'
+import {View, Text, Image, TouchableOpacity, TouchableWithoutFeedback} from 'react-native'
 import {ImagePicker} from 'expo';
 import {Colors, Fonts, Images} from '../Themes'
 import {Button} from 'native-base';
@@ -21,7 +21,7 @@ export default class AddToCartButton extends Component {
 
     decreaseItemCount = () => {
         this.setState({
-            itemCount: this.state.itemCount - 1
+            itemCount: this.state.itemCount > 1 ? this.state.itemCount - 1 : this.state.itemCount
         })
     }
 
@@ -58,7 +58,11 @@ export default class AddToCartButton extends Component {
                     </Col>
                     
                     <Col size={3} style={style.addToCartButton}>
-                        <Text style={style.buttonText} >ADD TO CART</Text>
+                        <TouchableWithoutFeedback onPress={() => this.props.callback(this.state.itemCount)}>
+                            <View style={style.buttonTextWrapper}>
+                                <Text style={style.buttonText} >ADD TO CART</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </Col>
                 </Grid>
             </View>

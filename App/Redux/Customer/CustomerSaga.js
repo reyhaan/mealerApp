@@ -15,4 +15,13 @@ customerEffects.fetchCooks = function* () {
     }
 };
 
+customerEffects.addToCart = function* (data) {
+    try {
+        const order = yield call(customerService.addToCart, data);
+        yield put(customerActionCreators.addToCartSuccessful(order));
+    } catch (error) {
+        Alert.alert('Error', error.message,)
+    }
+};
+
 export default customerEffects;

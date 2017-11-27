@@ -164,15 +164,10 @@ class CookDetailsScreen extends Component {
     }
 
     render() {
-        // const menus = this.props.menu.map(menu => {
-        //     menu.key = menu.id;
-        //     return menu
-        // });
-
         return (
             <ScrollView style={{flex: 1,backgroundColor: '#fff'}}>
 
-                <AddToCartModal visible={this.state.isModalVisible} activeItem={this.state.activeItem} ></AddToCartModal>
+                <AddToCartModal visible={this.state.isModalVisible} activeItem={this.state.activeItem} activeMerchant={this.state.activeMerchant} ></AddToCartModal>
 
                 {/* <LoadingSpinner show={!this.props.menu.length}/> */}
 

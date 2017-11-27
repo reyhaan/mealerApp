@@ -8,11 +8,15 @@ import Modal from 'react-native-modal'
 import {Col, Row, Grid} from 'react-native-easy-grid'
 import {Header, Avatar, Icon} from 'react-native-elements'
 import { AddToCartButton } from './index';
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import { customerActionCreators } from '../Redux/Customer/CustomerActions'
 
-export default class AddToCartModal extends Component {
+class AddToCartModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeMerchant: this.props.activeMerchant,
             activeItem: this.props.activeItem,
             isModalVisible: false
         }
@@ -29,6 +33,15 @@ export default class AddToCartModal extends Component {
         this.setState({
             isModalVisible: false
         })
+    }
+
+    addToCartButtonCallback = (itemCount) => {
+        let order = {
+            from: this.props.user.id,
+            to: this.state.activeMerchant.uid,
+            item: this.state.activeItem
+        }
+        this.props.addToCart(order)
     }
 
     render() {
@@ -65,7 +78,7 @@ export default class AddToCartModal extends Component {
                         </Row>
 
                         <Row style={{ height: 60 }}>
-                            <AddToCartButton></AddToCartButton>
+                            <AddToCartButton callback={(itemCount) => this.addToCartButtonCallback(itemCount)}></AddToCartButton>
                         </Row>
                     </Grid>
                 </View>
@@ -73,3 +86,13 @@ export default class AddToCartModal extends Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => (bindActionCreators(customerActionCreators, dispatch));
+const mapStateToProps = state => {
+    return {
+        user: state.customer,
+        order: state.customer.order
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddToCartModal)

@@ -49,6 +49,14 @@ export default StyleSheet.create({
         paddingTop: (Platform.OS === 'ios') ? 5 : 0
     },
 
+    buttonTextWrapper: {
+        height: 30, 
+        alignSelf: 'stretch',
+        borderLeftColor: Colors.backgroundDarker,
+        borderLeftWidth: 1,
+        paddingTop: (Platform.OS === 'ios') ? 5 : 0
+    },
+
     buttonInnerContainer: {
         flex: 1,
         alignItems: 'center',

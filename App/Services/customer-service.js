@@ -30,15 +30,12 @@ customer.fetchCooks = async () => {
  */
 customer.addToCart = async (data) => {
     try {
-        let dateCreated = firebase.database.ServerValue.TIMESTAMP;
         const order = {
             from: data.from,
             to: data.to,
             item: data.item,
-            time: dateCreated
+            time: database.firebase.database.ServerValue.TIMESTAMP
         }
-        console.log("WE ARE HERE")
-        console.log(order)
         const orderRef = database.firebase.database().ref("orders");
         await orderRef.push(order);
         return order;

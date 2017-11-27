@@ -25,7 +25,8 @@ class AddToCartModal extends Component {
     componentWillReceiveProps(newProps) {
         this.setState({
             isModalVisible: newProps.visible,
-            activeItem: newProps.activeItem
+            activeItem: newProps.activeItem,
+            activeMerchant: newProps.activeMerchant
         })
     }
 
@@ -37,7 +38,7 @@ class AddToCartModal extends Component {
 
     addToCartButtonCallback = (itemCount) => {
         let order = {
-            from: this.props.user.id,
+            from: this.props.user.uid,
             to: this.state.activeMerchant.uid,
             item: this.state.activeItem
         }
@@ -90,8 +91,8 @@ class AddToCartModal extends Component {
 const mapDispatchToProps = (dispatch) => (bindActionCreators(customerActionCreators, dispatch));
 const mapStateToProps = state => {
     return {
-        user: state.customer,
-        order: state.customer.order
+        user: state.settings.user,
+        order: state.cart ? state.cart : ''
     }
 };
 

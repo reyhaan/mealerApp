@@ -1,17 +1,24 @@
 import db from '../Config/database';
-
+import authenticationService from './authentication-service';
 
 let orderService = {};
 
 /**
  * Create a merchant order
- * @param userId: string
- * @param order: object
  */
-orderService.createOrder = async (userId, order) => {
+orderService.createNewOrder = async (customerId, merchantId, items) => {
     try {
-        const orderRef = db.user(userId).child('orders');
+        let order = {
+            from: customerId,
+            to: merchantId,
+            time: db.firebase.database.ServerValue.TIMESTAMP,
+            status: 'new',
+            items:items
+        };
+        const orderRef = db.orders(customerId);
         const orderKey = await orderRef.push().getKey();
+        order.customerInfo = await authenticationService.fetchUser(customerId);
+        order.merchantInfo = await authenticationService.fetchUser(merchantId);
         await orderRef.child(orderKey).set(order);
         const orderSnapshot = await orderRef.child(orderKey).once('value');
         return {id: orderSnapshot.key, ...orderSnapshot.val()};
@@ -27,7 +34,7 @@ orderService.createOrder = async (userId, order) => {
 orderService.getOrders = async (userId) => {
     try {
         let menus = [];
-        let userMenuSnapshot = await db.user(userId).child('orders').once('value');
+        let userMenuSnapshot = await db.orders(userId).once('value');
         userMenuSnapshot.forEach(function (childSnapshot) {
             let id = childSnapshot.key;
             let data = childSnapshot.val();
@@ -46,7 +53,7 @@ orderService.getOrders = async (userId) => {
  */
 orderService.updateOrder = async (userId, order) => {
     try {
-        const userOrderRef = db.user(userId).child("orders").child(order.id);
+        const userOrderRef = db.orders(userId).child(order.id);
         await userOrderRef.update(order);
         const orderSnapshot = await userOrderRef.once('value');
         return {id: orderSnapshot.key, ...orderSnapshot.val()};
@@ -62,7 +69,7 @@ orderService.updateOrder = async (userId, order) => {
  */
 orderService.getOrderById = async (userId, orderId) => {
     try {
-        let userOrderSnapshot = await db.user(userId).child('orders').child(orderId).once('value');
+        let userOrderSnapshot = await db.orders(userId).child(orderId).once('value');
         return {id: userOrderSnapshot.key, ...userOrderSnapshot.val()};
     } catch (error) {
         return {error};
@@ -76,7 +83,7 @@ orderService.getOrderById = async (userId, orderId) => {
  */
 orderService.removeOrder = async (userId, orderId) => {
     try {
-        let userOrderRef = db.user(userId).child('orders').child(orderId);
+        let userOrderRef = db.orders(userId).child(orderId);
         return userOrderRef.remove();
     } catch (error) {
         return {error};
@@ -91,7 +98,7 @@ orderService.removeOrder = async (userId, orderId) => {
 orderService.getOrdersByStatus = async (userId, status) => {
     try {
         const orders = [];
-        const snapshot = await db.user(userId).child("orders").orderByChild("status").equalTo(status).once("value");
+        const snapshot = await db.orders(userId).orderByChild("status").equalTo(status).once("value");
         snapshot.forEach(function (childSnapshot) {
             let id = childSnapshot.key;
             let data = childSnapshot.val();

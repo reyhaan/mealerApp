@@ -21,7 +21,7 @@ afterAll(async () => {
     }
 });
 
-describe('merchant-service', function () {
+describe('menu-service', function () {
     test('should create merchant menu', async () => {
         try {
             const menu = await menuService.createMenu(merchantUser.uid, merchantUser.menu());

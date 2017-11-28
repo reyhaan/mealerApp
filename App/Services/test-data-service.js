@@ -1,3 +1,5 @@
+import db from '../Config/database';
+
 export const customer = {
     email: "customer@mealer.com",
     password: "customer",
@@ -41,11 +43,11 @@ export class User {
 
     order() {
         return {
-            date: "2/20/2017",
-            userId: customer.uid,
+            from: customer.uid,
+            to: merchant.uid,
+            items: [this.menu(),this.menu()],
+            time: db.firebase.database.ServerValue.TIMESTAMP,
             status: "new",
-            orderedCount: 2,
-            menu: this.menu()
         }
     }
 }

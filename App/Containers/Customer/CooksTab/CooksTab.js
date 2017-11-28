@@ -13,10 +13,8 @@ const styles = CooksTabStyle
 
 class CooksTab extends Component {
   constructor (props) {
-    super(props)
-
-    this.props.fetchCooks()
-    
+    super(props);
+    this.props.fetchCooks();
     this.state = {
       dataSource: []
     }
@@ -33,7 +31,7 @@ class CooksTab extends Component {
     this.setState({
       dataSource: cooks
     })
-  }
+  };
   
   searchComponent() {
     return (
@@ -123,10 +121,10 @@ const mapStateToProps = (state) => {
   return {
     cooks: state.customer.cooks
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(customerActionCreators, dispatch);
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CooksTab)

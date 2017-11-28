@@ -17,7 +17,7 @@ function createAction(type, data) {
     return {type, data};
 }
 export const merchantActionCreators = {
-    fetchMerchantMenu: ()=> createAction(merchantActions.FETCH_MERCHANT_MENU),
+    fetchMerchantMenu: (data)=> createAction(merchantActions.FETCH_MERCHANT_MENU, data),
     fetchMenuSuccessful: (data)=> createAction(merchantActions.FETCH_MENU_SUCCESSFUL, data),
     createMenu: (data)=> createAction(merchantActions.CREATE_MENU, data),
     updateMenu: (data)=> createAction(merchantActions.UPDATE_MENU, data),

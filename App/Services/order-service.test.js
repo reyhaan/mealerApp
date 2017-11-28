@@ -23,7 +23,6 @@ afterAll(async () => {
 });
 
 describe('order-service', function () {
-
     test('should add order to customerUser', async () => {
         try {
             const order = await orderService.createNewOrder(customerUser.uid, merchantUser.uid, merchantUser.order().items);

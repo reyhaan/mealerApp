@@ -29,14 +29,16 @@ class EditMenuScreen extends Component {
         const {state} = this.props.navigation;
         if (state.params && state.params.item) {
             item = state.params.item;
+            this.setState({
+                id: item.id,
+                itemName: item.itemName,
+                itemDetail: item.itemDetail,
+                itemImage: item.itemImage,
+                itemCost: item.itemCost.toString()
+            })
+        } else {
+            this.resetForm();
         }
-        this.setState({
-            id: item.id,
-            itemName: item.itemName,
-            itemDetail: item.itemDetail,
-            itemImage: item.itemImage,
-            itemCost: item.itemCost.toString()
-        })
     }
 
     formUpdate = (input, value) => {
@@ -47,6 +49,7 @@ class EditMenuScreen extends Component {
 
     resetForm = () => {
         this.setState({
+            id:"",
             itemName: "",
             itemCost: "",
             itemDetail: "",
@@ -86,8 +89,6 @@ class EditMenuScreen extends Component {
     }
 
     removeMenu = () => {
-
-
         this.props.removeMenu(this.state);
         this.resetForm();
         this.props.navigation.dispatch(NavigationActions.back());

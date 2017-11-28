@@ -1,6 +1,6 @@
 import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
-import merchantService from '../../Services/merchant-service';
+import merchantService from '../../Services/menu-service';
 import authentication from '../../Services/authentication-service';
 import {merchantActionCreators} from './MerchantActions'
 

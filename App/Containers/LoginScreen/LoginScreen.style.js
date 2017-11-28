@@ -40,31 +40,21 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         marginRight: 3
     },
-    loginButtonView: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
     signUpButton: {
         fontSize: 12,
         color: 'white',
         paddingTop: 5,
-        paddingLeft: 5,
-        backgroundColor: 'rgba(51, 29, 107,0.4)',
+        paddingLeft: 6,
         borderStyle: 'solid',
-        borderWidth: 3,
-        borderRadius: 5,
-        borderColor: 'rgba(51, 29, 107,0.2)',
-        fontWeight: 'bold'
+        borderWidth: 1,
+        borderRadius: 2,
+        borderColor: Colors.white,
+        fontWeight: 'bold',
     },
     forgotPasswordView: {
-        marginBottom: 10,
+        marginBottom: 30,
         marginTop: 10,
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center'
     },
     checkBoxTextStyle: {
         color: 'white',

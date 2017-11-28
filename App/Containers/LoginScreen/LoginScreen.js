@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {ScrollView, View, Image, TouchableOpacity, Alert} from 'react-native'
 import LoginScreenStyle from './LoginScreen.style'
-import {Button, FormInput, Text} from 'react-native-elements'
-import {Images, Fonts} from '../../Themes/index'
+import {Text} from 'react-native-elements'
+import {Button, Form, Item, Input, Label,} from 'native-base'
+import {Images, Colors} from '../../Themes/index'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {SignUpScreen} from '../index'
@@ -32,7 +33,7 @@ class LoginScreen extends Component {
         try {
             const currentUser = await authenticationService.currentUser();
             const {navigation, dispatch} = this.props;
-            if (currentUser){
+            if (currentUser) {
                 this.props.setUser(currentUser);
             }
 
@@ -81,33 +82,29 @@ class LoginScreen extends Component {
                     </View>
 
                     <View style={[LoginScreenStyle.section, {marginBottom: 5}]}>
-                        <FormInput
-                            underlineColorAndroid="transparent"
-                            inputStyle={LoginScreenStyle.inputField}
-                            containerStyle={LoginScreenStyle.inputContainer}
-                            autoCapitalize="none"
-                            keyboardType="email-address"
-                            onChangeText={(e) => this.getUserLoginInfo('email', e)}
-                            placeholder="EMAIL"/>
-                        <FormInput
-                            underlineColorAndroid="transparent"
-                            inputStyle={LoginScreenStyle.inputField}
-                            autoCapitalize="none"
-                            keyboardType="email-address"
-                            containerStyle={LoginScreenStyle.inputContainer}
-                            onChangeText={(e) => this.getUserLoginInfo('password', e)}
-                            placeholder="PASSWORD"
-                            secureTextEntry={true}/>
-                        <View style={LoginScreenStyle.forgotPasswordView}>
-                        </View>
-                        <View Style={LoginScreenStyle.loginButtonView}>
-                            <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
-                            <Button
-                                buttonStyle={[LoginScreenStyle.primaryButton]}
-                                textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                                title={`LOGIN`}
-                                onPress={this.login}/>
-                        </View>
+                        <Form style={LoginScreenStyle.forgotPasswordView}>
+                            <Item floatingLabel>
+                                <Label style={{color: Colors.white}}>Email</Label>
+                                <Input autoCapitalize="none"
+                                       style={{color: Colors.white}}
+                                       keyboardType="email-address"
+                                       onChangeText={(e) => this.getUserLoginInfo('email', e)}/>
+                            </Item>
+                            <Item floatingLabel>
+                                <Label style={{color: Colors.white}}>Password</Label>
+                                <Input autoCapitalize="none"
+                                       style={{color: Colors.white}}
+                                       keyboardType="email-address"
+                                       onChangeText={(e) => this.getUserLoginInfo('password', e)}
+                                       secureTextEntry={true}/>
+                            </Item>
+                        </Form>
+                        <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
+                        <Button block bordered
+                                style={LoginScreenStyle.loginButton}
+                                onPress={this.login}>
+                            <Text style={{color: Colors.white, fontSize: 20}}>Login</Text>
+                        </Button>
                         <View style={[LoginScreenStyle.signUpView]}>
                             <Text h5 style={LoginScreenStyle.registerButton}> Not Registered?</Text>
                             <TouchableOpacity onPress={() => this.toggleSignUpPage()}>
@@ -123,9 +120,10 @@ class LoginScreen extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        ...authActionCreators, 
-        ...settingsActionCreators},
-         dispatch);
+            ...authActionCreators,
+            ...settingsActionCreators
+        },
+        dispatch);
 };
 const mapStateToProps = state => ({auth: state.auth});
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

@@ -21,6 +21,7 @@ class MenuTab extends Component {
                 name='add'
                 color={Colors.snow}
                 iconStyle={{marginTop: 20, }}
+                underlayColor={'transparent'}
                 size={35}
                 onPress={() => this.props.navigation.navigate("EditMenuScreen")}
             />

@@ -122,14 +122,14 @@ class EditMenuScreen extends Component {
                         </View>
 
                         <Form>
-                            <Item floatingLabel>
+                            <Item stackedLabel>
                                 <Label>Name</Label>
                                 <Input autoCapitalize="none"
                                        onChangeText={(e) => this.formUpdate('itemName', e)}
                                        underlineColorAndroid="transparent"
                                        value={this.state.itemName}/>
                             </Item>
-                            <Item floatingLabel>
+                            <Item stackedLabel>
                                 <Label>Price</Label>
                                 <Input keyboardType="numeric"
                                        onChangeText={(e) => this.formUpdate('itemCost', e)}
@@ -137,7 +137,7 @@ class EditMenuScreen extends Component {
                                        value={this.state.itemCost}/>
                             </Item>
 
-                            <Item floatingLabel>
+                            <Item stackedLabel>
                                 <Label>Item Detail</Label>
                                 <Input autogrow={true}
                                        maxHeight={150}

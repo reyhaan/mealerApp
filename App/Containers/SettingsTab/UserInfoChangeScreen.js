@@ -24,15 +24,15 @@ class UserInfoChangeScreen extends Component {
     }
 
     componentDidMount() {
-        // const currentUser = this.props.settings.user;
-        // currentUser
-        //     ? this.setState({
-        //         name: currentUser.name || '',
-        //         address: currentUser.address || '',
-        //         phone: currentUser.phone || '',
-        //         email: currentUser.email || ''
-        //     })
-        //     : Alert.alert('Error:', 'unable to retrieve your info')
+        const currentUser = this.props.settings.user;
+        currentUser
+            ? this.setState({
+                name: currentUser.name || '',
+                address: currentUser.address || '',
+                phone: currentUser.phone || '',
+                email: currentUser.email || ''
+            })
+            : Alert.alert('Error:', 'unable to retrieve your info')
     }
 
     _backButton = () => {
@@ -40,14 +40,17 @@ class UserInfoChangeScreen extends Component {
             <Icon
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
                 color={Colors.snow}
+                iconStyle={{marginTop: 20, }}
+                underlayColor={'transparent'}
+                size={35}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
             />
         )
-    }
+    };
 
     _updateUserDetails = () => {
-        const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state
-        const existingUser = this.props.settings.user
+        const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state;
+        const existingUser = this.props.settings.user;
         if (newName && newEmail) {
             ((existingUser.name !== newName)
                 || (existingUser.address !== newAddress)

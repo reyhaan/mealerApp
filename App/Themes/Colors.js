@@ -1,12 +1,12 @@
 const colors = {
-    background: '#D7452D',// '#FD5946', //'#EF0632', //'#D54A58', // '#FD4B54', // '#D7452D'
+    background: '#E95D4F',// '#FD5946', //'#EF0632', //'#D54A58', // '#FD4B54', // '#D7452D'
     backgroundLighter: '#EA6D59', // '#EF5D45',
     backgroundDarker: '#B04230',
     backgroundGray: '#DBDFE8',
     pink: '#EE388D',
     pink2: '#7041C9',
     pinkLight1: '#B27CF4',
-    green: '#5E9E14',
+    green: '#33cd5f',
     orange: '#F5A623',
     darkOrange: '#D48513',
     clear: 'rgba(0,0,0,0)',
@@ -38,31 +38,5 @@ const colors = {
     banner: '#5F3E63',
     text: '#E0D7E5'
 };
-
-// const colors = {
-//   background: '#1F0808',
-//   clear: 'rgba(0,0,0,0)',
-//   facebook: '#3b5998',
-//   transparent: 'rgba(0,0,0,0)',
-//   silver: '#F7F7F7',
-//   steel: '#CCCCCC',
-//   error: 'rgba(200, 0, 0, 0.8)',
-//   ricePaper: 'rgba(255,255,255, 0.75)',
-//   frost: '#D8D8D8',
-//   cloud: 'rgba(200,200,200, 0.35)',
-//   windowTint: 'rgba(0, 0, 0, 0.4)',
-//   panther: '#161616',
-//   charcoal: '#595959',
-//   coal: '#2d2d2d',
-//   bloodOrange: '#fb5f26',
-//   snow: 'white',
-//   ember: 'rgba(164, 0, 48, 0.5)',
-//   fire: '#e73536',
-//   drawer: 'rgba(30, 30, 29, 0.95)',
-//   eggplant: '#251a34',
-//   border: '#483F53',
-//   banner: '#5F3E63',
-//   text: '#E0D7E5'
-// }
 
 export default colors

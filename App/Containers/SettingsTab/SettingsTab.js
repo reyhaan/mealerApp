@@ -1,35 +1,20 @@
 import React, {Component} from 'react'
 import {ScrollView} from 'react-native'
 import {connect} from 'react-redux'
-import {Button, Text, List, ListItem} from 'react-native-elements'
+import {List, ListItem} from 'react-native-elements'
 import SettingsTabStyle from './SettingsTab.style'
 import {Header} from 'react-native-elements'
 import {bindActionCreators} from 'redux'
 import {Colors} from '../../Themes/index'
 import {authActionCreators} from '../../Redux/Auth/AuthActions'
 
-// Styles
-const styles = SettingsTabStyle
-
-const list = [
-    {
-        name: 'Update Profile',
-        icon: 'home',
-        screen: 'UserInfoChangeScreen'
-    },
-    {
-        name: 'Delivery Address',
-        icon: 'user',
-        screen: 'UserInfoChangeScreen'
-    }
-];
-
+const styles = SettingsTabStyle;
 
 class SettingsTab extends Component {
-    
+
     onSignOut = () => {
         this.props.signOut()
-    }
+    };
 
     render() {
         return (
@@ -40,21 +25,21 @@ class SettingsTab extends Component {
                     outerContainerStyles={styles.headerOuterContainer}/>
 
                 <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
-                    {list.map((l, i) => (
-                        <ListItem
-                            onPress={() => {
-                                this.props.navigation.navigate(l.screen, {page: l.name.toUpperCase()})
-                            }}
-                            chevronColor={Colors.background}
-                            titleStyle={styles.listTitle}
-                            containerStyle={styles.listItem}
-                            leftIcon={{name: l.icon, type: 'font-awesome', style: {color: Colors.background, fontSize: 18}}}
-                            key={i}
-                            title={l.name}
-                        />
-                    ))}
                     <ListItem
-                        underlayColor={Colors.backgroundDarker} // to be changed
+                        onPress={() => {
+                            this.props.navigation.navigate("UserInfoChangeScreen", {page: "Update Profile"})
+                        }}
+                        chevronColor={Colors.background}
+                        titleStyle={styles.listTitle}
+                        containerStyle={styles.listItem}
+                        leftIcon={{
+                            name: 'home',
+                            type: 'font-awesome',
+                            style: {color: Colors.background, fontSize: 18}
+                        }}
+                        title={'Update Profile'}
+                    />
+                    <ListItem
                         onPress={() => {
                             this.onSignOut()
                         }}

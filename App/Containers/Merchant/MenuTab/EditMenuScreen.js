@@ -159,14 +159,13 @@ class EditMenuScreen extends Component {
                         }}>
 
                             <Col size={1} style={{marginRight: 10, marginLeft: 10}}>
-                                <Button success block
-                                        buttonStyle={[styles.greenButton]}
+                                <Button block
+                                        style={[styles.greenButton]}
                                         textStyle={{
                                             textAlign: 'center',
                                             fontFamily: Fonts.type.bold,
-                                            fontWeight: 'bold'
+                                            fontWeight: 'bold',
                                         }}
-                                        title={`DONE`}
                                         onPress={() => this.onMenuSubmit()}>
                                     <Text style={{color: Colors.white}}>Save</Text>
                                 </Button>

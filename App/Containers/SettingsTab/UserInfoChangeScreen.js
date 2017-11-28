@@ -88,6 +88,7 @@ class UserInfoChangeScreen extends Component {
                                             <Input
                                                 autoCapitalize="none"
                                                 value={this.state.name}
+                                                placeholder={'Enter name'}
                                                 onChangeText={(value) => this.onInputChange(value, 'name')}/>
                                         </Item>
                                         <Item floatingLabel>

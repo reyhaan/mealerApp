@@ -35,7 +35,7 @@ customer.addToCart = async (data) => {
             to: data.to,
             item: data.item,
             time: database.firebase.database.ServerValue.TIMESTAMP
-        }
+        };
         const orderRef = database.firebase.database().ref("orders");
         await orderRef.push(order);
         return order;

@@ -83,15 +83,15 @@ class UserInfoChangeScreen extends Component {
                             <Row size={1} style={{backgroundColor: Colors.cloud}}>
                                 <View style={styles.formContainer}>
                                     <Form>
-                                        <Item floatingLabel>
+                                        <Item stackedLabel>
                                             <Label>Display Name</Label>
                                             <Input
                                                 autoCapitalize="none"
                                                 value={this.state.name}
-                                                placeholder={'Enter name'}
+                                                placeholder={'Your name'}
                                                 onChangeText={(value) => this.onInputChange(value, 'name')}/>
                                         </Item>
-                                        <Item floatingLabel>
+                                        <Item stackedLabel>
                                             <Label>Address</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -99,7 +99,7 @@ class UserInfoChangeScreen extends Component {
                                                 value={this.state.address}
                                                 onChangeText={(value) => this.onInputChange(value, 'address')}/>
                                         </Item>
-                                        <Item floatingLabel>
+                                        <Item stackedLabel>
                                             <Label>Email</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -107,7 +107,7 @@ class UserInfoChangeScreen extends Component {
                                                 value={this.state.email}
                                                 onChangeText={(value) => this.onInputChange(value, 'email')}/>
                                         </Item>
-                                        <Item floatingLabel>
+                                        <Item stackedLabel>
                                             <Label>Phone Number</Label>
                                             <Input
                                                 autoCapitalize="none"

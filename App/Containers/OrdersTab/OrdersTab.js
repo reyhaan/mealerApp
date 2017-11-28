@@ -4,21 +4,16 @@ import { connect } from 'react-redux'
 import OrdersTabStyle from './OrdersTab.style'
 import { Header } from 'react-native-elements' 
 import { IndividualOrderList } from '../../Components'
-
 import { Colors } from '../../Themes'
 
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
-
 // Styles
-
 const styles = OrdersTabStyle;
 
 class OrdersTab extends Component {
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {}
-  // }
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
 
   render () {
     return (

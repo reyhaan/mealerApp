@@ -4,13 +4,12 @@ import { Colors, Metrics } from '../../Themes/index'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background
+    backgroundColor: Colors.snow
   },
   headerOuterContainer: {
     width: Metrics.screenWidth,
     backgroundColor: Colors.background,
-    borderBottomColor: Colors.pink2,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0,
     padding: 15,
     height: 75,
   }

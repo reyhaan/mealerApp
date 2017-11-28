@@ -16,8 +16,8 @@ class AddToCartModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeMerchant: this.props.activeMerchant,
-            activeItem: this.props.activeItem,
+            activeMerchant: '',
+            activeItem: '',
             isModalVisible: false
         }
     }

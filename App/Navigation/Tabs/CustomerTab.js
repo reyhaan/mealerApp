@@ -16,6 +16,7 @@ const customerTabsConfig = {
     One: {
         screen: CooksTab,
         navigationOptions: {
+            gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.cooksWhite}
@@ -30,6 +31,7 @@ const customerTabsConfig = {
     Two: {
         screen: OrdersTab,
         navigationOptions: {
+            gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.ordersWhite}
@@ -43,6 +45,7 @@ const customerTabsConfig = {
     Three: {
         screen: SettingsTab,
         navigationOptions: {
+            gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.settingsWhite}
@@ -56,6 +59,7 @@ const customerTabsConfig = {
     Four: {
         screen: InfoTab,
         navigationOptions: {
+            gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.infoIcon}

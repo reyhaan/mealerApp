@@ -12,10 +12,16 @@ import {
 // Manifest of possible screens
 export default StackNavigator({
     LoginScreen: {
-        screen: LoginScreen
+        screen: LoginScreen,
+        navigationOptions: {
+            gesturesEnabled: false
+        }
     },
     SignUpScreen: {
-        screen: SignUpScreen
+        screen: SignUpScreen,
+        navigationOptions: {
+            gesturesEnabled: false
+        }
     },
     MerchantTab: {
         screen: MerchantTab

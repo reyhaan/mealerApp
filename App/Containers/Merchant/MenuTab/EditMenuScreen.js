@@ -79,7 +79,6 @@ class EditMenuScreen extends Component {
                 } else  {
                     this.props.createMenu(this.state);
                 }
-                this.resetForm();
                 this.props.navigation.dispatch(NavigationActions.back())
             });
         }

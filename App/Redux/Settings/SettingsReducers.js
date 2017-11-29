@@ -8,7 +8,6 @@ export function settings(state=initialState, action){
                 user: action.data,
             });
         case settingsActions.SET_CURRENT_USER:
-            // console.log("at saga>>>>>>>>>>>>>>>>>>>>>>>>", action.data)
             return Object.assign({}, state, {
                 user: action.data 
             })

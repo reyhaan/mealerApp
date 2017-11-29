@@ -1,15 +1,15 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Platform, KeyboardAvoidingView, TextInput} from 'react-native'
+import {ScrollView, View, Platform, KeyboardAvoidingView, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import {Header, Icon, Button, FormInput, FormLabel} from 'react-native-elements'
+import {Header, Icon} from 'react-native-elements'
 import UserInfoChangeScreenStyle from './UserInfoChangeScreen.style'
 import {Colors, Fonts, Metrics} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {Alert} from 'react-native';
-import {Form, Item, Input, Label} from 'native-base';
+import {Form, Item, Input, Label, Button} from 'native-base';
 import SnackBar from 'react-native-snackbar-component'
 
 const styles = UserInfoChangeScreenStyle;
@@ -46,7 +46,7 @@ class UserInfoChangeScreen extends Component {
             <Icon
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
                 color={Colors.snow}
-                iconStyle={{marginTop: 20, }}
+                iconStyle={{marginTop: 20,}}
                 underlayColor={'transparent'}
                 size={35}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
@@ -138,26 +138,26 @@ class UserInfoChangeScreen extends Component {
                                                 onChangeText={(value) => this.onInputChange(value, 'phone')}/>
                                         </Item>
                                     </Form>
+                                <Row style={{
+                                    height: 40,
+                                    marginTop: Metrics.doubleBaseMargin,
+                                    marginBottom: Metrics.doubleBaseMargin,
+                                    marginLeft: 20,
+                                    marginRight: 20
+                                }}>
 
-                                    <Row style={{
-                                        height: 40,
-                                        marginTop: Metrics.doubleBaseMargin,
-                                        marginBottom: Metrics.doubleBaseMargin
-                                    }}>
-
-                                        <Col size={1}>
-                                            <Button
-                                                onPress={() => {
-                                                    this._updateUserDetails()
-                                                }}
-                                                buttonStyle={[styles.greenButton]}
+                                    <Col size={1} >
+                                        <Button block
+                                                style={{backgroundColor: Colors.green}}
                                                 textStyle={{
                                                     textAlign: 'center',
                                                     fontFamily: Fonts.type.bold,
-                                                    fontWeight: 'bold'
+                                                    fontWeight: 'bold',
                                                 }}
-                                                title={`UPDATE`}
-                                            />
+                                                onPress={() => this._updateUserDetails()}
+                                            >
+                                            <Text style={{color:Colors.white}}> Save </Text>
+                                            </Button>
                                         </Col>
                                     </Row>
                                 </View>

@@ -13,7 +13,6 @@ import authenticationService from '../../../Services/authentication-service'
 class MenuTab extends Component {
     constructor(props) {
         super(props);
-        this.props.fetchMerchantMenu();
     }
 
     async componentDidMount() {
@@ -31,19 +30,19 @@ class MenuTab extends Component {
                 iconStyle={{marginTop: 20,}}
                 underlayColor={'transparent'}
                 size={35}
-                onPress={() => this.props.navigation.navigate("EditMenuScreen", {item:null})}
+                onPress={() => this.props.navigation.navigate("EditMenuScreen", null)}
             />
         )
     };
 
-    _onPress = (item) => {
+    viewItem = (item) => {
         this.props.navigation.navigate("EditMenuScreen", {item})
     };
 
     _renderItem = (data) => {
         const {item} = data;
         return (
-            <TouchableOpacity onPress={() => this._onPress(item)} style={style.itemContainer}>
+            <TouchableOpacity onPress={() => this.viewItem(item)} style={style.itemContainer}>
                 <Grid>
                     <Col size={65}>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemName}>{item.itemName}</Text>
@@ -79,13 +78,12 @@ class MenuTab extends Component {
                     outerContainerStyles={style.headerOuterContainer}
                 />
 
-                <LoadingSpinner show={!menus.length}/>
+                <LoadingSpinner show={this.props.merchant.showActivityIndicator && menus.length === 0}/>
 
                 <FlatList
                     style={{backgroundColor: style.white}}
                     data={menus}
-                    renderItem={this._renderItem}
-                />
+                    renderItem={this._renderItem}/>
             </View>
         )
     }

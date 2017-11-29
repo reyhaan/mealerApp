@@ -5,7 +5,8 @@ import OrdersTabStyle from './OrdersTab.style'
 import { Header } from 'react-native-elements' 
 import { IndividualOrderList } from '../../Components'
 import { Colors, Metrics } from '../../Themes'
-import { TabViewAnimated, TabBar, SceneMap, TabViewPagerPan, TabViewPagerAndroid } from 'react-native-tab-view';
+import { TabViewAnimated, TabBar, SceneMap, TabViewPagerPan, TabViewPagerAndroid } from '../../ForkedComponents/react-native-tab-view';
+import { initializeApp } from 'firebase';
 
 // Styles
 const styles = OrdersTabStyle;
@@ -17,17 +18,24 @@ const initialLayout = {
 
 const FirstRoute = () => {
   return( 
-    <ScrollView>
+    <View style={[ styles.container, { backgroundColor: Colors.banner } ]} />
+    // <ScrollView>
     
-      <IndividualOrderList></IndividualOrderList>
-      <IndividualOrderList></IndividualOrderList>
-      <IndividualOrderList></IndividualOrderList>
-      <IndividualOrderList></IndividualOrderList>
+    //   <IndividualOrderList></IndividualOrderList>
+    //   <IndividualOrderList></IndividualOrderList>
+    //   <IndividualOrderList></IndividualOrderList>
+    //   <IndividualOrderList></IndividualOrderList>
 
-    </ScrollView>
+    // </ScrollView>
   )
 }
 const SecondRoute = () => <View style={[ styles.container, { backgroundColor: '#673ab7' } ]} />;
+
+const ThirdRoute = () => <View style={[ styles.container, { backgroundColor: Colors.orange } ]} />;
+
+const FourthRoute = () => <View style={[ styles.container, { backgroundColor: Colors.banner } ]} />;
+
+const FifthRoute = () => <View style={[ styles.container, { backgroundColor: Colors.background } ]} />;
 
 class OrdersTab extends PureComponent {
   constructor (props) {
@@ -37,22 +45,34 @@ class OrdersTab extends PureComponent {
       routes: [
         { key: 'first', title: 'First' },
         { key: 'second', title: 'Second' },
+        { key: 'third', title: 'Third' },
+        { key: 'fourth', title: 'Fourth' },
+        { key: 'fifth', title: 'Fifth' },
       ],
     }
   }
 
-  _handleIndexChange = index => { 
-    console.log(index)
+  _handleIndexChange = index => {
     this.setState({ 
       index: index
     });
   }
 
-  _renderHeader = props => <TabBar {...props} />;
+  _renderHeader = props => {
+    return (
+      <TabBar 
+        {...props} 
+        scrollEnabled={true}
+      />
+    )
+  }
 
   _renderScene = SceneMap({
     first: FirstRoute,
     second: SecondRoute,
+    third: ThirdRoute,
+    fourth: FourthRoute,
+    fifth: FifthRoute,
   });
 
   render () {
@@ -65,8 +85,6 @@ class OrdersTab extends PureComponent {
         />
 
         <TabViewAnimated
-          swipeEnabled={true}
-          animationEnabled={true}
           style={styles.container}
           navigationState={this.state}
           renderScene={this._renderScene}
@@ -74,10 +92,6 @@ class OrdersTab extends PureComponent {
           onIndexChange={this._handleIndexChange}
           initialLayout={initialLayout}
         />
-
-        
-
-        
 
       </View>
     )

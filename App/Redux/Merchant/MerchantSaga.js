@@ -1,15 +1,14 @@
 import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
-import merchantService from '../../Services/merchant-service';
+import merchantService from '../../Services/menu-service';
 import authentication from '../../Services/authentication-service';
 import {merchantActionCreators} from './MerchantActions'
 
 const menuEffects = {};
 
-menuEffects.fetchMerchantMenu = function* () {
+menuEffects.fetchMerchantMenu = function* (merchant) {
     try {
-        const user = yield call(authentication.currentUser);
-        const menus = yield call(merchantService.getMenu, user.uid);
+        const menus = yield call(merchantService.getMenu, merchant.data);
         yield put(merchantActionCreators.fetchMenuSuccessful(menus))
     } catch (error) {
         Alert.alert('Error', error.message,)

@@ -29,14 +29,16 @@ class EditMenuScreen extends Component {
         const {state} = this.props.navigation;
         if (state.params && state.params.item) {
             item = state.params.item;
+            this.setState({
+                id: item.id,
+                itemName: item.itemName,
+                itemDetail: item.itemDetail,
+                itemImage: item.itemImage,
+                itemCost: item.itemCost.toString()
+            })
+        } else {
+            this.resetForm();
         }
-        this.setState({
-            id: item.id,
-            itemName: item.itemName,
-            itemDetail: item.itemDetail,
-            itemImage: item.itemImage,
-            itemCost: item.itemCost.toString()
-        })
     }
 
     formUpdate = (input, value) => {
@@ -47,6 +49,7 @@ class EditMenuScreen extends Component {
 
     resetForm = () => {
         this.setState({
+            id:"",
             itemName: "",
             itemCost: "",
             itemDetail: "",
@@ -86,8 +89,6 @@ class EditMenuScreen extends Component {
     }
 
     removeMenu = () => {
-
-
         this.props.removeMenu(this.state);
         this.resetForm();
         this.props.navigation.dispatch(NavigationActions.back());
@@ -122,14 +123,14 @@ class EditMenuScreen extends Component {
                         </View>
 
                         <Form>
-                            <Item floatingLabel>
+                            <Item stackedLabel>
                                 <Label>Name</Label>
                                 <Input autoCapitalize="none"
                                        onChangeText={(e) => this.formUpdate('itemName', e)}
                                        underlineColorAndroid="transparent"
                                        value={this.state.itemName}/>
                             </Item>
-                            <Item floatingLabel>
+                            <Item stackedLabel>
                                 <Label>Price</Label>
                                 <Input keyboardType="numeric"
                                        onChangeText={(e) => this.formUpdate('itemCost', e)}
@@ -137,7 +138,7 @@ class EditMenuScreen extends Component {
                                        value={this.state.itemCost}/>
                             </Item>
 
-                            <Item floatingLabel>
+                            <Item stackedLabel>
                                 <Label>Item Detail</Label>
                                 <Input autogrow={true}
                                        maxHeight={150}
@@ -159,14 +160,13 @@ class EditMenuScreen extends Component {
                         }}>
 
                             <Col size={1} style={{marginRight: 10, marginLeft: 10}}>
-                                <Button success block
-                                        buttonStyle={[styles.greenButton]}
+                                <Button block
+                                        style={[styles.greenButton]}
                                         textStyle={{
                                             textAlign: 'center',
                                             fontFamily: Fonts.type.bold,
-                                            fontWeight: 'bold'
+                                            fontWeight: 'bold',
                                         }}
-                                        title={`DONE`}
                                         onPress={() => this.onMenuSubmit()}>
                                     <Text style={{color: Colors.white}}>Save</Text>
                                 </Button>

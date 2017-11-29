@@ -1,3 +1,5 @@
+import db from '../Config/database';
+
 export const customer = {
     email: "customer@mealer.com",
     password: "customer",
@@ -31,21 +33,21 @@ export class User {
 
     menu() {
         return {
-            itemName: "Chicken Biryani",
-            itemImage: 'https://i2.wp.com/ministryofcurry.com/wp-content/uploads/2017/05/IMG_2766.jpg?resize=760%2C507',
+            itemName: "Chicken Biryani ukeme",
+            itemImage: "https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/v1438133716000/photosp/ig-498695320661758884_396353171/stock-photo-food-soup-healthy-foods-health-recipe-vegan-food-and-drink-stew-ig-498695320661758884_396353171.jpg",
             itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-            itemCost: 6.99,
+            itemCost: "6.99",
             countryOfOrigin: "Nigeria"
         }
     }
 
     order() {
         return {
-            date: "2/20/2017",
-            userId: customer.uid,
+            from: customer.uid,
+            to: merchant.uid,
+            items: [this.menu(),this.menu()],
+            time: db.firebase.database.ServerValue.TIMESTAMP,
             status: "new",
-            orderedCount: 2,
-            menu: this.menu()
         }
     }
 }

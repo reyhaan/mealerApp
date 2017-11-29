@@ -38,7 +38,7 @@ authEffect.signUp = function* (userCredentials) {
             type: userCredentials.data.type
         };
         AsyncStorage.setItem('userSession', JSON.stringify(user));
-        yield call([db.user(user.uid), db.user(user.uid).set], user);
+        yield call(authenticationService.addUser, user);
         yield put(authActionCreators.signUpSuccessful(user));
         yield put(NavigationActions.navigate({routeName: user.type === "merchant" ? 'MerchantTab' : 'CustomerTab'}));
     } catch (error) {

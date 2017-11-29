@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
-import {Button, FormInput, List, ListItem} from 'react-native-elements'
+import {List, ListItem, Button} from 'react-native-elements'
 import {connect} from 'react-redux'
-import {ScrollView, View, Image, Alert} from 'react-native'
-import {Images, Fonts} from '../../Themes/index'
+import {ScrollView, View, Image, Alert, Text, TouchableOpacity} from 'react-native'
+import {Images, Fonts, Colors} from '../../Themes/index'
 import SignUpScreenStyle from './SignUpScreen.style'
 import {bindActionCreators} from 'redux'
 import {authActionCreators} from '../../Redux/Auth/AuthActions'
 import {LoginScreen} from '../index'
 import {LoadingSpinner} from '../../Components/index'
+import {Form, Item, Input, Label,} from 'native-base'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -74,30 +75,28 @@ class SignUpScreen extends Component {
                         <Image source={Images.mealerLogo} style={SignUpScreenStyle.mealerLogo}/>
                     </View>
 
-                    <View style={[SignUpScreenStyle.section]}>
-                        <FormInput
-                            underlineColorAndroid="transparent"
-                            inputStyle={SignUpScreenStyle.inputField}
-                            containerStyle={SignUpScreenStyle.inputContainer}
-                            onChangeText={(e) => this.formUpdate('name', e)}
-                            placeholder="NAME"/>
-                        <FormInput
-                            underlineColorAndroid="transparent"
-                            autoCapitalize="none"
-                            keyboardType="email-address"
-                            inputStyle={SignUpScreenStyle.inputField}
-                            containerStyle={SignUpScreenStyle.inputContainer}
-                            onChangeText={(e) => this.formUpdate('email', e)}
-                            placeholder="EMAIL"/>
-                        <FormInput
-                            secureTextEntry={true}
-                            autoCapitalize="none"
-                            keyboardType="email-address"
-                            underlineColorAndroid="transparent"
-                            inputStyle={SignUpScreenStyle.inputField}
-                            containerStyle={SignUpScreenStyle.inputContainer}
-                            onChangeText={(e) => this.formUpdate('password', e)}
-                            placeholder="PASSWORD"/>
+                    <View style={SignUpScreenStyle.formContainer}>
+                        <Form>
+                            <Item floatingLabel>
+                                <Label style={{color: Colors.white}}>Name</Label>
+                                <Input style={SignUpScreenStyle.inputField}
+                                       onChangeText={(e) => this.formUpdate('name', e)}/>
+                            </Item>
+                            <Item floatingLabel>
+                                <Label style={{color: Colors.white}}>Email</Label>
+                                <Input keyboardType="email-address"
+                                       autoCapitalize="none"
+                                       style={SignUpScreenStyle.inputField}
+                                       onChangeText={(e) => this.formUpdate('email', e)}/>
+                            </Item>
+                            <Item floatingLabel>
+                                <Label style={{color: Colors.white}}>Password</Label>
+                                <Input keyboardType="email-address"
+                                       style={SignUpScreenStyle.inputField}
+                                       secureTextEntry={true}
+                                       onChangeText={(e) => this.formUpdate('password', e)}/>
+                            </Item>
+                        </Form>
 
                         {/*/!*Todo use TouchableOpacity for this button instead since icon is not showing properly*!/*/}
                         <Button

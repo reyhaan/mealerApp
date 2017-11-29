@@ -24,15 +24,15 @@ class UserInfoChangeScreen extends Component {
     }
 
     componentDidMount() {
-        // const currentUser = this.props.settings.user;
-        // currentUser
-        //     ? this.setState({
-        //         name: currentUser.name || '',
-        //         address: currentUser.address || '',
-        //         phone: currentUser.phone || '',
-        //         email: currentUser.email || ''
-        //     })
-        //     : Alert.alert('Error:', 'unable to retrieve your info')
+        const currentUser = this.props.settings.user;
+        currentUser
+            ? this.setState({
+                name: currentUser.name || '',
+                address: currentUser.address || '',
+                phone: currentUser.phone || '',
+                email: currentUser.email || ''
+            })
+            : Alert.alert('Error:', 'unable to retrieve your info')
     }
 
     _backButton = () => {
@@ -40,14 +40,17 @@ class UserInfoChangeScreen extends Component {
             <Icon
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
                 color={Colors.snow}
+                iconStyle={{marginTop: 20, }}
+                underlayColor={'transparent'}
+                size={35}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
             />
         )
-    }
+    };
 
     _updateUserDetails = () => {
-        const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state
-        const existingUser = this.props.settings.user
+        const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state;
+        const existingUser = this.props.settings.user;
         if (newName && newEmail) {
             ((existingUser.name !== newName)
                 || (existingUser.address !== newAddress)
@@ -80,14 +83,15 @@ class UserInfoChangeScreen extends Component {
                             <Row size={1} style={{backgroundColor: Colors.cloud}}>
                                 <View style={styles.formContainer}>
                                     <Form>
-                                        <Item floatingLabel>
+                                        <Item stackedLabel>
                                             <Label>Display Name</Label>
                                             <Input
                                                 autoCapitalize="none"
                                                 value={this.state.name}
+                                                placeholder={'Your name'}
                                                 onChangeText={(value) => this.onInputChange(value, 'name')}/>
                                         </Item>
-                                        <Item floatingLabel>
+                                        <Item stackedLabel>
                                             <Label>Address</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -95,7 +99,7 @@ class UserInfoChangeScreen extends Component {
                                                 value={this.state.address}
                                                 onChangeText={(value) => this.onInputChange(value, 'address')}/>
                                         </Item>
-                                        <Item floatingLabel>
+                                        <Item stackedLabel>
                                             <Label>Email</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -103,7 +107,7 @@ class UserInfoChangeScreen extends Component {
                                                 value={this.state.email}
                                                 onChangeText={(value) => this.onInputChange(value, 'email')}/>
                                         </Item>
-                                        <Item floatingLabel>
+                                        <Item stackedLabel>
                                             <Label>Phone Number</Label>
                                             <Input
                                                 autoCapitalize="none"

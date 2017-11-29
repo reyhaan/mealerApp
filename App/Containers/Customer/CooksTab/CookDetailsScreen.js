@@ -1,17 +1,14 @@
 import React, {Component} from 'react'
-import {Text, View, ListView, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableHighlight, TouchableWithoutFeedback, StyleSheet} from 'react-native'
+import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView} from 'react-native'
 import {connect} from 'react-redux'
 import style from './CookDetailsScreen.style'
-import {Header, Avatar, Icon} from 'react-native-elements'
+import {Icon} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors, Metrics} from '../../../Themes';
+import {Colors} from '../../../Themes';
 import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
-import {LoadingSpinner, UserProfileHeader, AddToCartModal} from '../../../Components/index'
+import {UserProfileHeader, AddToCartModal} from '../../../Components/index'
 import { NavigationActions } from 'react-navigation'
-import * as Animatable from 'react-native-animatable'
-import Modal from 'react-native-modal'
-import { actionChannel } from 'redux-saga/effects';
 import _ from 'lodash'
 
 class CookDetailsScreen extends Component {
@@ -19,7 +16,6 @@ class CookDetailsScreen extends Component {
         super(props);
 
         this.state = {
-            menu: [],
             islistMode: false,
             isFullMode: true,
             isModalVisible: false,
@@ -36,16 +32,16 @@ class CookDetailsScreen extends Component {
     componentDidMount() {
         const {state} = this.props.navigation;
         if (state.params && state.params.selectedCook) {
+            this.props.fetchMerchantMenu(state.params.selectedCook.uid);
             this.setState({
-                activeMerchant: state.params.selectedCook,
-                menu: _.values(state.params.selectedCook.menu)
+                activeMerchant: state.params.selectedCook
             })
         }
     }
     
-    _showModal = () => this.setState({ isModalVisible: true })
+    _showModal = () => this.setState({ isModalVisible: true });
 
-    _hideModal = () => this.setState({ isModalVisible: false })
+    _hideModal = () => this.setState({ isModalVisible: false });
     
     addMenuItemButton = () => {
         return (
@@ -71,15 +67,15 @@ class CookDetailsScreen extends Component {
             case 'list':
                 this.setState({
                     activeItem: activeItem
-                })
-                this._showModal()
+                });
+                this._showModal();
                 break;
             // TODO: made 2 cases because I want to apply transitions instead of dialog box
             case 'full':
                 this.setState({
                     activeItem: activeItem
-                })
-                this._showModal()
+                });
+                this._showModal();
                 break;
         }
     };
@@ -164,6 +160,15 @@ class CookDetailsScreen extends Component {
     }
 
     render() {
+        // Set the key for the menu
+        let  {menus} =  this.props.merchant;
+        if (this.props.merchant && this.props.merchant.menus) {
+            menus = this.props.merchant.menus.map(menu => {
+                menu.key = menu.id;
+                return menu
+            });
+        }
+
         return (
             <ScrollView style={{flex: 1,backgroundColor: '#fff'}}>
 
@@ -204,7 +209,7 @@ class CookDetailsScreen extends Component {
                 { this.state.islistMode &&
                     <FlatList
                         style={{backgroundColor: '#fff'}}
-                        data={this.state.menu}
+                        data={menus}
                         renderItem={({item}) => this._renderListModeItem(item)}
                     />
                 }
@@ -212,7 +217,7 @@ class CookDetailsScreen extends Component {
                 { this.state.isFullMode &&
                     <FlatList
                         style={{backgroundColor: Colors.backgroundGray, paddingTop: 10}}
-                        data={this.state.menu}
+                        data={menus}
                         renderItem={({item}) => this._renderFullModeItem(item)}
                     />
                 }
@@ -224,6 +229,7 @@ class CookDetailsScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        merchant:state.merchant,
         menu: state.menu,
         auth: state.auth
     }

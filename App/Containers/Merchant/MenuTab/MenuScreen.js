@@ -8,6 +8,7 @@ import {Colors} from '../../../Themes';
 import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
 import {LoadingSpinner} from '../../../Components/index'
+import authenticationService from '../../../Services/authentication-service'
 
 class MenuTab extends Component {
     constructor(props) {
@@ -15,14 +16,22 @@ class MenuTab extends Component {
         this.props.fetchMerchantMenu();
     }
 
+    async componentDidMount() {
+        const currentUser = await authenticationService.currentUser();
+        if (currentUser) {
+            this.props.fetchMerchantMenu(currentUser.uid);
+        }
+    }
+
     addMenuItemButton = () => {
         return (
             <Icon
                 name='add'
                 color={Colors.snow}
-                iconStyle={{marginTop: 20, }}
+                iconStyle={{marginTop: 20,}}
+                underlayColor={'transparent'}
                 size={35}
-                onPress={() => this.props.navigation.navigate("EditMenuScreen")}
+                onPress={() => this.props.navigation.navigate("EditMenuScreen", {item:null})}
             />
         )
     };

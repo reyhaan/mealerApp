@@ -25,6 +25,11 @@ export default StyleSheet.create({
         backgroundColor: Colors.facebook,
         borderRadius: 3
     },
+    formContainer: {
+        marginTop: 10 ,
+        marginRight: 35 ,
+        marginLeft: 20 ,
+    },
     signUpView: {
         flex: 1,
         flexDirection: 'row',
@@ -36,17 +41,23 @@ export default StyleSheet.create({
         marginTop: 20,
         marginLeft: 5,
         marginRight: 5,
-        backgroundColor: Colors.pink,
-        borderRadius: 3
+        borderRadius: 3,
+        width:296,
+        backgroundColor: Colors.green
+    },
+    inputField:{
+        color:Colors.white
     },
     userTypePickerBtn:{
+        width:306,
         marginTop:10,
-        backgroundColor:Colors.backgroundDarker
+        backgroundColor:'transparent',
+        borderWidth:1,
+        borderColor: Colors.white
     },
     userTypePickerDropDown:{
-        marginTop:10,
-        marginLeft: 18,
-        marginRight: 18,
+        marginTop:5,
+        marginLeft:15,
 
     },
     userTypePickerTitle:{
@@ -64,6 +75,6 @@ export default StyleSheet.create({
         marginRight: 30,
         borderRadius: 3,
         height:30,
-        backgroundColor:Colors.backgroundDarker
+        backgroundColor:'transparent'
     }
 })

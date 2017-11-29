@@ -24,4 +24,22 @@ database.user = (id) => {
     }
 };
 
+// menus reference
+database.menus = (id) => {
+    if (id){
+        return firebase.database().ref('menus').child(id);
+    } else {
+        return firebase.database().ref('menus');
+    }
+};
+
+// orders reference
+database.orders = (id) => {
+    if (id){
+        return firebase.database().ref('orders').child(id);
+    } else {
+        return firebase.database().ref('orders');
+    }
+};
+
 export default database;

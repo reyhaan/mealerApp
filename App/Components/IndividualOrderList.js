@@ -147,7 +147,7 @@ export default class MlImagePicker extends Component {
 						</Row>
 
             { isCustomer &&
-              <Row style={{ paddingLeft: 10, paddingTop: 10, paddingBottom: 10 }}>
+              <Row style={{ paddingLeft: 10, paddingTop: 15, paddingBottom: 10 }}>
                 <Text style={{ color: Colors.gray }} >From
                   <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.coal }}> { this.orderObject.customerName }</Text>
                 </Text>

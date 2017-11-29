@@ -19,6 +19,7 @@ orderService.createNewOrder = async (customerId, merchantId, items) => {
         const orderKey = await orderRef.push().getKey();
         order.customerInfo = await authenticationService.fetchUser(customerId);
         order.merchantInfo = await authenticationService.fetchUser(merchantId);
+        order.id = orderKey; //!important
         await orderRef.child(orderKey).set(order);
         const orderSnapshot = await orderRef.child(orderKey).once('value');
         return {id: orderSnapshot.key, ...orderSnapshot.val()};
@@ -33,14 +34,14 @@ orderService.createNewOrder = async (customerId, merchantId, items) => {
  */
 orderService.getOrders = async (userId) => {
     try {
-        let menus = [];
+        let orders = [];
         let userMenuSnapshot = await db.orders(userId).once('value');
         userMenuSnapshot.forEach(function (childSnapshot) {
-            let id = childSnapshot.key;
-            let data = childSnapshot.val();
-            menus.push({id, ...data});
+            let order = { ...childSnapshot.val()};
+            order.id = childSnapshot.key;
+            orders.push(order);
         });
-        return menus;
+        return orders;
     } catch (error) {
         return {error};
     }

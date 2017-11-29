@@ -10,7 +10,7 @@ export function merchant(state=initialState, action){
             return Object.assign({}, state, {
                 menus: action.data,
             });
-        case merchantActions.showActivityIndicator:
+        case merchantActions.SHOW_ACTIVITY_INDICATOR:
             return Object.assign({}, state, {
                 showActivityIndicator: action.data,
             });

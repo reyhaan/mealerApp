@@ -4,7 +4,8 @@ import SettingsSaga from './SettingsSaga';
 /******************************* ACTIONS *************************************/
 export const settingsActions = {
     UPDATE_USER_INFO: "UPDATE_USER_INFO",
-    SET_CURRENT_USER: "SET_USER"
+    SET_CURRENT_USER: "SET_USER",
+    GET_CURRENT_USER: "GET_USER"
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -13,10 +14,12 @@ function createAction(type, data) {
 }
 export const settingsActionCreators = {
     updateUserInfo: (data) => createAction(settingsActions.UPDATE_USER_INFO, data),
-    setUser:  (data) => createAction(settingsActions.SET_CURRENT_USER, data)
+    setUser:  (data) => createAction(settingsActions.SET_CURRENT_USER, data),
+    getUser: (id) => createAction(settingsActions.GET_CURRENT_USER, {id})
 };
 
 /******************************* ACTION WATCHERS *************************************/
 export const settingsActionWatchers = [
-    takeLatest(settingsActions.UPDATE_USER_INFO, SettingsSaga.updateUserInfo)
+    takeLatest(settingsActions.UPDATE_USER_INFO, SettingsSaga.updateUserInfo),
+    takeLatest(settingsActions.GET_CURRENT_USER, SettingsSaga.getUser)
 ];

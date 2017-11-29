@@ -16,7 +16,7 @@ export default StyleSheet.create({
     width: Metrics.screenWidth,
     backgroundColor: Colors.background,
     borderBottomColor: Colors.pink2,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0,
     padding: 15,
     height: 75,
   },

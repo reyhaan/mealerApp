@@ -12,6 +12,7 @@ menuService.createMenu = async (userId, menu) => {
     try {
         const menuRef = db.menus(userId);
         const menuKey = await menuRef.push().getKey();
+        menu.id = menuKey; //!important
         await menuRef.child(menuKey).set(menu);
         const menuSnapshot = await menuRef.child(menuKey).once('value');
         return {id: menuSnapshot.key, ...menuSnapshot.val()};

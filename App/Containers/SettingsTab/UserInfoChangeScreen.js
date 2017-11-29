@@ -1,37 +1,43 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Platform, KeyboardAvoidingView, TextInput} from 'react-native'
+import {ScrollView, View, Platform, KeyboardAvoidingView, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import {Header, Icon, Button, FormInput, FormLabel} from 'react-native-elements'
+import {Header, Icon} from 'react-native-elements'
 import UserInfoChangeScreenStyle from './UserInfoChangeScreen.style'
 import {Colors, Fonts, Metrics} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {Alert} from 'react-native';
-import {Form, Item, Input, Label} from 'native-base';
+import {Form, Item, Input, Label, Button} from 'native-base';
+import SnackBar from 'react-native-snackbar-component'
+
 const styles = UserInfoChangeScreenStyle;
 
 class UserInfoChangeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            user: {
             name: '',
             address: '',
             phone: '',
-            email: ''
+            email: ''},
+            showToast: false,
+            toastMessage: ''
         }
+        this.props.getUser(this.props.settings.user.uid)
     }
 
     componentDidMount() {
         const currentUser = this.props.settings.user;
         currentUser
-            ? this.setState({
+            ? this.setState({ user: {
                 name: currentUser.name || '',
                 address: currentUser.address || '',
                 phone: currentUser.phone || '',
                 email: currentUser.email || ''
-            })
+            }})
             : Alert.alert('Error:', 'unable to retrieve your info')
     }
 
@@ -40,7 +46,7 @@ class UserInfoChangeScreen extends Component {
             <Icon
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
                 color={Colors.snow}
-                iconStyle={{marginTop: 20, }}
+                iconStyle={{marginTop: 20,}}
                 underlayColor={'transparent'}
                 size={35}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
@@ -48,22 +54,38 @@ class UserInfoChangeScreen extends Component {
         )
     };
 
+    displayToast = (message) => {
+        this.setState({showToast: true, toastMessage: message}, () => 
+        setTimeout(() => {
+            this.setState({showToast: false, toastMessage: ''})
+        }, 2000))
+    }
+
     _updateUserDetails = () => {
-        const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state;
+        const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state.user;
         const existingUser = this.props.settings.user;
         if (newName && newEmail) {
             ((existingUser.name !== newName)
                 || (existingUser.address !== newAddress)
                 || (existingUser.email !== newEmail)
                 || (existingUser.phone !== newPhone))
-                ? this.props.updateUserInfo({uid: existingUser.uid, userDetails: this.state})
-                : ''
+                ? (() => {
+                    this.props.updateUserInfo({uid: existingUser.uid, userDetails: this.state.user})
+                    // refresh the cache after updating
+                    this.props.getUser(this.props.settings.user.uid)
+                    this.displayToast("Successfully Updated ")
+                    })()
+                : this.displayToast("Nothing to update")
         }
-        else Alert.alert('Name and Email is required')
+        else if ((newName && !!!newEmail) || (!!!newName && newEmail))
+            {
+                Alert.alert('Name and Email is required')
+            }
+        else { this.displayToast("Update Error") }
     }
 
     onInputChange = (value, name) => {
-        this.setState({[name]: value})
+        this.setState({user: {...this.state.user, [name]: value}})
     };
 
     render() {
@@ -87,7 +109,7 @@ class UserInfoChangeScreen extends Component {
                                             <Label>Display Name</Label>
                                             <Input
                                                 autoCapitalize="none"
-                                                value={this.state.name}
+                                                value={this.state.user.name}
                                                 placeholder={'Your name'}
                                                 onChangeText={(value) => this.onInputChange(value, 'name')}/>
                                         </Item>
@@ -96,7 +118,7 @@ class UserInfoChangeScreen extends Component {
                                             <Input
                                                 autoCapitalize="none"
                                                 keyboardType="default"
-                                                value={this.state.address}
+                                                value={this.state.user.address}
                                                 onChangeText={(value) => this.onInputChange(value, 'address')}/>
                                         </Item>
                                         <Item stackedLabel>
@@ -104,7 +126,7 @@ class UserInfoChangeScreen extends Component {
                                             <Input
                                                 autoCapitalize="none"
                                                 keyboardType="email-address"
-                                                value={this.state.email}
+                                                value={this.state.user.email}
                                                 onChangeText={(value) => this.onInputChange(value, 'email')}/>
                                         </Item>
                                         <Item stackedLabel>
@@ -112,37 +134,41 @@ class UserInfoChangeScreen extends Component {
                                             <Input
                                                 autoCapitalize="none"
                                                 keyboardType="number-pad"
-                                                value={this.state.phone}
+                                                value={this.state.user.phone}
                                                 onChangeText={(value) => this.onInputChange(value, 'phone')}/>
                                         </Item>
                                     </Form>
+                                <Row style={{
+                                    height: 40,
+                                    marginTop: Metrics.doubleBaseMargin,
+                                    marginBottom: Metrics.doubleBaseMargin,
+                                    marginLeft: 20,
+                                    marginRight: 20
+                                }}>
 
-                                    <Row style={{
-                                        height: 40,
-                                        marginTop: Metrics.doubleBaseMargin,
-                                        marginBottom: Metrics.doubleBaseMargin
-                                    }}>
-
-                                        <Col size={1}>
-                                            <Button
-                                                onPress={() => {
-                                                    this._updateUserDetails()
-                                                }}
-                                                buttonStyle={[styles.greenButton]}
+                                    <Col size={1} >
+                                        <Button block
+                                                style={{backgroundColor: Colors.green}}
                                                 textStyle={{
                                                     textAlign: 'center',
                                                     fontFamily: Fonts.type.bold,
-                                                    fontWeight: 'bold'
+                                                    fontWeight: 'bold',
                                                 }}
-                                                title={`UPDATE`}/>
+                                                onPress={() => this._updateUserDetails()}
+                                            >
+                                            <Text style={{color:Colors.white}}> Save </Text>
+                                            </Button>
                                         </Col>
-
                                     </Row>
                                 </View>
                             </Row>
-
                         </Grid>
                     </ScrollView>
+                </View>
+                <View style={{display:'flex', justifyContent: 'center', marginLeft: 20, marginRight: 20}}>
+                    <SnackBar visible={this.state.showToast} textMessage={this.state.toastMessage}
+                        bottom={0} position='bottom' backgroundColor='#272A2F'
+                    />
                 </View>
             </KeyboardAvoidingView>
         )

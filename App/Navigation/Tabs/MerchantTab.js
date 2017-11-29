@@ -15,6 +15,7 @@ const merchantTabsConfig = {
     One: {
         screen: MenuScreen,
         navigationOptions: {
+            gesturesEnabled: false,
             tabBarLabel: 'Menu',
             tabBarIcon: ({tintColor}) => (
                 <Image
@@ -29,6 +30,7 @@ const merchantTabsConfig = {
     Two: {
         screen: OrdersTab,
         navigationOptions: {
+            gesturesEnabled: false,
             tabBarLabel: 'Orders',
             tabBarIcon: ({tintColor}) => (
                 <Image
@@ -42,6 +44,7 @@ const merchantTabsConfig = {
     Three: {
         screen: SettingsTab,
         navigationOptions: {
+            gesturesEnabled: false,
             tabBarLabel: 'Settings',
             tabBarIcon: ({tintColor}) => (
                 <Image
@@ -55,6 +58,7 @@ const merchantTabsConfig = {
     Four: {
         screen: InfoTab,
         navigationOptions: {
+            gesturesEnabled: false,
             tabBarLabel: 'About',
             tabBarIcon: ({tintColor}) => (
                 <Image

@@ -1,15 +1,16 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Platform, KeyboardAvoidingView, TextInput} from 'react-native'
+import {ScrollView, View, Platform, KeyboardAvoidingView, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import {Header, Icon, Button, FormInput, FormLabel} from 'react-native-elements'
+import {Header, Icon} from 'react-native-elements'
 import UserInfoChangeScreenStyle from './UserInfoChangeScreen.style'
 import {Colors, Fonts, Metrics} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {Alert} from 'react-native';
-import {Form, Item, Input, Label} from 'native-base';
+import {Form, Item, Input, Label, Button} from 'native-base';
+
 const styles = UserInfoChangeScreenStyle;
 
 class UserInfoChangeScreen extends Component {
@@ -40,7 +41,7 @@ class UserInfoChangeScreen extends Component {
             <Icon
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
                 color={Colors.snow}
-                iconStyle={{marginTop: 20, }}
+                iconStyle={{marginTop: 20,}}
                 underlayColor={'transparent'}
                 size={35}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
@@ -71,79 +72,80 @@ class UserInfoChangeScreen extends Component {
 
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
-                <View style={styles.container}>
-                    <Header
-                        leftComponent={this._backButton()}
-                        centerComponent={{text: "Settings", style: {color: '#fff', fontWeight: 'bold'}}}
-                        backgroundColor={Colors.background}
-                        outerContainerStyles={styles.headerOuterContainer}
-                    />
-                    <ScrollView>
-                        <Grid>
-                            <Row size={1} style={{backgroundColor: Colors.cloud}}>
-                                <View style={styles.formContainer}>
-                                    <Form>
-                                        <Item stackedLabel>
-                                            <Label>Display Name</Label>
-                                            <Input
-                                                autoCapitalize="none"
-                                                value={this.state.name}
-                                                placeholder={'Your name'}
-                                                onChangeText={(value) => this.onInputChange(value, 'name')}/>
-                                        </Item>
-                                        <Item stackedLabel>
-                                            <Label>Address</Label>
-                                            <Input
-                                                autoCapitalize="none"
-                                                keyboardType="default"
-                                                value={this.state.address}
-                                                onChangeText={(value) => this.onInputChange(value, 'address')}/>
-                                        </Item>
-                                        <Item stackedLabel>
-                                            <Label>Email</Label>
-                                            <Input
-                                                autoCapitalize="none"
-                                                keyboardType="email-address"
-                                                value={this.state.email}
-                                                onChangeText={(value) => this.onInputChange(value, 'email')}/>
-                                        </Item>
-                                        <Item stackedLabel>
-                                            <Label>Phone Number</Label>
-                                            <Input
-                                                autoCapitalize="none"
-                                                keyboardType="number-pad"
-                                                value={this.state.phone}
-                                                onChangeText={(value) => this.onInputChange(value, 'phone')}/>
-                                        </Item>
-                                    </Form>
+                <Header
+                    leftComponent={this._backButton()}
+                    centerComponent={{text: "Settings", style: {color: '#fff', fontWeight: 'bold'}}}
+                    backgroundColor={Colors.background}
+                    outerContainerStyles={styles.headerOuterContainer}
+                />
+                <ScrollView>
+                    <Grid>
+                        <Row size={1} style={{backgroundColor: Colors.cloud}}>
+                            <View style={styles.formContainer}>
+                                <Form style={{marginRight: 13}}>
+                                    <Item stackedLabel>
+                                        <Label>Display Name</Label>
+                                        <Input
+                                            autoCapitalize="none"
+                                            value={this.state.name}
+                                            placeholder={'Your name'}
+                                            onChangeText={(value) => this.onInputChange(value, 'name')}/>
+                                    </Item>
+                                    <Item stackedLabel>
+                                        <Label>Address</Label>
+                                        <Input
+                                            autoCapitalize="none"
+                                            keyboardType="default"
+                                            value={this.state.address}
+                                            onChangeText={(value) => this.onInputChange(value, 'address')}/>
+                                    </Item>
+                                    <Item stackedLabel>
+                                        <Label>Email</Label>
+                                        <Input
+                                            autoCapitalize="none"
+                                            keyboardType="email-address"
+                                            value={this.state.email}
+                                            onChangeText={(value) => this.onInputChange(value, 'email')}/>
+                                    </Item>
+                                    <Item stackedLabel>
+                                        <Label>Phone Number</Label>
+                                        <Input
+                                            autoCapitalize="none"
+                                            keyboardType="number-pad"
+                                            value={this.state.phone}
+                                            onChangeText={(value) => this.onInputChange(value, 'phone')}/>
+                                    </Item>
+                                </Form>
 
-                                    <Row style={{
-                                        height: 40,
-                                        marginTop: Metrics.doubleBaseMargin,
-                                        marginBottom: Metrics.doubleBaseMargin
-                                    }}>
+                                <Row style={{
+                                    height: 40,
+                                    marginTop: Metrics.doubleBaseMargin,
+                                    marginBottom: Metrics.doubleBaseMargin,
+                                    marginLeft: 20,
+                                    marginRight: 20
+                                }}>
 
-                                        <Col size={1}>
-                                            <Button
-                                                onPress={() => {
-                                                    this._updateUserDetails()
-                                                }}
-                                                buttonStyle={[styles.greenButton]}
+                                    <Col size={1} >
+                                        <Button block
+                                                style={{backgroundColor: Colors.green}}
                                                 textStyle={{
                                                     textAlign: 'center',
                                                     fontFamily: Fonts.type.bold,
-                                                    fontWeight: 'bold'
+                                                    fontWeight: 'bold',
                                                 }}
-                                                title={`UPDATE`}/>
-                                        </Col>
+                                                onPress={() => {
+                                                    this._updateUserDetails()
+                                                }}>
+                                            <Text style={{color: Colors.white}}>Update</Text>
+                                        </Button>
+                                    </Col>
 
-                                    </Row>
-                                </View>
-                            </Row>
+                                </Row>
+                            </View>
+                        </Row>
 
-                        </Grid>
-                    </ScrollView>
-                </View>
+                    </Grid>
+                </ScrollView>
             </KeyboardAvoidingView>
         )
     }

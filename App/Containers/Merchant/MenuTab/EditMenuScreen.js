@@ -160,7 +160,7 @@ class EditMenuScreen extends Component {
 
                             <Col size={1} style={{marginRight: 10, marginLeft: 10}}>
                                 <Button block
-                                        style={[styles.greenButton]}
+                                        style={{backgroundColor:Colors.green}}
                                         textStyle={{
                                             textAlign: 'center',
                                             fontFamily: Fonts.type.bold,
@@ -173,7 +173,6 @@ class EditMenuScreen extends Component {
 
                             <Col size={1} style={{marginRight: 10, marginLeft: 10}}>
                                 <Button danger block bordered
-                                        buttonStyle={[styles.cancelButton]}
                                         textStyle={{
                                             textAlign: 'center',
                                             fontFamily: Fonts.type.bold,

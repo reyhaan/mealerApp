@@ -38,7 +38,7 @@ const customerTabsConfig = {
                     style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
-            title: 'Orders'
+            title: 'Cart'
         },
     },
 

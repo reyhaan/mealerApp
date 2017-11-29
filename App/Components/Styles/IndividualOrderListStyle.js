@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.snow,
     flexDirection: 'column',
     // alignItems: 'center'
   },
@@ -16,10 +16,10 @@ export default StyleSheet.create({
     backgroundColor: Colors.clear,
     marginVertical: 0,
     height: 80,
-    paddingRight: 10,
-    paddingLeft: 10,
+    paddingRight: 0,
+    paddingLeft: 0,
     paddingBottom: 0,
-    paddingTop: 10
+    paddingTop: 0
   },
   rowInnerContainer: {
     flex: 1,
@@ -37,7 +37,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 12,
     fontFamily: Fonts.type.bold,
-    color: Colors.background
+    color: Colors.gray
   },
   label: {
     textAlign: 'center',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types';
-import { View, Text, Image, TouchableOpacity, ListView } from 'react-native'
+import { View, Text, Image, TouchableOpacity, ListView, FlatList } from 'react-native'
 import { Header, Icon, Button, Avatar, ButtonGroup } from 'react-native-elements'
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
@@ -17,21 +17,24 @@ export default class MlImagePicker extends Component {
         itemImage: Images.biryani,
         itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
 				itemCost: 6.99,
-				quantity: 2
+        quantity: 2,
+        key: 1
       },
       {
         itemName: "Chicken Biryani",
         itemImage: Images.biryani,
         itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
 				itemCost: 6.99,
-				quantity: 1
+        quantity: 1,
+        key: 2
       },
       {
         itemName: "Chicken Biryani",
         itemImage: Images.biryani,
         itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
 				itemCost: 6.99,
-				quantity: 5
+        quantity: 5,
+        key: 3
       }
 		]
 		
@@ -40,15 +43,11 @@ export default class MlImagePicker extends Component {
 			customerName: "Mohammad Rehaan"
 		}
 
-		const rowHasChanged = (r1, r2) => r1 !== r2
-
-		const ds = new ListView.DataSource({rowHasChanged})
-
 		this.state = {
-        dataSource: ds.cloneWithRows(this.orderObject.orders),
+        dataSource: this.orderObject.orders,
         index: 4,
-        isMerchant: true,
-        isCustomer: false
+        isMerchant: false,
+        isCustomer: true
 		}
 
 	}
@@ -74,7 +73,7 @@ export default class MlImagePicker extends Component {
               </Col>
               <Col>
                   <Row style={{ height: 20}}>
-                      <Text style={styles.boldLabel}>{rowData.itemName}</Text>
+                      <Text style={[styles.boldLabel, {color: Colors.background}]}>{rowData.itemName}</Text>
                   </Row>
                   <Row style={{ height: 26 }}>
                       <Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={2} >{rowData.itemDetail}</Text>
@@ -83,7 +82,7 @@ export default class MlImagePicker extends Component {
               <Col style={{ width: 80 }}>
                   <Row style={{ height: 20, flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={styles.itemCost}>$ {rowData.itemCost}
-                      <Text style={{ color: Colors.background, fontSize: 12 }}> x {rowData.quantity}</Text>
+                      <Text style={{ color: Colors.gray, fontSize: 12 }}> x {rowData.quantity}</Text>
                     </Text>
                   </Row>
               </Col>
@@ -92,10 +91,6 @@ export default class MlImagePicker extends Component {
       </View>
     )
 	}
-	
-	_noRowData () {
-    return this.state.dataSource.getRowCount() === 0
-  }
 
   _updateIndex = (index) => {
     this.setState({index})
@@ -145,21 +140,33 @@ export default class MlImagePicker extends Component {
     return (
       <View style={styles.container}>
         <Grid>
-					<Col style={{ padding: 10 }}>
+					<Col style={{ paddingBottom: 30, paddingTop: 0 }}>
 
-						<Row style={{ paddingLeft: 10 }}>
-							<Text style={{ color: Colors.snow }} >From
-								<Text style={{ fontWeight: 'bold', color: Colors.snow }}>: { this.orderObject.customerName }</Text>
-							</Text>
+            <Row style={{ paddingLeft: 10, paddingBottom: 15, paddingTop: 15, backgroundColor: Colors.cloud }}>
+							<Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.gray }}>Tuesday, Oct 12th</Text>
 						</Row>
 
+            { isCustomer &&
+              <Row style={{ paddingLeft: 10, paddingTop: 15, paddingBottom: 10 }}>
+                <Text style={{ color: Colors.gray }} >From
+                  <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.coal }}> { this.orderObject.customerName }</Text>
+                </Text>
+              </Row>
+            }
+
+            { isMerchant &&
+              <Row style={{ paddingLeft: 10, paddingTop: 10, paddingBottom: 10 }}>
+                <Text style={{ color: Colors.gray }} >From
+                  <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.coal }}> { this.orderObject.customerName }</Text>
+                </Text>
+              </Row>
+            }
+
 						<Row size={1} style={styles.listContainer}>
-							<ListView
+							<FlatList
 								contentContainerStyle={styles.listContent}
-								dataSource={this.state.dataSource}
-								renderRow={this._renderRow}
-								enableEmptySections
-								pageSize={15}
+								data={this.state.dataSource}
+                renderItem={({item}) => this._renderRow(item)}
 							/> 
 						</Row>
 
@@ -182,15 +189,15 @@ export default class MlImagePicker extends Component {
 
               {isCustomer &&
                 <Col size={2} style={{ paddingLeft: 10 }}>
-                  <Text style={{ color: Colors.snow }}>Status
+                  <Text style={{ color: Colors.gray }}>Status
                     <Text style={{ color: Colors.snow, fontWeight: 'bold' }}>: {this._getOrderStatus()}</Text>
                   </Text>
                 </Col>
               }
 
-              <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 10 }}>
-                <Text style={{ color: Colors.snow }}>Total
-                  <Text style={{ color: Colors.snow, fontWeight: 'bold' }}>: $ {this._calculateTotalCost()}</Text>
+              <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20 }}>
+                <Text style={{ color: Colors.gray }}>Total:
+                  <Text style={{ color: Colors.charcoal, fontWeight: 'bold' }}> $ {this._calculateTotalCost()}</Text>
                 </Text>
               </Col>
 						</Row>

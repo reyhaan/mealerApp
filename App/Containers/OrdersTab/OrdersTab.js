@@ -18,24 +18,23 @@ const initialLayout = {
 
 const FirstRoute = () => {
   return( 
-    <View style={[ styles.container, { backgroundColor: Colors.banner } ]} />
-    // <ScrollView>
+    <ScrollView>
     
-    //   <IndividualOrderList></IndividualOrderList>
-    //   <IndividualOrderList></IndividualOrderList>
-    //   <IndividualOrderList></IndividualOrderList>
-    //   <IndividualOrderList></IndividualOrderList>
+      <IndividualOrderList></IndividualOrderList>
+      <IndividualOrderList></IndividualOrderList>
+      <IndividualOrderList></IndividualOrderList>
+      <IndividualOrderList></IndividualOrderList>
 
-    // </ScrollView>
+    </ScrollView>
   )
 }
-const SecondRoute = () => <View style={[ styles.container, { backgroundColor: '#673ab7' } ]} />;
+const SecondRoute = () => <View style={[ styles.container, { backgroundColor: Colors.snow } ]} />;
 
-const ThirdRoute = () => <View style={[ styles.container, { backgroundColor: Colors.orange } ]} />;
+const ThirdRoute = () => <View style={[ styles.container, { backgroundColor: Colors.snow } ]} />;
 
-const FourthRoute = () => <View style={[ styles.container, { backgroundColor: Colors.banner } ]} />;
+const FourthRoute = () => <View style={[ styles.container, { backgroundColor: Colors.snow } ]} />;
 
-const FifthRoute = () => <View style={[ styles.container, { backgroundColor: Colors.background } ]} />;
+const FifthRoute = () => <View style={[ styles.container, { backgroundColor: Colors.snow } ]} />;
 
 class OrdersTab extends PureComponent {
   constructor (props) {
@@ -43,11 +42,11 @@ class OrdersTab extends PureComponent {
     this.state = {
       index: 0,
       routes: [
-        { key: 'first', title: 'First' },
-        { key: 'second', title: 'Second' },
-        { key: 'third', title: 'Third' },
-        { key: 'fourth', title: 'Fourth' },
-        { key: 'fifth', title: 'Fifth' },
+        { key: 'first', title: 'Active' },
+        { key: 'second', title: 'Confirmed' },
+        { key: 'third', title: 'Cancelled' },
+        { key: 'fourth', title: 'Delivered' },
+        { key: 'fifth', title: 'History' },
       ],
     }
   }
@@ -63,6 +62,11 @@ class OrdersTab extends PureComponent {
       <TabBar 
         {...props} 
         scrollEnabled={true}
+        style={{ 
+          backgroundColor: Colors.snow
+        }}
+        labelStyle={{ color: Colors.background, fontSize: 12, fontWeight: 'bold' }}
+        indicatorStyle={{ backgroundColor: Colors.background, height: 0 }}
       />
     )
   }

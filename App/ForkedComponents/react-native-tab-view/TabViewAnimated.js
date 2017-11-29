@@ -43,7 +43,7 @@ let TabViewPager;
 
 switch (Platform.OS) {
   case 'android':
-    TabViewPager = require('./TabViewPagerScroll').default;
+    TabViewPager = require('./TabViewPagerPan').default;
     break;
   case 'ios':
     TabViewPager = require('./TabViewPagerScroll').default;

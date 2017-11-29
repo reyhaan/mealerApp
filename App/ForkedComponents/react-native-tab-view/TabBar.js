@@ -18,6 +18,7 @@ import type {
   Route,
   Style,
 } from './TabViewTypeDefinitions';
+import { Colors } from '../../Themes'
 
 type IndicatorProps<T> = SceneRendererProps<T> & {
   width: number,
@@ -144,8 +145,15 @@ export default class TabBar<T: Route<*>> extends React.PureComponent<
     if (typeof label !== 'string') {
       return null;
     }
+
+    let labelColor = Colors.background;
+
+    if(!scene.focused) {
+      labelColor = Colors.gray
+    }
+    
     return (
-      <Animated.Text style={[styles.tabLabel, this.props.labelStyle]}>
+      <Animated.Text style={[styles.tabLabel, this.props.labelStyle, {color: labelColor}]}>
         {label}
       </Animated.Text>
     );
@@ -323,7 +331,7 @@ export default class TabBar<T: Route<*>> extends React.PureComponent<
   _setRef = (el: ?ScrollView) => (this._scrollView = el);
 
   render() {
-    const { position, navigationState, scrollEnabled } = this.props;
+    const { position, navigationState, scrollEnabled, labelStyle } = this.props;
     const { routes, index } = navigationState;
     const maxDistance = this._getMaxScrollableDistance(this.props);
     const tabWidth = this._getTabWidth(this.props);
@@ -390,7 +398,7 @@ export default class TabBar<T: Route<*>> extends React.PureComponent<
             {routes.map((route, i) => {
               const focused = index === i;
               const outputRange = inputRange.map(
-                inputIndex => (inputIndex === i ? 1 : 0.7)
+                inputIndex => (inputIndex === i ? 1 : 0.5)
               );
               const opacity = Animated.multiply(
                 this.state.visibility,
@@ -506,13 +514,6 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     backgroundColor: '#2196f3',
-    elevation: 4,
-    shadowColor: 'black',
-    shadowOpacity: 0.1,
-    shadowRadius: StyleSheet.hairlineWidth,
-    shadowOffset: {
-      height: StyleSheet.hairlineWidth,
-    },
     // We don't need zIndex on Android, disable it since it's buggy
     zIndex: Platform.OS === 'android' ? 0 : 1,
   },

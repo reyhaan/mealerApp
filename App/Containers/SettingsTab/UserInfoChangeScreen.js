@@ -10,28 +10,34 @@ import {Col, Row, Grid} from 'react-native-easy-grid'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {Alert} from 'react-native';
 import {Form, Item, Input, Label} from 'native-base';
+import SnackBar from 'react-native-snackbar-component'
+
 const styles = UserInfoChangeScreenStyle;
 
 class UserInfoChangeScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            user: {
             name: '',
             address: '',
             phone: '',
-            email: ''
+            email: ''},
+            showToast: false,
+            toastMessage: ''
         }
+        this.props.getUser(this.props.settings.user.uid)
     }
 
     componentDidMount() {
         const currentUser = this.props.settings.user;
         currentUser
-            ? this.setState({
+            ? this.setState({ user: {
                 name: currentUser.name || '',
                 address: currentUser.address || '',
                 phone: currentUser.phone || '',
                 email: currentUser.email || ''
-            })
+            }})
             : Alert.alert('Error:', 'unable to retrieve your info')
     }
 
@@ -48,22 +54,38 @@ class UserInfoChangeScreen extends Component {
         )
     };
 
+    displayToast = (message) => {
+        this.setState({showToast: true, toastMessage: message}, () => 
+        setTimeout(() => {
+            this.setState({showToast: false, toastMessage: ''})
+        }, 2000))
+    }
+
     _updateUserDetails = () => {
-        const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state;
+        const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state.user;
         const existingUser = this.props.settings.user;
         if (newName && newEmail) {
             ((existingUser.name !== newName)
                 || (existingUser.address !== newAddress)
                 || (existingUser.email !== newEmail)
                 || (existingUser.phone !== newPhone))
-                ? this.props.updateUserInfo({uid: existingUser.uid, userDetails: this.state})
-                : ''
+                ? (() => {
+                    this.props.updateUserInfo({uid: existingUser.uid, userDetails: this.state.user})
+                    // refresh the cache after updating
+                    this.props.getUser(this.props.settings.user.uid)
+                    this.displayToast("Successfully Updated ")
+                    })()
+                : this.displayToast("Nothing to update")
         }
-        else Alert.alert('Name and Email is required')
+        else if ((newName && !!!newEmail) || (!!!newName && newEmail))
+            {
+                Alert.alert('Name and Email is required')
+            }
+        else { this.displayToast("Update Error") }
     }
 
     onInputChange = (value, name) => {
-        this.setState({[name]: value})
+        this.setState({user: {...this.state.user, [name]: value}})
     };
 
     render() {
@@ -87,7 +109,7 @@ class UserInfoChangeScreen extends Component {
                                             <Label>Display Name</Label>
                                             <Input
                                                 autoCapitalize="none"
-                                                value={this.state.name}
+                                                value={this.state.user.name}
                                                 placeholder={'Your name'}
                                                 onChangeText={(value) => this.onInputChange(value, 'name')}/>
                                         </Item>
@@ -96,7 +118,7 @@ class UserInfoChangeScreen extends Component {
                                             <Input
                                                 autoCapitalize="none"
                                                 keyboardType="default"
-                                                value={this.state.address}
+                                                value={this.state.user.address}
                                                 onChangeText={(value) => this.onInputChange(value, 'address')}/>
                                         </Item>
                                         <Item stackedLabel>
@@ -104,7 +126,7 @@ class UserInfoChangeScreen extends Component {
                                             <Input
                                                 autoCapitalize="none"
                                                 keyboardType="email-address"
-                                                value={this.state.email}
+                                                value={this.state.user.email}
                                                 onChangeText={(value) => this.onInputChange(value, 'email')}/>
                                         </Item>
                                         <Item stackedLabel>
@@ -112,7 +134,7 @@ class UserInfoChangeScreen extends Component {
                                             <Input
                                                 autoCapitalize="none"
                                                 keyboardType="number-pad"
-                                                value={this.state.phone}
+                                                value={this.state.user.phone}
                                                 onChangeText={(value) => this.onInputChange(value, 'phone')}/>
                                         </Item>
                                     </Form>
@@ -134,15 +156,19 @@ class UserInfoChangeScreen extends Component {
                                                     fontFamily: Fonts.type.bold,
                                                     fontWeight: 'bold'
                                                 }}
-                                                title={`UPDATE`}/>
+                                                title={`UPDATE`}
+                                            />
                                         </Col>
-
                                     </Row>
                                 </View>
                             </Row>
-
                         </Grid>
                     </ScrollView>
+                </View>
+                <View style={{display:'flex', justifyContent: 'center', marginLeft: 20, marginRight: 20}}>
+                    <SnackBar visible={this.state.showToast} textMessage={this.state.toastMessage}
+                        bottom={0} position='bottom' backgroundColor='#272A2F'
+                    />
                 </View>
             </KeyboardAvoidingView>
         )

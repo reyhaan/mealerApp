@@ -44,17 +44,16 @@ export default StyleSheet.create({
         textAlignVertical: 'center', 
         textAlign: 'center', 
         alignSelf: 'stretch',
-        borderLeftColor: Colors.backgroundDarker,
-        borderLeftWidth: 1,
-        paddingTop: (Platform.OS === 'ios') ? 5 : 0
+        paddingTop: (Platform.OS === 'ios') ? 15 : 10,
+        borderRadius: 5
     },
 
     buttonTextWrapper: {
-        height: 30, 
+        height: 45, 
         alignSelf: 'stretch',
-        borderLeftColor: Colors.backgroundDarker,
+        borderLeftColor: Colors.snow,
         borderLeftWidth: 1,
-        paddingTop: (Platform.OS === 'ios') ? 5 : 0
+        paddingTop: (Platform.OS === 'ios') ? 0 : 0,
     },
 
     buttonInnerContainer: {

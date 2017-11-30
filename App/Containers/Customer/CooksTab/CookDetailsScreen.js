@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView} from 'react-native'
+import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableWithoutFeedback} from 'react-native'
 import {connect} from 'react-redux'
 import style from './CookDetailsScreen.style'
 import {Icon} from 'react-native-elements'
@@ -16,6 +16,8 @@ class CookDetailsScreen extends Component {
         super(props);
 
         this.state = {
+            showMenu: true,
+            showDetails: false,
             islistMode: false,
             isFullMode: true,
             isModalVisible: false,
@@ -142,17 +144,17 @@ class CookDetailsScreen extends Component {
 
     switchView = (mode) => {
         switch(mode) {
-            case 'list':
+            case 'menu':
                 this.setState({
-                    isFullMode: false,
-                    islistMode: true,
+                    showMenu: true,
+                    showDetails: false,
                     isModalVisible: false
                 })
                 break;
-            case 'full':
+            case 'details':
                 this.setState({
-                    isFullMode: true,
-                    islistMode: false,
+                    showMenu: false,
+                    showDetails: true,
                     isModalVisible: false
                 })
                 break;
@@ -180,9 +182,45 @@ class CookDetailsScreen extends Component {
 
                 <View style={{ height: 50, borderBottomColor: Colors.lightGray, borderBottomWidth: 1, backgroundColor: Colors.silver }}>
                     <Grid>
-                        <Col size={1} style={{ alignItems: 'flex-start', justifyContent: 'center', paddingLeft: 10 }}>
-                            <Text style={{ color: Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>ITEMS</Text>
+
+                        <Col size={1} 
+                            style={{ 
+                                backgroundColor: (this.state.showMenu) ? Colors.background : Colors.clear, 
+                                borderLeftWidth: 1, 
+                                borderLeftColor: Colors.gray2, 
+                                alignItems: 'center', 
+                                justifyContent: 'center' 
+                            }}>
+                            <TouchableWithoutFeedback onPress={() => this.switchView('menu')}>
+                                {/* <Icon
+                                    name={'view-list'}
+                                    color={ (this.state.islistMode) ? Colors.background : Colors.gray3}
+                                    onPress={() => this.switchView('list')}
+                                /> */}
+                                <Text style={{ color: (this.state.showMenu) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>MENU</Text>
+                            </TouchableWithoutFeedback>
                         </Col>
+
+                        <Col size={1} 
+                            style={{ 
+                                backgroundColor: (this.state.showDetails) ? Colors.background : Colors.clear, 
+                                borderLeftWidth: 1, 
+                                borderLeftColor: Colors.gray2, 
+                                alignItems: 'center', 
+                                justifyContent: 'center' 
+                            }} >
+                            <TouchableWithoutFeedback onPress={() => this.switchView('details')}>
+                                {/* <Icon
+                                    name={'view-stream'}
+                                    color={ (this.state.isFullMode) ? Colors.background : Colors.gray3}
+                                    onPress={() => this.switchView('full')}
+                                /> */}
+                                <Text style={{ color: (this.state.showDetails) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>DETAILS</Text>
+                            </TouchableWithoutFeedback>
+                        </Col>
+                    </Grid>
+
+                    {/* <Grid>
 
                         <Col style={{ width: 50, backgroundColor: Colors.clear, borderLeftWidth: 1, borderLeftColor: Colors.gray2, paddingTop: 12 }}>
                             <TouchableOpacity>
@@ -203,10 +241,10 @@ class CookDetailsScreen extends Component {
                                 />
                             </TouchableOpacity>
                         </Col>
-                    </Grid>
+                    </Grid> */}
                 </View>
 
-                { this.state.islistMode &&
+                { this.state.showDetails &&
                     <FlatList
                         style={{backgroundColor: '#fff'}}
                         data={menus}
@@ -214,7 +252,7 @@ class CookDetailsScreen extends Component {
                     />
                 }
 
-                { this.state.isFullMode &&
+                { this.state.showMenu &&
                     <FlatList
                         style={{backgroundColor: Colors.backgroundGray, paddingTop: 10}}
                         data={menus}

@@ -26,7 +26,7 @@ export default StyleSheet.create({
       marginTop: 50
   },
   userName: {
-    color: Colors.background, 
+    color: Colors.charcoal, 
     fontWeight: 'bold', 
     fontSize: 20,
   }

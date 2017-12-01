@@ -11,24 +11,24 @@ import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
 import styles from './EditMenuScreen.style'
-
-let item = {
-    itemName: "",
-    itemDetail: "",
-    itemImage: "",
-    itemCost: ""
-};
+import {TextInputMask} from 'react-native-masked-text';
 
 class EditMenuScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = item
+        this.state = {
+            itemName: "",
+            itemDetail: "",
+            itemImage: "",
+            itemCost: "",
+            id: ""
+        }
     }
 
     componentDidMount() {
         const {state} = this.props.navigation;
         if (state.params && state.params.item) {
-            item = state.params.item;
+            const item = state.params.item;
             this.setState({
                 id: item.id,
                 itemName: item.itemName,
@@ -68,8 +68,7 @@ class EditMenuScreen extends Component {
             itemDetail &&
             itemImage &&
             itemCost &&
-            itemCost > 0) {
-            itemCost = parseFloat(itemCost, 10).toFixed(2);
+            itemCost.slice(4, itemCost.length) > 0) {
             this.setState({
                 itemCost: itemCost,
                 itemImage: itemImage //TODO: Fix
@@ -83,7 +82,7 @@ class EditMenuScreen extends Component {
             });
         }
         else {
-            Alert.alert("Please check form values")
+            Alert.alert("Please check menu values")
         }
     }
 
@@ -131,10 +130,20 @@ class EditMenuScreen extends Component {
                             </Item>
                             <Item stackedLabel>
                                 <Label>Price</Label>
-                                <Input keyboardType="numeric"
-                                       onChangeText={(e) => this.formUpdate('itemCost', e)}
-                                       underlineColorAndroid="transparent"
-                                       value={this.state.itemCost}/>
+                                <TextInputMask
+                                    ref={'moneyUnit'}
+                                    type={'money'}
+                                    options={{
+                                        separator: '.',
+                                        delimiter: ',',
+                                        unit: 'CAD$ '
+                                    }}
+                                    value={this.state.itemCost}
+                                    onChangeText={(e) => this.formUpdate('itemCost', e)}
+                                    style={{width: '100%', height: 50}}
+                                    placeholder="CAD$ 0.00" 
+                                    keyboardType="numeric"
+                                />
                             </Item>
 
                             <Item stackedLabel>

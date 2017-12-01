@@ -4,7 +4,8 @@ import { Colors, Metrics } from '../../Themes/index'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.snow
+    backgroundColor: Colors.snow,
+    paddingTop: Metrics.baseMargin
   },
   headerOuterContainer: {
     width: Metrics.screenWidth,

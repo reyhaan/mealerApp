@@ -66,7 +66,7 @@ class OrdersTab extends PureComponent {
           backgroundColor: Colors.snow
         }}
         labelStyle={{ color: Colors.background, fontSize: 12, fontWeight: 'bold' }}
-        indicatorStyle={{ backgroundColor: Colors.background, height: 0 }}
+        indicatorStyle={{ backgroundColor: Colors.background, height: 30, width:100, marginLeft: 32, marginBottom: 10 }}
       />
     )
   }
@@ -82,11 +82,11 @@ class OrdersTab extends PureComponent {
   render () {
     return (
       <View style={styles.container}>
-        <Header
-          centerComponent = {{ text: 'ORDERS', style: { color: '#fff', fontWeight: 'bold' } }}
+        {/* <Header
+          centerComponent = {{ text: 'CART', style: { color: '#fff', fontWeight: 'bold' } }}
           backgroundColor = {Colors.background}
           outerContainerStyles = { styles.headerOuterContainer }
-        />
+        /> */}
 
         <TabViewAnimated
           style={styles.container}

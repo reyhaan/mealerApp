@@ -146,7 +146,7 @@ export default class TabBar<T: Route<*>> extends React.PureComponent<
       return null;
     }
 
-    let labelColor = Colors.background;
+    let labelColor = Colors.snow;
 
     if(!scene.focused) {
       labelColor = Colors.gray

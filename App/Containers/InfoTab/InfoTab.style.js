@@ -10,7 +10,8 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.background,
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   headerOuterContainer: {
     width: Metrics.screenWidth,

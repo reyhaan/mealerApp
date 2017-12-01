@@ -47,7 +47,7 @@ class MenuTab extends Component {
                     <Col size={65}>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemName}>{item.itemName}</Text>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemDetails}>{item.itemDetail}</Text>
-                        <Text style={style.itemCost}>${item.itemCost}</Text>
+                        <Text style={style.itemCost}>{item.itemCost}</Text>
                     </Col>
                     <Col size={35} style={{}}>
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

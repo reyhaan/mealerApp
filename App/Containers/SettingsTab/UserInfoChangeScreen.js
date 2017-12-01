@@ -11,6 +11,7 @@ import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
 import SnackBar from 'react-native-snackbar-component'
+import {TextInputMask} from 'react-native-masked-text';
 
 const styles = UserInfoChangeScreenStyle;
 
@@ -85,7 +86,12 @@ class UserInfoChangeScreen extends Component {
     }
 
     onInputChange = (value, name) => {
-        this.setState({user: {...this.state.user, [name]: value}})
+        let validValue 
+        if(name === 'phone' && value.length>14){
+                validValue = value.slice(0, 14)
+        } 
+        else{validValue  = value} 
+        this.setState({user: {...this.state.user, [name]: validValue}})
     };
 
     render() {
@@ -131,13 +137,22 @@ class UserInfoChangeScreen extends Component {
                                         </Item>
                                         <Item stackedLabel>
                                             <Label>Phone Number</Label>
-                                            <Input
-                                                autoCapitalize="none"
-                                                keyboardType="number-pad"
+                                            <TextInputMask
+                                                ref={'celPhone'}
+                                                type={'cel-phone'}
+                                                options={{
+                                                withDDD: true,
+                                                dddMask: '(999) 999-9999'
+                                                }}
                                                 value={this.state.user.phone}
-                                                onChangeText={(value) => this.onInputChange(value, 'phone')}/>
+                                                onChangeText={(value) => this.onInputChange(value, 'phone')}
+                                                style={{width: '100%', height: 50}}
+                                                placeholder="613-XXX-XXXX" 
+                                                keyboardType="number-pad"
+                                            />
                                         </Item>
                                     </Form>
+
                                 <Row style={{
                                     height: 40,
                                     marginTop: Metrics.doubleBaseMargin,

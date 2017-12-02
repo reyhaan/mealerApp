@@ -128,8 +128,11 @@ class OrdersTab extends Component {
                   </Row>
                 </Col>
 
-                <Col style={{ width: 70, flexDirection: 'row', paddingRight: 5 }}>
-                  <Col style={{ alignItems:'flex-end', justifyContent: 'center'}}>
+                <Col style={{ width: 80, flexDirection: 'row', paddingRight: 5 }}>
+                  <Col style={{ width: 5, marginRight: 10, alignItems: 'flex-start', justifyContent: 'center' }}>
+                    <View style={{ width: 1, backgroundColor: Colors.snow, height: 20, marginLeft: 5 }}></View>
+                  </Col>
+                  <Col style={{ alignItems:'flex-end', justifyContent: 'center' }}>
                     <TouchableWithoutFeedback onPress={() => {this._showDropdown()}}>
                       <Row>
                         <Icon
@@ -139,7 +142,7 @@ class OrdersTab extends Component {
                           type='font-awesome'
                           onPress={() => {}}
                         />
-                        <Text style={{ marginLeft: 5, fontSize: 12, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }}>FILTER</Text>
+                        <Text style={{ marginLeft: 10, fontSize: 12, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }}>FILTER</Text>
                       </Row>
                     </TouchableWithoutFeedback>
                   </Col>

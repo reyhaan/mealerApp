@@ -59,7 +59,7 @@ export default StyleSheet.create({
   },
 
   dropdownContainer: {
-    width: Metrics.screenWidth - 80, 
+    width: Metrics.screenWidth - 100, 
     backgroundColor: Colors.snow, 
     borderRadius: 3, 
     zIndex: 14, 

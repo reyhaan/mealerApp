@@ -1,101 +1,126 @@
-import React, { Component, PureComponent } from 'react'
-import { ScrollView, View, Text, Dimensions } from 'react-native'
+import React, { Component } from 'react'
+import { ScrollView, View, Text, Dimensions, StatusBar, TouchableWithoutFeedback } from 'react-native'
 import { connect } from 'react-redux'
 import OrdersTabStyle from './OrdersTab.style'
-import { Header } from 'react-native-elements' 
 import { IndividualOrderList } from '../../Components'
 import { Colors, Metrics } from '../../Themes'
-import { TabViewAnimated, TabBar, SceneMap, TabViewPagerPan, TabViewPagerAndroid } from '../../ForkedComponents/react-native-tab-view';
-import { initializeApp } from 'firebase';
+import {Col, Row, Grid} from 'react-native-easy-grid';
+import { Icon, Badge, List, ListItem } from 'react-native-elements'
 
 // Styles
 const styles = OrdersTabStyle;
 
-const initialLayout = {
-  height: 0,
-  width: Dimensions.get('window').width,
-};
+const list = [
+  {
+    title: 'Active Orders',
+    icon: 'av-timer'
+  },
+  {
+    title: 'Confirmed Orders',
+    icon: 'flight-takeoff'
+  },
+  {
+    title: 'Cancelled Orders',
+    icon: 'av-timer'
+  },
+  {
+    title: 'Delivered Orders',
+    icon: 'flight-takeoff'
+  }
+]
 
-const FirstRoute = () => {
-  return( 
-    <ScrollView>
-    
-      <IndividualOrderList></IndividualOrderList>
-      <IndividualOrderList></IndividualOrderList>
-      <IndividualOrderList></IndividualOrderList>
-      <IndividualOrderList></IndividualOrderList>
-
-    </ScrollView>
-  )
-}
-const SecondRoute = () => <View style={[ styles.container, { backgroundColor: Colors.snow } ]} />;
-
-const ThirdRoute = () => <View style={[ styles.container, { backgroundColor: Colors.snow } ]} />;
-
-const FourthRoute = () => <View style={[ styles.container, { backgroundColor: Colors.snow } ]} />;
-
-const FifthRoute = () => <View style={[ styles.container, { backgroundColor: Colors.snow } ]} />;
-
-class OrdersTab extends PureComponent {
+class OrdersTab extends Component {
   constructor (props) {
     super(props)
+    console.disableYellowBox = true;
     this.state = {
-      index: 0,
-      routes: [
-        { key: 'first', title: 'Active' },
-        { key: 'second', title: 'Confirmed' },
-        { key: 'third', title: 'Cancelled' },
-        { key: 'fourth', title: 'Delivered' },
-        { key: 'fifth', title: 'History' },
-      ],
+      showDropdown: false
     }
   }
 
-  _handleIndexChange = index => {
-    this.setState({ 
-      index: index
-    });
+  _showDropdown = () => {
+    this.setState({
+      showDropdown: !this.state.showDropdown
+    })
   }
 
-  _renderHeader = props => {
-    return (
-      <TabBar 
-        {...props} 
-        scrollEnabled={true}
-        style={{ 
-          backgroundColor: Colors.snow
-        }}
-        labelStyle={{ color: Colors.background, fontSize: 12, fontWeight: 'bold' }}
-        indicatorStyle={{ backgroundColor: Colors.background, height: 30, width:100, marginLeft: 32, marginBottom: 10 }}
-      />
-    )
-  }
-
-  _renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: ThirdRoute,
-    fourth: FourthRoute,
-    fifth: FifthRoute,
-  });
 
   render () {
     return (
       <View style={styles.container}>
-        {/* <Header
-          centerComponent = {{ text: 'CART', style: { color: '#fff', fontWeight: 'bold' } }}
-          backgroundColor = {Colors.background}
-          outerContainerStyles = { styles.headerOuterContainer }
-        /> */}
 
-        <TabViewAnimated
-          style={styles.container}
-          navigationState={this.state}
-          renderScene={this._renderScene}
-          renderHeader={this._renderHeader}
-          onIndexChange={this._handleIndexChange}
-          initialLayout={initialLayout}
-        />
+        <StatusBar barStyle='dark-content'/>
+
+        { this.state.showDropdown &&
+          <View style={styles.dropdownContainer}>
+            <List containerStyle={{ marginTop: 0 }}>
+              {
+                list.map((item, i) => (
+                  <ListItem
+                    containerStyle={{ borderBottomWidth: 0 }}
+                    wrapperStyle={{ borderBottomWidth: 0 }}
+                    titleStyle={{ fontSize: 14 }}
+                    key={i}
+                    title={item.title}
+                    rightIcon={<Badge
+                      value={3}
+                      textStyle={{ color: 'orange' }}
+                    />}
+                  />
+                ))
+              }
+            </List>
+          </View>
+        }
+
+        <View style={styles.headerContainer}>
+          <View style={styles.headerButtonContainer}>
+
+            <View style={styles.countTag}>
+              <Text style={{ color: Colors.background, fontWeight: 'bold', fontSize: 16 }} >24</Text>
+            </View>
+
+
+            <View style={ styles.dropdownButtonContainer }>
+              <Grid>
+                <Col size={1} style={{ paddingLeft: 50, alignItems:'flex-start', justifyContent: 'center' }}>
+                  <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.charcoal }} >Active Orders</Text>
+                </Col>
+
+                <Col style={{ width: 70, flexDirection: 'row' }}>
+                  <Col style={{ alignItems:'center', justifyContent: 'center', width: 20}}>
+                    <Icon
+                      size={14}
+                      name={'filter'}
+                      color={Colors.gray3}
+                      type='font-awesome'
+                      onPress={() => {}}
+                    />
+                  </Col>
+                  <Col style={{ alignItems:'flex-start', justifyContent: 'center'}}>
+                    <TouchableWithoutFeedback onPress={() => {this._showDropdown()}}>
+                      <View>
+                        <Text style={{ fontSize: 12, color: Colors.gray }}>FILTER</Text>
+                      </View>
+                    </TouchableWithoutFeedback>
+                  </Col>
+                </Col>
+              </Grid>
+            </View>
+          </View>
+        </View>
+
+        <ScrollView>
+
+          {/* padding for scrollable list */}
+          <View style={{ height: 90, backgroundColor: Colors.cloud }}></View>
+      
+          <IndividualOrderList></IndividualOrderList>
+          <IndividualOrderList></IndividualOrderList>
+          <IndividualOrderList></IndividualOrderList>
+          <IndividualOrderList></IndividualOrderList>
+
+        </ScrollView>
 
       </View>
     )

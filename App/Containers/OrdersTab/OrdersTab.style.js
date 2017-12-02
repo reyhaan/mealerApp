@@ -24,11 +24,10 @@ export default StyleSheet.create({
   },
 
   headerButtonContainer: {
-    // marginTop: Metrics.doubleBaseMargin + 5, 
     width: Metrics.screenWidth, 
     backgroundColor: Colors.background, 
     height: 80, 
-    paddingTop: Metrics.doubleBaseMargin + 5,
+    paddingTop: Metrics.doubleBaseMargin + 5
   },
   dropdownButtonContainer: {
     flex: 1,

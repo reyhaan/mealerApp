@@ -12,19 +12,19 @@ const styles = OrdersTabStyle;
 
 const list = [
   {
-    name: 'NEW ORDERS',
+    name: 'New Orders',
     key: 'newOrders'
   },
   {
-    name: 'CONFIRMED ORDERS',
+    name: 'Confirmed Orders',
     key: 'confirmedOrders'
   },
   {
-    name: 'CANCELLED ORDERS',
+    name: 'Cancelled Orders',
     key: 'cancelledOrders'
   },
   {
-    name: 'DELIVERED ORDERS',
+    name: 'Delivered Orders',
     key: 'deliveredOrders'
   }
 ]
@@ -39,8 +39,14 @@ class OrdersTab extends Component {
 
     this.state = {
       showDropdown: false,
-      activeFilter: list[0]
+      activeFilter: list[0],
+      isMerchant: false,
+      isCustomer: true
     }
+  }
+
+  componentDidMount = () => {
+    console.log(this.props.user);
   }
 
   _showDropdown = () => {
@@ -84,6 +90,7 @@ class OrdersTab extends Component {
     return (
       <View style={styles.container}>
 
+        {/* Drop for filter options */}
         { this.state.showDropdown &&
           <View style={styles.dropdownContainer}>
             <List containerStyle={{ marginTop: 0 }}>
@@ -111,56 +118,90 @@ class OrdersTab extends Component {
           </View>
         }
 
+
+        {/* Main Header section */}
         <View style={styles.headerContainer}>
           <View style={styles.headerButtonContainer}>
 
             <View style={ styles.dropdownButtonContainer }>
               <Grid>
                 <Col size={1} style={{ paddingLeft: 5, alignItems:'flex-start', justifyContent: 'center' }}>
-                  <Row>
-                    <Badge
-                      wrapperStyle={{ alignSelf: 'center' }}
-                      containerStyle={{ backgroundColor: Colors.snow }}
-                      value={3}
-                      textStyle={{ color: Colors.background, fontWeight: 'bold', fontSize: 16 }}
-                    />
-                    <Text style={{ paddingLeft: 10, fontWeight: 'bold', fontSize: 14, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }} >{ this.state.activeFilter.name }</Text>
-                  </Row>
+                  { this.state.isMerchant &&
+                    <Row>
+                      <Badge
+                        wrapperStyle={{ alignSelf: 'center' }}
+                        containerStyle={{ backgroundColor: Colors.snow }}
+                        value={3}
+                        textStyle={{ color: Colors.background, fontWeight: 'bold', fontSize: 16 }}
+                      />
+                      <Text style={{ paddingLeft: 10, fontWeight: 'bold', fontSize: 14, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }} >{ this.state.activeFilter.name.toUpperCase() }</Text>
+                    </Row>
+                  }
+
+                  { this.state.isCustomer &&
+                    <Row>
+                      <Icon
+                        size={16}
+                        name={'cutlery'}
+                        color={Colors.snow}
+                        type='font-awesome'
+                        onPress={() => {}}
+                      />
+                      <Text style={{ paddingLeft: 10, fontWeight: 'bold', fontSize: 14, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }} >YOUR ORDER</Text>
+                    </Row>
+                  }
                 </Col>
 
-                <Col style={{ width: 80, flexDirection: 'row', paddingRight: 5 }}>
-                  <Col style={{ width: 5, marginRight: 10, alignItems: 'flex-start', justifyContent: 'center' }}>
-                    <View style={{ width: 1, backgroundColor: Colors.snow, height: 20, marginLeft: 5 }}></View>
+                <Col style={{ width: (this.state.isMerchant) ? 80 : 90, flexDirection: 'row', paddingRight: 5 }}>
+                  <Col style={{ width: 5, marginRight: (this.state.isMerchant) ? 10 : 0, alignItems: 'flex-start', justifyContent: 'center' }}>
+                    <View style={{ width: 1, backgroundColor: Colors.snow, height: 20, marginLeft: (this.state.isMerchant) ? 5 : 0 }}></View>
                   </Col>
                   <Col style={{ alignItems:'flex-end', justifyContent: 'center' }}>
                     <TouchableOpacity onPress={() => {this._showDropdown()}}>
-                      <Row>
-                        <Icon
-                          size={14}
-                          name={'filter'}
-                          color={Colors.snow}
-                          type='font-awesome'
-                          onPress={() => {}}
-                        />
-                        <Text style={{ marginLeft: 10, fontSize: 12, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }}>FILTER</Text>
-                      </Row>
+                      { this.state.isMerchant &&
+                        <Row>
+                          <Icon
+                            size={14}
+                            name={'filter'}
+                            color={Colors.snow}
+                            type='font-awesome'
+                            onPress={() => {}}
+                          />
+                          <Text style={{ marginLeft: 10, fontSize: 12, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }}>FILTER</Text>
+                        </Row>
+                      }
+
+                      { this.state.isCustomer &&
+                        <Row>
+                          <Icon
+                            size={14}
+                            name={'history'}
+                            color={Colors.snow}
+                            type='font-awesome'
+                            onPress={() => {}}
+                          />
+                          <Text style={{ marginLeft: 10, fontSize: 12, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }}>HISTORY</Text>
+                        </Row>
+                      }
                     </TouchableOpacity>
                   </Col>
                 </Col>
               </Grid>
             </View>
+
           </View>
         </View>
 
+        {/* Body for List view */}
         <ScrollView>
 
           {/* padding for scrollable list */}
           <View style={{ height: 80, backgroundColor: Colors.cloud }}></View>
-      
-          <IndividualOrderList></IndividualOrderList>
-          <IndividualOrderList></IndividualOrderList>
-          <IndividualOrderList></IndividualOrderList>
-          <IndividualOrderList></IndividualOrderList>
+          
+            <IndividualOrderList></IndividualOrderList>
+            <IndividualOrderList></IndividualOrderList>
+            <IndividualOrderList></IndividualOrderList>
+            <IndividualOrderList></IndividualOrderList>
 
         </ScrollView>
 
@@ -171,6 +212,7 @@ class OrdersTab extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    user: state
   }
 }
 

@@ -1,5 +1,5 @@
 const colors = {
-    background: '#D7452D',// '#FD5946', //'#EF0632', //'#D54A58', // '#FD4B54', // '#D7452D' // TK's '#E95D4F'
+    background: '#F1663A',// '#FD5946', //'#EF0632', //'#D54A58', // '#FD4B54', // Rehaan's 1. '#D7452D' 2. '#F1663A' // TK's '#E95D4F'
     backgroundLighter: '#EA6D59', // '#EF5D45',
     backgroundDarker: '#B04230',
     backgroundGray: '#DBDFE8',

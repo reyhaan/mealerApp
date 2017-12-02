@@ -73,7 +73,7 @@ export default class MlImagePicker extends Component {
               </Col>
               <Col>
                   <Row style={{ height: 20}}>
-                      <Text style={[styles.boldLabel, {color: Colors.background}]}>{rowData.itemName}</Text>
+                      <Text style={[styles.boldLabel, {color: Colors.coal}]}>{rowData.itemName}</Text>
                   </Row>
                   <Row style={{ height: 26 }}>
                       <Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={2} >{rowData.itemDetail}</Text>
@@ -149,7 +149,7 @@ export default class MlImagePicker extends Component {
             { isCustomer &&
               <Row style={{ paddingLeft: 10, paddingTop: 15, paddingBottom: 10 }}>
                 <Text style={{ color: Colors.gray }} >From
-                  <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.coal }}> { this.orderObject.customerName }</Text>
+                  <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.background }}> { this.orderObject.customerName }</Text>
                 </Text>
               </Row>
             }
@@ -197,7 +197,7 @@ export default class MlImagePicker extends Component {
 
               <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20 }}>
                 <Text style={{ color: Colors.gray }}>Total:
-                  <Text style={{ color: Colors.charcoal, fontWeight: 'bold' }}> $ {this._calculateTotalCost()}</Text>
+                  <Text style={{ color: Colors.coal, fontWeight: 'bold' }}> $ {this._calculateTotalCost()}</Text>
                 </Text>
               </Col>
 						</Row>

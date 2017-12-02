@@ -59,12 +59,12 @@ export default StyleSheet.create({
   },
 
   dropdownContainer: {
-    width: Metrics.screenWidth - 100, 
+    width: Metrics.screenWidth - 10, 
     backgroundColor: Colors.snow, 
     borderRadius: 3, 
     zIndex: 14, 
     position: 'absolute', 
-    left: 10, 
+    left: 5, 
     top: 80,
     borderWidth: 1,
     borderColor: Colors.steel,

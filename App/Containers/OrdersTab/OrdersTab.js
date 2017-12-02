@@ -133,7 +133,7 @@ class OrdersTab extends Component {
                     <View style={{ width: 1, backgroundColor: Colors.snow, height: 20, marginLeft: 5 }}></View>
                   </Col>
                   <Col style={{ alignItems:'flex-end', justifyContent: 'center' }}>
-                    <TouchableWithoutFeedback onPress={() => {this._showDropdown()}}>
+                    <TouchableOpacity onPress={() => {this._showDropdown()}}>
                       <Row>
                         <Icon
                           size={14}
@@ -144,7 +144,7 @@ class OrdersTab extends Component {
                         />
                         <Text style={{ marginLeft: 10, fontSize: 12, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }}>FILTER</Text>
                       </Row>
-                    </TouchableWithoutFeedback>
+                    </TouchableOpacity>
                   </Col>
                 </Col>
               </Grid>

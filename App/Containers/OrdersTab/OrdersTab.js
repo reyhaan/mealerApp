@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, Dimensions, StatusBar, TouchableWithoutFeedback } from 'react-native'
+import { ScrollView, View, Text, Dimensions, StatusBar, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import OrdersTabStyle from './OrdersTab.style'
 import { IndividualOrderList } from '../../Components'
@@ -12,36 +12,71 @@ const styles = OrdersTabStyle;
 
 const list = [
   {
-    title: 'Active Orders',
-    icon: 'av-timer'
+    name: 'NEW ORDERS',
+    key: 'newOrders'
   },
   {
-    title: 'Confirmed Orders',
-    icon: 'flight-takeoff'
+    name: 'CONFIRMED ORDERS',
+    key: 'confirmedOrders'
   },
   {
-    title: 'Cancelled Orders',
-    icon: 'av-timer'
+    name: 'CANCELLED ORDERS',
+    key: 'cancelledOrders'
   },
   {
-    title: 'Delivered Orders',
-    icon: 'flight-takeoff'
+    name: 'DELIVERED ORDERS',
+    key: 'deliveredOrders'
   }
 ]
 
 class OrdersTab extends Component {
+
   constructor (props) {
     super(props)
+
+    // Turn off warnings for now :/
     console.disableYellowBox = true;
+
     this.state = {
-      showDropdown: false
+      showDropdown: false,
+      activeFilter: list[0]
     }
   }
 
   _showDropdown = () => {
     this.setState({
-      showDropdown: !this.state.showDropdown
+      showDropdown: true
     })
+  }
+
+  _hideDropdown = () => {
+    this.setState({
+      showDropdown: false
+    })
+  }
+
+  _switchFilter = (item) => {
+    this._hideDropdown();
+    this.setState({
+      activeFilter: item
+    })
+    switch(item.key) {
+      case 'newOrders':
+
+        break;
+
+      case 'confirmedOrders':
+      
+        break;
+
+      case 'cancelledOrders':
+      
+        break;
+
+      case 'deliveredOrders':
+
+        break;
+    }
   }
 
 
@@ -49,24 +84,27 @@ class OrdersTab extends Component {
     return (
       <View style={styles.container}>
 
-        <StatusBar barStyle='dark-content'/>
-
         { this.state.showDropdown &&
           <View style={styles.dropdownContainer}>
             <List containerStyle={{ marginTop: 0 }}>
               {
                 list.map((item, i) => (
-                  <ListItem
-                    containerStyle={{ borderBottomWidth: 0 }}
-                    wrapperStyle={{ borderBottomWidth: 0 }}
-                    titleStyle={{ fontSize: 14 }}
-                    key={i}
-                    title={item.title}
-                    rightIcon={<Badge
-                      value={3}
-                      textStyle={{ color: 'orange' }}
-                    />}
-                  />
+                  <TouchableOpacity key={i} onPress={() => {this._switchFilter(item)}}>
+                    <ListItem
+                      containerStyle={{ borderBottomWidth: 0 }}
+                      wrapperStyle={{ borderBottomWidth: 0 }}
+                      titleStyle={{ fontSize: 14 }}
+                      key={item.key}
+                      hideChevron={true}
+                      title={item.name}
+                      leftIcon={<Badge
+                        wrapperStyle={{ paddingRight: 10 }}
+                        containerStyle={{ backgroundColor: Colors.background }}
+                        value={3}
+                        textStyle={{ color: Colors.snow }}
+                      />}
+                    />
+                  </TouchableOpacity>
                 ))
               }
             </List>
@@ -76,32 +114,33 @@ class OrdersTab extends Component {
         <View style={styles.headerContainer}>
           <View style={styles.headerButtonContainer}>
 
-            <View style={styles.countTag}>
-              <Text style={{ color: Colors.background, fontWeight: 'bold', fontSize: 16 }} >24</Text>
-            </View>
-
-
             <View style={ styles.dropdownButtonContainer }>
               <Grid>
-                <Col size={1} style={{ paddingLeft: 50, alignItems:'flex-start', justifyContent: 'center' }}>
-                  <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.charcoal }} >Active Orders</Text>
+                <Col size={1} style={{ paddingLeft: 5, alignItems:'flex-start', justifyContent: 'center' }}>
+                  <Row>
+                    <Badge
+                      wrapperStyle={{ alignSelf: 'center' }}
+                      containerStyle={{ backgroundColor: Colors.snow }}
+                      value={3}
+                      textStyle={{ color: Colors.background, fontWeight: 'bold', fontSize: 16 }}
+                    />
+                    <Text style={{ paddingLeft: 10, fontWeight: 'bold', fontSize: 14, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }} >{ this.state.activeFilter.name }</Text>
+                  </Row>
                 </Col>
 
-                <Col style={{ width: 70, flexDirection: 'row' }}>
-                  <Col style={{ alignItems:'center', justifyContent: 'center', width: 20}}>
-                    <Icon
-                      size={14}
-                      name={'filter'}
-                      color={Colors.gray3}
-                      type='font-awesome'
-                      onPress={() => {}}
-                    />
-                  </Col>
-                  <Col style={{ alignItems:'flex-start', justifyContent: 'center'}}>
+                <Col style={{ width: 70, flexDirection: 'row', paddingRight: 5 }}>
+                  <Col style={{ alignItems:'flex-end', justifyContent: 'center'}}>
                     <TouchableWithoutFeedback onPress={() => {this._showDropdown()}}>
-                      <View>
-                        <Text style={{ fontSize: 12, color: Colors.gray }}>FILTER</Text>
-                      </View>
+                      <Row>
+                        <Icon
+                          size={14}
+                          name={'filter'}
+                          color={Colors.snow}
+                          type='font-awesome'
+                          onPress={() => {}}
+                        />
+                        <Text style={{ marginLeft: 5, fontSize: 12, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }}>FILTER</Text>
+                      </Row>
                     </TouchableWithoutFeedback>
                   </Col>
                 </Col>
@@ -113,7 +152,7 @@ class OrdersTab extends Component {
         <ScrollView>
 
           {/* padding for scrollable list */}
-          <View style={{ height: 90, backgroundColor: Colors.cloud }}></View>
+          <View style={{ height: 80, backgroundColor: Colors.cloud }}></View>
       
           <IndividualOrderList></IndividualOrderList>
           <IndividualOrderList></IndividualOrderList>

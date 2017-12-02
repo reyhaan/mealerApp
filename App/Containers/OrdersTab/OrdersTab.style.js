@@ -24,30 +24,17 @@ export default StyleSheet.create({
   },
 
   headerButtonContainer: {
-    marginTop: Metrics.doubleBaseMargin + 5, 
+    // marginTop: Metrics.doubleBaseMargin + 5, 
     width: Metrics.screenWidth, 
-    backgroundColor: Colors.clear, 
-    height: 70, 
-    padding: 12,
-    paddingTop: 18,
-    paddingLeft: 20,
-    paddingBottom: 10,
-    paddingRight: 18,
+    backgroundColor: Colors.background, 
+    height: 80, 
+    paddingTop: Metrics.doubleBaseMargin + 5,
   },
   dropdownButtonContainer: {
     flex: 1,
     height: 55,
-    backgroundColor: Colors.snow,
-    borderRadius: 3,
-    borderWidth: (Platform.OS === 'ios') ? 1 : 0,
-    borderColor: (Platform.OS === 'ios') ? Colors.steel : Colors.clear,
-    shadowColor: Colors.steel,
-    shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
-    shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
-    shadowOffset: {
-      height: (Platform.OS === 'ios') ? 2 : 3,
-    },
-    elevation: 3,
+    padding: 10,
+    backgroundColor: Colors.background
   },
   countTag: {
     height: 50, 
@@ -72,13 +59,13 @@ export default StyleSheet.create({
   },
 
   dropdownContainer: {
-    width: Metrics.screenWidth - 140, 
+    width: Metrics.screenWidth - 80, 
     backgroundColor: Colors.snow, 
     borderRadius: 3, 
     zIndex: 14, 
     position: 'absolute', 
-    left: 55, 
-    top: 90,
+    left: 10, 
+    top: 80,
     borderWidth: 1,
     borderColor: Colors.steel,
     shadowColor: '#000',

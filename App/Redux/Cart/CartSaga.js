@@ -12,9 +12,9 @@ cartEffects.addToCart = function* (item) {
     try {
 
         let from = item.data.from
-        let to = item.data.to
+        let toMerchant = item.data.to
         let orderItem = item.data.item
-        orderItem.itemCount = item.data.itemCount;
+        orderItem.itemCount = item.data.itemCount;  // set item count on orderItem itself
         
         // AsyncStorage.setItem('cart', '');
 
@@ -22,33 +22,30 @@ cartEffects.addToCart = function* (item) {
 
             storedCart = JSON.parse(storedCart)
 
-            // console.log(storedCart)
-
             if (storedCart === null) {
                 let order = {
                     from: from,
                     to: {}
                 }
-                order.to[to] = [orderItem]
+                order.to[toMerchant] = [orderItem]
                 AsyncStorage.setItem('cart', JSON.stringify(order));
             } else {
-                let merchantFound = false;
-                _.map(storedCart.to, function(merchantOrderList, merchantId) {
-                    if (merchantId === to) {
-                        merchantFound = true;
-                        _.map(merchantOrderList, function(item, index) {
-                            if (item.id === orderItem.id) {
-                                storedCart.to[merchantId][index]['itemCount'] = storedCart.to[merchantId][index]['itemCount'] + 1;
-                                AsyncStorage.setItem('cart', JSON.stringify(storedCart));
-                            }
-                        })
+                let foundMerchantId = _.find(_.keys(storedCart.to), function(merchantId) { return merchantId === toMerchant } );
+
+                if (foundMerchantId) {
+                    let foundItemIndex = _.findIndex(storedCart.to[foundMerchantId], function(item) { return item.id === orderItem.id })
+                    if (foundItemIndex >= 0) {
+                        storedCart.to[toMerchant][foundItemIndex]['itemCount'] = storedCart.to[toMerchant][foundItemIndex]['itemCount'] + item.data.itemCount;
+                        AsyncStorage.setItem('cart', JSON.stringify(storedCart));
+                    } else {
+                        storedCart.to[toMerchant].push(orderItem);
+                        AsyncStorage.setItem('cart', JSON.stringify(storedCart));
                     }
-                })
-                
-                if (!merchantFound) {
-                    storedCart.to[to].push(orderItem);
+                } else {
+                    storedCart.to[toMerchant] = [orderItem];
                     AsyncStorage.setItem('cart', JSON.stringify(storedCart));
                 }
+
                 console.log(storedCart)
             }
         });

@@ -24,7 +24,7 @@ class AddToCartModal extends Component {
     }
 
     componentWillReceiveProps(newProps) {
-        console.log(this.props)
+        console.log("PROPS are received!!")
         this.setState({
             isModalVisible: newProps.visible,
             activeItem: newProps.activeItem,
@@ -96,7 +96,7 @@ const mapDispatchToProps = (dispatch) => (bindActionCreators(cartActionCreators,
 const mapStateToProps = state => {
     return {
         user: state.settings.user,
-        shouldHideAddToCartModal: state.cart.hideAddToCartModal,
+        shouldHideAddToCartModal: state.cart.shoulHideAddToCartModal,
         cart: state.cart
     }
 };

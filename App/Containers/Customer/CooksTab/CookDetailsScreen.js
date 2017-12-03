@@ -197,7 +197,9 @@ class CookDetailsScreen extends Component {
                                     color={ (this.state.islistMode) ? Colors.background : Colors.gray3}
                                     onPress={() => this.switchView('list')}
                                 /> */}
+                                <View>
                                 <Text style={{ color: (this.state.showMenu) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>MENU</Text>
+                                </View>
                             </TouchableWithoutFeedback>
                         </Col>
 
@@ -215,7 +217,9 @@ class CookDetailsScreen extends Component {
                                     color={ (this.state.isFullMode) ? Colors.background : Colors.gray3}
                                     onPress={() => this.switchView('full')}
                                 /> */}
+                                <View>
                                 <Text style={{ color: (this.state.showDetails) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>DETAILS</Text>
+                                </View>
                             </TouchableWithoutFeedback>
                         </Col>
                     </Grid>

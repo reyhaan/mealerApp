@@ -74,6 +74,23 @@ export default StyleSheet.create({
       height: (Platform.OS === 'ios') ? 0 : 0,
     },
     elevation: 4
+  },
+
+  headerRightButton: { 
+    marginLeft: 10, 
+    fontSize: 12, 
+    color: Colors.snow, 
+    alignSelf: 'center', 
+    textAlignVertical: 'center' 
+  },
+
+  headerTitle: { 
+    paddingLeft: 10, 
+    fontWeight: 'bold', 
+    fontSize: 14, 
+    color: Colors.snow, 
+    alignSelf: 'center', 
+    textAlignVertical: 'center' 
   }
 
 })

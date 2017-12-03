@@ -10,7 +10,8 @@ import {Header, Avatar, Icon} from 'react-native-elements'
 import { AddToCartButton } from './index';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { customerActionCreators } from '../Redux/Customer/CustomerActions'
+import { cartActionCreators } from '../Redux/Cart/CartActions'
+import { Constants } from '../Utils/Constants'
 
 class AddToCartModal extends Component {
     constructor(props) {
@@ -37,12 +38,14 @@ class AddToCartModal extends Component {
     }
 
     addToCartButtonCallback = (itemCount) => {
-        let order = {
+        let orderItem = {
             from: this.props.user.uid,
             to: this.state.activeMerchant.uid,
-            item: this.state.activeItem
+            item: this.state.activeItem,
+            itemCount: itemCount,
+            status: Constants.orderStatus.new
         }
-        this.props.addToCart(order)
+        this.props.addToCart(orderItem)
     }
 
     render() {
@@ -88,7 +91,7 @@ class AddToCartModal extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(customerActionCreators, dispatch));
+const mapDispatchToProps = (dispatch) => (bindActionCreators(cartActionCreators, dispatch));
 const mapStateToProps = state => {
     return {
         user: state.settings.user,

@@ -16,7 +16,7 @@ customerEffects.fetchCooks = function* () {
     }
 };
 
-customerEffects.addToCart = function* (order) {
+customerEffects.addToOrders = function* (order) {
     try {
         const order = {
             from: order.data.from,

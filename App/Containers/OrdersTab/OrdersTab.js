@@ -6,6 +6,7 @@ import { IndividualOrderList } from '../../Components'
 import { Colors, Metrics } from '../../Themes'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import { Icon, Badge, List, ListItem } from 'react-native-elements'
+import authenticationService from '../../Services/authentication-service'
 
 // Styles
 const styles = OrdersTabStyle;
@@ -45,8 +46,23 @@ class OrdersTab extends Component {
     }
   }
 
-  componentDidMount = () => {
-    console.log(this.props.user);
+  componentDidMount = async () => {
+    let currentUser = await authenticationService.currentUser();
+    this._setCurrentUserType(currentUser.type)
+  }
+
+  _setCurrentUserType = (userType) => {
+    if (userType === 'customer') {
+      this.setState({
+        isMerchant: false,
+        isCustomer: true
+      })
+    } else {
+      this.setState({
+        isMerchant: true,
+        isCustomer: false
+      })
+    }
   }
 
   _showDropdown = () => {
@@ -83,6 +99,21 @@ class OrdersTab extends Component {
 
         break;
     }
+  }
+
+  _renderCustomerOrder = () => {
+
+  }
+
+  _renderMerchantOrders = () => {
+    return (
+      <Col>
+        <IndividualOrderList></IndividualOrderList>
+        <IndividualOrderList></IndividualOrderList>
+        <IndividualOrderList></IndividualOrderList>
+        <IndividualOrderList></IndividualOrderList>
+      </Col>
+    );
   }
 
 
@@ -134,7 +165,7 @@ class OrdersTab extends Component {
                         value={3}
                         textStyle={{ color: Colors.background, fontWeight: 'bold', fontSize: 16 }}
                       />
-                      <Text style={{ paddingLeft: 10, fontWeight: 'bold', fontSize: 14, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }} >{ this.state.activeFilter.name.toUpperCase() }</Text>
+                      <Text style={styles.headerTitle} >{ this.state.activeFilter.name.toUpperCase() }</Text>
                     </Row>
                   }
 
@@ -147,7 +178,7 @@ class OrdersTab extends Component {
                         type='font-awesome'
                         onPress={() => {}}
                       />
-                      <Text style={{ paddingLeft: 10, fontWeight: 'bold', fontSize: 14, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }} >YOUR ORDER</Text>
+                      <Text style={styles.headerTitle} >YOUR ORDER</Text>
                     </Row>
                   }
                 </Col>
@@ -167,7 +198,7 @@ class OrdersTab extends Component {
                             type='font-awesome'
                             onPress={() => {}}
                           />
-                          <Text style={{ marginLeft: 10, fontSize: 12, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }}>FILTER</Text>
+                          <Text style={styles.headerRightButton}>FILTER</Text>
                         </Row>
                       }
 
@@ -180,7 +211,7 @@ class OrdersTab extends Component {
                             type='font-awesome'
                             onPress={() => {}}
                           />
-                          <Text style={{ marginLeft: 10, fontSize: 12, color: Colors.snow, alignSelf: 'center', textAlignVertical: 'center' }}>HISTORY</Text>
+                          <Text style={styles.headerRightButton}>HISTORY</Text>
                         </Row>
                       }
                     </TouchableOpacity>
@@ -198,10 +229,18 @@ class OrdersTab extends Component {
           {/* padding for scrollable list */}
           <View style={{ height: 80, backgroundColor: Colors.cloud }}></View>
           
-            <IndividualOrderList></IndividualOrderList>
-            <IndividualOrderList></IndividualOrderList>
-            <IndividualOrderList></IndividualOrderList>
-            <IndividualOrderList></IndividualOrderList>
+          {this.state.isMerchant &&
+            <Col>
+              {this._renderMerchantOrders()}
+            </Col>
+          }
+
+          {this.state.isCustomer &&
+            <Col>
+              {this._renderCustomerOrder()}
+            </Col>
+          }
+
 
         </ScrollView>
 

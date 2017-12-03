@@ -5,7 +5,8 @@ import CartSaga from './CartSaga';
 /******************************* ACTIONS *************************************/
 export const cartActions = {
     ADD_TO_CART: "ADD_TO_CART",
-    ADD_TO_CART_SUCCESSFUL: "ADD_TO_CART_SUCCESSFUL"
+    ADD_TO_CART_SUCCESSFUL: "ADD_TO_CART_SUCCESSFUL",
+    HIDE_ADD_TO_CART_MODAL: "HIDE_ADD_TO_CART_MODAL"
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -14,7 +15,8 @@ function createAction(type, data) {
 }
 export const cartActionCreators = {
     addToCart: (data)=> createAction(cartActions.ADD_TO_CART, data),
-    addToCartSuccessful: (data)=> createAction(cartActions.ADD_TO_CART_SUCCESSFUL, data)
+    addToCartSuccessful: (data)=> createAction(cartActions.ADD_TO_CART_SUCCESSFUL, data),
+    hideAddToCartModal: (data)=> createAction(cartActions.HIDE_ADD_TO_CART_MODAL, data)
 };
 
 /******************************* SAGA WATCHERS *************************************/

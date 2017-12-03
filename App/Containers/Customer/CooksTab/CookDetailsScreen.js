@@ -6,10 +6,12 @@ import {Icon} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../../Themes';
 import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
+import { cartActionCreators } from '../../../Redux/Cart/CartActions'
 import {bindActionCreators} from 'redux';
 import {UserProfileHeader, AddToCartModal} from '../../../Components/index'
 import { NavigationActions } from 'react-navigation'
 import _ from 'lodash'
+import { cartActions } from '../../../Redux/Cart/CartActions';
 
 class CookDetailsScreen extends Component {
     constructor(props) {
@@ -40,10 +42,14 @@ class CookDetailsScreen extends Component {
             })
         }
     }
-    
-    _showModal = () => this.setState({ isModalVisible: true });
 
-    _hideModal = () => this.setState({ isModalVisible: false });
+    _showModal = () => {
+        this.props.hideAddToCartModal(false);
+    }
+
+    _hideModal = () => {
+        this.props.hideAddToCartModal(true);
+    }
     
     addMenuItemButton = () => {
         return (
@@ -67,13 +73,14 @@ class CookDetailsScreen extends Component {
     onPress = (mode, activeItem) => {
         switch(mode) {
             case 'list':
-                this.setState({
-                    activeItem: activeItem
-                });
-                this._showModal();
-                break;
+            this.setState({
+                activeItem: activeItem
+            });
+            this._showModal();
+            break;
             // TODO: made 2 cases because I want to apply transitions instead of dialog box
             case 'full':
+                // console.log(this.state)
                 this.setState({
                     activeItem: activeItem
                 });
@@ -147,15 +154,13 @@ class CookDetailsScreen extends Component {
             case 'menu':
                 this.setState({
                     showMenu: true,
-                    showDetails: false,
-                    isModalVisible: false
+                    showDetails: false
                 })
                 break;
             case 'details':
                 this.setState({
                     showMenu: false,
-                    showDetails: true,
-                    isModalVisible: false
+                    showDetails: true
                 })
                 break;
         }
@@ -174,7 +179,7 @@ class CookDetailsScreen extends Component {
         return (
             <ScrollView style={{flex: 1,backgroundColor: '#fff'}}>
 
-                <AddToCartModal visible={this.state.isModalVisible} activeItem={this.state.activeItem} activeMerchant={this.state.activeMerchant} ></AddToCartModal>
+                <AddToCartModal visible={!this.props.shouldHideAddToCartModal} activeItem={this.state.activeItem} activeMerchant={this.state.activeMerchant} ></AddToCartModal>
 
                 {/* <LoadingSpinner show={!this.props.menu.length}/> */}
 
@@ -192,13 +197,8 @@ class CookDetailsScreen extends Component {
                                 justifyContent: 'center' 
                             }}>
                             <TouchableWithoutFeedback onPress={() => this.switchView('menu')}>
-                                {/* <Icon
-                                    name={'view-list'}
-                                    color={ (this.state.islistMode) ? Colors.background : Colors.gray3}
-                                    onPress={() => this.switchView('list')}
-                                /> */}
                                 <View>
-                                <Text style={{ color: (this.state.showMenu) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>MENU</Text>
+                                    <Text style={{ color: (this.state.showMenu) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>MENU</Text>
                                 </View>
                             </TouchableWithoutFeedback>
                         </Col>
@@ -212,13 +212,8 @@ class CookDetailsScreen extends Component {
                                 justifyContent: 'center' 
                             }} >
                             <TouchableWithoutFeedback onPress={() => this.switchView('details')}>
-                                {/* <Icon
-                                    name={'view-stream'}
-                                    color={ (this.state.isFullMode) ? Colors.background : Colors.gray3}
-                                    onPress={() => this.switchView('full')}
-                                /> */}
                                 <View>
-                                <Text style={{ color: (this.state.showDetails) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>DETAILS</Text>
+                                    <Text style={{ color: (this.state.showDetails) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>DETAILS</Text>
                                 </View>
                             </TouchableWithoutFeedback>
                         </Col>
@@ -273,10 +268,11 @@ const mapStateToProps = (state) => {
     return {
         merchant:state.merchant,
         menu: state.menu,
-        auth: state.auth
+        auth: state.auth,
+        shouldHideAddToCartModal: state.cart.shouldHideAddToCartModal === undefined ? true : state.cart.shouldHideAddToCartModal
     }
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(merchantActionCreators, dispatch);
+    return bindActionCreators(Object.assign({}, merchantActionCreators, cartActionCreators), dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CookDetailsScreen)

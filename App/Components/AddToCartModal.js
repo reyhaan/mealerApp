@@ -95,7 +95,8 @@ const mapDispatchToProps = (dispatch) => (bindActionCreators(cartActionCreators,
 const mapStateToProps = state => {
     return {
         user: state.settings.user,
-        order: state.cart ? state.cart : ''
+        shouldHideAddToCartModal: state.cart.shouldHideAddToCartModal,
+        cart: state.cart
     }
 };
 

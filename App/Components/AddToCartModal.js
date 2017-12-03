@@ -32,6 +32,7 @@ class AddToCartModal extends Component {
     }
 
     _hideModal = () => {
+        this.props.hideAddToCartModal(true)
         this.setState({
             isModalVisible: false
         })

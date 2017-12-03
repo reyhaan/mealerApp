@@ -269,7 +269,7 @@ const mapStateToProps = (state) => {
         merchant:state.merchant,
         menu: state.menu,
         auth: state.auth,
-        shouldHideAddToCartModal: state.cart.shoulHideAddToCartModal
+        shouldHideAddToCartModal: state.cart.shouldHideAddToCartModal === undefined ? true : state.cart.shouldHideAddToCartModal
     }
 };
 const mapDispatchToProps = (dispatch) => {

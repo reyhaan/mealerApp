@@ -5,6 +5,8 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Colors, Fonts, Images } from '../Themes'
 import styles from './Styles/CustomerCartScreenStyle'
 import cartService from '../Services/cart-service'
+import _ from 'lodash'
+import { merchant } from '../Redux/Merchant/MerchantReducers';
 
 export default class CustomerCartScreen extends Component {
 	constructor (props) {
@@ -56,7 +58,16 @@ export default class CustomerCartScreen extends Component {
 		this.setState({
 			cart: cart
 		})
-		console.log(this.state.cart)
+
+		let merchantList = this.state.cart.to;
+
+		let itemListByEachMerchant = _.values(merchantList);
+
+		this.setState({
+			merchantDataSourceFromCart: itemListByEachMerchant
+		})
+
+		console.log(this.state.merchantDataSourceFromCart)
 	}
 
 	_calculateTotalCost = () => {
@@ -89,7 +100,7 @@ export default class CustomerCartScreen extends Component {
               <Col style={{ width: 80 }}>
                   <Row style={{ height: 20, flex: 1, flexDirection: 'column', alignItems: 'center'}}>
                     <Text style={styles.itemCost}>$ {rowData.itemCost}
-                      <Text style={{ color: Colors.gray, fontSize: 12 }}> x {rowData.quantity}</Text>
+                      <Text style={{ color: Colors.gray, fontSize: 12 }}> x {rowData.itemCount}</Text>
                     </Text>
                   </Row>
               </Col>
@@ -97,6 +108,52 @@ export default class CustomerCartScreen extends Component {
         </View>
       </View>
     )
+	}
+
+	_renderIndividualMerchantRow = (rowData) => {
+		return(
+			<Col style={{ paddingBottom: 30, paddingTop: 0 }}>
+			
+				<Row style={{ paddingLeft: 10, paddingTop: 15, paddingBottom: 10 }}>
+					<Col size={1}>
+						<Text style={{ color: Colors.gray3 }} >CHEF:
+							<Text style={{ fontSize: 14, color: Colors.gray3 }}> { this.orderObject.customerName.toUpperCase() }</Text>
+						</Text>
+					</Col>
+		
+					<Col style={{ width: 80, alignItems:'flex-end', paddingRight: 20 }}>
+						<TouchableOpacity>
+							<View>
+								<Text style={{ color: Colors.background, fontWeight: 'bold', fontSize: 12 }} >DETAILS</Text>
+							</View>
+						</TouchableOpacity>
+					</Col>
+				</Row>
+		
+				<Row size={1} style={styles.listContainer}>
+					<FlatList
+						contentContainerStyle={styles.listContent}
+						data={rowData}
+						renderItem={({item}) => this._renderRow(item)}
+					/> 
+				</Row>
+		
+				<Row>
+		
+					<Col size={2} style={{ paddingLeft: 10 }}>
+						
+					</Col>
+		
+					<Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20 }}>
+						<Text style={{ color: Colors.gray }}>Total:
+							<Text style={{ color: Colors.coal, fontWeight: 'bold' }}> $ {this._calculateTotalCost()}</Text>
+						</Text>
+					</Col>
+		
+				</Row>
+		
+			</Col>
+		)
 	}
 
   _getOrderStatus = () => {
@@ -117,49 +174,18 @@ export default class CustomerCartScreen extends Component {
       default:
         return (<Text style={{ color: Colors.darkOrange, fontWeight: 'bold', fontSize: 12 }}>: CONFIRMED</Text>)
     }
-  }
+	}
 
   render () {
     let { isMerchant, isCustomer } = this.state
     return (
       <View style={styles.container}>
         <Grid>
-					<Col style={{ paddingBottom: 30, paddingTop: 0 }}>
-
-            <Row style={{ paddingLeft: 10, paddingBottom: 15, paddingTop: 15, backgroundColor: Colors.cloud }}>
-							<Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.gray }}>Tuesday, Oct 12th</Text>
-						</Row>
-
-						<Row style={{ paddingLeft: 10, paddingTop: 15, paddingBottom: 10 }}>
-							<Text style={{ color: Colors.gray }} >From chef
-								<Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.background }}> { this.orderObject.customerName }</Text>
-							</Text>
-						</Row>
-
-
-						<Row size={1} style={styles.listContainer}>
-							<FlatList
-								contentContainerStyle={styles.listContent}
-								data={this.state.dataSource}
-                renderItem={({item}) => this._renderRow(item)}
-							/> 
-						</Row>
-
-						<Row>
-
-							<Col size={2} style={{ paddingLeft: 10 }}>
-								
-							</Col>
-
-              <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20 }}>
-                <Text style={{ color: Colors.gray }}>Total:
-                  <Text style={{ color: Colors.coal, fontWeight: 'bold' }}> $ {this._calculateTotalCost()}</Text>
-                </Text>
-              </Col>
-
-						</Row>
-
-					</Col>
+					<FlatList
+						contentContainerStyle={styles.listContent}
+						data={this.state.merchantDataSourceFromCart}
+						renderItem={({item}) => this._renderIndividualMerchantRow(item)}
+					/>
         </Grid>
       </View>
     )

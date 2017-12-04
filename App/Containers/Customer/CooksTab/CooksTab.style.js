@@ -11,9 +11,9 @@ export default StyleSheet.create({
     backgroundColor: Colors.snow,
     padding: 15,
     height: 75,
-    shadowColor: '#000',
-    shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
-    shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+    shadowColor: Colors.charcoal,
+    shadowOpacity: (Platform.OS === 'ios') ? 0.4 : 0.4,
+    shadowRadius: (Platform.OS === 'ios') ? 2 : 2,
     shadowOffset: {
       height: (Platform.OS === 'ios') ? 0 : 0,
     },

@@ -1,10 +1,20 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet, Platform} from 'react-native'
 import {Colors, Metrics} from '../../Themes/index'
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.white
+    },
+    headerOuterContainer: {
+        shadowColor: '#000',
+        shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
+        shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+        shadowOffset: {
+          height: (Platform.OS === 'ios') ? 0 : 0,
+        },
+        elevation: 4,
+        zIndex: 15
     },
     listContainer: {
         borderBottomWidth: 0,
@@ -13,6 +23,7 @@ export default StyleSheet.create({
         marginTop: 0,
         paddingLeft: 5,
         paddingRight: 5,
+        zIndex: 1
     },
     listWrapper: {
     },

@@ -20,21 +20,22 @@ export default StyleSheet.create({
     height: 95, 
     width: Metrics.screenWidth, 
     zIndex: 10, 
-    backgroundColor: Colors.clear,
-    shadowColor: '#000',
-    shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
-    shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
-    shadowOffset: {
-      height: (Platform.OS === 'ios') ? 0 : 0,
-    },
-    elevation: 4
+    backgroundColor: Colors.clear
   },
 
   headerButtonContainer: {
     width: Metrics.screenWidth, 
     backgroundColor: Colors.snow, 
     height: 80, 
-    paddingTop: Metrics.doubleBaseMargin + 5
+    paddingTop: Metrics.doubleBaseMargin + 5,
+    shadowColor: '#000',
+    shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
+    shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+    shadowOffset: {
+      height: (Platform.OS === 'ios') ? 0 : 0,
+    },
+    elevation: 4,
+    zIndex: 14
   },
   dropdownButtonContainer: {
     flex: 1,

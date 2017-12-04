@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   headerOuterContainer: {
     width: Metrics.screenWidth,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.snow,
     borderBottomWidth: 0,
     padding: 15,
     height: 75,
@@ -20,20 +20,28 @@ export default StyleSheet.create({
     height: 95, 
     width: Metrics.screenWidth, 
     zIndex: 10, 
-    backgroundColor: Colors.clear,
+    backgroundColor: Colors.clear
   },
 
   headerButtonContainer: {
     width: Metrics.screenWidth, 
-    backgroundColor: Colors.background, 
+    backgroundColor: Colors.snow, 
     height: 80, 
-    paddingTop: Metrics.doubleBaseMargin + 5
+    paddingTop: Metrics.doubleBaseMargin + 5,
+    shadowColor: '#000',
+    shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
+    shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+    shadowOffset: {
+      height: (Platform.OS === 'ios') ? 0 : 0,
+    },
+    elevation: 4,
+    zIndex: 14
   },
   dropdownButtonContainer: {
     flex: 1,
     height: 55,
     padding: 10,
-    backgroundColor: Colors.background
+    backgroundColor: Colors.snow
   },
   countTag: {
     height: 50, 
@@ -79,7 +87,7 @@ export default StyleSheet.create({
   headerRightButton: { 
     marginLeft: 10, 
     fontSize: 12, 
-    color: Colors.snow, 
+    color: Colors.background, 
     alignSelf: 'center', 
     textAlignVertical: 'center' 
   },
@@ -88,7 +96,7 @@ export default StyleSheet.create({
     paddingLeft: 10, 
     fontWeight: 'bold', 
     fontSize: 14, 
-    color: Colors.snow, 
+    color: Colors.background, 
     alignSelf: 'center', 
     textAlignVertical: 'center' 
   }

@@ -5,6 +5,7 @@ import IndividualOrderList from './IndividualOrderList'
 import UserProfileHeader from './UserProfileHeader'
 import AddToCartModal from './AddToCartModal'
 import AddToCartButton from './AddToCartButton'
+import CustomerCartScreen from './CustomerCartScreen'
 
 export {
     Header,
@@ -13,5 +14,6 @@ export {
     IndividualOrderList,
     UserProfileHeader,
     AddToCartModal,
-    AddToCartButton
+    AddToCartButton,
+    CustomerCartScreen
 };

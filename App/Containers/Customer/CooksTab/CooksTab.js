@@ -99,10 +99,10 @@ class CooksTab extends Component {
     return (
       <View style = {styles.container}>
         <Header
-          leftComponent = {{ icon: 'filter', color: '#fff', type: 'font-awesome' }}
-          centerComponent = {{ text: 'COOKS', style: { color: '#fff', fontWeight: 'bold' } }}
-          rightComponent = {{ icon: 'search', color: '#fff' }}
-          backgroundColor = {Colors.background}
+          leftComponent = {{ icon: 'filter', color: Colors.background, type: 'font-awesome' }}
+          centerComponent = {{ text: 'COOKS', style: { color: Colors.background, fontWeight: 'bold' } }}
+          rightComponent = {{ icon: 'search', color: Colors.background }}
+          backgroundColor = {Colors.snow}
           outerContainerStyles = { styles.headerOuterContainer }
         />
 

@@ -11,6 +11,10 @@ export function cart(state=initialState, action){
             return Object.assign({}, state, {
                 shouldHideAddToCartModal: action.data
             });
+        case cartActions.CART_UPDATE_SUCCESSFUL:
+            return Object.assign({}, state, {
+                cart: action.data
+            });
         default:
             return state
     }

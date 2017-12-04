@@ -62,4 +62,12 @@ cartEffects.addToCart = function* (item) {
     }
 }
 
+cartEffects.removeFromCart = function* () {
+
+}
+
+cartEffects.updateItemCount = function* () {
+    
+}
+
 export default cartEffects;

@@ -7,7 +7,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Colors, Fonts, Images } from '../Themes'
 import styles from './Styles/IndividualOrderListStyle'
 
-export default class MlImagePicker extends Component {
+export default class IndividualOrderList extends Component {
 	constructor (props) {
 		super(props)
 

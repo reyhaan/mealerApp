@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import { Colors, Metrics, Fonts } from '../../../Themes/index'
 
 export default StyleSheet.create({
@@ -8,11 +8,17 @@ export default StyleSheet.create({
   },
   headerOuterContainer: {
     width: Metrics.screenWidth,
-    backgroundColor: Colors.background,
-    borderBottomColor: Colors.background,
-    borderBottomWidth: 1,
+    backgroundColor: Colors.snow,
     padding: 15,
     height: 75,
+    shadowColor: (Platform.OS === 'ios') ? Colors.charcoal : Colors.snow,
+    shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
+    shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+    shadowOffset: {
+      height: (Platform.OS === 'ios') ? 0 : 0,
+    },
+    elevation: 4,
+    zIndex: 10
   },
   row: {
     flex: 1,

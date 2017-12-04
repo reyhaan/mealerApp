@@ -20,8 +20,8 @@ class SettingsTab extends Component {
         return (
             <ScrollView style={styles.container}>
                 <Header
-                    centerComponent={{text: 'SETTINGS', style: {color: '#fff', fontWeight: 'bold'}}}
-                    backgroundColor={Colors.background}
+                    centerComponent={{text: 'SETTINGS', style: {color: Colors.background, fontWeight: 'bold'}}}
+                    backgroundColor={Colors.snow}
                     outerContainerStyles={styles.headerOuterContainer}/>
 
                 <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>

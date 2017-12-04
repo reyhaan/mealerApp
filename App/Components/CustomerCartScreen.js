@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-// import PropTypes from 'prop-types';
 import { View, Text, Image, TouchableOpacity, ListView, FlatList } from 'react-native'
 import { Header, Icon, Button, Avatar, ButtonGroup } from 'react-native-elements'
 import { Col, Row, Grid } from 'react-native-easy-grid';
-
 import { Colors, Fonts, Images } from '../Themes'
-import styles from './Styles/IndividualOrderListStyle'
+import styles from './Styles/CustomerCartScreenStyle'
+import cartService from '../Services/cart-service'
 
-export default class IndividualOrderList extends Component {
+export default class CustomerCartScreen extends Component {
 	constructor (props) {
 		super(props)
 
@@ -52,6 +51,14 @@ export default class IndividualOrderList extends Component {
 
 	}
 
+	componentDidMount = async () => {
+		let cart = await cartService.getCart();
+		this.setState({
+			cart: cart
+		})
+		console.log(this.state.cart)
+	}
+
 	_calculateTotalCost = () => {
 		let total = 0;
 		for(let i = 0; i < this.orderObject.orders.length; i++) {
@@ -75,12 +82,12 @@ export default class IndividualOrderList extends Component {
                   <Row style={{ height: 20}}>
                       <Text style={[styles.boldLabel, {color: Colors.coal}]}>{rowData.itemName}</Text>
                   </Row>
-                  <Row style={{ height: 26 }}>
-                      <Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={2} >{rowData.itemDetail}</Text>
+                  <Row style={{ height: 26, paddingRight: 20 }}>
+                      <Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={1} >{rowData.itemDetail}</Text>
                   </Row>
               </Col>
               <Col style={{ width: 80 }}>
-                  <Row style={{ height: 20, flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                  <Row style={{ height: 20, flex: 1, flexDirection: 'column', alignItems: 'center'}}>
                     <Text style={styles.itemCost}>$ {rowData.itemCost}
                       <Text style={{ color: Colors.gray, fontSize: 12 }}> x {rowData.quantity}</Text>
                     </Text>
@@ -91,29 +98,6 @@ export default class IndividualOrderList extends Component {
       </View>
     )
 	}
-
-  _updateIndex = (index) => {
-    this.setState({index})
-  }
-
-  _setButtonColor = () => {
-    switch (this.state.index) {
-      case 0:
-        return Colors.error
-        break;
-      
-      case 1:
-        return Colors.darkOrange
-        break;
-      
-      case 2:
-        return Colors.green
-        break;
-      
-      default:
-        return Colors.snow
-    }
-  }
 
   _getOrderStatus = () => {
     let status = 'CONFIRMED'
@@ -146,21 +130,12 @@ export default class IndividualOrderList extends Component {
 							<Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.gray }}>Tuesday, Oct 12th</Text>
 						</Row>
 
-            { isCustomer &&
-              <Row style={{ paddingLeft: 10, paddingTop: 15, paddingBottom: 10 }}>
-                <Text style={{ color: Colors.gray }} >From
-                  <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.background }}> { this.orderObject.customerName }</Text>
-                </Text>
-              </Row>
-            }
+						<Row style={{ paddingLeft: 10, paddingTop: 15, paddingBottom: 10 }}>
+							<Text style={{ color: Colors.gray }} >From chef
+								<Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.background }}> { this.orderObject.customerName }</Text>
+							</Text>
+						</Row>
 
-            { isMerchant &&
-              <Row style={{ paddingLeft: 10, paddingTop: 10, paddingBottom: 10 }}>
-                <Text style={{ color: Colors.gray }} >From
-                  <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.coal }}> { this.orderObject.customerName }</Text>
-                </Text>
-              </Row>
-            }
 
 						<Row size={1} style={styles.listContainer}>
 							<FlatList
@@ -172,34 +147,16 @@ export default class IndividualOrderList extends Component {
 
 						<Row>
 
-              {isMerchant &&
-                <Col size={2}>
-                  <ButtonGroup
-                    selectedBackgroundColor={this._setButtonColor()}
-                    onPress={this._updateIndex}
-                    selectedIndex={this.state.index}
-                    buttons={['CANCEL', 'CONFIRM', 'DELIVERED']}
-                    containerStyle={{height: 30, borderWidth: 0, borderRadius: 2, backgroundColor: Colors.backgroundDarker}}
-                    containerBorderRadius={2}
-                    textStyle={{ fontSize: 10, color: Colors.snow }}
-                    selectedTextStyle={{ color: Colors.snow }}
-                    innerBorderStyle={{ color: Colors.background }} />
-                </Col>
-              }
-
-              {isCustomer &&
-                <Col size={2} style={{ paddingLeft: 10 }}>
-                  <Text style={{ color: Colors.gray }}>Status
-                    <Text style={{ color: Colors.snow, fontWeight: 'bold' }}>: {this._getOrderStatus()}</Text>
-                  </Text>
-                </Col>
-              }
+							<Col size={2} style={{ paddingLeft: 10 }}>
+								
+							</Col>
 
               <Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20 }}>
                 <Text style={{ color: Colors.gray }}>Total:
                   <Text style={{ color: Colors.coal, fontWeight: 'bold' }}> $ {this._calculateTotalCost()}</Text>
                 </Text>
               </Col>
+
 						</Row>
 
 					</Col>

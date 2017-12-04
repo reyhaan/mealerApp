@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, View, Text, Dimensions, StatusBar, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import OrdersTabStyle from './OrdersTab.style'
-import { IndividualOrderList } from '../../Components'
+import { IndividualOrderList, CustomerCartScreen } from '../../Components'
 import { Colors, Metrics } from '../../Themes'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import { Icon, Badge, List, ListItem } from 'react-native-elements'
@@ -102,7 +102,11 @@ class OrdersTab extends Component {
   }
 
   _renderCustomerOrder = () => {
-
+    return (
+      <Col>
+        <CustomerCartScreen></CustomerCartScreen>
+      </Col>
+    );
   }
 
   _renderMerchantOrders = () => {
@@ -120,6 +124,8 @@ class OrdersTab extends Component {
   render () {
     return (
       <View style={styles.container}>
+      
+        <StatusBar barStyle='dark-content'/>
 
         {/* Drop for filter options */}
         { this.state.showDropdown &&
@@ -174,18 +180,18 @@ class OrdersTab extends Component {
                       <Icon
                         size={16}
                         name={'cutlery'}
-                        color={Colors.snow}
+                        color={Colors.background}
                         type='font-awesome'
                         onPress={() => {}}
                       />
-                      <Text style={styles.headerTitle} >YOUR ORDER</Text>
+                      <Text style={styles.headerTitle} >MY CART</Text>
                     </Row>
                   }
                 </Col>
 
                 <Col style={{ width: (this.state.isMerchant) ? 80 : 90, flexDirection: 'row', paddingRight: 5 }}>
                   <Col style={{ width: 5, marginRight: (this.state.isMerchant) ? 10 : 0, alignItems: 'flex-start', justifyContent: 'center' }}>
-                    <View style={{ width: 1, backgroundColor: Colors.snow, height: 20, marginLeft: (this.state.isMerchant) ? 5 : 0 }}></View>
+                    <View style={{ width: 1, backgroundColor: Colors.background, height: 20, marginLeft: (this.state.isMerchant) ? 5 : 0 }}></View>
                   </Col>
                   <Col style={{ alignItems:'flex-end', justifyContent: 'center' }}>
                     <TouchableOpacity onPress={() => {this._showDropdown()}}>
@@ -205,13 +211,12 @@ class OrdersTab extends Component {
                       { this.state.isCustomer &&
                         <Row>
                           <Icon
-                            size={14}
-                            name={'history'}
-                            color={Colors.snow}
-                            type='font-awesome'
+                            size={16}
+                            name={'archive'}
+                            color={Colors.background}
                             onPress={() => {}}
                           />
-                          <Text style={styles.headerRightButton}>HISTORY</Text>
+                          <Text style={styles.headerRightButton}>ORDERS</Text>
                         </Row>
                       }
                     </TouchableOpacity>

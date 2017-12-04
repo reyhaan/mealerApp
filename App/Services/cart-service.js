@@ -1,24 +1,17 @@
 import db from '../Config/database'
+import {AsyncStorage} from 'react-native';
 
 let cartService = {};
 
-/**
- * Query Cooks
- */
-cartService.fetchCooks = async () => {
-    try {
-        const cooks = [];
-        const snapshot = await db.user().orderByChild("type").equalTo("merchant").once("value");
-        snapshot.forEach(function (childSnapshot) {
-            let id = childSnapshot.key;
-            let data = childSnapshot.val();
-            cooks.push({id, ...data});
-        });
-        return cooks;
-    } catch (error) {
-        return {error};
-    }
+// Get the current signed in user information
+cartService.getCart = () => {
+    return new Promise((resolve, reject) => {
+        AsyncStorage.getItem("cart").then((value) => {
+            resolve(JSON.parse(value));
+        }).catch(error =>{
+            reject (error);
+        })
+    });
 };
-
 
 export default cartService;

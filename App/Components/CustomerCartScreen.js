@@ -53,7 +53,7 @@ export default class CustomerCartScreen extends Component {
 
 	}
 
-	componentDidMount = async () => {
+	componentWillReceiveProps = async () => {
 		let cart = await cartService.getCart();
 		this.setState({
 			cart: cart

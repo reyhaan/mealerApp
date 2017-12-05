@@ -133,10 +133,6 @@ class EditMenuScreen extends Component {
                             justifyContent: 'center',
                             marginTop: 10
                         }}>
-                            {/*<AppImagePicker style={{maxHeight: 140, height: 140}} callback={(url) => {*/}
-                            {/*console.log(url)*/}
-                            {/*}}/>*/}
-
                             <Image source={image} style={{width: 200, height: 200}}/>
 
                             <Button iconLeft bordered small light

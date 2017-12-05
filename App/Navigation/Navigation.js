@@ -7,7 +7,7 @@ import {
     EditMenuScreen,
     UserInfoChangeScreen,
     CookDetailsScreen
-} from '../Containers'
+} from '../Screens'
 
 // Manifest of possible screens
 export default StackNavigator({

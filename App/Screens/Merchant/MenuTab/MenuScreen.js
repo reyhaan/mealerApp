@@ -13,13 +13,13 @@ import authenticationService from '../../../Services/authentication-service'
 class MenuTab extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            refreshing: false
+        }
     }
 
     async componentDidMount() {
-        const currentUser = await authenticationService.currentUser();
-        if (currentUser) {
-            this.props.fetchMerchantMenu(currentUser.uid);
-        }
+        await this.fetchMenu();
     }
 
     addMenuItemButton = () => {
@@ -37,6 +37,14 @@ class MenuTab extends Component {
 
     viewItem = (item) => {
         this.props.navigation.navigate("EditMenuScreen", {item})
+    };
+
+    fetchMenu = async () => {
+        console.log('fetch menu');
+        const currentUser = await authenticationService.currentUser();
+        if (currentUser) {
+            this.props.fetchMerchantMenu(currentUser.uid);
+        }
     };
 
     _renderItem = (data) => {
@@ -75,14 +83,15 @@ class MenuTab extends Component {
                     rightComponent={this.addMenuItemButton()}
                     centerComponent={{text: 'MENU', style: {color: '#fff', fontWeight: 'bold'}}}
                     backgroundColor={Colors.background}
-                    outerContainerStyles={style.headerOuterContainer}
-                />
+                    outerContainerStyles={style.headerOuterContainer}/>
 
-                <LoadingSpinner show={this.props.merchant.showActivityIndicator && menus.length === 0}/>
+                <LoadingSpinner show={this.props.merchant.showActivityIndicator && menus.length === 0 || this.state.refreshing}/>
 
                 <FlatList
                     style={{backgroundColor: style.white}}
                     data={menus}
+                    refreshing={this.state.refreshing}
+                    onRefresh={() => this.fetchMenu()}
                     renderItem={this._renderItem}/>
             </View>
         )

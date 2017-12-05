@@ -10,7 +10,7 @@ import {
     OrdersTab,
     SettingsTab,
     InfoTab,
-} from '../../Containers/index'
+} from '../../Screens/index'
 
 const customerTabsConfig = {
     One: {

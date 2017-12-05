@@ -249,6 +249,16 @@ class OrdersTab extends Component {
 
         </ScrollView>
 
+        <Row style={{ height: 45, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center' }}>
+          <TouchableOpacity>
+            <Row style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: Metrics.screenWidth }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CONFIRM ORDER:
+                <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}> $ 275</Text>
+              </Text>
+            </Row>
+          </TouchableOpacity>
+        </Row>
+
       </View>
     )
   }

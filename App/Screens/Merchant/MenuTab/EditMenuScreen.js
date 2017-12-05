@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Platform, KeyboardAvoidingView, TextInput, Text} from 'react-native'
+import {ScrollView, View, Platform, KeyboardAvoidingView, Text, Image, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Header, Icon,} from 'react-native-elements'
-import {Colors, Fonts, Metrics} from '../../../Themes'
+import {Colors, Fonts, Metrics, Images} from '../../../Themes'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {AppImagePicker} from '../../../Components';
 import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
 import styles from './EditMenuScreen.style'
 import {TextInputMask} from 'react-native-masked-text';
+import {ImagePicker} from 'expo';
 
 class EditMenuScreen extends Component {
     constructor(props) {
@@ -21,7 +21,8 @@ class EditMenuScreen extends Component {
             itemDetail: "",
             itemImage: "",
             itemCost: "",
-            id: ""
+            id: "",
+            base64img: null,
         }
     }
 
@@ -49,7 +50,7 @@ class EditMenuScreen extends Component {
 
     resetForm = () => {
         this.setState({
-            id:"",
+            id: "",
             itemName: "",
             itemCost: "",
             itemDetail: "",
@@ -58,12 +59,7 @@ class EditMenuScreen extends Component {
     };
 
     onMenuSubmit() {
-        let {itemName, itemCost, itemDetail, itemImage} = this.state;
-
-        //TODO: Fix, actually save the user image
-        itemImage = "https://res.cloudinary.com/twenty20/private_images/t_watermark-criss-cross-10/" +
-            "v1438133716000/photosp/ig-498695320661758884_396353171/stock-photo-food-soup-healthy-foods-health-recipe-vegan-food-and-drink-stew-ig-498695320661758884_396353171.jpg"
-
+        let {itemName, itemCost, itemDetail, itemImage, base64img} = this.state;
         if (itemName &&
             itemDetail &&
             itemImage &&
@@ -71,11 +67,10 @@ class EditMenuScreen extends Component {
             itemCost.slice(4, itemCost.length) > 0) {
             this.setState({
                 itemCost: itemCost,
-                itemImage: itemImage //TODO: Fix
             }, () => {
-                if (this.state.id){
+                if (this.state.id) {
                     this.props.updateMenu(this.state);
-                } else  {
+                } else {
                     this.props.createMenu(this.state);
                 }
                 this.props.navigation.dispatch(NavigationActions.back())
@@ -98,14 +93,32 @@ class EditMenuScreen extends Component {
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
                 color={Colors.snow}
                 size={40}
-                iconStyle={{marginTop: 30, marginLeft:-15}}
+                iconStyle={{marginTop: 30, marginLeft: -15}}
                 underlayColor={'transparent'}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
             />
         )
     };
 
+    _pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 0.1,
+            base64: true,
+        });
+
+        if (!result.cancelled) {
+            this.setState({base64img: result.base64, itemImage: result.uri});
+        }
+    };
+
     render() {
+        //Set the item image or show a placeholder
+        let image = this.state.itemImage ? {uri: this.state.itemImage} : Images.addImagePlaceHolder;
+
+        console.log(image)
+
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <ScrollView style={styles.container}>
@@ -114,11 +127,20 @@ class EditMenuScreen extends Component {
                             backgroundColor={Colors.background}
                     />
                     <View style={styles.formContainer}>
-                        <View style={{maxHeight: 140, height: 140}}>
-                            <AppImagePicker style={{maxHeight: 140, height: 140}} callback={(url) => {
-                                console.log(url)
-                            }}/>
-                        </View>
+                        <TouchableOpacity onPress={this._pickImage} style={{
+                            flex: 1,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginTop: 10
+                        }}>
+                            <Image source={image} style={{width: 200, height: 200}}/>
+
+                            <Button iconLeft bordered small light
+                                    style={{alignSelf: 'center', margin: 10}} onPress={this._pickImage}>
+                                <Icon style={{Left: 50}} name='upload' color={Colors.background} type='font-awesome'/>
+                                <Text style={{margin: 10}}>Upload</Text>
+                            </Button>
+                        </TouchableOpacity>
 
                         <Form>
                             <Item stackedLabel>
@@ -141,7 +163,7 @@ class EditMenuScreen extends Component {
                                     value={this.state.itemCost}
                                     onChangeText={(e) => this.formUpdate('itemCost', e)}
                                     style={{width: '100%', height: 50}}
-                                    placeholder="CAD$ 0.00" 
+                                    placeholder="CAD$ 0.00"
                                     keyboardType="numeric"
                                 />
                             </Item>
@@ -169,7 +191,7 @@ class EditMenuScreen extends Component {
 
                             <Col size={1} style={{marginRight: 10, marginLeft: 10}}>
                                 <Button block
-                                        style={{backgroundColor:Colors.green}}
+                                        style={{backgroundColor: Colors.green}}
                                         textStyle={{
                                             textAlign: 'center',
                                             fontFamily: Fonts.type.bold,

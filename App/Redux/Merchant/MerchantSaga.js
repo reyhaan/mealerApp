@@ -2,6 +2,7 @@ import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
 import merchantService from '../../Services/menu-service';
 import authentication from '../../Services/authentication-service';
+import imgService from '../../Services/image-service';
 import {merchantActionCreators} from './MerchantActions'
 
 const menuEffects = {};
@@ -36,8 +37,14 @@ menuEffects.createMenu = function* (menu) {
 
 menuEffects.updateMenu = function* (menu) {
     try {
-        yield put(merchantActionCreators.showActivityIndicator(true));
+        let {data} = menu;
         const user = yield call(authentication.currentUser);
+        if (data.base64img) {
+            let imageUrlName = data.itemName + user.uid;
+            data.itemImage = yield call(imgService.uploadBase64Image, imageUrlName, data.base64img);
+        }
+
+        yield put(merchantActionCreators.showActivityIndicator(true));
         yield call(merchantService.updateMenu, user.uid, menu.data);
         yield put(merchantActionCreators.fetchMerchantMenu(user.uid));
     }

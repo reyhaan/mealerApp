@@ -9,7 +9,7 @@ import {
     SettingsTab,
     InfoTab,
     MenuScreen
-} from '../../Containers/index'
+} from '../../Screens/index'
 
 const merchantTabsConfig = {
     One: {

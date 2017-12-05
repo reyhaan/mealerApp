@@ -80,7 +80,6 @@ class CookDetailsScreen extends Component {
             break;
             // TODO: made 2 cases because I want to apply transitions instead of dialog box
             case 'full':
-                // console.log(this.state)
                 this.setState({
                     activeItem: activeItem
                 });

@@ -11,41 +11,14 @@ import { merchant } from '../Redux/Merchant/MerchantReducers';
 export default class CustomerCartScreen extends Component {
 	constructor (props) {
 		super(props)
-
-    this.orders = [
-      {
-        itemName: "Chicken Biryani",
-        itemImage: Images.biryani,
-        itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-				itemCost: 6.99,
-        quantity: 2,
-        key: 1
-      },
-      {
-        itemName: "Chicken Biryani",
-        itemImage: Images.biryani,
-        itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-				itemCost: 6.99,
-        quantity: 1,
-        key: 2
-      },
-      {
-        itemName: "Chicken Biryani",
-        itemImage: Images.biryani,
-        itemDetail: "A famous dish from India, made with slowly cooking rice with spicy chicken.",
-				itemCost: 6.99,
-        quantity: 5,
-        key: 3
-      }
-		]
 		
 		this.orderObject = {
-			orders: this.orders,
+			// orders: this.orders,
 			customerName: "Mohammad Rehaan"
 		}
 
 		this.state = {
-        dataSource: this.orderObject.orders,
+        dataSource: '',
         index: 4,
         isMerchant: false,
         isCustomer: true
@@ -66,14 +39,12 @@ export default class CustomerCartScreen extends Component {
 		this.setState({
 			merchantDataSourceFromCart: itemListByEachMerchant
 		})
-
-		console.log(this.state.merchantDataSourceFromCart)
 	}
 
-	_calculateTotalCost = () => {
+	_calculateTotalCost = (rowData) => {
 		let total = 0;
-		for(let i = 0; i < this.orderObject.orders.length; i++) {
-			total += (this.orderObject.orders[i].itemCost * this.orderObject.orders[i].quantity)
+		for(let i = 0; i < rowData.length; i++) {
+			total += (rowData[i].itemCost * rowData[i].itemCount)
 		}
 		return total;
 	}
@@ -86,7 +57,7 @@ export default class CustomerCartScreen extends Component {
               <Col style={{ width: 60 }}>
                   <Avatar
                     medium
-                    source={rowData.itemImage}
+                    source={{uri: rowData.itemImage}}
                   />
               </Col>
               <Col>
@@ -146,7 +117,7 @@ export default class CustomerCartScreen extends Component {
 		
 					<Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20 }}>
 						<Text style={{ color: Colors.gray }}>Total:
-							<Text style={{ color: Colors.coal, fontWeight: 'bold' }}> $ {this._calculateTotalCost()}</Text>
+							<Text style={{ color: Colors.coal, fontWeight: 'bold' }}> $ {this._calculateTotalCost(rowData)}</Text>
 						</Text>
 					</Col>
 		

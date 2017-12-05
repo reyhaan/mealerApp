@@ -17,7 +17,7 @@ database.firebase = firebase;
 
 // user reference
 database.user = (id) => {
-    if (id){
+    if (id) {
         return firebase.database().ref('users').child(id);
     } else {
         return firebase.database().ref('users');
@@ -26,7 +26,7 @@ database.user = (id) => {
 
 // menus reference
 database.menus = (id) => {
-    if (id){
+    if (id) {
         return firebase.database().ref('menus').child(id);
     } else {
         return firebase.database().ref('menus');
@@ -35,7 +35,7 @@ database.menus = (id) => {
 
 // orders reference
 database.orders = (id) => {
-    if (id){
+    if (id) {
         return firebase.database().ref('orders').child(id);
     } else {
         return firebase.database().ref('orders');

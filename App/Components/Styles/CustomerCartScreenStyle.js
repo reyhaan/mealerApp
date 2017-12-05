@@ -3,30 +3,32 @@ import { Colors, Metrics, Fonts } from '../../Themes'
 
 export default StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: Colors.lightGray
   },
   listContainer: {
     flex: 1,
     backgroundColor: Colors.snow,
-    flexDirection: 'column',
-    // alignItems: 'center'
+    flexDirection: 'column'
   },
   row: {
     flex: 1,
     backgroundColor: Colors.clear,
     marginVertical: 0,
-    height: 80,
+    height: 100,
     paddingRight: 0,
     paddingLeft: 0,
     paddingBottom: 0,
-    paddingTop: 0
+    paddingTop: 0,
+    marginBottom: 0
   },
   rowInnerContainer: {
     flex: 1,
     backgroundColor: Colors.clear,
     borderRadius: 3,
     padding: 10,
-    paddingRight: 20
+    paddingRight: 20,
+    paddingLeft: 20
   },
   boldLabel: {
     fontWeight: 'bold',
@@ -41,9 +43,14 @@ export default StyleSheet.create({
   },
   itemCount: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: Fonts.type.bold,
     color: Colors.gray
+  },
+  itemModify: {
+    fontSize: 12,
+    color: Colors.background,
+    alignSelf: 'center'
   },
   label: {
     textAlign: 'center',
@@ -51,16 +58,16 @@ export default StyleSheet.create({
   },
   listContent: {
     marginTop: 0,
-    paddingBottom: 10
+    paddingBottom: 0
   },
   itemCountButton: { 
-    width: 30,
-    height: 32,
+    marginTop: 4,
+    width: 20,
+    height: 24,
     alignItems: 'center', 
     justifyContent: 'center', 
     borderColor: Colors.background, 
-    borderRadius: 15, 
-    borderWidth: 1,
-    backgroundColor: Colors.clear
+    borderRadius: 14, 
+    borderWidth: 1
   }
 })

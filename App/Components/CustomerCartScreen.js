@@ -53,37 +53,37 @@ export default class CustomerCartScreen extends Component {
     return (
       <View style={styles.row}>
         <View style={styles.rowInnerContainer}>
-          <Grid>
-              {/* <Col style={{ width: 60 }}>
-                  <Avatar
-                    medium
-                    source={{uri: rowData.itemImage}}
-                  />
-							</Col> */}
-							<Row>
+          <Grid style={{ borderBottomColor: Colors.gray2, borderBottomWidth: 1 }}>
+							<Row style={{ height: 30 }}>
 								<Col size={1}>
-										<Row style={{ height: 20, paddingLeft: 20}}>
+										<Row style={{ height: 20 }}>
 												<Text style={[styles.boldLabel, {color: Colors.gray}]}>{rowData.itemName}</Text>
 										</Row>
-										{/* <Row style={{ height: 26, paddingRight: 20 }}>
-												<Text style={{fontSize: 11, color: Colors.charcoal}} numberOfLines={1} >{rowData.itemDetail}</Text>
-										</Row> */}
 								</Col>
 
-								<Col style={{ width: 100, height: 68 }}>
+								<Col style={{ width: 100 }}>
 										<Row style={{ height: 20, flexDirection: 'column', alignItems: 'flex-end' }}>
 											<Text style={styles.itemCost}>$ {rowData.itemCost}</Text>
 										</Row>
 								</Col>
 							</Row>
 
-							<Row>
+							<Row style={{ height: 34 }}>
 									<Col>
-									
+										<Row style={{ height: 30, backgroundColor: Colors.clear }}>
+											<Icon
+												size={14}
+												name={'trash-o'}
+												color={Colors.background}
+												type='font-awesome'
+												onPress={() => this.decreaseItemCount()}
+											/>
+											<Text style={styles.itemModify}>&nbsp; Remove</Text>
+										</Row>
 									</Col>
 									
-									<Col>
-										<Row style={{ height: 34, marginTop: 16, padding: 2, paddingTop: 0, backgroundColor: Colors.clear }}>
+									<Col style={{ width: 125, padding: 2 }}>
+										<Row style={{ height: 30, backgroundColor: Colors.clear }}>
 											<Col style={styles.itemCountButton}>
 												<Icon
 													size={14}
@@ -94,7 +94,7 @@ export default class CustomerCartScreen extends Component {
 													/>
 											</Col>
 											
-											<Col size={1}>
+											<Col style={{ width: 65 }}>
 												<Row style={{ alignItems: 'center', justifyContent: 'center' }}>
 													<Text style={styles.itemCount}>{rowData.itemCount}</Text>
 												</Row>
@@ -122,9 +122,9 @@ export default class CustomerCartScreen extends Component {
 
 	_renderIndividualMerchantRow = (rowData) => {
 		return(
-			<Col style={{ paddingBottom: 30, paddingTop: 0 }}>
+			<Col style={{ paddingTop: 0, backgroundColor: Colors.snow }}>
 			
-				<Row style={{ paddingLeft: 20, paddingTop: 15, paddingBottom: 10 }}>
+				<Row style={{ paddingLeft: 20, paddingTop: 15, paddingBottom: 15, marginBottom: 5, backgroundColor: Colors.snow, borderBottomColor: Colors.gray2, borderBottomWidth: 1, borderTopColor: Colors.gray2, borderTopWidth: 1 }}>
 					<Col size={1}>
 						<Text style={{ color: Colors.gray3 }} >CHEF:
 							<Text style={{ fontSize: 14, color: Colors.gray3 }}> { this.orderObject.customerName.toUpperCase() }</Text>
@@ -148,7 +148,7 @@ export default class CustomerCartScreen extends Component {
 					/> 
 				</Row>
 		
-				<Row>
+				<Row style={{ backgroundColor: Colors.snow, paddingBottom: 25, paddingTop: 10 }}>
 		
 					<Col size={2} style={{ paddingLeft: 10 }}>
 						
@@ -161,6 +161,11 @@ export default class CustomerCartScreen extends Component {
 					</Col>
 		
 				</Row>
+
+				{ this.state.merchantDataSourceFromCart.length > 1 &&
+					<Row style={{ height: 30, backgroundColor: Colors.gray2 }}></Row>
+				}
+
 		
 			</Col>
 		)

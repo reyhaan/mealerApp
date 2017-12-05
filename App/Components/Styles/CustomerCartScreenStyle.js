@@ -3,41 +3,54 @@ import { Colors, Metrics, Fonts } from '../../Themes'
 
 export default StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: Colors.lightGray
   },
   listContainer: {
     flex: 1,
     backgroundColor: Colors.snow,
-    flexDirection: 'column',
-    // alignItems: 'center'
+    flexDirection: 'column'
   },
   row: {
     flex: 1,
     backgroundColor: Colors.clear,
     marginVertical: 0,
-    height: 80,
+    height: 100,
     paddingRight: 0,
     paddingLeft: 0,
     paddingBottom: 0,
-    paddingTop: 0
+    paddingTop: 0,
+    marginBottom: 0
   },
   rowInnerContainer: {
     flex: 1,
-    height: 60,
-    backgroundColor: Colors.snow,
+    backgroundColor: Colors.clear,
     borderRadius: 3,
-    padding: 10
+    padding: 10,
+    paddingRight: 20,
+    paddingLeft: 20
   },
   boldLabel: {
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: Fonts.type.bold,
   },
   itemCost: {
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: Fonts.type.bold,
     color: Colors.gray
+  },
+  itemCount: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    fontFamily: Fonts.type.bold,
+    color: Colors.gray
+  },
+  itemModify: {
+    fontSize: 12,
+    color: Colors.background,
+    alignSelf: 'center'
   },
   label: {
     textAlign: 'center',
@@ -45,6 +58,16 @@ export default StyleSheet.create({
   },
   listContent: {
     marginTop: 0,
-    paddingBottom: 10
+    paddingBottom: 0
+  },
+  itemCountButton: { 
+    marginTop: 4,
+    width: 20,
+    height: 24,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderColor: Colors.background, 
+    borderRadius: 14, 
+    borderWidth: 1
   }
 })

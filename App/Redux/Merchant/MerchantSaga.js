@@ -22,9 +22,14 @@ menuEffects.fetchMerchantMenu = function* (merchant) {
 
 menuEffects.createMenu = function* (menu) {
     try {
-        yield put(merchantActionCreators.showActivityIndicator(true));
         const user = yield call(authentication.currentUser);
-        yield call(merchantService.createMenu, user.uid, menu.data);
+        let {data} = menu;
+        if (data.base64img) {
+            let imageUrlName = data.itemName + user.uid;
+            data.itemImage = yield call(imgService.uploadBase64Image, imageUrlName, data.base64img);
+        }
+        yield put(merchantActionCreators.showActivityIndicator(true));
+        yield call(merchantService.createMenu, user.uid, data);
         yield put(merchantActionCreators.fetchMerchantMenu(user.uid));
     }
     catch (error) {

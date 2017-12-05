@@ -150,20 +150,18 @@ export default class CustomerCartScreen extends Component {
 		
 				<Row style={{ backgroundColor: Colors.snow, paddingBottom: 25, paddingTop: 10 }}>
 		
-					<Col size={2} style={{ paddingLeft: 10 }}>
-						
+					<Col size={2} style={{ paddingLeft: 20 }}>
+						<Text style={{ color: Colors.charcoal, fontWeight: 'bold' }}>Subtotal</Text>
 					</Col>
 		
 					<Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20 }}>
-						<Text style={{ color: Colors.gray }}>Total:
-							<Text style={{ color: Colors.coal, fontWeight: 'bold' }}> $ {this._calculateTotalCost(rowData)}</Text>
-						</Text>
+						<Text style={{ color: Colors.charcoal, fontWeight: 'bold' }}> $ {this._calculateTotalCost(rowData)}</Text>
 					</Col>
 		
 				</Row>
 
 				{ this.state.merchantDataSourceFromCart.length > 1 &&
-					<Row style={{ height: 30, backgroundColor: Colors.gray2 }}></Row>
+					<Row style={{ height: 10, backgroundColor: Colors.gray2 }}></Row>
 				}
 
 		

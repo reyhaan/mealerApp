@@ -66,7 +66,7 @@ export default StyleSheet.create({
     height: 24,
     alignItems: 'center', 
     justifyContent: 'center', 
-    borderColor: Colors.background, 
+    borderColor: Colors.snow, 
     borderRadius: 14, 
     borderWidth: 1
   }

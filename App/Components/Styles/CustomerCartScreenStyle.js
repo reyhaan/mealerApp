@@ -23,19 +23,25 @@ export default StyleSheet.create({
   },
   rowInnerContainer: {
     flex: 1,
-    height: 60,
-    backgroundColor: Colors.snow,
+    backgroundColor: Colors.clear,
     borderRadius: 3,
-    padding: 10
+    padding: 10,
+    paddingRight: 20
   },
   boldLabel: {
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: 14,
     fontFamily: Fonts.type.bold,
   },
   itemCost: {
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: 14,
+    fontFamily: Fonts.type.bold,
+    color: Colors.gray
+  },
+  itemCount: {
+    fontWeight: 'bold',
+    fontSize: 16,
     fontFamily: Fonts.type.bold,
     color: Colors.gray
   },
@@ -46,5 +52,15 @@ export default StyleSheet.create({
   listContent: {
     marginTop: 0,
     paddingBottom: 10
+  },
+  itemCountButton: { 
+    width: 30,
+    height: 32,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    borderColor: Colors.background, 
+    borderRadius: 15, 
+    borderWidth: 1,
+    backgroundColor: Colors.clear
   }
 })

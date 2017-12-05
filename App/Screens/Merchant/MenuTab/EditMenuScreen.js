@@ -116,9 +116,7 @@ class EditMenuScreen extends Component {
     render() {
         //Set the item image or show a placeholder
         let image = this.state.itemImage ? {uri: this.state.itemImage} : Images.addImagePlaceHolder;
-
-        console.log(image)
-
+        
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <ScrollView style={styles.container}>

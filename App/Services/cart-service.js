@@ -21,10 +21,10 @@ cartService.getCart = () => {
 
 // Add an item to cart
 cartService.addToCart = async (item) => {
-    let from = item.data.from
-    let toMerchant = item.data.to
-    let orderItem = item.data.item
-    orderItem.itemCount = item.data.itemCount;  // set item count on orderItem itself
+    let from = item.from
+    let toMerchant = item.to
+    let orderItem = item.item
+    orderItem.itemCount = item.itemCount;  // set item count on orderItem itself
     
     // AsyncStorage.setItem('cart', '');
 
@@ -69,13 +69,20 @@ cartService.addToCart = async (item) => {
     return Promise.resolve(storedCart);
 }
 
-cartService.removeFromCart = async (itemId) => {
-    let cart = await AsyncStorage.getItem('cart');
-
+cartService.removeFromCart = async (itemId, merchantId) => {
+    let cart = await this.getCart();
+    let updatedCart = _.omit(cart.to[merchantId], function(value, key) {
+        return itemId === key;
+    });
+    AsyncStorage.setItem('cart', JSON.stringify(updatedCart));
+    return Promise.resolve(updatedCart);
 }
 
-cartService.updateItemCount = async (item) => {
-
+cartService.updateItemCount = async (itemId, merchantId, newCount) => {
+    let cart = await this.getCart();
+    let updatedCart = cart.to[merchantId][itemId]['itemCount'] = newCount;
+    AsyncStorage.setItem('cart', JSON.stringify(updatedCart));
+    return Promise.resolve(updatedCart);
 }
 
 export default cartService;

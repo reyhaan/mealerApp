@@ -2,6 +2,19 @@ import { StyleSheet, Platform } from 'react-native'
 import { Colors, Metrics } from '../../Themes/index'
 
 export default StyleSheet.create({
+
+  subContainer: {
+    flex: 1,
+    backgroundColor: Colors.snow,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  logo: {
+    width: Metrics.screenWidth - 120,
+    height: 400,
+    resizeMode: 'cover'
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.snow

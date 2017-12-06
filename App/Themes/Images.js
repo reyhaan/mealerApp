@@ -33,7 +33,8 @@ const images = {
     biryani: require('../Images/biryani.png'),
     addItemImage: require('../Images/add_item_image.png'),
     addItemImage2x: require('../Images/add_item_image_2x.png'),
-    addImagePlaceHolder: require('../Images/add-image-placeholder-icon.jpg')
+    addImagePlaceHolder: require('../Images/add-image-placeholder-icon.jpg'),
+    emptyCart: require('../Images/empty-cart.png'),
 };
 
 export default images

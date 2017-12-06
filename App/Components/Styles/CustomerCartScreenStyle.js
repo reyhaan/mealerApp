@@ -42,9 +42,7 @@ export default StyleSheet.create({
     color: Colors.gray
   },
   itemCount: {
-    fontWeight: 'bold',
     fontSize: 14,
-    fontFamily: Fonts.type.bold,
     color: Colors.gray
   },
   itemModify: {

@@ -28,6 +28,7 @@ export default class CustomerCartScreen extends Component {
 
 	componentWillReceiveProps = async () => {
 		let cart = await cartService.getCart();
+
 		this.setState({
 			cart: cart
 		})
@@ -35,6 +36,11 @@ export default class CustomerCartScreen extends Component {
 		let merchantList = this.state.cart.to;
 
 		let itemListByEachMerchant = _.values(merchantList);
+
+		// convert array of item object to array of item arrays
+		itemListByEachMerchant = _.map(itemListByEachMerchant, function(itemListObject) {
+			return _.values(itemListObject);
+		})
 
 		this.setState({
 			merchantDataSourceFromCart: itemListByEachMerchant

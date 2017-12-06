@@ -12,6 +12,7 @@ import {Form, Item, Input, Label, Button} from 'native-base';
 import styles from './EditMenuScreen.style'
 import {TextInputMask} from 'react-native-masked-text';
 import {ImagePicker} from 'expo';
+import Avatar from '../../Common/Avatar'
 
 class EditMenuScreen extends Component {
     constructor(props) {
@@ -125,21 +126,7 @@ class EditMenuScreen extends Component {
                             backgroundColor={Colors.background}
                     />
                     <View style={styles.formContainer}>
-                        <TouchableOpacity onPress={this._pickImage} style={{
-                            flex: 1,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            marginTop: 10
-                        }}>
-                            <Image source={image} style={{width: 200, height: 200}}/>
-
-                            <Button iconLeft bordered small light
-                                    style={{alignSelf: 'center', margin: 10}} onPress={this._pickImage}>
-                                <Icon style={{Left: 50}} name='upload' color={Colors.background} type='font-awesome'/>
-                                <Text style={{margin: 10}}>Upload</Text>
-                            </Button>
-                        </TouchableOpacity>
-
+                        <Avatar image={image} _pickImage={this._pickImage}/>
                         <Form>
                             <Item stackedLabel>
                                 <Label>Name</Label>

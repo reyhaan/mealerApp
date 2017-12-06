@@ -96,7 +96,8 @@ class LoginScreen extends Component {
                                        style={{color: Colors.white}}
                                        keyboardType="email-address"
                                        onChangeText={(e) => this.getUserLoginInfo('password', e)}
-                                       secureTextEntry={true}/>
+                                       secureTextEntry={true}
+                                       password={true}/>
                             </Item>
                         </Form>
                         <LoadingSpinner show={this.props.auth.showActivityIndicator}/>

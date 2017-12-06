@@ -12,6 +12,7 @@ import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
 import SnackBar from 'react-native-snackbar-component'
 import {TextInputMask} from 'react-native-masked-text';
+import UserAvatar from './UserAvatarUpdate'
 
 const styles = UserInfoChangeScreenStyle;
 
@@ -23,7 +24,9 @@ class UserInfoChangeScreen extends Component {
             name: '',
             address: '',
             phone: '',
-            email: ''},
+            email: '',
+            userImage: ''
+          },
             showToast: false,
             toastMessage: ''
         }
@@ -40,6 +43,10 @@ class UserInfoChangeScreen extends Component {
                 email: currentUser.email || ''
             }})
             : Alert.alert('Error:', 'unable to retrieve your info')
+    }
+
+    setUserAvatar = ({image}) => {
+      this.setState({user : {...this.state.user, userImage: image}})
     }
 
     _backButton = () => {
@@ -110,6 +117,7 @@ class UserInfoChangeScreen extends Component {
                         <Grid>
                             <Row size={1} style={{backgroundColor: Colors.cloud}}>
                                 <View style={styles.formContainer}>
+                                    <UserAvatar image={this.state.user.userImage} setUserAvatar={this.setUserAvatar}/>
                                     <Form>
                                         <Item stackedLabel>
                                             <Label>Display Name</Label>

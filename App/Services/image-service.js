@@ -11,7 +11,7 @@ img.uploadBase64Image = async (name, base64Img) => {
         const response = await axios.post(SERVER_URL + "api/image/uploadImage", body);
         return response.data.imageURL
     } catch (e) {
-        console.log(e);
+        return e
     }
 };
 

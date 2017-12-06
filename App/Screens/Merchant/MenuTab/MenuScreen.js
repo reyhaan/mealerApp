@@ -40,7 +40,6 @@ class MenuTab extends Component {
     };
 
     fetchMenu = async () => {
-        console.log('fetch menu');
         const currentUser = await authenticationService.currentUser();
         if (currentUser) {
             this.props.fetchMerchantMenu(currentUser.uid);

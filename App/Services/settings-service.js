@@ -8,18 +8,14 @@ let SettingsService = {};
 /**
  * Update Order for a merchant
  * @param userId: string
- * @param order: object
+ * @param userInfo: object
  */
-SettingsService.updateUserInfo = async (payload) => {
+SettingsService.updateUserInfo = async (userId, userInfo) => {
     try {
-        const data = payload.data
-        const userId = data.uid;
-        const userInfo = data.userDetails;
         const userRef = db.user(userId);
         await userRef.update(userInfo);
         const userSnapshot = await userRef.once('value');
-        const result = {uid: userSnapshot.key, ...userSnapshot.val()}
-        return result;
+        return {uid: userSnapshot.key, ...userSnapshot.val()};
     } catch (error) {
         return {error};
     }

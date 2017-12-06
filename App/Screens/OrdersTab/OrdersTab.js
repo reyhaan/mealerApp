@@ -45,7 +45,7 @@ class OrdersTab extends Component {
       activeFilter: list[0],
       isMerchant: false,
       isCustomer: true,
-      isCartEmpty: false
+      isCartEmpty: true
     }
   }
 

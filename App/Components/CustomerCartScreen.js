@@ -34,21 +34,24 @@ class CustomerCartScreen extends Component {
 	}
 	
 	componentWillReceiveProps = (newProps) => {
+		// cart is now on redux state object
 		this._createDatasource(newProps.cart)
 	}
 
 	_createDatasource = (cart) => {
-		let merchantList = cart.to;
-		let itemListByEachMerchant = _.values(merchantList);
-		
-		// convert array of item objects to array of item arrays
-		itemListByEachMerchant = _.map(itemListByEachMerchant, function(itemListObject) {
-			return _.values(itemListObject);
-		})
-
-		this.setState({
-			merchantDataSourceFromCart: itemListByEachMerchant
-		})
+		if(cart.to ? true : false) {
+			let merchantList = cart.to;
+			let itemListByEachMerchant = _.values(merchantList);
+			
+			// convert array of item objects to array of item arrays
+			itemListByEachMerchant = _.map(itemListByEachMerchant, function(itemListObject) {
+				return _.values(itemListObject);
+			})
+	
+			this.setState({
+				merchantDataSourceFromCart: itemListByEachMerchant
+			})
+		}
 	}
 
 	_calculateTotalCost = (rowData) => {
@@ -63,8 +66,8 @@ class CustomerCartScreen extends Component {
 
 	}
 
-	_removeItem = (itemId) => {
-		this.props.removeItemFromCart(itemId);
+	_removeItem = (itemId, merchantId) => {
+		this.props.removeItemFromCart({itemId: itemId, merchantId: merchantId});
 	}
 
 	_renderRow = (rowData) => {
@@ -88,8 +91,8 @@ class CustomerCartScreen extends Component {
 
 							<Row style={{ height: 34 }}>
 									<Col>
-										<TouchableOpacity onPress={() => {this._removeItem(rowData.id)}}>
-											<Row style={{ height: 30, backgroundColor: Colors.clear }}>
+										<TouchableOpacity onPress={() => {this._removeItem(rowData.id, rowData.merchantInfo.uid)}}>
+											<Row style={{ height: 30, width: 70, backgroundColor: Colors.clear }}>
 												<Icon
 													size={14}
 													name={'trash-o'}

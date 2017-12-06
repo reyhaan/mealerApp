@@ -44,7 +44,8 @@ class AddToCartModal extends Component {
             to: this.state.activeMerchant.uid,
             item: this.state.activeItem,
             itemCount: itemCount,
-            status: Constants.orderStatus.new
+            status: Constants.orderStatus.new,
+            merchantInfo: this.state.activeMerchant
         }
         this.props.addToCart(orderItem)
     }

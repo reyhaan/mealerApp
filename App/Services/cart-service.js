@@ -33,17 +33,16 @@ cartService.addToCart = async (item) => {
     let toMerchant = item.to
     let orderItem = item.item
     orderItem.itemCount = item.itemCount;  // set item count on orderItem itself
+    orderItem.merchantInfo = item.merchantInfo;
     
     // AsyncStorage.setItem('cart', '');
 
     let storedCart = {};
-
     let cart = await AsyncStorage.getItem('cart');
-
     storedCart = JSON.parse(cart)
 
     // if there is no cart, populate one
-    if (storedCart === null) {
+    if (storedCart === null || _.keys(storedCart).length === 0) {
         let order = {
             from: from,
             to: {}
@@ -57,7 +56,6 @@ cartService.addToCart = async (item) => {
         // If item belongs to already present merchant in the cart
         if (foundMerchantId) {
             let itemsForFoundMerchant = _.values(storedCart.to[foundMerchantId]);
-
             let foundItem = _.find(itemsForFoundMerchant, function(item) { return item.id === orderItem.id })
             // Add item count to same item being added from same merchant
             if (foundItem) {
@@ -69,13 +67,11 @@ cartService.addToCart = async (item) => {
             }
         // Add a new merchant
         } else {
-            console.log(storedCart)
             storedCart.to[toMerchant] = {}
             storedCart.to[toMerchant][orderItem.id] = orderItem;
             AsyncStorage.setItem('cart', JSON.stringify(storedCart));
         }
     }
-
     return Promise.resolve(storedCart);
 }
 
@@ -86,11 +82,10 @@ cartService.addToCart = async (item) => {
  */
 cartService.removeItemFromCart = async (itemId, merchantId) => {
     let cart = await cartService.getCart();
-    let updatedCart = _.omit(cart.to[merchantId], function(value, key) {
-        return itemId === key;
-    });
-    AsyncStorage.setItem('cart', JSON.stringify(updatedCart));
-    return Promise.resolve(updatedCart);
+    let updatedMerchantList = _.omit(cart.to[merchantId], itemId);
+    cart.to[merchantId] = updatedMerchantList;
+    AsyncStorage.setItem('cart', JSON.stringify(cart));
+    return Promise.resolve(cart);
 }
 
 /**

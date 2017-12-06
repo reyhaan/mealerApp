@@ -83,7 +83,11 @@ cartService.addToCart = async (item) => {
 cartService.removeItemFromCart = async (itemId, merchantId) => {
     let cart = await cartService.getCart();
     let updatedMerchantList = _.omit(cart.to[merchantId], itemId);
-    cart.to[merchantId] = updatedMerchantList;
+    if(_.keys(updatedMerchantList).length === 0) {
+        cart.to = _.omit(cart.to, merchantId);
+    } else {
+        cart.to[merchantId] = updatedMerchantList;
+    }
     AsyncStorage.setItem('cart', JSON.stringify(cart));
     return Promise.resolve(cart);
 }

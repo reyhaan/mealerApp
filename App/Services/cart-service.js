@@ -4,11 +4,9 @@ import _ from 'lodash'
 
 let cartService = {};
 
-cartService.dumpCart = () => {
-    AsyncStorage.setItem('cart', '');
-}
-
-// Get the current signed in user information
+/**
+ * Get latest cart from session
+ */
 cartService.getCart = () => {
     return new Promise((resolve, reject) => {
         AsyncStorage.getItem("cart").then((value) => {
@@ -17,9 +15,19 @@ cartService.getCart = () => {
             reject (error);
         })
     });
-};
+}
 
-// Add an item to cart
+/**
+ * Empty out the cart
+ */
+cartService.dumpCart = () => {
+    AsyncStorage.setItem('cart', '');
+}
+
+/**
+ * Add an item to cart
+ * @param item: object
+ */
 cartService.addToCart = async (item) => {
     let from = item.from
     let toMerchant = item.to
@@ -53,7 +61,7 @@ cartService.addToCart = async (item) => {
             let foundItem = _.find(itemsForFoundMerchant, function(item) { return item.id === orderItem.id })
             // Add item count to same item being added from same merchant
             if (foundItem) {
-                storedCart.to[toMerchant][foundItem.id]['itemCount'] = storedCart.to[toMerchant][foundItem.id]['itemCount'] + item.data.itemCount;
+                storedCart.to[toMerchant][foundItem.id]['itemCount'] = storedCart.to[toMerchant][foundItem.id]['itemCount'] + item.itemCount;
                 AsyncStorage.setItem('cart', JSON.stringify(storedCart));
             } else {
                 storedCart.to[toMerchant][orderItem.id] = orderItem;
@@ -69,6 +77,11 @@ cartService.addToCart = async (item) => {
     return Promise.resolve(storedCart);
 }
 
+/**
+ * Remove an item from cart
+ * @param itemId: string
+ * @param merchantId: string
+ */
 cartService.removeFromCart = async (itemId, merchantId) => {
     let cart = await this.getCart();
     let updatedCart = _.omit(cart.to[merchantId], function(value, key) {
@@ -78,6 +91,12 @@ cartService.removeFromCart = async (itemId, merchantId) => {
     return Promise.resolve(updatedCart);
 }
 
+/**
+ * Update item count in cart
+ * @param itemId: string
+ * @param merchantId: string
+ * @param newCount: integer
+ */
 cartService.updateItemCount = async (itemId, merchantId, newCount) => {
     let cart = await this.getCart();
     let updatedCart = cart.to[merchantId][itemId]['itemCount'] = newCount;

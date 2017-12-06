@@ -7,13 +7,15 @@ import styles from './Styles/CustomerCartScreenStyle'
 import cartService from '../Services/cart-service'
 import _ from 'lodash'
 import { merchant } from '../Redux/Merchant/MerchantReducers';
+import { cartActionCreators } from '../Redux/Cart/CartActions'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 
-export default class CustomerCartScreen extends Component {
+class CustomerCartScreen extends Component {
 	constructor (props) {
 		super(props)
 		
 		this.orderObject = {
-			// orders: this.orders,
 			customerName: "Mohammad Rehaan"
 		}
 
@@ -53,6 +55,14 @@ export default class CustomerCartScreen extends Component {
 			total += (rowData[i].itemCost * rowData[i].itemCount)
 		}
 		return total;
+	}
+
+	_updateItemCount = () => {
+
+	}
+
+	_removeItem = () => {
+
 	}
 
 	_renderRow = (rowData) => {
@@ -196,6 +206,7 @@ export default class CustomerCartScreen extends Component {
 	}
 
   render () {
+		console.log(this.state.merchantDataSourceFromCart)
     let { isMerchant, isCustomer } = this.state
     return (
       <View style={styles.container}>
@@ -210,3 +221,12 @@ export default class CustomerCartScreen extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => (bindActionCreators(cartActionCreators, dispatch));
+const mapStateToProps = state => {
+    return {
+
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerCartScreen)

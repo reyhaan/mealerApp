@@ -21,20 +21,14 @@ class LoginScreen extends Component {
             checked: false,
             userLoginInfo: {'email': '', 'password': ''}
         };
-
-        // this.state = {
-        //     showSignUpScreen: false,
-        //     checked: false,
-        //     userLoginInfo: {'email': 'rrr@rrr.com', 'password': 'rrrrrr'}
-        // };
     }
 
     async componentDidMount() {
         try {
             const currentUser = await authenticationService.currentUser();
-            const {navigation, dispatch} = this.props;
+            const {navigation} = this.props;
             if (currentUser) {
-                this.props.setUser(currentUser);
+                this.props.getUser(currentUser.uid)
             }
 
             if (currentUser && currentUser.type === "customer") {
@@ -42,9 +36,6 @@ class LoginScreen extends Component {
             } else if (currentUser && currentUser.type === "merchant") {
                 navigation.navigate('MerchantTab')
             }
-
-            // navigation.navigate('CustomerTab')
-            // navigation.navigate('MerchantTab')
 
         } catch (err) {
             Alert.alert('Error', err);

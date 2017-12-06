@@ -3,8 +3,8 @@ import {ScrollView, View, Platform, KeyboardAvoidingView, Text} from 'react-nati
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import {Header, Icon} from 'react-native-elements'
-import UserInfoChangeScreenStyle from './UserInfoChangeScreen.style'
-import {Colors, Fonts, Metrics} from '../../Themes/index'
+import UserInfoChangeScreenStyle from './UserSettings.style'
+import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
@@ -12,7 +12,7 @@ import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
 import SnackBar from 'react-native-snackbar-component'
 import {TextInputMask} from 'react-native-masked-text';
-import UserAvatar from './UserAvatarUpdate'
+import UserAvatar from './UserAvatar'
 
 const styles = UserInfoChangeScreenStyle;
 
@@ -21,33 +21,40 @@ class UserInfoChangeScreen extends Component {
         super(props);
         this.state = {
             user: {
-            name: '',
-            address: '',
-            phone: '',
-            email: '',
-            userImage: ''
-          },
+                id: '',
+                name: '',
+                address: '',
+                phone: '',
+                email: '',
+                avatar: '',
+                userImage: ''
+            },
             showToast: false,
             toastMessage: ''
-        }
+        };
         this.props.getUser(this.props.settings.user.uid)
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const currentUser = this.props.settings.user;
         currentUser
-            ? this.setState({ user: {
-                name: currentUser.name || '',
-                address: currentUser.address || '',
-                phone: currentUser.phone || '',
-                email: currentUser.email || ''
-            }})
+            ? this.setState({
+                user: {
+                    name: currentUser.name || '',
+                    avatar: currentUser.avatar || Images.addImagePlaceHolder,
+                    address: currentUser.address || '',
+                    phone: currentUser.phone || '',
+                    email: currentUser.email || ''
+                }
+            })
             : Alert.alert('Error:', 'unable to retrieve your info')
+
+
     }
 
-    setUserAvatar = ({image}) => {
-      this.setState({user : {...this.state.user, userImage: image}})
-    }
+    setUserAvatar = (image) => {
+        this.setState({user: {...this.state.user, avatar: image.uri, base64Img: image.base64}})
+    };
 
     _backButton = () => {
         return (
@@ -63,47 +70,46 @@ class UserInfoChangeScreen extends Component {
     };
 
     displayToast = (message) => {
-        this.setState({showToast: true, toastMessage: message}, () => 
-        setTimeout(() => {
-            this.setState({showToast: false, toastMessage: ''})
-        }, 2000))
-    }
+        this.setState({showToast: true, toastMessage: message}, () =>
+            setTimeout(() => {
+                this.setState({showToast: false, toastMessage: ''})
+            }, 2000))
+    };
 
     _updateUserDetails = () => {
-        const {name: newName, address: newAddress, email: newEmail, phone: newPhone} = this.state.user;
+        const {name: newName, address: newAddress, email: newEmail, phone: newPhone, avatar: avatar} = this.state.user;
         const existingUser = this.props.settings.user;
-        if (newName && newEmail) {
-            ((existingUser.name !== newName)
-                || (existingUser.address !== newAddress)
-                || (existingUser.email !== newEmail)
-                || (existingUser.phone !== newPhone))
-                ? (() => {
-                    this.props.updateUserInfo({uid: existingUser.uid, userDetails: this.state.user})
-                    // refresh the cache after updating
-                    this.props.getUser(this.props.settings.user.uid)
-                    this.displayToast("Successfully Updated ")
-                    })()
-                : this.displayToast("Nothing to update")
-        }
-        else if ((newName && !!!newEmail) || (!!!newName && newEmail))
-            {
+        if (!(newName && newEmail)) {
+            if (newName && newEmail || newName && newEmail) {
                 Alert.alert('Name and Email is required')
             }
-        else { this.displayToast("Update Error") }
-    }
+            else {
+                this.displayToast("Update Error")
+            }
+        } else {
+            const conditionToUpdateUser = existingUser.avatar !== avatar || existingUser.name !== newName || existingUser.address !== newAddress || existingUser.email !== newEmail || existingUser.phone !== newPhone
+            if (conditionToUpdateUser) {
+                this.props.updateUserInfo({uid: this.props.settings.user.uid, user: this.state.user});
+                this.props.getUser(this.props.settings.user.uid);// refresh the cache after updating
+                this.displayToast("Successfully Updated ")
+            } else {
+                this.displayToast("Nothing to update")
+            }
+        }
+    };
 
     onInputChange = (value, name) => {
-        let validValue 
-        if(name === 'phone' && value.length>14){
-                validValue = value.slice(0, 14)
-        } 
-        else{validValue  = value} 
+        let validValue;
+        if (name === 'phone' && value.length > 14) {
+            validValue = value.slice(0, 14)
+        }
+        else {
+            validValue = value
+        }
         this.setState({user: {...this.state.user, [name]: validValue}})
     };
 
     render() {
-        const {params} = this.props.navigation.state;
-
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <View style={styles.container}>
@@ -117,7 +123,7 @@ class UserInfoChangeScreen extends Component {
                         <Grid>
                             <Row size={1} style={{backgroundColor: Colors.cloud}}>
                                 <View style={styles.formContainer}>
-                                    <UserAvatar image={this.state.user.userImage} setUserAvatar={this.setUserAvatar}/>
+                                    <UserAvatar image={this.state.user.avatar} setUserAvatar={this.setUserAvatar}/>
                                     <Form>
                                         <Item stackedLabel>
                                             <Label>Display Name</Label>
@@ -149,37 +155,37 @@ class UserInfoChangeScreen extends Component {
                                                 ref={'celPhone'}
                                                 type={'cel-phone'}
                                                 options={{
-                                                withDDD: true,
-                                                dddMask: '(999) 999-9999'
+                                                    withDDD: true,
+                                                    dddMask: '(999) 999-9999'
                                                 }}
                                                 value={this.state.user.phone}
                                                 onChangeText={(value) => this.onInputChange(value, 'phone')}
                                                 style={{width: '100%', height: 50}}
-                                                placeholder="613-XXX-XXXX" 
+                                                placeholder="613-XXX-XXXX"
                                                 keyboardType="number-pad"
                                             />
                                         </Item>
                                     </Form>
 
-                                <Row style={{
-                                    height: 40,
-                                    marginTop: Metrics.doubleBaseMargin,
-                                    marginBottom: Metrics.doubleBaseMargin,
-                                    marginLeft: 20,
-                                    marginRight: 20
-                                }}>
+                                    <Row style={{
+                                        height: 40,
+                                        marginTop: Metrics.doubleBaseMargin,
+                                        marginBottom: Metrics.doubleBaseMargin,
+                                        marginLeft: 20,
+                                        marginRight: 20
+                                    }}>
 
-                                    <Col size={1} >
-                                        <Button block
-                                                style={{backgroundColor: Colors.green}}
-                                                textStyle={{
-                                                    textAlign: 'center',
-                                                    fontFamily: Fonts.type.bold,
-                                                    fontWeight: 'bold',
-                                                }}
-                                                onPress={() => this._updateUserDetails()}
+                                        <Col size={1}>
+                                            <Button block
+                                                    style={{backgroundColor: Colors.green}}
+                                                    textStyle={{
+                                                        textAlign: 'center',
+                                                        fontFamily: Fonts.type.bold,
+                                                        fontWeight: 'bold',
+                                                    }}
+                                                    onPress={() => this._updateUserDetails()}
                                             >
-                                            <Text style={{color:Colors.white}}> Save </Text>
+                                                <Text style={{color: Colors.white}}> Save </Text>
                                             </Button>
                                         </Col>
                                     </Row>
@@ -188,9 +194,9 @@ class UserInfoChangeScreen extends Component {
                         </Grid>
                     </ScrollView>
                 </View>
-                <View style={{display:'flex', justifyContent: 'center', marginLeft: 20, marginRight: 20}}>
+                <View style={{display: 'flex', justifyContent: 'center', marginLeft: 20, marginRight: 20}}>
                     <SnackBar visible={this.state.showToast} textMessage={this.state.toastMessage}
-                        bottom={0} position='bottom' backgroundColor='#272A2F'
+                              bottom={0} position='bottom' backgroundColor='#272A2F'
                     />
                 </View>
             </KeyboardAvoidingView>

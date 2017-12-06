@@ -13,7 +13,6 @@ import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
 //     if (user && user.type) {
 //         // user.type = "merchant";
 //         user.type = "customer";
-//         console.log(user);
 //         activeTab = user.type === "merchant" ? MerchantTab : CustomerTab;
 //     }
 // });

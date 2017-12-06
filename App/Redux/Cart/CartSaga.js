@@ -1,17 +1,16 @@
-import {put, call} from 'redux-saga/effects'
-import {Alert, AsyncStorage} from 'react-native';
+import { put, call } from 'redux-saga/effects'
+import { Alert, AsyncStorage } from 'react-native';
 import customerService from '../../Services/customer-service';
 import cartService from '../../Services/cart-service';
 import authentication from '../../Services/authentication-service';
-import {cartActionCreators} from './CartActions'
+import { cartActionCreators } from './CartActions'
 import _ from 'lodash'
 
 const cartEffects = {};
 
 cartEffects.addToCart = function* (item) {
     try {
-        let updatedCart = cartService.addToCart(item);
-        console.log(updatedCart)
+        let updatedCart = yield call(cartService.addToCart, item);
         yield put(cartActionCreators.addToCartSuccessful(updatedCart));
     } catch (error) {
         Alert.alert('Error', error.message,)
@@ -20,11 +19,11 @@ cartEffects.addToCart = function* (item) {
     }
 }
 
-cartEffects.removeFromCart = function* () {
+cartEffects.removeFromCart = function* (itemId) {
 
 }
 
-cartEffects.updateItemCount = function* () {
+cartEffects.updateItemCount = function* (itemId, itemCount) {
     
 }
 

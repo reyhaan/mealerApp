@@ -39,7 +39,7 @@ class CustomerCartScreen extends Component {
 	}
 
 	_createDatasource = (cart) => {
-		if(cart.to ? true : false) {
+		if(cart !== {} || cart !== '') {
 			let merchantList = cart.to;
 			let itemListByEachMerchant = _.values(merchantList);
 			
@@ -49,7 +49,12 @@ class CustomerCartScreen extends Component {
 			})
 	
 			this.setState({
+				isCartEmpty: false,
 				merchantDataSourceFromCart: itemListByEachMerchant
+			})
+		} else {
+			this.setState({
+				isCartEmpty: true
 			})
 		}
 	}
@@ -150,7 +155,7 @@ class CustomerCartScreen extends Component {
 				<Row style={{ paddingLeft: 20, paddingTop: 15, paddingBottom: 15, marginBottom: 5, backgroundColor: Colors.snow, borderBottomColor: Colors.gray2, borderBottomWidth: 1, borderTopColor: Colors.gray2, borderTopWidth: 1 }}>
 					<Col size={1}>
 						<Text style={{ color: Colors.gray3 }} >CHEF:
-							<Text style={{ fontSize: 14, color: Colors.gray3 }}> { this.orderObject.customerName.toUpperCase() }</Text>
+							<Text style={{ fontSize: 14, color: Colors.gray3 }}>&nbsp;{ rowData[0].merchantInfo.name.toUpperCase() }</Text>
 						</Text>
 					</Col>
 		

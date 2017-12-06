@@ -33,13 +33,13 @@ class CustomerCartScreen extends Component {
 		this._createDatasource(cart)
 	}
 	
-	componentWillReceiveProps = (newProps) => {
-		// cart is now on redux state object
-		this._createDatasource(newProps.cart)
+	componentWillReceiveProps = async () => {
+		let cart = await cartService.getCart();
+		this._createDatasource(cart)
 	}
 
 	_createDatasource = (cart) => {
-		if(cart !== {} || cart !== '') {
+		if(cart !== undefined && cart !== null && !_.isEmpty(cart)) {
 			let merchantList = cart.to;
 			let itemListByEachMerchant = _.values(merchantList);
 			
@@ -47,7 +47,7 @@ class CustomerCartScreen extends Component {
 			itemListByEachMerchant = _.map(itemListByEachMerchant, function(itemListObject) {
 				return _.values(itemListObject);
 			})
-	
+			
 			this.setState({
 				isCartEmpty: false,
 				merchantDataSourceFromCart: itemListByEachMerchant

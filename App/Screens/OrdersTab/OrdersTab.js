@@ -49,8 +49,9 @@ class OrdersTab extends Component {
     }
   }
 
-  componentWillReceiveProps = (newProps) => {
-    this._setConfirmOrderButtonVisibility(newProps.cart);
+  componentWillReceiveProps = async (newProps) => {
+    let cart = await cartService.getCart();
+    this._setConfirmOrderButtonVisibility(newProps.cart || cart);
   }
   
   componentDidMount = async () => {
@@ -62,7 +63,7 @@ class OrdersTab extends Component {
   }
 
   _setConfirmOrderButtonVisibility = (cart) => {
-    if(cart === null || _.keys(cart.to).length === 0) {
+    if(cart === undefined || cart === null || _.isEmpty(cart) || _.isEmpty(cart.to)) {
       this.setState({
         isCartEmpty: true
       })

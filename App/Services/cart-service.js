@@ -42,7 +42,7 @@ cartService.addToCart = async (item) => {
     storedCart = JSON.parse(cart)
 
     // if there is no cart, populate one
-    if (storedCart === null || _.keys(storedCart).length === 0) {
+    if (storedCart === null && _.keys(storedCart).length === 0) {
         let order = {
             from: from,
             to: {}

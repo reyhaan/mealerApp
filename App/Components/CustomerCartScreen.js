@@ -20,7 +20,6 @@ class CustomerCartScreen extends Component {
 		}
 
 		this.state = {
-        dataSource: '',
         index: 4,
         isMerchant: false,
         isCustomer: true
@@ -28,18 +27,21 @@ class CustomerCartScreen extends Component {
 
 	}
 
-	componentWillReceiveProps = async () => {
+	componentDidMount = async () => {
+		// cart is not yet on state object, populate it from session object
 		let cart = await cartService.getCart();
+		this._createDatasource(cart)
+	}
+	
+	componentWillReceiveProps = (newProps) => {
+		this._createDatasource(newProps.cart)
+	}
 
-		this.setState({
-			cart: cart
-		})
-
-		let merchantList = this.state.cart.to;
-
+	_createDatasource = (cart) => {
+		let merchantList = cart.to;
 		let itemListByEachMerchant = _.values(merchantList);
-
-		// convert array of item object to array of item arrays
+		
+		// convert array of item objects to array of item arrays
 		itemListByEachMerchant = _.map(itemListByEachMerchant, function(itemListObject) {
 			return _.values(itemListObject);
 		})
@@ -61,8 +63,8 @@ class CustomerCartScreen extends Component {
 
 	}
 
-	_removeItem = () => {
-
+	_removeItem = (itemId) => {
+		this.props.removeItemFromCart(itemId);
 	}
 
 	_renderRow = (rowData) => {
@@ -86,16 +88,18 @@ class CustomerCartScreen extends Component {
 
 							<Row style={{ height: 34 }}>
 									<Col>
-										<Row style={{ height: 30, backgroundColor: Colors.clear }}>
-											<Icon
-												size={14}
-												name={'trash-o'}
-												color={Colors.background}
-												type='font-awesome'
-												onPress={() => this.decreaseItemCount()}
-											/>
-											<Text style={styles.itemModify}>&nbsp; Remove</Text>
-										</Row>
+										<TouchableOpacity onPress={() => {this._removeItem(rowData.id)}}>
+											<Row style={{ height: 30, backgroundColor: Colors.clear }}>
+												<Icon
+													size={14}
+													name={'trash-o'}
+													color={Colors.background}
+													type='font-awesome'
+													onPress={() => this.decreaseItemCount()}
+												/>
+												<Text style={styles.itemModify}>&nbsp; Remove</Text>
+											</Row>
+										</TouchableOpacity>
 									</Col>
 									
 									<Col style={{ width: 125, padding: 2 }}>
@@ -206,7 +210,6 @@ class CustomerCartScreen extends Component {
 	}
 
   render () {
-		console.log(this.state.merchantDataSourceFromCart)
     let { isMerchant, isCustomer } = this.state
     return (
       <View style={styles.container}>
@@ -225,7 +228,7 @@ class CustomerCartScreen extends Component {
 const mapDispatchToProps = (dispatch) => (bindActionCreators(cartActionCreators, dispatch));
 const mapStateToProps = state => {
     return {
-
+			cart: state.cart.cart
     }
 };
 

@@ -20,7 +20,7 @@ export const cartActionCreators = {
     addToCart: (data)=> createAction(cartActions.ADD_TO_CART, data),
     addToCartSuccessful: (data)=> createAction(cartActions.ADD_TO_CART_SUCCESSFUL, data),
     hideAddToCartModal: (data)=> createAction(cartActions.HIDE_ADD_TO_CART_MODAL, data),
-    removeFromCart: (data) => createAction(cartActions.REMOVE_FROM_CART, data),
+    removeItemFromCart: (data) => createAction(cartActions.REMOVE_FROM_CART, data),
     updateItemCount: (data) => createAction(cartActions.UPDATE_ITEM_COUNT, data),
     cartUpdateSuccessful: (data) => createAction(cartActions.CART_UPDATE_SUCCESSFUL, data)
 };
@@ -28,6 +28,6 @@ export const cartActionCreators = {
 /******************************* SAGA WATCHERS *************************************/
 export const cartActionWatchers = [
   takeLatest(cartActions.ADD_TO_CART, CartSaga.addToCart),
-  takeLatest(cartActions.REMOVE_FROM_CART, CartSaga.removeFromCart),
+  takeLatest(cartActions.REMOVE_FROM_CART, CartSaga.removeItemFromCart),
   takeLatest(cartActions.UPDATE_ITEM_COUNT, CartSaga.updateItemCount)
 ];

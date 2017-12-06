@@ -69,6 +69,8 @@ cartService.addToCart = async (item) => {
             }
         // Add a new merchant
         } else {
+            console.log(storedCart)
+            storedCart.to[toMerchant] = {}
             storedCart.to[toMerchant][orderItem.id] = orderItem;
             AsyncStorage.setItem('cart', JSON.stringify(storedCart));
         }
@@ -82,8 +84,8 @@ cartService.addToCart = async (item) => {
  * @param itemId: string
  * @param merchantId: string
  */
-cartService.removeFromCart = async (itemId, merchantId) => {
-    let cart = await this.getCart();
+cartService.removeItemFromCart = async (itemId, merchantId) => {
+    let cart = await cartService.getCart();
     let updatedCart = _.omit(cart.to[merchantId], function(value, key) {
         return itemId === key;
     });
@@ -98,7 +100,7 @@ cartService.removeFromCart = async (itemId, merchantId) => {
  * @param newCount: integer
  */
 cartService.updateItemCount = async (itemId, merchantId, newCount) => {
-    let cart = await this.getCart();
+    let cart = await cartService.getCart();
     let updatedCart = cart.to[merchantId][itemId]['itemCount'] = newCount;
     AsyncStorage.setItem('cart', JSON.stringify(updatedCart));
     return Promise.resolve(updatedCart);

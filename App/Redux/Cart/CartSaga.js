@@ -20,10 +20,10 @@ cartEffects.addToCart = function* (item) {
     }
 }
 
-cartEffects.removeFromCart = function* (item) {
+cartEffects.removeItemFromCart = function* (item) {
     try {
         let { data } = item;
-        let updatedCart = yield call(cartService.removeFromCart, data.itemId, data.merchantId);
+        let updatedCart = yield call(cartService.removeItemFromCart, data.itemId, data.merchantId);
         yield put(cartActionCreators.cartUpdateSuccessful(updatedCart));
     } catch (error) {
         Alert.alert('Error', error.message,)

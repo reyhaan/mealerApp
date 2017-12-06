@@ -7,18 +7,19 @@ import styles from './Styles/CustomerCartScreenStyle'
 import cartService from '../Services/cart-service'
 import _ from 'lodash'
 import { merchant } from '../Redux/Merchant/MerchantReducers';
+import { cartActionCreators } from '../Redux/Cart/CartActions'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 
-export default class CustomerCartScreen extends Component {
+class CustomerCartScreen extends Component {
 	constructor (props) {
 		super(props)
 		
 		this.orderObject = {
-			// orders: this.orders,
 			customerName: "Mohammad Rehaan"
 		}
 
 		this.state = {
-        dataSource: '',
         index: 4,
         isMerchant: false,
         isCustomer: true
@@ -26,25 +27,36 @@ export default class CustomerCartScreen extends Component {
 
 	}
 
-	componentWillReceiveProps = async () => {
+	componentDidMount = async () => {
+		// cart is not yet on state object, populate it from session object
 		let cart = await cartService.getCart();
+		this._createDatasource(cart)
+	}
+	
+	componentWillReceiveProps = (newProps) => {
+		// cart is now on redux state object
+		this._createDatasource(newProps.cart)
+	}
 
-		this.setState({
-			cart: cart
-		})
-
-		let merchantList = this.state.cart.to;
-
-		let itemListByEachMerchant = _.values(merchantList);
-
-		// convert array of item object to array of item arrays
-		itemListByEachMerchant = _.map(itemListByEachMerchant, function(itemListObject) {
-			return _.values(itemListObject);
-		})
-
-		this.setState({
-			merchantDataSourceFromCart: itemListByEachMerchant
-		})
+	_createDatasource = (cart) => {
+		if(cart !== {} || cart !== '') {
+			let merchantList = cart.to;
+			let itemListByEachMerchant = _.values(merchantList);
+			
+			// convert array of item objects to array of item arrays
+			itemListByEachMerchant = _.map(itemListByEachMerchant, function(itemListObject) {
+				return _.values(itemListObject);
+			})
+	
+			this.setState({
+				isCartEmpty: false,
+				merchantDataSourceFromCart: itemListByEachMerchant
+			})
+		} else {
+			this.setState({
+				isCartEmpty: true
+			})
+		}
 	}
 
 	_calculateTotalCost = (rowData) => {
@@ -53,6 +65,14 @@ export default class CustomerCartScreen extends Component {
 			total += (rowData[i].itemCost * rowData[i].itemCount)
 		}
 		return total;
+	}
+
+	_updateItemCount = () => {
+
+	}
+
+	_removeItem = (itemId, merchantId) => {
+		this.props.removeItemFromCart({itemId: itemId, merchantId: merchantId});
 	}
 
 	_renderRow = (rowData) => {
@@ -76,16 +96,18 @@ export default class CustomerCartScreen extends Component {
 
 							<Row style={{ height: 34 }}>
 									<Col>
-										<Row style={{ height: 30, backgroundColor: Colors.clear }}>
-											<Icon
-												size={14}
-												name={'trash-o'}
-												color={Colors.background}
-												type='font-awesome'
-												onPress={() => this.decreaseItemCount()}
-											/>
-											<Text style={styles.itemModify}>&nbsp; Remove</Text>
-										</Row>
+										<TouchableOpacity onPress={() => {this._removeItem(rowData.id, rowData.merchantInfo.uid)}}>
+											<Row style={{ height: 30, width: 70, backgroundColor: Colors.clear }}>
+												<Icon
+													size={14}
+													name={'trash-o'}
+													color={Colors.background}
+													type='font-awesome'
+													onPress={() => this.decreaseItemCount()}
+												/>
+												<Text style={styles.itemModify}>&nbsp; Remove</Text>
+											</Row>
+										</TouchableOpacity>
 									</Col>
 									
 									<Col style={{ width: 125, padding: 2 }}>
@@ -133,7 +155,7 @@ export default class CustomerCartScreen extends Component {
 				<Row style={{ paddingLeft: 20, paddingTop: 15, paddingBottom: 15, marginBottom: 5, backgroundColor: Colors.snow, borderBottomColor: Colors.gray2, borderBottomWidth: 1, borderTopColor: Colors.gray2, borderTopWidth: 1 }}>
 					<Col size={1}>
 						<Text style={{ color: Colors.gray3 }} >CHEF:
-							<Text style={{ fontSize: 14, color: Colors.gray3 }}> { this.orderObject.customerName.toUpperCase() }</Text>
+							<Text style={{ fontSize: 14, color: Colors.gray3 }}>&nbsp;{ rowData[0].merchantInfo.name.toUpperCase() }</Text>
 						</Text>
 					</Col>
 		
@@ -210,3 +232,12 @@ export default class CustomerCartScreen extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => (bindActionCreators(cartActionCreators, dispatch));
+const mapStateToProps = state => {
+    return {
+			cart: state.cart.cart
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerCartScreen)

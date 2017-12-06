@@ -7,6 +7,8 @@ import { Colors, Metrics } from '../../Themes'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import { Icon, Badge, List, ListItem } from 'react-native-elements'
 import authenticationService from '../../Services/authentication-service'
+import cartService from '../../Services/cart-service'
+import _ from 'lodash'
 
 // Styles
 const styles = OrdersTabStyle;
@@ -42,13 +44,33 @@ class OrdersTab extends Component {
       showDropdown: false,
       activeFilter: list[0],
       isMerchant: false,
-      isCustomer: true
+      isCustomer: true,
+      isCartEmpty: false
     }
   }
 
+  componentWillReceiveProps = (newProps) => {
+    this._setConfirmOrderButtonVisibility(newProps.cart);
+  }
+  
   componentDidMount = async () => {
     let currentUser = await authenticationService.currentUser();
     this._setCurrentUserType(currentUser.type)
+    
+    let cart = await cartService.getCart();
+    this._setConfirmOrderButtonVisibility(cart);
+  }
+
+  _setConfirmOrderButtonVisibility = (cart) => {
+    if(cart === null || _.keys(cart.to).length === 0) {
+      this.setState({
+        isCartEmpty: true
+      })
+    } else {
+      this.setState({
+        isCartEmpty: false
+      })
+    }
   }
 
   _setCurrentUserType = (userType) => {
@@ -249,15 +271,17 @@ class OrdersTab extends Component {
 
         </ScrollView>
 
-        <Row style={{ height: 45, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center' }}>
-          <TouchableOpacity>
-            <Row style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: Metrics.screenWidth }}>
-              <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CONFIRM ORDER:
-                <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}> $ 275</Text>
-              </Text>
-            </Row>
-          </TouchableOpacity>
-        </Row>
+        { !this.state.isCartEmpty &&
+          <Row style={{ height: 45, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center' }}>
+            <TouchableOpacity>
+              <Row style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: Metrics.screenWidth }}>
+                <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CONFIRM ORDER:
+                  <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}> $ 275</Text>
+                </Text>
+              </Row>
+            </TouchableOpacity>
+          </Row>
+        }
 
       </View>
     )
@@ -266,7 +290,7 @@ class OrdersTab extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state
+    cart: state.cart.cart
   }
 }
 

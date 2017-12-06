@@ -10,7 +10,8 @@ const cartEffects = {};
 
 cartEffects.addToCart = function* (item) {
     try {
-        let updatedCart = yield call(cartService.addToCart, item);
+        let { data } = item;
+        let updatedCart = yield call(cartService.addToCart, data);
         yield put(cartActionCreators.addToCartSuccessful(updatedCart));
     } catch (error) {
         Alert.alert('Error', error.message,)
@@ -19,12 +20,24 @@ cartEffects.addToCart = function* (item) {
     }
 }
 
-cartEffects.removeFromCart = function* (itemId) {
-
+cartEffects.removeItemFromCart = function* (item) {
+    try {
+        let { data } = item;
+        let updatedCart = yield call(cartService.removeItemFromCart, data.itemId, data.merchantId);
+        yield put(cartActionCreators.cartUpdateSuccessful(updatedCart));
+    } catch (error) {
+        Alert.alert('Error', error.message,)
+    }
 }
 
 cartEffects.updateItemCount = function* (itemId, itemCount) {
-    
+    try {
+        let { data } = item;
+        let updatedCart = yield call(cartService.updateItemCount, data.itemId, data.merchantId, data.newCount);
+        yield put(cartActionCreators.cartUpdateSuccessful(updatedCart));
+    } catch (error) {
+        Alert.alert('Error', error.message,)
+    }
 }
 
 export default cartEffects;

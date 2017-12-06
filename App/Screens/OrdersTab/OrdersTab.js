@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { ScrollView, View, Text, Dimensions, StatusBar, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import { ScrollView, View, Text, Dimensions, StatusBar, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
 import OrdersTabStyle from './OrdersTab.style'
 import { IndividualOrderList, CustomerCartScreen } from '../../Components'
-import { Colors, Metrics } from '../../Themes'
+import { Colors, Metrics, Images } from '../../Themes'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import { Icon, Badge, List, ListItem } from 'react-native-elements'
 import authenticationService from '../../Services/authentication-service'
@@ -127,7 +127,19 @@ class OrdersTab extends Component {
   _renderCustomerOrder = () => {
     return (
       <Col>
-        <CustomerCartScreen></CustomerCartScreen>
+
+        { this.state.isCartEmpty &&
+          <View style={styles.subContainer}>
+              <Image source={Images.emptyCart} style={styles.logo}/>
+              <Text style={{color: Colors.gray3, marginTop: Metrics.doubleBaseMargin, fontWeight: 'bold', fontSize: 18}}>Your Cart is empty!</Text>
+          </View>
+        }
+
+        { !this.state.isCartEmpty &&
+          <CustomerCartScreen></CustomerCartScreen>
+        }
+
+
       </Col>
     );
   }

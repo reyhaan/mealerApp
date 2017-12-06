@@ -60,7 +60,7 @@ class MenuTab extends Component {
                     <Col size={35} style={{}}>
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                             <Image style={{width: 100, height: 90, borderRadius: 3}}
-                                   source={{uri: item.itemImage}}/>
+                                   source={{uri: item.itemImage + '?' + new Date().getTime()}}/>
                         </View>
                     </Col>
                 </Grid>
@@ -85,7 +85,8 @@ class MenuTab extends Component {
                     backgroundColor={Colors.background}
                     outerContainerStyles={style.headerOuterContainer}/>
 
-                <LoadingSpinner show={this.props.merchant.showActivityIndicator && menus.length === 0 || this.state.refreshing}/>
+                <LoadingSpinner
+                    show={this.props.merchant.showActivityIndicator && menus.length === 0 || this.state.refreshing}/>
 
                 <FlatList
                     style={{backgroundColor: style.white}}

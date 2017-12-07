@@ -119,4 +119,15 @@ cartService.getTotalCost = async () => {
     return Promise.resolve(cost);
 }
 
+cartService.isCartEmpty = async () => {
+    let cart = await AsyncStorage.getItem('cart');
+    if (cart === null || cart === '' || cart === undefined) {
+        return true;
+    }
+    if(cart.hasOwnProperty('to') && _.isEmpty(cart.to)) {
+        return true;
+    }
+    return false;
+}
+
 export default cartService;

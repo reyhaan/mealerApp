@@ -61,6 +61,7 @@ cartService.addToCart = async (item) => {
             if (foundItem) {
                 storedCart.to[toMerchant][foundItem.id]['itemCount'] = storedCart.to[toMerchant][foundItem.id]['itemCount'] + item.itemCount;
                 AsyncStorage.setItem('cart', JSON.stringify(storedCart));
+            // Else, just add the new item under this merchant
             } else {
                 storedCart.to[toMerchant][orderItem.id] = orderItem;
                 AsyncStorage.setItem('cart', JSON.stringify(storedCart));
@@ -100,9 +101,9 @@ cartService.removeItemFromCart = async (itemId, merchantId) => {
  */
 cartService.updateItemCount = async (itemId, merchantId, newCount) => {
     let cart = await cartService.getCart();
-    let updatedCart = cart.to[merchantId][itemId]['itemCount'] = newCount;
-    AsyncStorage.setItem('cart', JSON.stringify(updatedCart));
-    return Promise.resolve(updatedCart);
+    cart.to[merchantId][itemId]['itemCount'] = newCount;
+    AsyncStorage.setItem('cart', JSON.stringify(cart));
+    return Promise.resolve(cart);
 }
 
 export default cartService;

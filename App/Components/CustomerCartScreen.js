@@ -67,8 +67,9 @@ class CustomerCartScreen extends Component {
 		return total;
 	}
 
-	_updateItemCount = () => {
-
+	_updateItemCount = (itemId, merchantId, newCount) => {
+		let count = newCount < 1 ? 1 : newCount
+		this.props.updateItemCount({itemId: itemId, merchantId: merchantId, newCount: count});
 	}
 
 	_removeItem = (itemId, merchantId) => {
@@ -103,7 +104,6 @@ class CustomerCartScreen extends Component {
 													name={'trash-o'}
 													color={Colors.background}
 													type='font-awesome'
-													onPress={() => this.decreaseItemCount()}
 												/>
 												<Text style={styles.itemModify}>&nbsp; Remove</Text>
 											</Row>
@@ -112,15 +112,16 @@ class CustomerCartScreen extends Component {
 									
 									<Col style={{ width: 125, padding: 2 }}>
 										<Row style={{ height: 30, backgroundColor: Colors.clear }}>
+										<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount - 1)}}>
 											<Col style={styles.itemCountButton}>
 												<Icon
 													size={14}
 													name={'minus'}
 													color={Colors.background}
 													type='font-awesome'
-													onPress={() => this.decreaseItemCount()}
 													/>
 											</Col>
+										</TouchableOpacity>
 											
 											<Col style={{ width: 65 }}>
 												<Row style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -128,15 +129,16 @@ class CustomerCartScreen extends Component {
 												</Row>
 											</Col>
 											
+										<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount + 1)}}>
 											<Col style={styles.itemCountButton}>
 												<Icon
 													size={14}
 													name={'plus'}
 													color={Colors.background}
 													type='font-awesome'
-													onPress={() => this.decreaseItemCount()}
-												/>
+													/>
 											</Col>
+										</TouchableOpacity>
 										</Row>
 									</Col>
 							</Row>
@@ -222,11 +224,11 @@ class CustomerCartScreen extends Component {
     return (
       <View style={styles.container}>
         <Grid>
-					<FlatList
-						contentContainerStyle={styles.listContent}
-						data={this.state.merchantDataSourceFromCart}
-						renderItem={({item}) => this._renderIndividualMerchantRow(item)}
-					/>
+			<FlatList
+				contentContainerStyle={styles.listContent}
+				data={this.state.merchantDataSourceFromCart}
+				renderItem={({item}) => this._renderIndividualMerchantRow(item)}
+			/>
         </Grid>
       </View>
     )

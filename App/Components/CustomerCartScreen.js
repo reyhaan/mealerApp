@@ -68,7 +68,7 @@ class CustomerCartScreen extends Component {
 	}
 
 	_updateItemCount = (itemId, merchantId, newCount) => {
-		let count = newCount < 0 ? 0 : newCount
+		let count = newCount < 1 ? 1 : newCount
 		this.props.updateItemCount({itemId: itemId, merchantId: merchantId, newCount: count});
 	}
 
@@ -112,15 +112,16 @@ class CustomerCartScreen extends Component {
 									
 									<Col style={{ width: 125, padding: 2 }}>
 										<Row style={{ height: 30, backgroundColor: Colors.clear }}>
+										<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount - 1)}}>
 											<Col style={styles.itemCountButton}>
 												<Icon
 													size={14}
 													name={'minus'}
 													color={Colors.background}
 													type='font-awesome'
-													onPress={() => this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount - 1)}
 													/>
 											</Col>
+										</TouchableOpacity>
 											
 											<Col style={{ width: 65 }}>
 												<Row style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -128,15 +129,16 @@ class CustomerCartScreen extends Component {
 												</Row>
 											</Col>
 											
+										<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount + 1)}}>
 											<Col style={styles.itemCountButton}>
 												<Icon
 													size={14}
 													name={'plus'}
 													color={Colors.background}
 													type='font-awesome'
-													onPress={() => this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount + 1)}
-												/>
+													/>
 											</Col>
+										</TouchableOpacity>
 										</Row>
 									</Col>
 							</Row>

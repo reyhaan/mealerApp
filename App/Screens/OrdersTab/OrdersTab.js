@@ -59,16 +59,20 @@ class OrdersTab extends Component {
     this._setCurrentUserType(currentUser.type)
     
     let cart = await cartService.getCart();
-    this._setConfirmOrderButtonVisibility(cart);
+    this._setConfirmOrderButtonVisibility(cart); 
   }
 
-  _setConfirmOrderButtonVisibility = (cart) => {
+  _setConfirmOrderButtonVisibility = async (cart) => {
     if(cart === undefined || cart === null || _.isEmpty(cart) || _.isEmpty(cart.to)) {
       this.setState({
         isCartEmpty: true
       })
     } else {
+
+      let totalCost = await cartService.getTotalCost()
+
       this.setState({
+        totalCost: totalCost,
         isCartEmpty: false
       })
     }
@@ -154,7 +158,6 @@ class OrdersTab extends Component {
       </Col>
     );
   }
-
 
   render () {
     return (
@@ -289,7 +292,7 @@ class OrdersTab extends Component {
             <TouchableOpacity>
               <Row style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: Metrics.screenWidth }}>
                 <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CONFIRM ORDER:
-                  <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}> $ 275</Text>
+                  <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}> $ {this.state.totalCost}</Text>
                 </Text>
               </Row>
             </TouchableOpacity>

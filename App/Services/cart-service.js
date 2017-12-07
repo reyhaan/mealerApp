@@ -106,4 +106,17 @@ cartService.updateItemCount = async (itemId, merchantId, newCount) => {
     return Promise.resolve(cart);
 }
 
+cartService.getTotalCost = async () => {
+    let cost = 0;
+    let cart = await cartService.getCart();
+    let itemsForAllMerchants = _.values(cart.to);
+    _.each(itemsForAllMerchants, function(itemFromOneMerchant) {
+        let itemArray = _.values(itemFromOneMerchant);
+        _.each(itemArray, function(item) {
+            cost = cost + (parseFloat(item.itemCost).toFixed(2) * (item.itemCount));
+        })
+    })
+    return Promise.resolve(cost);
+}
+
 export default cartService;

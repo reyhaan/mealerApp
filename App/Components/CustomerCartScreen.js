@@ -67,8 +67,9 @@ class CustomerCartScreen extends Component {
 		return total;
 	}
 
-	_updateItemCount = () => {
-
+	_updateItemCount = (itemId, merchantId, newCount) => {
+		let count = newCount < 0 ? 0 : newCount
+		this.props.updateItemCount({itemId: itemId, merchantId: merchantId, newCount: count});
 	}
 
 	_removeItem = (itemId, merchantId) => {
@@ -103,7 +104,6 @@ class CustomerCartScreen extends Component {
 													name={'trash-o'}
 													color={Colors.background}
 													type='font-awesome'
-													onPress={() => this.decreaseItemCount()}
 												/>
 												<Text style={styles.itemModify}>&nbsp; Remove</Text>
 											</Row>
@@ -118,7 +118,7 @@ class CustomerCartScreen extends Component {
 													name={'minus'}
 													color={Colors.background}
 													type='font-awesome'
-													onPress={() => this.decreaseItemCount()}
+													onPress={() => this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount - 1)}
 													/>
 											</Col>
 											
@@ -134,7 +134,7 @@ class CustomerCartScreen extends Component {
 													name={'plus'}
 													color={Colors.background}
 													type='font-awesome'
-													onPress={() => this.decreaseItemCount()}
+													onPress={() => this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount + 1)}
 												/>
 											</Col>
 										</Row>
@@ -222,11 +222,11 @@ class CustomerCartScreen extends Component {
     return (
       <View style={styles.container}>
         <Grid>
-					<FlatList
-						contentContainerStyle={styles.listContent}
-						data={this.state.merchantDataSourceFromCart}
-						renderItem={({item}) => this._renderIndividualMerchantRow(item)}
-					/>
+			<FlatList
+				contentContainerStyle={styles.listContent}
+				data={this.state.merchantDataSourceFromCart}
+				renderItem={({item}) => this._renderIndividualMerchantRow(item)}
+			/>
         </Grid>
       </View>
     )

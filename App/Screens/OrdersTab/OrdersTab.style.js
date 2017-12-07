@@ -11,9 +11,8 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   logo: {
-    width: Metrics.screenWidth - 120,
-    height: 400,
-    resizeMode: 'cover'
+    height: 220,
+    resizeMode: 'contain'
   },
   container: {
     flex: 1,

@@ -30,7 +30,7 @@ cartEffects.removeItemFromCart = function* (item) {
     }
 }
 
-cartEffects.updateItemCount = function* (itemId, itemCount) {
+cartEffects.updateItemCount = function* (item) {
     try {
         let { data } = item;
         let updatedCart = yield call(cartService.updateItemCount, data.itemId, data.merchantId, data.newCount);

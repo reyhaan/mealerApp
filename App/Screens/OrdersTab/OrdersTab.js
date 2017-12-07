@@ -131,7 +131,7 @@ class OrdersTab extends Component {
         { this.state.isCartEmpty &&
           <View style={styles.subContainer}>
               <Image source={Images.emptyCart} style={styles.logo}/>
-              <Text style={{color: Colors.gray3, marginTop: Metrics.doubleBaseMargin, fontWeight: 'bold', fontSize: 18}}>Your Cart is empty!</Text>
+              <Text style={{color: Colors.backgroundGray, marginTop: Metrics.doubleBaseMargin, fontWeight: 'bold', fontSize: 18}}>Your cart is empty!</Text>
           </View>
         }
 

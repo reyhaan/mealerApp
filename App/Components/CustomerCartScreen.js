@@ -14,10 +14,6 @@ import {bindActionCreators} from 'redux'
 class CustomerCartScreen extends Component {
 	constructor (props) {
 		super(props)
-		
-		this.orderObject = {
-			customerName: "Mohammad Rehaan"
-		}
 
 		this.state = {
         index: 4,
@@ -224,11 +220,13 @@ class CustomerCartScreen extends Component {
     return (
       <View style={styles.container}>
         <Grid>
-			<FlatList
-				contentContainerStyle={styles.listContent}
-				data={this.state.merchantDataSourceFromCart}
-				renderItem={({item}) => this._renderIndividualMerchantRow(item)}
-			/>
+					<Row>
+						<FlatList
+							contentContainerStyle={styles.listContent}
+							data={this.state.merchantDataSourceFromCart}
+							renderItem={({item}) => this._renderIndividualMerchantRow(item)}
+						/>
+					</Row>
         </Grid>
       </View>
     )

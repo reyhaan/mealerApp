@@ -52,83 +52,97 @@ export default class UserProfileHeader extends Component {
     let { user } = this.props;
     return (
       <View style={styles.mainContainer}>
-      <StatusBar barStyle='dark-content'/>
-
-        <Grid>
-            <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <View style={{ marginTop: 45 }}>
-                {this._backButton()}
-              </View>
-            </Col>
-
-            <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <Image
-                  source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg'}} 
-                  style={styles.userImage}>
-              </Image>
-            </Col>
-
-            <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <View style={{ marginTop: 45 }}>
-                {this._infoButton()}
-              </View>
-            </Col>
-
-
-        </Grid>
         
-        <View style={ styles.subContainer }>
-            <Grid>
+        <StatusBar barStyle='dark-content'/>
 
-                <Row style={{ height: 40, alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
-                  <Text style={styles.userName}>{user.name}</Text>
-                </Row>
+        <Image
+          style={{
+            flex: 1,
+            resizeMode: 'cover',
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center'
+          }}
+          source={Images.bg1}
+        >
 
-                <Row style={{ height: 30, alignItems: 'center', justifyContent: 'center' }}>
-                  <Rating
-                    type="star"
-                    ratingColor={Colors.pink2}
-                    fractions={1}
-                    startingValue={4}
-                    readonly
-                    imageSize={18}
-                    onFinishRating={this.ratingCompleted}
-                    style={{ paddingVertical: 2, backgroundColor: Colors.clear}}
-                  />
-                </Row>
+          <Grid style={{ backgroundColor: Colors.windowTint }}>
+              <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
+                {/* <View style={{ marginTop: 45 }}>
+                  {this._backButton()}
+                </View> */}
+              </Col>
 
-                <Row size={1} style={{ backgroundColor: Colors.snow }}>
-                  <Col size={1} style={{ }}>
-                    <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                      <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.background }}>70</Text>
-                    </Row>
-                    <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
-                      <Text style={{ color: Colors.gray, fontSize: 12 }}>ORDER LIMIT</Text>
-                    </Row>
-                  </Col>
-                  
-                  <Col size={1} style={{ }}>
-                    <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                      <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.background }}>{user.rating}</Text>
-                    </Row>
-                    <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
-                      <Text style={{ color: Colors.gray, fontSize: 12 }}>RATING</Text>
-                    </Row>
-                  </Col>
-                  
-                  <Col size={1} style={{ }}>
-                    <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                      <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.background }}>{_.keys(user.menu).length}</Text>
-                    </Row>
-                    <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
-                      <Text style={{ color: Colors.gray, fontSize: 12 }}>ITEMS</Text>
-                    </Row>
-                  </Col>
-                </Row>
+              <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Image
+                    source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg'}} 
+                    style={styles.userImage}>
+                </Image>
+              </Col>
 
-            </Grid>
+              <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
+                {/* <View style={{ marginTop: 45 }}>
+                  {this._infoButton()}
+                </View> */}
+              </Col>
 
-        </View>
+
+          </Grid>
+          
+          <View style={ styles.subContainer }>
+              <Grid>
+
+                  <Row style={{ height: 30, alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
+                    <Text style={styles.userName}>{user.name}</Text>
+                  </Row>
+
+                  {/* <Row style={{ height: 30, alignItems: 'center', justifyContent: 'center' }}>
+                    <Rating
+                      type="star"
+                      ratingColor={Colors.pink2}
+                      fractions={1}
+                      startingValue={4}
+                      readonly
+                      imageSize={18}
+                      onFinishRating={this.ratingCompleted}
+                      style={{ paddingVertical: 2, backgroundColor: Colors.windowTint}}
+                    />
+                  </Row> */}
+
+                  <Row size={1} style={{ }}>
+                    <Col size={1} style={{ }}>
+                      <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>70</Text>
+                      </Row>
+                      <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
+                        <Text style={{ color: Colors.snow, fontSize: 12 }}>ORDER LIMIT</Text>
+                      </Row>
+                    </Col>
+                    
+                    <Col size={1} style={{ }}>
+                      <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{user.rating || 4.2}</Text>
+                      </Row>
+                      <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
+                        <Text style={{ color: Colors.snow, fontSize: 12 }}>RATING</Text>
+                      </Row>
+                    </Col>
+                    
+                    <Col size={1} style={{ }}>
+                      <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{_.keys(user.menu).length}</Text>
+                      </Row>
+                      <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
+                        <Text style={{ color: Colors.snow, fontSize: 12 }}>ITEMS</Text>
+                      </Row>
+                    </Col>
+                  </Row>
+
+              </Grid>
+
+          </View>
+        </Image>
 
       </View>
     )

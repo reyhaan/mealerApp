@@ -34,9 +34,6 @@ export default StackNavigator({
     },
     EditMenuScreen: {
         screen: EditMenuScreen
-    },
-    CookDetailsScreen: {
-        screen: CookDetailsScreen
     }
 }, {
     // Default config for all screens

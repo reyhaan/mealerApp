@@ -35,6 +35,8 @@ const images = {
     addItemImage2x: require('../Images/add_item_image_2x.png'),
     addImagePlaceHolder: require('../Images/add-image-placeholder-icon.jpg'),
     emptyCart: require('../Images/empty-cart.png'),
+    bg1: require('../Images/bg1.jpg'),
+    bg2: require('../Images/bg2.jpg'),
 };
 
 export default images

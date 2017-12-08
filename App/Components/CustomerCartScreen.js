@@ -77,68 +77,68 @@ class CustomerCartScreen extends Component {
       <View style={styles.row}>
         <View style={styles.rowInnerContainer}>
           <Grid style={{ borderBottomColor: Colors.gray2, borderBottomWidth: 1 }}>
-							<Row style={{ height: 30 }}>
-								<Col size={1}>
-										<Row style={{ height: 20 }}>
-												<Text style={[styles.boldLabel, {color: Colors.gray}]}>{rowData.itemName}</Text>
-										</Row>
-								</Col>
+					
+						<Row style={{ height: 30 }}>
+							<Col size={1}>
+									<Row style={{ height: 20 }}>
+											<Text style={[styles.boldLabel, {color: Colors.gray}]}>{rowData.itemName}</Text>
+									</Row>
+							</Col>
 
-								<Col style={{ width: 100 }}>
-										<Row style={{ height: 20, flexDirection: 'column', alignItems: 'flex-end' }}>
-											<Text style={styles.itemCost}>$ {rowData.itemCost}</Text>
-										</Row>
-								</Col>
-							</Row>
+							<Col style={{ width: 100 }}>
+									<Row style={{ height: 20, flexDirection: 'column', alignItems: 'flex-end' }}>
+										<Text style={styles.itemCost}>$ {rowData.itemCost}</Text>
+									</Row>
+							</Col>
+						</Row>
 
-							<Row style={{ height: 34 }}>
-									<Col>
-										<TouchableOpacity onPress={() => {this._removeItem(rowData.id, rowData.merchantInfo.uid)}}>
-											<Row style={{ height: 30, width: 70, backgroundColor: Colors.clear }}>
-												<Icon
-													size={14}
-													name={'trash-o'}
-													color={Colors.background}
-													type='font-awesome'
-												/>
-												<Text style={styles.itemModify}>&nbsp; Remove</Text>
-											</Row>
-										</TouchableOpacity>
+						<Row style={{ height: 34 }}>
+							<Col>
+								<TouchableOpacity onPress={() => {this._removeItem(rowData.id, rowData.merchantInfo.uid)}}>
+									<Row style={{ height: 30, width: 70, backgroundColor: Colors.clear }}>
+										<Icon
+											size={14}
+											name={'trash-o'}
+											color={Colors.background}
+											type='font-awesome'
+										/>
+										<Text style={styles.itemModify}>&nbsp; Remove</Text>
+									</Row>
+								</TouchableOpacity>
+							</Col>
+							
+							<Col style={{ width: 125, padding: 2 }}>
+								<Row style={{ height: 30, backgroundColor: Colors.clear }}>
+								<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount - 1)}}>
+									<Col style={styles.itemCountButton}>
+										<Icon
+											size={14}
+											name={'minus'}
+											color={Colors.background}
+											type='font-awesome'
+											/>
+									</Col>
+								</TouchableOpacity>
+									
+									<Col style={{ width: 65 }}>
+										<Row style={{ alignItems: 'center', justifyContent: 'center' }}>
+											<Text style={styles.itemCount}>{rowData.itemCount}</Text>
+										</Row>
 									</Col>
 									
-									<Col style={{ width: 125, padding: 2 }}>
-										<Row style={{ height: 30, backgroundColor: Colors.clear }}>
-										<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount - 1)}}>
-											<Col style={styles.itemCountButton}>
-												<Icon
-													size={14}
-													name={'minus'}
-													color={Colors.background}
-													type='font-awesome'
-													/>
-											</Col>
-										</TouchableOpacity>
-											
-											<Col style={{ width: 65 }}>
-												<Row style={{ alignItems: 'center', justifyContent: 'center' }}>
-													<Text style={styles.itemCount}>{rowData.itemCount}</Text>
-												</Row>
-											</Col>
-											
-										<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount + 1)}}>
-											<Col style={styles.itemCountButton}>
-												<Icon
-													size={14}
-													name={'plus'}
-													color={Colors.background}
-													type='font-awesome'
-													/>
-											</Col>
-										</TouchableOpacity>
-										</Row>
+								<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount + 1)}}>
+									<Col style={styles.itemCountButton}>
+										<Icon
+											size={14}
+											name={'plus'}
+											color={Colors.background}
+											type='font-awesome'
+											/>
 									</Col>
-							</Row>
-
+								</TouchableOpacity>
+								</Row>
+							</Col>
+						</Row>
 
           </Grid>
         </View>

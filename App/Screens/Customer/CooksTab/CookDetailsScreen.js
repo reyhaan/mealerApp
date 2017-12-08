@@ -90,7 +90,28 @@ class CookDetailsScreen extends Component {
 
     _renderChefDetails = () => {
         return (
-            <Text>something cool</Text>
+            <Col style={{ padding: 20 }}>
+                <Row style={{ borderBottomColor: Colors.steel, borderBottomWidth: 1, paddingBottom: 10, marginBottom: 10 }}>
+                    <Text style={{ color: Colors.gray, fontWeight: 'bold' }}>ADDRESS</Text>
+                </Row>
+                <Row style={{ marginBottom: 20 }}>
+                    <Text>{this.state.activeMerchant.address}</Text>
+                </Row>
+
+                <Row style={{ borderBottomColor: Colors.steel, borderBottomWidth: 1, paddingBottom: 10, marginBottom: 10 }}>
+                    <Text style={{ color: Colors.gray, fontWeight: 'bold' }}>PHONE</Text>
+                </Row>
+                <Row style={{ marginBottom: 20 }}>
+                    <Text>{this.state.activeMerchant.phone}</Text>
+                </Row>
+
+                <Row style={{ borderBottomColor: Colors.steel, borderBottomWidth: 1, paddingBottom: 10, marginBottom: 10 }}>
+                    <Text style={{ color: Colors.gray, fontWeight: 'bold' }}>EMAIL</Text>
+                </Row>
+                <Row style={{ marginBottom: 20 }}>
+                    <Text>{this.state.activeMerchant.email}</Text>
+                </Row>
+            </Col>
         )
     }
 

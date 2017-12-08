@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableWithoutFeedback} from 'react-native'
 import {connect} from 'react-redux'
 import style from './CookDetailsScreen.style'
-import {Icon} from 'react-native-elements'
+import {Icon, Header} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../../Themes';
 import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
@@ -88,6 +88,12 @@ class CookDetailsScreen extends Component {
         }
     };
 
+    _renderChefDetails = () => {
+        return (
+            <Text>something cool</Text>
+        )
+    }
+
     _renderListModeItem() {
         const animation = LayoutAnimation.create(500, 'easeInEaseOut', 'opacity');
         LayoutAnimation.configureNext(animation);
@@ -142,7 +148,7 @@ class CookDetailsScreen extends Component {
         return(
             <Icon
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
-                color={Colors.snow}
+                color={Colors.background}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
             />
         )
@@ -176,89 +182,91 @@ class CookDetailsScreen extends Component {
         }
 
         return (
-            <ScrollView style={{flex: 1,backgroundColor: '#fff'}}>
+            <Col>
+                <Header leftComponent={this.backButton()} rightComponent={null}
+                    centerComponent={{text: "CHEF", style: {color: Colors.background, fontWeight: 'bold'}}}
+                    backgroundColor={Colors.snow}
+                />
+                <ScrollView style={{flex: 1,backgroundColor: '#fff'}}>
 
-                <AddToCartModal visible={!this.props.shouldHideAddToCartModal} activeItem={this.state.activeItem} activeMerchant={this.state.activeMerchant} ></AddToCartModal>
+                    <AddToCartModal visible={!this.props.shouldHideAddToCartModal} activeItem={this.state.activeItem} activeMerchant={this.state.activeMerchant} ></AddToCartModal>
 
-                {/* <LoadingSpinner show={!this.props.menu.length}/> */}
+                    {/* <LoadingSpinner show={!this.props.menu.length}/> */}
 
-                <UserProfileHeader navigation={this.props.navigation} user={this.state.activeMerchant}></UserProfileHeader>
+                    <UserProfileHeader navigation={this.props.navigation} user={this.state.activeMerchant}></UserProfileHeader>
 
-                <View style={{ height: 50, borderBottomColor: Colors.lightGray, borderBottomWidth: 1, backgroundColor: Colors.silver }}>
-                    <Grid>
+                    <View style={{ height: 50, borderBottomColor: Colors.lightGray, borderBottomWidth: 1, backgroundColor: Colors.silver }}>
+                        <Grid>
 
-                        <Col size={1} 
-                            style={{ 
-                                backgroundColor: (this.state.showMenu) ? Colors.background : Colors.clear, 
-                                borderLeftWidth: 1, 
-                                borderLeftColor: Colors.gray2, 
-                                alignItems: 'center', 
-                                justifyContent: 'center' 
-                            }}>
                             <TouchableWithoutFeedback onPress={() => this.switchView('menu')}>
-                                <View>
-                                    <Text style={{ color: (this.state.showMenu) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>MENU</Text>
-                                </View>
+                                <Col size={1} 
+                                    style={{ 
+                                        backgroundColor: (this.state.showMenu) ? Colors.background : Colors.clear, 
+                                        borderLeftWidth: 1, 
+                                        borderLeftColor: Colors.gray2, 
+                                        alignItems: 'center', 
+                                        justifyContent: 'center' 
+                                    }}>
+                                        <View>
+                                            <Text style={{ color: (this.state.showMenu) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>MENU</Text>
+                                        </View>
+                                </Col>
                             </TouchableWithoutFeedback>
-                        </Col>
 
-                        <Col size={1} 
-                            style={{ 
-                                backgroundColor: (this.state.showDetails) ? Colors.background : Colors.clear, 
-                                borderLeftWidth: 1, 
-                                borderLeftColor: Colors.gray2, 
-                                alignItems: 'center', 
-                                justifyContent: 'center' 
-                            }} >
                             <TouchableWithoutFeedback onPress={() => this.switchView('details')}>
-                                <View>
-                                    <Text style={{ color: (this.state.showDetails) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>DETAILS</Text>
-                                </View>
+                                <Col size={1} 
+                                    style={{ 
+                                        backgroundColor: (this.state.showDetails) ? Colors.background : Colors.clear, 
+                                        borderLeftWidth: 1, 
+                                        borderLeftColor: Colors.gray2, 
+                                        alignItems: 'center', 
+                                        justifyContent: 'center' 
+                                    }} >
+                                        <View>
+                                            <Text style={{ color: (this.state.showDetails) ? Colors.snow : Colors.charcoal, fontSize: 14, fontWeight: 'bold' }}>DETAILS</Text>
+                                        </View>
+                                </Col>
                             </TouchableWithoutFeedback>
-                        </Col>
-                    </Grid>
+                        </Grid>
 
-                    {/* <Grid>
+                        {/* <Grid>
 
-                        <Col style={{ width: 50, backgroundColor: Colors.clear, borderLeftWidth: 1, borderLeftColor: Colors.gray2, paddingTop: 12 }}>
-                            <TouchableOpacity>
-                                <Icon
-                                    name={'view-list'}
-                                    color={ (this.state.islistMode) ? Colors.background : Colors.gray3}
-                                    onPress={() => this.switchView('list')}
-                                />
-                            </TouchableOpacity>
-                        </Col>
+                            <Col style={{ width: 50, backgroundColor: Colors.clear, borderLeftWidth: 1, borderLeftColor: Colors.gray2, paddingTop: 12 }}>
+                                <TouchableOpacity>
+                                    <Icon
+                                        name={'view-list'}
+                                        color={ (this.state.islistMode) ? Colors.background : Colors.gray3}
+                                        onPress={() => this.switchView('list')}
+                                    />
+                                </TouchableOpacity>
+                            </Col>
 
-                        <Col style={{ width: 50, backgroundColor: Colors.clear, borderLeftWidth: 1, borderLeftColor: Colors.gray2, paddingTop: 12 }} >
-                            <TouchableOpacity>
-                                <Icon
-                                    name={'view-stream'}
-                                    color={ (this.state.isFullMode) ? Colors.background : Colors.gray3}
-                                    onPress={() => this.switchView('full')}
-                                />
-                            </TouchableOpacity>
-                        </Col>
-                    </Grid> */}
-                </View>
+                            <Col style={{ width: 50, backgroundColor: Colors.clear, borderLeftWidth: 1, borderLeftColor: Colors.gray2, paddingTop: 12 }} >
+                                <TouchableOpacity>
+                                    <Icon
+                                        name={'view-stream'}
+                                        color={ (this.state.isFullMode) ? Colors.background : Colors.gray3}
+                                        onPress={() => this.switchView('full')}
+                                    />
+                                </TouchableOpacity>
+                            </Col>
+                        </Grid> */}
+                    </View>
 
-                { this.state.showDetails &&
-                    <FlatList
-                        style={{backgroundColor: '#fff'}}
-                        data={menus}
-                        renderItem={({item}) => this._renderListModeItem(item)}
-                    />
-                }
+                    { this.state.showDetails &&  
+                        this._renderChefDetails()
+                    }
 
-                { this.state.showMenu &&
-                    <FlatList
-                        style={{backgroundColor: Colors.backgroundGray, paddingTop: 10}}
-                        data={menus}
-                        renderItem={({item}) => this._renderFullModeItem(item)}
-                    />
-                }
+                    { this.state.showMenu &&
+                        <FlatList
+                            style={{backgroundColor: Colors.backgroundGray, paddingTop: 10}}
+                            data={menus}
+                            renderItem={({item}) => this._renderFullModeItem(item)}
+                        />
+                    }
 
-            </ScrollView>
+                </ScrollView>
+            </Col>
         )
     }
 }

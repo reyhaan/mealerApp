@@ -288,10 +288,10 @@ class OrdersTab extends Component {
         </ScrollView>
 
         { !this.state.isCartEmpty &&
-          <Row style={{ height: 45, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center' }}>
+          <Row style={{ height: 45, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center', margin: 10, borderRadius: 3 }}>
             <TouchableOpacity>
               <Row style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: Metrics.screenWidth }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CONFIRM ORDER:
+                <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CHECKOUT:
                   <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}> $ {this.state.totalCost}</Text>
                 </Text>
               </Row>

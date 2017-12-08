@@ -10,11 +10,27 @@ import {
     OrdersTab,
     SettingsTab,
     InfoTab,
+    CookDetailsScreen
 } from '../../Screens/index'
+
+const chefsStack = StackNavigator({
+    Root: {
+        screen: CooksTab
+    },
+    CookDetailsScreen: {
+        screen: CookDetailsScreen
+    }
+},{
+    headerMode: 'none',
+    initialRouteName: 'Root',
+    navigationOptions: ({navigation}) => ({
+        header: null,
+    })
+});
 
 const customerTabsConfig = {
     One: {
-        screen: CooksTab,
+        screen: chefsStack,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
@@ -77,6 +93,9 @@ export default StackNavigator({
             navigationOptions: ({navigation}) => ({
                 header: null
             })
+        },
+        CookDetailsScreen: {
+            screen: CookDetailsScreen
         }
     }
 );

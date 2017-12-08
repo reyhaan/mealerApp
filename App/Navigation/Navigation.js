@@ -35,9 +35,9 @@ export default StackNavigator({
     EditMenuScreen: {
         screen: EditMenuScreen
     },
-    CookDetailsScreen: {
-        screen: CookDetailsScreen
-    }
+    // CookDetailsScreen: {
+    //     screen: CookDetailsScreen
+    // }
 }, {
     // Default config for all screens
     headerMode: 'none',

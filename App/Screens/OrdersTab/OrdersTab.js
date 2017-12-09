@@ -59,16 +59,20 @@ class OrdersTab extends Component {
     this._setCurrentUserType(currentUser.type)
     
     let cart = await cartService.getCart();
-    this._setConfirmOrderButtonVisibility(cart);
+    this._setConfirmOrderButtonVisibility(cart); 
   }
 
-  _setConfirmOrderButtonVisibility = (cart) => {
+  _setConfirmOrderButtonVisibility = async (cart) => {
     if(cart === undefined || cart === null || _.isEmpty(cart) || _.isEmpty(cart.to)) {
       this.setState({
         isCartEmpty: true
       })
     } else {
+
+      let totalCost = await cartService.getTotalCost()
+
       this.setState({
+        totalCost: totalCost,
         isCartEmpty: false
       })
     }
@@ -131,7 +135,7 @@ class OrdersTab extends Component {
         { this.state.isCartEmpty &&
           <View style={styles.subContainer}>
               <Image source={Images.emptyCart} style={styles.logo}/>
-              <Text style={{color: Colors.gray3, marginTop: Metrics.doubleBaseMargin, fontWeight: 'bold', fontSize: 18}}>Your Cart is empty!</Text>
+              <Text style={{color: Colors.backgroundGray, marginTop: Metrics.doubleBaseMargin, fontWeight: 'bold', fontSize: 18}}>Your cart is empty!</Text>
           </View>
         }
 
@@ -154,7 +158,6 @@ class OrdersTab extends Component {
       </Col>
     );
   }
-
 
   render () {
     return (
@@ -285,11 +288,11 @@ class OrdersTab extends Component {
         </ScrollView>
 
         { !this.state.isCartEmpty &&
-          <Row style={{ height: 45, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center' }}>
+          <Row style={{ height: 45, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center', margin: 10, borderRadius: 3 }}>
             <TouchableOpacity>
               <Row style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: Metrics.screenWidth }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CONFIRM ORDER:
-                  <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}> $ 275</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CHECKOUT:
+                  <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}> $ {this.state.totalCost}</Text>
                 </Text>
               </Row>
             </TouchableOpacity>

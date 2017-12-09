@@ -61,6 +61,7 @@ cartService.addToCart = async (item) => {
             if (foundItem) {
                 storedCart.to[toMerchant][foundItem.id]['itemCount'] = storedCart.to[toMerchant][foundItem.id]['itemCount'] + item.itemCount;
                 AsyncStorage.setItem('cart', JSON.stringify(storedCart));
+            // Else, just add the new item under this merchant
             } else {
                 storedCart.to[toMerchant][orderItem.id] = orderItem;
                 AsyncStorage.setItem('cart', JSON.stringify(storedCart));
@@ -100,9 +101,33 @@ cartService.removeItemFromCart = async (itemId, merchantId) => {
  */
 cartService.updateItemCount = async (itemId, merchantId, newCount) => {
     let cart = await cartService.getCart();
-    let updatedCart = cart.to[merchantId][itemId]['itemCount'] = newCount;
-    AsyncStorage.setItem('cart', JSON.stringify(updatedCart));
-    return Promise.resolve(updatedCart);
+    cart.to[merchantId][itemId]['itemCount'] = newCount;
+    AsyncStorage.setItem('cart', JSON.stringify(cart));
+    return Promise.resolve(cart);
+}
+
+cartService.getTotalCost = async () => {
+    let cost = 0;
+    let cart = await cartService.getCart();
+    let itemsForAllMerchants = _.values(cart.to);
+    _.each(itemsForAllMerchants, function(itemFromOneMerchant) {
+        let itemArray = _.values(itemFromOneMerchant);
+        _.each(itemArray, function(item) {
+            cost = cost + (parseFloat(item.itemCost).toFixed(2) * (item.itemCount));
+        })
+    })
+    return Promise.resolve(cost);
+}
+
+cartService.isCartEmpty = async () => {
+    let cart = await AsyncStorage.getItem('cart');
+    if (cart === null || cart === '' || cart === undefined) {
+        return true;
+    }
+    if(cart.hasOwnProperty('to') && _.isEmpty(cart.to)) {
+        return true;
+    }
+    return false;
 }
 
 export default cartService;

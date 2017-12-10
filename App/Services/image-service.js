@@ -11,7 +11,6 @@ img.uploadBase64Image = async (name, base64Img) => {
         name = name.replace(/\s/g, '') + "mealer_app_image"; // remove spaces from name
         const body = {name, base64Img};
         const response = await axios.post(SERVER_URL, body);
-
         return response.data.imageURL
     } catch (e) {
         Alert.alert('Error', e.data);

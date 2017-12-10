@@ -28,6 +28,7 @@ menuEffects.createMenu = function* (menu) {
             let imageUrlName = data.itemName + user.uid;
             data.itemImage = yield call(imgService.uploadBase64Image, imageUrlName, data.base64img);
         }
+        delete data.base64img; // !important
         yield put(merchantActionCreators.showActivityIndicator(true));
         yield call(merchantService.createMenu, user.uid, data);
         yield put(merchantActionCreators.fetchMerchantMenu(user.uid));
@@ -48,7 +49,7 @@ menuEffects.updateMenu = function* (menu) {
             let imageUrlName = data.itemName + user.uid;
             data.itemImage = yield call(imgService.uploadBase64Image, imageUrlName, data.base64img);
         }
-
+        delete data.base64img; // !important
         yield put(merchantActionCreators.showActivityIndicator(true));
         yield call(merchantService.updateMenu, user.uid, menu.data);
         yield put(merchantActionCreators.fetchMerchantMenu(user.uid));

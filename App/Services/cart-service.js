@@ -92,7 +92,7 @@ cartService.removeItemFromCart = async (itemId, merchantId) => {
     }
     AsyncStorage.setItem('cart', JSON.stringify(cart));
     return Promise.resolve(cart);
-}
+};
 
 /**
  * Update item count in cart
@@ -105,7 +105,7 @@ cartService.updateItemCount = async (itemId, merchantId, newCount) => {
     cart.to[merchantId][itemId]['itemCount'] = newCount;
     AsyncStorage.setItem('cart', JSON.stringify(cart));
     return Promise.resolve(cart);
-}
+};
 
 cartService.getTotalCost = async () => {
     let cost = 0;
@@ -116,33 +116,32 @@ cartService.getTotalCost = async () => {
         _.each(itemArray, function(item) {
             cost = cost + (parseFloat(item.itemCost).toFixed(2) * (item.itemCount));
         })
-    })
+    });
     return Promise.resolve(cost);
-}
+};
 
 cartService.isCartEmpty = async () => {
     let cart = await AsyncStorage.getItem('cart');
     if (cart === null || cart === '' || cart === undefined) {
         return true;
     }
-    if(cart.hasOwnProperty('to') && _.isEmpty(cart.to)) {
-        return true;
-    }
-    return false;
-}
+    return cart.hasOwnProperty('to') && _.isEmpty(cart.to);
+};
 
 cartService.totalItems = async () => {
     let totalItemCount = 0;
     let cart = await cartService.getCart();
-    let itemsForAllMerchants = _.values(cart.to);
-    _.each(itemsForAllMerchants, function(itemFromOneMerchant) {
-        let itemArray = _.values(itemFromOneMerchant);
-        _.each(itemArray, function(item) {
-            totalItemCount = totalItemCount + 1;
-        })
-    })
+    if (cart && cart.to){
+        let itemsForAllMerchants = _.values(cart.to);
+        _.each(itemsForAllMerchants, function(itemFromOneMerchant) {
+            let itemArray = _.values(itemFromOneMerchant);
+            _.each(itemArray, function(item) {
+                totalItemCount = totalItemCount + 1;
+            })
+        });
+    }
     return totalItemCount;
-}
+};
 
 cartService.doCheckout = async (userInfo) => {
     try {
@@ -161,6 +160,6 @@ cartService.doCheckout = async (userInfo) => {
     } catch (error) {
         return {error};
     }
-}
+};
 
 export default cartService;

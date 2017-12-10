@@ -65,6 +65,10 @@ class OrdersTab extends Component {
 
   }
 
+  _showPreviousOrders = () => {
+    this.props.navigation.navigate('CustomerOrdersScreen')
+  }
+
   _doCheckout = async () => {
     let currentUser = await authenticationService.currentUser();
     let data = {
@@ -243,32 +247,34 @@ class OrdersTab extends Component {
                     <View style={{ width: 1, backgroundColor: Colors.background, height: 20, marginLeft: (this.state.isMerchant) ? 5 : 0 }}></View>
                   </Col>
                   <Col style={{ alignItems:'flex-end', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => {this._showDropdown()}}>
                       { this.state.isMerchant &&
-                        <Row>
-                          <Icon
-                            size={14}
-                            name={'filter'}
-                            color={Colors.snow}
-                            type='font-awesome'
-                            onPress={() => {}}
-                          />
-                          <Text style={styles.headerRightButton}>FILTER</Text>
-                        </Row>
+                        <TouchableOpacity onPress={() => {this._showDropdown()}}>
+                          <Row>
+                            <Icon
+                              size={14}
+                              name={'filter'}
+                              color={Colors.snow}
+                              type='font-awesome'
+                              onPress={() => {}}
+                              />
+                            <Text style={styles.headerRightButton}>FILTER</Text>
+                          </Row>
+                        </TouchableOpacity>
                       }
 
                       { this.state.isCustomer &&
-                        <Row>
-                          <Icon
-                            size={16}
-                            name={'archive'}
-                            color={Colors.background}
-                            onPress={() => {}}
-                          />
-                          <Text style={styles.headerRightButton}>ORDERS</Text>
-                        </Row>
+                        <TouchableOpacity onPress={() => {this._showPreviousOrders()}}>
+                          <Row>
+                            <Icon
+                              size={16}
+                              name={'archive'}
+                              color={Colors.background}
+                              onPress={() => {}}
+                              />
+                            <Text style={styles.headerRightButton}>ORDERS</Text>
+                          </Row>
+                        </TouchableOpacity>
                       }
-                    </TouchableOpacity>
                   </Col>
                 </Col>
               </Grid>

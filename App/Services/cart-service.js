@@ -73,7 +73,6 @@ cartService.addToCart = async (item) => {
             AsyncStorage.setItem('cart', JSON.stringify(storedCart));
         }
     }
-    console.log(storedCart)
     return Promise.resolve(storedCart);
 }
 

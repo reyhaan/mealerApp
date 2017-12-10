@@ -27,20 +27,23 @@ export default {
             backgroundColor: Colors.snow,
             paddingTop: (Platform.OS === 'ios') ? 5 : 0,
             height: (Platform.OS === 'ios') ? 48 : 48,
-            shadowColor: '#000',
+            shadowColor: Colors.gray3,
             shadowOpacity: 0.4,
             shadowRadius: 3,
             shadowOffset: {
-              height: 3,
+                height: 0,
             },
             zIndex: 1,
-            elevation: 3,
+            elevation: 5,
             paddingBottom: 2,
             borderColor: (Platform.OS === 'ios') ? Colors.clear : Colors.lightGray,
             borderTopWidth: (Platform.OS === 'ios') ? 0 : 1
         },
+        iconStyle: {
+            width: 70
+        },
         tabStyle: {
-            borderColor: Colors.snow,
+            borderColor: Colors.gray,
             paddingTop: 4
         },
         indicatorStyle: styles.indicator,

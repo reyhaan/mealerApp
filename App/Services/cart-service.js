@@ -113,7 +113,7 @@ cartService.getTotalCost = async () => {
     _.each(itemsForAllMerchants, function(itemFromOneMerchant) {
         let itemArray = _.values(itemFromOneMerchant);
         _.each(itemArray, function(item) {
-            cost = cost + (parseFloat(item.itemCost).toFixed(2) * (item.itemCount));
+            cost = (cost + (parseFloat(item.itemCost).toFixed(2) * (item.itemCount))).toFixed(2);
         })
     })
     return Promise.resolve(cost);
@@ -128,6 +128,23 @@ cartService.isCartEmpty = async () => {
         return true;
     }
     return false;
+}
+
+cartService.totalItems = async () => {
+    let totalItemCount = 0;
+    let cart = await cartService.getCart();
+    let itemsForAllMerchants = _.values(cart.to);
+    _.each(itemsForAllMerchants, function(itemFromOneMerchant) {
+        let itemArray = _.values(itemFromOneMerchant);
+        _.each(itemArray, function(item) {
+            totalItemCount = totalItemCount + 1;
+        })
+    })
+    return totalItemCount;
+}
+
+cartService.doCheckout = async () => {
+
 }
 
 export default cartService;

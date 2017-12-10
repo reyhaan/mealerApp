@@ -15,6 +15,10 @@ firebase.initializeApp({
 // firebase reference
 database.firebase = firebase;
 
+database.root = () => {
+    return firebase.database().ref();
+}
+
 // user reference
 database.user = (id) => {
     if (id) {

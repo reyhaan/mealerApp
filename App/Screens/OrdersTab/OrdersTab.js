@@ -9,6 +9,8 @@ import { Icon, Badge, List, ListItem } from 'react-native-elements'
 import authenticationService from '../../Services/authentication-service'
 import cartService from '../../Services/cart-service'
 import _ from 'lodash'
+import { bindActionCreators } from 'redux'
+import { cartActionCreators } from '../../Redux/Cart/CartActions'
 
 // Styles
 const styles = OrdersTabStyle;
@@ -60,6 +62,18 @@ class OrdersTab extends Component {
     
     let cart = await cartService.getCart();
     this._setConfirmOrderButtonVisibility(cart); 
+
+    // Just putting it on state to save it to prevent calling service again
+    this.setState({
+      activeUser: currentUser
+    })
+  }
+
+  _doCheckout = () => {
+    let data = {
+      userInfo: this.state.activeUser
+    }
+    this.props.doCheckout(data);
   }
 
   _setConfirmOrderButtonVisibility = async (cart) => {
@@ -289,7 +303,7 @@ class OrdersTab extends Component {
 
         { !this.state.isCartEmpty &&
           <Row style={{ height: 45, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center', margin: 10, borderRadius: 3 }}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {this._doCheckout()}}>
               <Row style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: Metrics.screenWidth }}>
                 <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CHECKOUT:
                   <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}> $ {this.state.totalCost}</Text>
@@ -304,14 +318,11 @@ class OrdersTab extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => (bindActionCreators(cartActionCreators, dispatch));
+
 const mapStateToProps = (state) => {
   return {
     cart: state.cart.cart
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
   }
 }
 

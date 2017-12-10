@@ -40,4 +40,14 @@ cartEffects.updateItemCount = function* (item) {
     }
 }
 
+cartEffects.doCheckout = function* (item) {
+    try {
+        let { data } = item;
+        let updatedCart = yield call(cartService.doCheckout, data.userInfo);
+        yield put(cartActionCreators.cartUpdateSuccessful(updatedCart));
+    } catch (error) {
+        Alert.alert('Error', error.message,)
+    }
+}
+
 export default cartEffects;

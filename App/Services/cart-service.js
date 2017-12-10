@@ -73,6 +73,7 @@ cartService.addToCart = async (item) => {
             AsyncStorage.setItem('cart', JSON.stringify(storedCart));
         }
     }
+    console.log(storedCart)
     return Promise.resolve(storedCart);
 }
 
@@ -113,7 +114,7 @@ cartService.getTotalCost = async () => {
     _.each(itemsForAllMerchants, function(itemFromOneMerchant) {
         let itemArray = _.values(itemFromOneMerchant);
         _.each(itemArray, function(item) {
-            cost = (cost + (parseFloat(item.itemCost).toFixed(2) * (item.itemCount))).toFixed(2);
+            cost = cost + (parseFloat(item.itemCost).toFixed(2) * (item.itemCount));
         })
     })
     return Promise.resolve(cost);
@@ -143,8 +144,23 @@ cartService.totalItems = async () => {
     return totalItemCount;
 }
 
-cartService.doCheckout = async () => {
-
+cartService.doCheckout = async (userInfo) => {
+    try {
+        let data = {
+            time: db.firebase.database.ServerValue.TIMESTAMP,
+            status: 'new',
+            userInfo: _.values(userInfo)[0]
+        };
+        let cart = await cartService.getCart();
+        let order = Object.assign(cart, data)
+        const orderRef = db.orders();
+        const orderKey = await orderRef.push().getKey();
+        order.id = orderKey; //!important
+        await orderRef.child(orderKey).set(order);
+        return Promise.resolve({});
+    } catch (error) {
+        return {error};
+    }
 }
 
 export default cartService;

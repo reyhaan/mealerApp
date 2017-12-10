@@ -148,15 +148,37 @@ cartService.doCheckout = async (userInfo) => {
         let data = {
             time: db.firebase.database.ServerValue.TIMESTAMP,
             status: 'new',
-            userInfo: _.values(userInfo)[0]
+            userInfo: userInfo
         };
+        
         let cart = await cartService.getCart();
+        
+        // create unified order object
         let order = Object.assign(cart, data)
+
         const orderRef = db.orders();
         const orderKey = await orderRef.push().getKey();
         order.id = orderKey; //!important
+        
+        // Grab customer and merchant ref to update their order's list
+        let customerRef = db.user(order.userInfo.uid);
+        let merchantRefArray = _.keys(order.to);
+        merchantRefArray.push(order.userInfo.uid);
+
+        let userOders = {}
+
+        _.each(merchantRefArray, function(userRef) {
+            userOders["users/"+userRef+"/orders/"+orderKey] = { "id": orderKey }
+        })
+
+        let rootRef = db.root();
+        await rootRef.update( userOders );
+
+        // Write order ID to customer and merchant
         await orderRef.child(orderKey).set(order);
+        await cartService.dumpCart();
         return Promise.resolve({});
+
     } catch (error) {
         return {error};
     }

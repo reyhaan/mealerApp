@@ -63,15 +63,12 @@ class OrdersTab extends Component {
     let cart = await cartService.getCart();
     this._setConfirmOrderButtonVisibility(cart); 
 
-    // Just putting it on state to save it to prevent calling service again
-    this.setState({
-      activeUser: currentUser
-    })
   }
 
-  _doCheckout = () => {
+  _doCheckout = async () => {
+    let currentUser = await authenticationService.currentUser();
     let data = {
-      userInfo: this.state.activeUser
+      userInfo: currentUser
     }
     this.props.doCheckout(data);
   }

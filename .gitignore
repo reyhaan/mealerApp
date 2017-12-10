@@ -5,3 +5,8 @@ node_modules/
 npm-debug.*
 /package-lock.json
 .DS_Store
+
+
+cloud_functions/functions/node_modules/
+cloud_functions/node_modules/
+cloud_functions/firebase-debug.log

@@ -9,7 +9,8 @@ export const cartActions = {
     HIDE_ADD_TO_CART_MODAL: "HIDE_ADD_TO_CART_MODAL",
     REMOVE_FROM_CART: "REMOVE_FROM_CART",
     UPDATE_ITEM_COUNT: "UPDATE_ITEM_COUNT",
-    CART_UPDATE_SUCCESSFUL: "CART_UPDATE_SUCCESSFUL"
+    CART_UPDATE_SUCCESSFUL: "CART_UPDATE_SUCCESSFUL",
+    DO_CHECKOUT: "DO_CHECKOUT"
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -22,12 +23,14 @@ export const cartActionCreators = {
     hideAddToCartModal: (data)=> createAction(cartActions.HIDE_ADD_TO_CART_MODAL, data),
     removeItemFromCart: (data) => createAction(cartActions.REMOVE_FROM_CART, data),
     updateItemCount: (data) => createAction(cartActions.UPDATE_ITEM_COUNT, data),
-    cartUpdateSuccessful: (data) => createAction(cartActions.CART_UPDATE_SUCCESSFUL, data)
+    cartUpdateSuccessful: (data) => createAction(cartActions.CART_UPDATE_SUCCESSFUL, data),
+    doCheckout: (data) => createAction(cartActions.DO_CHECKOUT, data)
 };
 
 /******************************* SAGA WATCHERS *************************************/
 export const cartActionWatchers = [
   takeLatest(cartActions.ADD_TO_CART, CartSaga.addToCart),
   takeLatest(cartActions.REMOVE_FROM_CART, CartSaga.removeItemFromCart),
-  takeLatest(cartActions.UPDATE_ITEM_COUNT, CartSaga.updateItemCount)
+  takeLatest(cartActions.UPDATE_ITEM_COUNT, CartSaga.updateItemCount),
+  takeLatest(cartActions.DO_CHECKOUT, CartSaga.doCheckout)
 ];

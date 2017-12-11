@@ -50,9 +50,9 @@ database.menus = (id) => {
 // orders reference
 database.orders = (id) => {
     if (id) {
-        return firebase.database().ref('orders').child(id);
+        return firebase.database().ref('ordersList').child(id);
     } else {
-        return firebase.database().ref('orders');
+        return firebase.database().ref('ordersList');
     }
 };
 

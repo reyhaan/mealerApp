@@ -167,7 +167,7 @@ cartService.doCheckout = async (userInfo) => {
         let userOders = {}
 
         _.each(merchantRefArray, function(userRef) {
-            userOders["ordersReference/"+userRef+"/orders/"+orderKey] = { "id": orderKey, "timestamp": order.timestamp }
+            userOders["orders/"+userRef+"/orders/"+orderKey] = order
         })
 
         let rootRef = db.root();

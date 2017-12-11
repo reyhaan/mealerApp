@@ -9,6 +9,7 @@ import {bindActionCreators} from 'redux';
 import { NavigationActions } from 'react-navigation'
 import _ from 'lodash'
 import { customerActionCreators } from '../../Redux/Customer/CustomerActions';
+import { authenticationService } from '../../Services/authentication-service'
 
 class CustomerOrdersScreen extends Component {
 	constructor(props) {
@@ -30,7 +31,12 @@ class CustomerOrdersScreen extends Component {
 		}
 	}
 
-	componentDidMount() {
+	componentDidMount = async () => {
+
+		let activeUser = await authenticationService.currentUser()
+
+		activeUser
+
 		const {state} = this.props.navigation;
 		if (state.params && state.params.selectedCook) {
 			this.setState({

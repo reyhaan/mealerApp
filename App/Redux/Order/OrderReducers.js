@@ -1,7 +1,7 @@
 import { orderActions } from './OrderActions';
 
 const initialState = {
-    orders: [],
+    orders: '',
 };
 export function order(state=initialState, action){
     switch(action.type){

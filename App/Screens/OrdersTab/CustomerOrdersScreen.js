@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView } from 'react-native'
+import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import {connect} from 'react-redux'
 import style from './CustomerOrdersScreen.style'
 import {Icon, Header} from 'react-native-elements'
@@ -8,7 +8,7 @@ import {Colors} from '../../Themes';
 import {bindActionCreators} from 'redux';
 import { NavigationActions } from 'react-navigation'
 import _ from 'lodash'
-import { customerActionCreators } from '../../Redux/Customer/CustomerActions';
+import { orderActionCreators } from '../../Redux/Order/OrderActions';
 import { authenticationService } from '../../Services/authentication-service'
 
 class CustomerOrdersScreen extends Component {
@@ -16,39 +16,28 @@ class CustomerOrdersScreen extends Component {
 		super(props);
 
 		this.state = {
-			showMenu: true,
-			showDetails: false,
-			islistMode: false,
-			isFullMode: true,
-			isModalVisible: false,
-			activeItem: {
-					itemName: '',
-					itemImage: '',
-					itemDetail: '',
-					itemCost: ''
-			},
-			activeMerchant: ''
+			dataSource: []
 		}
 	}
 
-	componentDidMount = async () => {
-
-		let activeUser = await authenticationService.currentUser()
-
-		activeUser
-
-		const {state} = this.props.navigation;
-		if (state.params && state.params.selectedCook) {
+	componentWillReceiveProps = (newProps) => {
+		let { orders } = newProps
+		if (orders) {
+			let ordersArray = _.values(orders)
 			this.setState({
-				activeMerchant: state.params.selectedCook
+				dataSource: ordersArray
 			})
 		}
 	}
+	
+	componentDidMount = () => {
+		this.props.getOrders(this.props.user.uid)
+	}
 
-	_renderFullModeItem = (item) => {
+	_renderOrderItem = (item) => {
 		return (
-			<TouchableOpacity onPress={() => {}} style={style.fullModeItemContainer}>
-				<Grid>
+			<TouchableWithoutFeedback onPress={() => {}}>
+				<Grid style={style.fullModeItemContainer}>
 					<Row style={{ height: 200 }}>
 						<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderTopLeftRadius: 3, borderTopRightRadius: 3}}>
 							<Image style={style.fullModeItemImage}
@@ -66,7 +55,7 @@ class CustomerOrdersScreen extends Component {
 					</Row>
 					
 				</Grid>
-			</TouchableOpacity>
+			</TouchableWithoutFeedback>
 		)
 	};
 
@@ -81,14 +70,6 @@ class CustomerOrdersScreen extends Component {
 	}
 
 	render() {
-		// Set the key for the menu
-		let  {menus} =  this.props.merchant;
-		if (this.props.merchant && this.props.merchant.menus) {
-			menus = this.props.merchant.menus.map(menu => {
-				menu.key = menu.id;
-				return menu
-			});
-		}
 
 		return (
 			<Col style={style.container}>
@@ -103,8 +84,8 @@ class CustomerOrdersScreen extends Component {
 
 						<FlatList
 							style={{backgroundColor: Colors.snow, paddingTop: 10}}
-							data={menus}
-							renderItem={({item}) => this._renderFullModeItem(item)}
+							data={this.state.dataSource}
+							renderItem={({item}) => this._renderOrderItem(item)}
 						/>
 
 				</ScrollView>
@@ -115,10 +96,11 @@ class CustomerOrdersScreen extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.auth	
+		user: state.settings.user,
+		orders: state.order.orders
 	}
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(customerActionCreators, dispatch);
+    return bindActionCreators(orderActionCreators, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrdersScreen)

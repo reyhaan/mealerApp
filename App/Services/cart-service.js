@@ -73,7 +73,6 @@ cartService.addToCart = async (item) => {
             AsyncStorage.setItem('cart', JSON.stringify(storedCart));
         }
     }
-    console.log(storedCart)
     return Promise.resolve(storedCart);
 }
 
@@ -146,7 +145,7 @@ cartService.totalItems = async () => {
 cartService.doCheckout = async (userInfo) => {
     try {
         let data = {
-            time: db.firebase.database.ServerValue.TIMESTAMP,
+            timestamp: db.firebase.database.ServerValue.TIMESTAMP,
             status: 'new',
             userInfo: userInfo
         };
@@ -168,7 +167,7 @@ cartService.doCheckout = async (userInfo) => {
         let userOders = {}
 
         _.each(merchantRefArray, function(userRef) {
-            userOders["users/"+userRef+"/orders/"+orderKey] = { "id": orderKey }
+            userOders["orders/"+userRef+"/orders/"+orderKey] = order
         })
 
         let rootRef = db.root();

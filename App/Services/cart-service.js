@@ -167,7 +167,18 @@ cartService.doCheckout = async (userInfo) => {
         let userOders = {}
 
         _.each(merchantRefArray, function(userRef) {
-            userOders["orders/"+userRef+"/orders/"+orderKey] = order
+            // If its the user placing the order, add the complete order object
+            if (userRef === order.userInfo.uid) {
+                userOders["orders/"+userRef+"/"+orderKey] = order
+            
+            // If its a merchant, then only add info from order relevant to each merchant
+            } else {
+                let merchantOrder = Object.assign({}, order)
+                // Omit `to` ref for merchants, we dont need other merchant's info
+                merchantOrder = _.omit(merchantOrder, 'to');
+                merchantOrder['itemsList'] = order.to[userRef]
+                userOders["orders/"+userRef+"/"+orderKey] = merchantOrder
+            }
         })
 
         let rootRef = db.root();

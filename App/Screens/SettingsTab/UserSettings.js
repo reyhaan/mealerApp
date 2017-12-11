@@ -33,6 +33,7 @@ class UserInfoChangeScreen extends Component {
             toastMessage: ''
         };
         this.props.getUser(this.props.settings.user.uid)
+       
     }
 
     async componentDidMount() {
@@ -41,7 +42,7 @@ class UserInfoChangeScreen extends Component {
             ? this.setState({
                 user: {
                     name: currentUser.name || '',
-                    avatar: currentUser.avatar || Images.addImagePlaceHolder,
+                    avatar: currentUser.avatar || '',
                     address: currentUser.address || '',
                     phone: currentUser.phone || '',
                     email: currentUser.email || ''

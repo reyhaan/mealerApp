@@ -13,7 +13,7 @@ export const merchant = {
     password: "merchant",
     name: "Merchant Sir",
     type: "merchant",
-    uid: "49cUHEsmznO6M5HsxLEqQOFQAjA2",
+    uid: "12j3VND2oXZBhMG9Y14ytB5YY3y1",
 };
 
 export class User {

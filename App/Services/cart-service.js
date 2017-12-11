@@ -145,7 +145,7 @@ cartService.totalItems = async () => {
 cartService.doCheckout = async (userInfo) => {
     try {
         let data = {
-            time: db.firebase.database.ServerValue.TIMESTAMP,
+            timestamp: db.firebase.database.ServerValue.TIMESTAMP,
             status: 'new',
             userInfo: userInfo
         };
@@ -167,7 +167,7 @@ cartService.doCheckout = async (userInfo) => {
         let userOders = {}
 
         _.each(merchantRefArray, function(userRef) {
-            userOders["users/"+userRef+"/orders/"+orderKey] = { "id": orderKey }
+            userOders["ordersReference/"+userRef+"/orders/"+orderKey] = { "id": orderKey, "timestamp": order.timestamp }
         })
 
         let rootRef = db.root();

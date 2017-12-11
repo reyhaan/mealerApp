@@ -4,6 +4,7 @@ import {authActionWatchers} from './Auth/AuthActions';
 import {settingsActionWatchers} from './Settings/SettingsActions';
 import {customerActionWatchers} from './Customer/CustomerActions';
 import {cartActionWatchers} from './Cart/CartActions';
+import {orderActionWatchers} from './Order/OrderActions';
 
 const sagas = function* root() {
     yield all([
@@ -11,7 +12,8 @@ const sagas = function* root() {
         ...merchantActionWatchers,
         ...settingsActionWatchers,
         ...customerActionWatchers,
-        ...cartActionWatchers
+        ...cartActionWatchers,
+        ...orderActionWatchers
     ])
 };
 

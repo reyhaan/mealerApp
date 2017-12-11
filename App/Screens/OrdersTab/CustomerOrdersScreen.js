@@ -1,17 +1,14 @@
 import React, {Component} from 'react'
-import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableWithoutFeedback} from 'react-native'
+import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView } from 'react-native'
 import {connect} from 'react-redux'
 import style from './CustomerOrdersScreen.style'
 import {Icon, Header} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes';
-import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
-import { cartActionCreators } from '../../Redux/Cart/CartActions'
 import {bindActionCreators} from 'redux';
-import {UserProfileHeader, AddToCartModal} from '../../Components/index'
 import { NavigationActions } from 'react-navigation'
 import _ from 'lodash'
-import { cartActions } from '../../Redux/Cart/CartActions';
+import { customerActionCreators } from '../../Redux/Customer/CustomerActions';
 
 class CustomerOrdersScreen extends Component {
 	constructor(props) {
@@ -36,42 +33,15 @@ class CustomerOrdersScreen extends Component {
 	componentDidMount() {
 		const {state} = this.props.navigation;
 		if (state.params && state.params.selectedCook) {
-			this.props.fetchMerchantMenu(state.params.selectedCook.uid);
 			this.setState({
 				activeMerchant: state.params.selectedCook
 			})
 		}
 	}
 
-	_showModal = () => {
-		this.props.hideAddToCartModal(false);
-	}
-
-	_hideModal = () => {
-		this.props.hideAddToCartModal(true);
-	}
-
-	onPress = (mode, activeItem) => {
-		switch(mode) {
-			case 'list':
-				this.setState({
-						activeItem: activeItem
-				});
-				this._showModal();
-				break;
-			// TODO: made 2 cases because I want to apply transitions instead of dialog box
-			case 'full':
-				this.setState({
-						activeItem: activeItem
-				});
-				this._showModal();
-				break;
-		}
-	};
-
 	_renderFullModeItem = (item) => {
 		return (
-			<TouchableOpacity onPress={() => this.onPress('full', item)} style={style.fullModeItemContainer}>
+			<TouchableOpacity onPress={() => {}} style={style.fullModeItemContainer}>
 				<Grid>
 					<Row style={{ height: 200 }}>
 						<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderTopLeftRadius: 3, borderTopRightRadius: 3}}>
@@ -102,23 +72,6 @@ class CustomerOrdersScreen extends Component {
 				onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
 			/>
 		)
-	}
-
-	switchView = (mode) => {
-		switch(mode) {
-			case 'menu':
-				this.setState({
-						showMenu: true,
-						showDetails: false
-				})
-				break;
-			case 'details':
-				this.setState({
-						showMenu: false,
-						showDetails: true
-				})
-				break;
-		}
 	}
 
 	render() {
@@ -156,13 +109,10 @@ class CustomerOrdersScreen extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		merchant:state.merchant,
-		menu: state.menu,
-		auth: state.auth,
-		shouldHideAddToCartModal: (state.cart.shouldHideAddToCartModal === undefined) || (state.cart.shouldHideAddToCartModal === null) ? true : state.cart.shouldHideAddToCartModal
+		auth: state.auth	
 	}
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(Object.assign({}, merchantActionCreators, cartActionCreators), dispatch);
+    return bindActionCreators(customerActionCreators, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrdersScreen)

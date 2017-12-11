@@ -9,11 +9,6 @@ export function customer(state=initialState, action){
             return Object.assign({}, state, {
                 cooks: action.data,
             });
-        case customerActions.ADD_TO_ORDERS_SUCCESSFUL:
-            let cart = state.cart || [] 
-            return Object.assign({}, state, {
-                cart: cart.push(action.data),
-            });
         default:
             return state
     }

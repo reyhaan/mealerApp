@@ -15,8 +15,18 @@ firebase.initializeApp({
 // firebase reference
 database.firebase = firebase;
 
+// Root reference
 database.root = () => {
     return firebase.database().ref();
+}
+
+// Oders list join reference
+database.ordersRef = (id) => {
+    if (id) {
+        firebase.database().ref('ordersReference').child(id);
+    } else {
+        firebase.database().ref('ordersReference');
+    }
 }
 
 // user reference

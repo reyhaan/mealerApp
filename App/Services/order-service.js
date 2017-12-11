@@ -4,44 +4,20 @@ import authenticationService from './authentication-service';
 let orderService = {};
 
 /**
- * Create a merchant order
- */
-orderService.createNewOrder = async (customerId, merchantId, items) => {
-    try {
-        let order = {
-            from: customerId,
-            to: merchantId,
-            time: db.firebase.database.ServerValue.TIMESTAMP,
-            status: 'new',
-            items:items
-        };
-        const orderRef = db.orders(customerId);
-        const orderKey = await orderRef.push().getKey();
-        order.customerInfo = await authenticationService.fetchUser(customerId);
-        order.merchantInfo = await authenticationService.fetchUser(merchantId);
-        order.id = orderKey; //!important
-        await orderRef.child(orderKey).set(order);
-        const orderSnapshot = await orderRef.child(orderKey).once('value');
-        return {id: orderSnapshot.key, ...orderSnapshot.val()};
-    } catch (error) {
-        return {error};
-    }
-};
-
-/**
  * Get merchant orders
  * @param userId: string
  */
 orderService.getOrders = async (userId) => {
     try {
         let orders = [];
-        let userMenuSnapshot = await db.orders(userId).once('value');
-        userMenuSnapshot.forEach(function (childSnapshot) {
-            let order = { ...childSnapshot.val()};
-            order.id = childSnapshot.key;
-            orders.push(order);
-        });
-        return orders;
+        let userOrderSnapshot = await db.ordersRef(userId).once('value');
+        console.log(userOrderSnapshot)
+        // userOrderSnapshot.forEach(function (childSnapshot) {
+        //     let order = { ...childSnapshot.val()};
+        //     order.id = childSnapshot.key;
+        //     orders.push(order);
+        // });
+        // return orders;
     } catch (error) {
         return {error};
     }

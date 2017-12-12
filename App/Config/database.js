@@ -15,8 +15,18 @@ firebase.initializeApp({
 // firebase reference
 database.firebase = firebase;
 
+// Root reference
 database.root = () => {
     return firebase.database().ref();
+}
+
+// Oders list join reference
+database.ordersRef = (id) => {
+    if (id) {
+        firebase.database().ref('ordersReference').child(id);
+    } else {
+        firebase.database().ref('ordersReference');
+    }
 }
 
 // user reference
@@ -40,9 +50,9 @@ database.menus = (id) => {
 // orders reference
 database.orders = (id) => {
     if (id) {
-        return firebase.database().ref('orders').child(id);
+        return firebase.database().ref('ordersList').child(id);
     } else {
-        return firebase.database().ref('orders');
+        return firebase.database().ref('ordersList');
     }
 };
 

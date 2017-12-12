@@ -3,17 +3,16 @@ import {Alert} from 'react-native';
 import customerService from '../../Services/customer-service';
 import orderService from '../../Services/order-service';
 import authentication from '../../Services/authentication-service';
-import {customerActionCreators} from './CustomerActions'
+import {orderActionCreators} from './OrderActions'
 
-const customerEffects = {};
+const orderEffects = {};
 
-customerEffects.fetchCooks = function* () {
+orderEffects.getOrders = function* (order) {
     try {
-        const cooks = yield call(customerService.fetchCooks);
-        yield put(customerActionCreators.fetchCooksSuccessful(cooks));
+
     } catch (error) {
         Alert.alert('Error', error.message,)
     }
 };
 
-export default customerEffects;
+export default orderEffects;

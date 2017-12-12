@@ -77,7 +77,6 @@ cartService.addToCart = async (item) => {
             AsyncStorage.setItem('cart', JSON.stringify(storedCart));
         }
     }
-    console.log(storedCart)
     return Promise.resolve(storedCart);
 }
 
@@ -150,7 +149,7 @@ cartService.totalItems = async () => {
 cartService.doCheckout = async (userInfo) => {
     try {
         let data = {
-            time: db.firebase.database.ServerValue.TIMESTAMP,
+            timestamp: db.firebase.database.ServerValue.TIMESTAMP,
             status: 'new',
             userInfo: userInfo
         };
@@ -171,8 +170,19 @@ cartService.doCheckout = async (userInfo) => {
         let userOders = {}
 
         _.each(merchantRefArray, function (userRef) {
-            userOders["users/" + userRef + "/orders/" + orderKey] = {"id": orderKey}
-        })
+            // If its the user placing the order, add the complete order object
+            if (userRef === order.userInfo.uid) {
+                userOders["orders/" + userRef + "/" + orderKey] = order
+
+                // If its a merchant, then only add info from order relevant to each merchant
+            } else {
+                let merchantOrder = Object.assign({}, order)
+                // Omit `to` ref for merchants, we dont need other merchant's info
+                merchantOrder = _.omit(merchantOrder, 'to');
+                merchantOrder['itemsList'] = order.to[userRef]
+                userOders["orders/" + userRef + "/" + orderKey] = merchantOrder
+            }
+        });
 
         let rootRef = db.root();
         await rootRef.update(userOders);

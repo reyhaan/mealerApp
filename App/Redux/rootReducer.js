@@ -5,6 +5,7 @@ import {merchant} from './Merchant/MerchantReducers';
 import { settings } from './Settings/SettingsReducers';
 import { customer } from './Customer/CustomerReducers';
 import { cart } from './Cart/CartReducers';
+import { order } from './Order/OrderReducers';
 
 export const rootReducer = combineReducers({
     auth,
@@ -12,5 +13,6 @@ export const rootReducer = combineReducers({
     merchant,
     settings,
     customer,
-    cart
+    cart,
+    order
 });

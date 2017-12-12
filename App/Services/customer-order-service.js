@@ -9,7 +9,7 @@ let customerOrderService = {};
  */
 customerOrderService.getOrders = async (userId) => {
     try {
-        let ordersSnapshot = await db.orders(userId).once('value');
+        let ordersSnapshot = await db.orders(userId).orderByChild("timestamp").once('value');
         return Promise.resolve(ordersSnapshot.val())
     } catch (error) {
         return {error};

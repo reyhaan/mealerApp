@@ -156,7 +156,7 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.clear,
         marginVertical: 0,
-        height: 100,
+        height: 30,
         paddingRight: 0,
         paddingLeft: 0,
         paddingBottom: 0,
@@ -177,9 +177,7 @@ export default StyleSheet.create({
         fontFamily: Fonts.type.bold,
     },
     itemCost: {
-        fontWeight: 'bold',
         fontSize: 14,
-        fontFamily: Fonts.type.bold,
         color: Colors.gray
     },
     itemCount: {

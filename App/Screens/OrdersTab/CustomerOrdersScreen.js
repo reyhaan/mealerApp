@@ -34,6 +34,7 @@ class CustomerOrdersScreen extends Component {
 
 	_createDatasource = (orders) => {
 		console.log(orders)
+		orders.reverse()
 		this.setState({
 			ordersArray: orders
 		})
@@ -50,73 +51,25 @@ class CustomerOrdersScreen extends Component {
 	_renderRow = (rowData) => {
 		return (
 			<View style={style.row}>
-			<View style={style.rowInnerContainer}>
-				<Grid style={{ borderBottomColor: Colors.gray2, borderBottomWidth: 1 }}>
-						
-							<Row style={{ height: 30 }}>
-								<Col size={1}>
-										<Row style={{ height: 20 }}>
-												<Text style={[style.boldLabel, {color: Colors.gray}]}>{rowData.itemName}</Text>
-										</Row>
-								</Col>
-
-								<Col style={{ width: 100 }}>
-										<Row style={{ height: 20, flexDirection: 'column', alignItems: 'flex-end' }}>
-											<Text style={style.itemCost}>$ {rowData.itemCost}</Text>
-										</Row>
-								</Col>
-							</Row>
-
-							<Row style={{ height: 34 }}>
-								<Col>
-									<TouchableOpacity onPress={() => {this._removeItem(rowData.id, rowData.merchantInfo.uid)}}>
-										<Row style={{ height: 30, width: 70, backgroundColor: Colors.clear }}>
-											<Icon
-												size={14}
-												name={'trash-o'}
-												color={Colors.background}
-												type='font-awesome'
-											/>
-											<Text style={style.itemModify}>&nbsp; Remove</Text>
-										</Row>
-									</TouchableOpacity>
-								</Col>
-								
-								<Col style={{ width: 125, padding: 2 }}>
-									<Row style={{ height: 30, backgroundColor: Colors.clear }}>
-									<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount - 1)}}>
-										<Col style={style.itemCountButton}>
-											<Icon
-												size={14}
-												name={'minus'}
-												color={Colors.background}
-												type='font-awesome'
-												/>
-										</Col>
-									</TouchableOpacity>
-										
-										<Col style={{ width: 65 }}>
-											<Row style={{ alignItems: 'center', justifyContent: 'center' }}>
-												<Text style={style.itemCount}>{rowData.itemCount}</Text>
+				<View style={style.rowInnerContainer}>
+					<Grid style={{}}>
+							
+								<Row style={{ height: 30 }}>
+									<Col size={1}>
+											<Row style={{ height: 20 }}>
+													<Text style={[{color: Colors.gray}]}>{rowData.itemName}</Text>
 											</Row>
-										</Col>
-										
-									<TouchableOpacity onPress={() => {this._updateItemCount(rowData.id, rowData.merchantInfo.uid, rowData.itemCount + 1)}}>
-										<Col style={style.itemCountButton}>
-											<Icon
-												size={14}
-												name={'plus'}
-												color={Colors.background}
-												type='font-awesome'
-												/>
-										</Col>
-									</TouchableOpacity>
-									</Row>
-								</Col>
-							</Row>
+									</Col>
 
-				</Grid>
-			</View>
+									<Col style={{ width: 100 }}>
+											<Row style={{ height: 20, flexDirection: 'column', alignItems: 'flex-end' }}>
+												<Text style={style.itemCost}>$ {rowData.itemCost} x {rowData.itemCount}</Text>
+											</Row>
+									</Col>
+								</Row>
+
+					</Grid>
+				</View>
 			</View>
 		)
 	}
@@ -181,11 +134,21 @@ class CustomerOrdersScreen extends Component {
 		})
 
 		return (
-			<FlatList
-				style={{backgroundColor: Colors.snow, paddingTop: 10}}
-				data={itemListByEachMerchant}
-				renderItem={({item}) => this._renderIndividualMerchantRow(item)}
-			/>
+			<Col>
+				<Row>
+					<Text>ORDER ID: {order.id}</Text>
+				</Row>
+
+					<FlatList
+						style={{backgroundColor: Colors.snow, paddingTop: 10}}
+						data={itemListByEachMerchant}
+						renderItem={({item}) => this._renderIndividualMerchantRow(item)}
+					/>
+
+				<Row>
+
+				</Row>	
+			</Col>
 		)
 	}
 

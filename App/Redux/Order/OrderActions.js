@@ -13,8 +13,8 @@ function createAction(type, data) {
     return {type, data};
 }
 export const orderActionCreators = {
-    fetchCooks: ()=> createAction(orderActions.GET_ORDERS),
-    fetchCooksSuccessful: (data) => createAction(orderActions.GET_ORDERS_SUCCESSFUL, data)
+    getOrders: (data) => createAction(orderActions.GET_ORDERS, data),
+    getOrdersSuccessful: (data) => createAction(orderActions.GET_ORDERS_SUCCESSFUL, data)
 };
 
 /******************************* SAGA WATCHERS *************************************/

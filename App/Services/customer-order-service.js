@@ -9,14 +9,8 @@ let customerOrderService = {};
  */
 customerOrderService.getOrders = async (userId) => {
     try {
-        let orders = [];
-        let userMenuSnapshot = await db.orders(userId).once('value');
-        userMenuSnapshot.forEach(function (childSnapshot) {
-            let order = { ...childSnapshot.val()};
-            order.id = childSnapshot.key;
-            orders.push(order);
-        });
-        return orders;
+        let ordersSnapshot = await db.orders(userId).orderByChild("timestamp").once('value');
+        return Promise.resolve(ordersSnapshot.val())
     } catch (error) {
         return {error};
     }

@@ -10,6 +10,7 @@ import { NavigationActions } from 'react-navigation'
 import _ from 'lodash'
 import { orderActionCreators } from '../../Redux/Order/OrderActions';
 import { authenticationService } from '../../Services/authentication-service'
+import { Constants } from '../../Utils/Constants'
 
 class CustomerOrdersScreen extends Component {
 	constructor(props) {
@@ -135,19 +136,19 @@ class CustomerOrdersScreen extends Component {
 
 		return (
 			<Col>
-				<Row>
-					<Text>ORDER ID: {order.id}</Text>
-				</Row>
+					<Row style={{ padding: 10, backgroundColor: "#F5F5F5" }}>
+						<Text style={{ color: Colors.gray3 }}>ORDER ID: {order.id}</Text>
+					</Row>
 
 					<FlatList
-						style={{backgroundColor: Colors.snow, paddingTop: 10}}
+						style={{backgroundColor: Colors.snow, paddingTop: 0}}
 						data={itemListByEachMerchant}
 						renderItem={({item}) => this._renderIndividualMerchantRow(item)}
 					/>
 
-				<Row>
-
-				</Row>	
+					<Row style={{ padding: 10, marginBottom: 20, paddingLeft: 20 }}>
+						<Text>Status: {Constants.orderStatus[order.status]}</Text>
+					</Row>
 			</Col>
 		)
 	}

@@ -1,8 +1,8 @@
 export const Constants = {
     orderStatus: {
-        new: 'new',
-        confirmed: 'confirmed',
-        cancelled: 'cancelled',
-        delivered: 'delivered'
+        new: 'NEW',
+        confirmed: 'CONFIRMED',
+        cancelled: 'CANCELLED',
+        delivered: 'DELIVERED'
     }
 }

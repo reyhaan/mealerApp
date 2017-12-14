@@ -143,5 +143,68 @@ export default StyleSheet.create({
         shadowOffset: {
           height: (Platform.OS === 'ios') ? 2 : 3,
         }
+    },
+
+
+    // customer cart screen component reused styles
+    listContainer: {
+        flex: 1,
+        backgroundColor: Colors.snow,
+        flexDirection: 'column'
+    },
+    row: {
+        flex: 1,
+        backgroundColor: Colors.clear,
+        marginVertical: 0,
+        height: 30,
+        paddingRight: 0,
+        paddingLeft: 0,
+        paddingBottom: 0,
+        paddingTop: 0,
+        marginBottom: 0
+    },
+    rowInnerContainer: {
+        flex: 1,
+        backgroundColor: Colors.clear,
+        borderRadius: 3,
+        padding: 10,
+        paddingRight: 20,
+        paddingLeft: 20
+    },
+    boldLabel: {
+        fontWeight: 'bold',
+        fontSize: 14,
+        fontFamily: Fonts.type.bold,
+    },
+    itemCost: {
+        fontSize: 14,
+        color: Colors.gray
+    },
+    itemCount: {
+        fontSize: 14,
+        color: Colors.gray
+    },
+    itemModify: {
+        fontSize: 12,
+        color: Colors.background,
+        alignSelf: 'center'
+    },
+    label: {
+        textAlign: 'center',
+        color: Colors.snow
+    },
+    listContent: {
+        marginTop: 0,
+        paddingBottom: 0
+    },
+    itemCountButton: { 
+        marginTop: 4,
+        width: 20,
+        height: 24,
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        borderColor: Colors.snow, 
+        borderRadius: 14, 
+        borderWidth: 1
     }
 })

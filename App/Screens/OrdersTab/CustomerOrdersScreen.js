@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView } from 'react-native'
+import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import {connect} from 'react-redux'
 import style from './CustomerOrdersScreen.style'
 import {Icon, Header} from 'react-native-elements'
@@ -8,67 +8,150 @@ import {Colors} from '../../Themes';
 import {bindActionCreators} from 'redux';
 import { NavigationActions } from 'react-navigation'
 import _ from 'lodash'
-import { customerActionCreators } from '../../Redux/Customer/CustomerActions';
+import { orderActionCreators } from '../../Redux/Order/OrderActions';
 import { authenticationService } from '../../Services/authentication-service'
+import { Constants } from '../../Utils/Constants'
 
 class CustomerOrdersScreen extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			showMenu: true,
-			showDetails: false,
-			islistMode: false,
-			isFullMode: true,
-			isModalVisible: false,
-			activeItem: {
-					itemName: '',
-					itemImage: '',
-					itemDetail: '',
-					itemCost: ''
-			},
-			activeMerchant: ''
+			dataSource: []
 		}
 	}
 
-	componentDidMount = async () => {
-
-		let activeUser = await authenticationService.currentUser()
-
-		activeUser
-
-		const {state} = this.props.navigation;
-		if (state.params && state.params.selectedCook) {
-			this.setState({
-				activeMerchant: state.params.selectedCook
-			})
+	componentWillReceiveProps = (newProps) => {
+		let { orders } = newProps
+		if (orders) {
+			let ordersArray = _.values(orders)
+			this._createDatasource(ordersArray)
 		}
 	}
+	
+	componentDidMount = () => {
+		this.props.getOrders(this.props.user.uid)
+	}
 
-	_renderFullModeItem = (item) => {
+	_createDatasource = (orders) => {
+		console.log(orders)
+		orders.reverse()
+		this.setState({
+			ordersArray: orders
+		})
+	}
+
+	_calculateTotalCost = (rowData) => {
+		let total = 0;
+		for(let i = 0; i < rowData.length; i++) {
+			total += (rowData[i].itemCost * rowData[i].itemCount)
+		}
+		return total;
+	}
+
+	_renderRow = (rowData) => {
 		return (
-			<TouchableOpacity onPress={() => {}} style={style.fullModeItemContainer}>
-				<Grid>
-					<Row style={{ height: 200 }}>
-						<View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderTopLeftRadius: 3, borderTopRightRadius: 3}}>
-							<Image style={style.fullModeItemImage}
-									source={{uri: item.itemImage}}/>
-						</View>
+			<View style={style.row}>
+				<View style={style.rowInnerContainer}>
+					<Grid style={{}}>
+							
+								<Row style={{ height: 30 }}>
+									<Col size={1}>
+											<Row style={{ height: 20 }}>
+													<Text style={[{color: Colors.gray}]}>{rowData.itemName}</Text>
+											</Row>
+									</Col>
+
+									<Col style={{ width: 100 }}>
+											<Row style={{ height: 20, flexDirection: 'column', alignItems: 'flex-end' }}>
+												<Text style={style.itemCost}>$ {rowData.itemCost} x {rowData.itemCount}</Text>
+											</Row>
+									</Col>
+								</Row>
+
+					</Grid>
+				</View>
+			</View>
+		)
+	}
+
+	_renderIndividualMerchantRow = (rowData) => {
+		return(
+			<Col style={{ paddingTop: 0, backgroundColor: Colors.snow }}>
+			
+				<Row style={{ paddingLeft: 20, paddingTop: 15, paddingBottom: 15, marginBottom: 5, backgroundColor: Colors.snow, borderBottomColor: Colors.gray2, borderBottomWidth: 1, borderTopColor: Colors.gray2, borderTopWidth: 1 }}>
+					<Col size={1}>
+						<Text style={{ color: Colors.gray3 }} >CHEF:
+							<Text style={{ fontSize: 14, color: Colors.gray3 }}>&nbsp;{ rowData[0].merchantInfo.name.toUpperCase() }</Text>
+						</Text>
+					</Col>
+		
+					<Col style={{ width: 80, alignItems:'flex-end', paddingRight: 20 }}>
+						<TouchableOpacity>
+							<View>
+								<Text style={{ color: Colors.background, fontWeight: 'bold', fontSize: 12 }} >DETAILS</Text>
+							</View>
+						</TouchableOpacity>
+					</Col>
+				</Row>
+		
+				<Row size={1} style={style.listContainer}>
+					<FlatList
+						contentContainerStyle={style.listContent}
+						data={rowData}
+						renderItem={({item}) => this._renderRow(item)}
+					/> 
+				</Row>
+		
+				<Row style={{ backgroundColor: Colors.snow, paddingBottom: 25, paddingTop: 10 }}>
+		
+					<Col size={2} style={{ paddingLeft: 20 }}>
+						<Text style={{ color: Colors.charcoal, fontWeight: 'bold' }}>Subtotal</Text>
+					</Col>
+		
+					<Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20 }}>
+						<Text style={{ color: Colors.charcoal, fontWeight: 'bold' }}> $ {this._calculateTotalCost(rowData)}</Text>
+					</Col>
+		
+				</Row>
+
+				{/* { this.state.merchantDataSourceFromCart.length > 1 &&
+					<Row style={{ height: 10, backgroundColor: Colors.gray2 }}></Row>
+				} */}
+
+		
+			</Col>
+		)
+	}
+
+	_renderIndividualOrderRow = (order) => {
+
+		let merchantList = order.to;
+		let itemListByEachMerchant = _.values(merchantList);
+		
+		// convert array of item objects to array of item arrays
+		itemListByEachMerchant = _.map(itemListByEachMerchant, function(itemListObject) {
+			return _.values(itemListObject);
+		})
+
+		return (
+			<Col>
+					<Row style={{ padding: 10, backgroundColor: "#F5F5F5" }}>
+						<Text style={{ color: Colors.gray3 }}>ORDER ID: {order.id}</Text>
 					</Row>
 
-					<Row style={{ height: 60 }}>
-						<Col size={2} style={{ alignItems: 'flex-start', justifyContent: 'center' }}>
-							<Text ellipsizeMode="tail" numberOfLines={2} style={style.fullModeItemName}>{item.itemName}</Text>
-						</Col>
-						<Col size={1} style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-							<Text style={style.fullModeItemCost}>$ {item.itemCost}</Text>
-						</Col>
+					<FlatList
+						style={{backgroundColor: Colors.snow, paddingTop: 0}}
+						data={itemListByEachMerchant}
+						renderItem={({item}) => this._renderIndividualMerchantRow(item)}
+					/>
+
+					<Row style={{ padding: 10, marginBottom: 20, paddingLeft: 20 }}>
+						<Text>Status: {Constants.orderStatus[order.status]}</Text>
 					</Row>
-					
-				</Grid>
-			</TouchableOpacity>
+			</Col>
 		)
-	};
+	}
 
 	backButton = () => {
 		return(
@@ -81,14 +164,6 @@ class CustomerOrdersScreen extends Component {
 	}
 
 	render() {
-		// Set the key for the menu
-		let  {menus} =  this.props.merchant;
-		if (this.props.merchant && this.props.merchant.menus) {
-			menus = this.props.merchant.menus.map(menu => {
-				menu.key = menu.id;
-				return menu
-			});
-		}
 
 		return (
 			<Col style={style.container}>
@@ -103,8 +178,8 @@ class CustomerOrdersScreen extends Component {
 
 						<FlatList
 							style={{backgroundColor: Colors.snow, paddingTop: 10}}
-							data={menus}
-							renderItem={({item}) => this._renderFullModeItem(item)}
+							data={this.state.ordersArray}
+							renderItem={({item}) => this._renderIndividualOrderRow(item)}
 						/>
 
 				</ScrollView>
@@ -115,10 +190,11 @@ class CustomerOrdersScreen extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		auth: state.auth	
+		user: state.settings.user,
+		orders: state.order.orders
 	}
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(customerActionCreators, dispatch);
+    return bindActionCreators(orderActionCreators, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrdersScreen)

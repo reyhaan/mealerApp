@@ -13,9 +13,6 @@ merchant.updateQuota = async (merhantId) => {
         const merchantOrders = await orderService.getOrders(merchant.uid);
         const newOrders = await orderService.getOrdersByStatus(merchant.uid, 'new');
         const acceptedOrders = await orderService.getOrdersByStatus(merchant.uid, 'accepted');
-
-        console.log(merchant);
-        console.log(merchantOrders);
         return merchant
     } catch (error) {
         return {error};

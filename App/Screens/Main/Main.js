@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, StatusBar, Alert, AsyncStorage} from 'react-native'
+import {View, StatusBar, Alert} from 'react-native'
 import Navigation from '../../Navigation/Navigation'
 import {connect} from 'react-redux'
 import {Font} from 'expo'
@@ -7,16 +7,7 @@ import styles from './Main.styles'
 import {LoginScreen} from '../index'
 import authenticationService from '../../Services/authentication-service'
 import * as ReactNavigation from 'react-navigation'
-import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
-
-// authenticationService.currentUser().then(user => {
-//     if (user && user.type) {
-//         // user.type = "merchant";
-//         user.type = "customer";
-//         activeTab = user.type === "merchant" ? MerchantTab : CustomerTab;
-//     }
-// });
-
+import {settingsActionCreators} from '../../Redux/Settings/SettingsActions';
 
 class RootContainer extends Component {
     state = {
@@ -28,18 +19,21 @@ class RootContainer extends Component {
         try {
             // Calls to initialize app
             const currentUser = await authenticationService.currentUser();
+            const {dispatch} = this.props;
+            const {getUser, clearCurrentUser} = settingsActionCreators;
             await Font.loadAsync({
                 'proximanova-regular': require('../../../assets/fonts/ProximaNova-Regular.ttf'),
                 'proximanova-bold': require('../../../assets/fonts/ProximaNova-Bold.ttf')
             });
 
-            if (currentUser && currentUser.type === "merchant") {
-
+            if (currentUser) {
+                // Update the user app state
+                dispatch(getUser(currentUser.uid))
+            } else {
+                //clear the user app state
+                dispatch(clearCurrentUser())
             }
 
-            if (currentUser && currentUser.type === "customer") {
-
-            }
 
             this.setState({
                 fontLoaded: true,

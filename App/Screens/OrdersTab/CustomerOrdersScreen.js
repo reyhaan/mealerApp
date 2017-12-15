@@ -34,7 +34,6 @@ class CustomerOrdersScreen extends Component {
 	}
 
 	_createDatasource = (orders) => {
-		console.log(orders)
 		orders.reverse()
 		this.setState({
 			ordersArray: orders

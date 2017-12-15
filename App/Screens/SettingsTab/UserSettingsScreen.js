@@ -3,7 +3,7 @@ import {ScrollView, View, Platform, KeyboardAvoidingView, Text} from 'react-nati
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import {Header, Icon} from 'react-native-elements'
-import UserInfoChangeScreenStyle from './UserSettings.style'
+import UserInfoChangeScreenStyle from './UserSettingsScreen.style'
 import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
@@ -16,7 +16,7 @@ import UserAvatar from './UserAvatar'
 
 const styles = UserInfoChangeScreenStyle;
 
-class UserInfoChangeScreen extends Component {
+class UserSettingsScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,15 +41,13 @@ class UserInfoChangeScreen extends Component {
             ? this.setState({
                 user: {
                     name: currentUser.name || '',
-                    avatar: currentUser.avatar || Images.addImagePlaceHolder,
+                    avatar: currentUser.avatar || Images.addImagePlaceHolder, //We need to use our own self defined place holder
                     address: currentUser.address || '',
                     phone: currentUser.phone || '',
                     email: currentUser.email || ''
                 }
             })
             : Alert.alert('Error:', 'unable to retrieve your info')
-
-
     }
 
     setUserAvatar = (image) => {
@@ -216,4 +214,4 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(settingsActionCreators, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserInfoChangeScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(UserSettingsScreen)

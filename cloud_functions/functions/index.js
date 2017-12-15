@@ -9,7 +9,7 @@ const calculateQuota = () => {
     })
 };
 
-exports.merchantQuotaUpdate = functions.database.ref('/orders/{orderId}')
+exports.merchantQuotaUpdate = functions.database.ref('/orders/{merchantId}')
     .onWrite(event => {
         console.log(event.params);
         console.log(event.data.val());

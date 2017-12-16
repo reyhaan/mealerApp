@@ -10,7 +10,11 @@ export function settings(state=initialState, action){
         case settingsActions.SET_CURRENT_USER:
             return Object.assign({}, state, {
                 user: action.data 
-            })
+            });
+        case settingsActions.CLEAR_CURRENT_USER:
+            return Object.assign({}, state, {
+                user: null
+            });
         default:
             return state 
     }

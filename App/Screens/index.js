@@ -2,8 +2,9 @@ import LoginScreen from './LoginScreen/LoginScreen'
 import SignUpScreen from './SignUpScreen/SignUpScreen'
 import CooksTab from './Customer/CooksTab/CooksTab'
 import OrdersTab from './OrdersTab/OrdersTab'
+import CustomerOrdersScreen from './OrdersTab/CustomerOrdersScreen'
 import SettingsTab from './SettingsTab/SettingsTab'
-import UserInfoChangeScreen from './SettingsTab/UserSettings'
+import UserSettingsScreen from './SettingsTab/UserSettingsScreen'
 import InfoTab from './InfoTab/InfoTab'
 import MenuScreen from './Merchant/MenuTab/MenuScreen'
 import EditMenuScreen from './Merchant/MenuTab/EditMenuScreen'
@@ -15,9 +16,10 @@ export {
     CooksTab,
     OrdersTab,
     SettingsTab,
-    UserInfoChangeScreen,
+    UserSettingsScreen,
     InfoTab,
     MenuScreen,
     EditMenuScreen,
-    CookDetailsScreen
+    CookDetailsScreen,
+    CustomerOrdersScreen
 }

@@ -12,8 +12,10 @@ import {
     OrdersTab,
     SettingsTab,
     InfoTab,
-    CookDetailsScreen
+    CookDetailsScreen,
+    CustomerOrdersScreen
 } from '../../Screens/index'
+import { CustomerCartScreen } from '../../Components/index';
 
 let totaltemsInCart = 0;
 
@@ -113,6 +115,15 @@ export default StackNavigator({
         },
         CookDetailsScreen: {
             screen: CookDetailsScreen
+        },
+        CustomerOrdersScreen: {
+            screen: CustomerOrdersScreen
         }
+    }, {
+        headerMode: 'none',
+        initialRouteName: 'Root',
+        navigationOptions: ({navigation}) => ({
+            header: null,
+        })
     }
 );

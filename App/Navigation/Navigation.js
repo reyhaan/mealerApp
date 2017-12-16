@@ -5,7 +5,7 @@ import {
     LoginScreen,
     SignUpScreen,
     EditMenuScreen,
-    UserInfoChangeScreen,
+    UserSettingsScreen,
     CookDetailsScreen
 } from '../Screens'
 
@@ -29,8 +29,8 @@ export default StackNavigator({
     CustomerTab: {
         screen: CustomerTab
     },
-    UserInfoChangeScreen: {
-        screen: UserInfoChangeScreen
+    UserSettingsScreen: {
+        screen: UserSettingsScreen
     },
     EditMenuScreen: {
         screen: EditMenuScreen

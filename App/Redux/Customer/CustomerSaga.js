@@ -16,19 +16,4 @@ customerEffects.fetchCooks = function* () {
     }
 };
 
-customerEffects.addToOrders = function* (order) {
-    try {
-        const order = {
-            from: order.data.from,
-            to: order.data.to,
-            items:order.items
-        };
-
-        const _order = yield call(orderService.createNewOrder, order.data);
-        yield put(customerActionCreators.addToCartSuccessful(_order));
-    } catch (error) {
-        Alert.alert('Error', error.message,)
-    }
-};
-
 export default customerEffects;

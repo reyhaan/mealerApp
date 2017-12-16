@@ -27,9 +27,4 @@ class Avatar extends Component {
   }
 }
 
-Avatar.PropTypes = {
-  image: PropTypes.string.isRequired,
-  _pickImage: PropTypes.func.isRequired
-}
-
 export default Avatar

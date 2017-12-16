@@ -2,6 +2,7 @@ import {put, call} from 'redux-saga/effects'
 import {NavigationActions} from 'react-navigation';
 import {Alert, AsyncStorage} from 'react-native';
 import {authActionCreators} from './AuthActions';
+import {settingsActionCreators} from '../Settings/SettingsActions';
 import authenticationService from '../../Services/authentication-service'
 import db from '../../Config/database'
 
@@ -16,8 +17,8 @@ authEffect.signIn = function* (userCredentials) {
         user = yield call(authenticationService.fetchUser, user.uid);
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield put(authActionCreators.signInSuccessful(user));
+        yield put(settingsActionCreators.setUser(user)); //!important to update the user state
         yield put(NavigationActions.navigate({routeName: user.type === "merchant" ? 'MerchantTab' : 'CustomerTab'}));
-
     } catch (error) {
         Alert.alert('Error', error.message);
     } finally {
@@ -40,6 +41,7 @@ authEffect.signUp = function* (userCredentials) {
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield call(authenticationService.addUser, user);
         yield put(authActionCreators.signUpSuccessful(user));
+        yield put(settingsActionCreators.setUser(user)); //!important to update the user state
         yield put(NavigationActions.navigate({routeName: user.type === "merchant" ? 'MerchantTab' : 'CustomerTab'}));
     } catch (error) {
         Alert.alert('Error', error.message);
@@ -55,6 +57,7 @@ authEffect.signOut = function* () {
         yield call(authenticationService.signOut);
         yield call(AsyncStorage.removeItem, 'userSession');
         yield put(NavigationActions.navigate({routeName: 'LoginScreen'}));
+        yield put(settingsActionCreators.clearCurrentUser());
     } catch (error) {
         Alert.alert('Error', error.message);
     } finally {

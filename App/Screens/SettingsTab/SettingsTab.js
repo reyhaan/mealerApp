@@ -27,7 +27,7 @@ class SettingsTab extends Component {
                 <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
                     <ListItem
                         onPress={() => {
-                            this.props.navigation.navigate("UserInfoChangeScreen", {page: "Update Profile"})
+                            this.props.navigation.navigate("UserSettingsScreen", {page: "Update Profile"})
                         }}
                         chevronColor={Colors.background}
                         titleStyle={styles.listTitle}

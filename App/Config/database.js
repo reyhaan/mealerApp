@@ -15,9 +15,28 @@ firebase.initializeApp({
 // firebase reference
 database.firebase = firebase;
 
+// Root reference
 database.root = () => {
     return firebase.database().ref();
 }
+
+// Oders list join reference
+database.orders = (id) => {
+    if (id) {
+        return firebase.database().ref('orders').child(id);
+    } else {
+        return firebase.database().ref('orders');
+    }
+}
+
+// orders reference
+database.ordersList = (id) => {
+    if (id) {
+        return firebase.database().ref('ordersList').child(id);
+    } else {
+        return firebase.database().ref('ordersList');
+    }
+};
 
 // user reference
 database.user = (id) => {
@@ -34,15 +53,6 @@ database.menus = (id) => {
         return firebase.database().ref('menus').child(id);
     } else {
         return firebase.database().ref('menus');
-    }
-};
-
-// orders reference
-database.orders = (id) => {
-    if (id) {
-        return firebase.database().ref('orders').child(id);
-    } else {
-        return firebase.database().ref('orders');
     }
 };
 

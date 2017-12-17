@@ -47,6 +47,13 @@ class MerchantOrders extends Component {
         }
     };
 
+    componentWillReceiveProps = async () => {
+        let isCartEmpty = await cartService.isCartEmpty()
+        this.setState({
+            isCartEmpty: isCartEmpty
+        })
+    }
+
     navigateToPreviousOrders = () => {
         this.props.navigation.navigate('CustomerOrders')
     };
@@ -122,16 +129,18 @@ class MerchantOrders extends Component {
                 <ScrollView>
                     {this._renderCustomerCart()}
                 </ScrollView>
-                <TouchableOpacity
-                    onPress={() => {this._doCheckout()}}
-                    style={styles.checkoutButtonContainer}>
-                    <Row style={styles.checkoutButton}>
-                        <Text style={{fontWeight: 'bold', fontSize: 14, color: Colors.snow}}>CHECKOUT:
-                            <Text style={{fontWeight: 'bold', fontSize: 17, color: Colors.snow}}>
-                                $ {this.state.totalCost}</Text>
-                        </Text>
-                    </Row>
-                </TouchableOpacity>
+                { !this.state.isCartEmpty &&
+                    <TouchableOpacity
+                        onPress={() => {this._doCheckout()}}
+                        style={styles.checkoutButtonContainer}>
+                        <Row style={styles.checkoutButton}>
+                            <Text style={{fontWeight: 'bold', fontSize: 14, color: Colors.snow}}>CHECKOUT:
+                                <Text style={{fontWeight: 'bold', fontSize: 17, color: Colors.snow}}>
+                                    $ {this.state.totalCost}</Text>
+                            </Text>
+                        </Row>
+                    </TouchableOpacity>
+                }
             </View>
         )
     }

@@ -3,7 +3,7 @@ import {ScrollView, View, Platform, KeyboardAvoidingView, Text} from 'react-nati
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import {Header, Icon} from 'react-native-elements'
-import UserInfoChangeScreenStyle from './UserSettingsScreen.style'
+import UserInfoChangeScreenStyle from './UserSettings.style'
 import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
@@ -12,7 +12,7 @@ import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
 import SnackBar from 'react-native-snackbar-component'
 import {TextInputMask} from 'react-native-masked-text';
-import UserAvatar from './UserAvatar'
+import UserAvatar from '../../Components/UserAvatar'
 
 const styles = UserInfoChangeScreenStyle;
 

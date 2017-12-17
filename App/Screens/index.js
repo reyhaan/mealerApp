@@ -1,14 +1,14 @@
 import LoginScreen from './LoginScreen/LoginScreen'
 import SignUpScreen from './SignUpScreen/SignUpScreen'
-import CooksTab from './Customer/CooksTab/CooksTab'
-import OrdersTab from './OrdersTab/OrdersTab'
-import CustomerOrdersScreen from './OrdersTab/CustomerOrdersScreen'
-import SettingsTab from './SettingsTab/SettingsTab'
-import UserSettingsScreen from './SettingsTab/UserSettingsScreen'
-import InfoTab from './InfoTab/InfoTab'
-import MenuScreen from './Merchant/MenuTab/MenuScreen'
-import EditMenuScreen from './Merchant/MenuTab/EditMenuScreen'
-import CookDetailsScreen from './Customer/CooksTab/CookDetailsScreen'
+import CooksTab from './Cooks/Cooks'
+import OrdersTab from './MerchantOrders/MerchantOrders'
+import CustomerOrdersScreen from './CustomerOrders/CustomerOrders'
+import SettingsTab from './Settings/Settings'
+import UserSettingsScreen from './UserSettings/UserSettings'
+import InfoTab from './Info/Info'
+import MenuScreen from './Menus/Menus'
+import EditMenuScreen from './EditMenu/EditMenu'
+import CookDetailsScreen from './CooksDetails/CookDetailsScreen'
 
 export {
     LoginScreen,

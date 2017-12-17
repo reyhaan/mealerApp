@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ScrollView, View, Text, Dimensions, StatusBar, TouchableWithoutFeedback, TouchableOpacity, Image } from 'react-native'
 import { connect } from 'react-redux'
-import OrdersTabStyle from './OrdersTab.style'
+import OrdersTabStyle from './MerchantOrders.style'
 import { IndividualOrderList, CustomerCartScreen } from '../../Components'
 import { Colors, Metrics, Images } from '../../Themes'
 import {Col, Row, Grid} from 'react-native-easy-grid';

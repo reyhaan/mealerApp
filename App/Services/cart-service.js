@@ -35,9 +35,8 @@ cartService.addToCart = async (item) => {
     orderItem.itemCount = item.itemCount;  // set item count on orderItem itself
     orderItem.merchantInfo = item.merchantInfo;
 
-    let storedCart = {};
     let cart = await AsyncStorage.getItem('cart');
-    storedCart = JSON.parse(cart);
+    let storedCart = JSON.parse(cart);
 
     // if there is no cart, populate one
     if (storedCart === null && _.keys(storedCart).length === 0) {

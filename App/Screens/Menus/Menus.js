@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import {Text, View, ListView, TouchableOpacity, FlatList, Image} from 'react-native'
 import {connect} from 'react-redux'
-import style from './MenuScreen.style'
+import style from './Menus.style'
 import {Header, Avatar, Icon} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors} from '../../../Themes';
-import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
+import {Colors} from '../../Themes/index';
+import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
-import {LoadingSpinner} from '../../../Components/index'
-import authenticationService from '../../../Services/authentication-service'
+import {LoadingSpinner} from '../../Components/index'
+import authenticationService from '../../Services/authentication-service'
 
 class MenuTab extends Component {
     constructor(props) {

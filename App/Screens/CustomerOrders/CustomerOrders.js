@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {Text, View, TouchableOpacity, FlatList, Image, Platform, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import {connect} from 'react-redux'
-import style from './CustomerOrdersScreen.style'
+import style from './CustomerOrders.style'
 import {Icon, Header} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors} from '../../Themes';
+import {Colors} from '../../Themes/index';
 import {bindActionCreators} from 'redux';
 import { NavigationActions } from 'react-navigation'
 import _ from 'lodash'

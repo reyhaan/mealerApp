@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Colors } from '../../Themes'
+import { Colors } from '../Themes/index'
 import PropTypes from 'prop-types'
 import { Text, Image, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'

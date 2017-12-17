@@ -2,17 +2,17 @@ import React, {Component} from 'react'
 import {ScrollView, View, Platform, KeyboardAvoidingView, Text, Image, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {Header, Icon,} from 'react-native-elements'
-import {Colors, Fonts, Metrics, Images} from '../../../Themes'
+import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
+import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
-import styles from './EditMenuScreen.style'
+import styles from './EditMenu.style'
 import {TextInputMask} from 'react-native-masked-text';
 import {ImagePicker} from 'expo';
-import Avatar from '../../Common/Avatar'
+import Avatar from '../../Components/Avatar'
 
 class EditMenuScreen extends Component {
     constructor(props) {

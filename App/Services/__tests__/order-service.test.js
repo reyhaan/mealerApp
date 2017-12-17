@@ -1,6 +1,6 @@
-import orderService from './order-service';
+import orderService from '../order-service';
 import {merchant, customer, User} from './test-data-service';
-import database from '../Config/database';
+import database from '../../Config/database';
 
 let createdOrder = null;
 const merchantUser = new User(merchant);

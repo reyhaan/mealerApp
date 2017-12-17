@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {ImagePicker} from 'expo'
-import {Images} from '../../Themes'
-import Avatar from '../Common/Avatar'
+import {Images} from '../Themes/index'
+import Avatar from './Avatar'
 
 class UserAvatar extends Component {
     _pickImage = async () => {

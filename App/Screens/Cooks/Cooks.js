@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { ScrollView, Text, View, FlatList, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux';
-import CooksTabStyle  from './CooksTab.style'
+import CooksTabStyle  from './Cooks.style'
 import { Header, SearchBar, Avatar, Rating } from 'react-native-elements' 
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import { Colors, Fonts } from '../../../Themes'
-import { customerActionCreators } from '../../../Redux/Customer/CustomerActions'
+import { Colors, Fonts } from '../../Themes/index'
+import { customerActionCreators } from '../../Redux/Customer/CustomerActions'
 
 // Styles
 const styles = CooksTabStyle

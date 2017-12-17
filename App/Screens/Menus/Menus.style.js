@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-import {Colors, Metrics, Fonts} from '../../../Themes/index'
+import {Colors, Metrics, Fonts} from '../../Themes/index'
 
 export default StyleSheet.create({
     menuScreenContainer: {

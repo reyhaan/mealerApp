@@ -4,14 +4,14 @@ import {connect} from 'react-redux'
 import style from './CookDetailsScreen.style'
 import {Icon, Header} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors} from '../../../Themes';
-import {merchantActionCreators} from '../../../Redux/Merchant/MerchantActions';
-import { cartActionCreators } from '../../../Redux/Cart/CartActions'
+import {Colors} from '../../Themes/index';
+import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
+import { cartActionCreators } from '../../Redux/Cart/CartActions'
 import {bindActionCreators} from 'redux';
-import {UserProfileHeader, AddToCartModal} from '../../../Components/index'
+import {UserProfileHeader, AddToCartModal} from '../../Components/index'
 import { NavigationActions } from 'react-navigation'
 import _ from 'lodash'
-import { cartActions } from '../../../Redux/Cart/CartActions';
+import { cartActions } from '../../Redux/Cart/CartActions';
 
 class CookDetailsScreen extends Component {
 	constructor(props) {

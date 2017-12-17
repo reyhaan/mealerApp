@@ -1,6 +1,6 @@
-import menuService from './menu-service';
+import menuService from '../menu-service';
 import {merchant, User} from './test-data-service';
-import database from '../Config/database';
+import database from '../../Config/database';
 
 let createdMenu = null;
 const merchantUser = new User(merchant);

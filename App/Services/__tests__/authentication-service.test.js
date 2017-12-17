@@ -1,6 +1,6 @@
-import authenticationService from './authentication-service';
+import authenticationService from '../authentication-service';
 import {merchant, customer, User} from './test-data-service';
-import database from '../Config/database';
+import database from '../../Config/database';
 
 const merchantUser = new User(merchant);
 const customerUser = new User(customer);

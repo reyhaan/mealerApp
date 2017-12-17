@@ -4,7 +4,7 @@ import Navigation from '../../Navigation/Navigation'
 import {connect} from 'react-redux'
 import {Font} from 'expo'
 import styles from './Main.styles'
-import {LoginScreen} from '../index'
+import {Login} from '../index'
 import authenticationService from '../../Services/authentication-service'
 import * as ReactNavigation from 'react-navigation'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions';
@@ -63,7 +63,7 @@ class RootContainer extends Component {
                     </View>
                 )
             } else {
-                return <LoginScreen/>;
+                return <Login/>;
             }
         } else {
             return null;

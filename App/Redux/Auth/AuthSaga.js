@@ -56,7 +56,7 @@ authEffect.signOut = function* () {
         yield put(authActionCreators.showActivityIndicator(true));
         yield call(authenticationService.signOut);
         yield call(AsyncStorage.removeItem, 'userSession');
-        yield put(NavigationActions.navigate({routeName: 'LoginScreen'}));
+        yield put(NavigationActions.navigate({routeName: 'Login'}));
         yield put(settingsActionCreators.clearCurrentUser());
     } catch (error) {
         Alert.alert('Error', error.message);

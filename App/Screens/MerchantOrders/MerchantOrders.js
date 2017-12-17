@@ -34,7 +34,7 @@ const list = [
   }
 ]
 
-class OrdersTab extends Component {
+class MerchantOrders extends Component {
 
   constructor (props) {
     super(props)
@@ -66,7 +66,7 @@ class OrdersTab extends Component {
   }
 
   _showPreviousOrders = () => {
-    this.props.navigation.navigate('CustomerOrdersScreen')
+    this.props.navigation.navigate('CustomerOrders')
   }
 
   _doCheckout = async () => {
@@ -329,4 +329,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrdersTab)
+export default connect(mapStateToProps, mapDispatchToProps)(MerchantOrders)

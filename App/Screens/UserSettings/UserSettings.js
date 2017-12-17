@@ -16,7 +16,7 @@ import UserAvatar from '../../Components/UserAvatar'
 
 const styles = UserInfoChangeScreenStyle;
 
-class UserSettingsScreen extends Component {
+class UserSettings extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -214,4 +214,4 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(settingsActionCreators, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSettingsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(UserSettings)

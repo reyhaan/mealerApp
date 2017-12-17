@@ -183,8 +183,7 @@ cartService.doCheckout = async (userInfo) => {
         let rootRef = db.root();
         await rootRef.update(userOders);
 
-        // Write order ID to customer and merchant
-        await orderRef.child(orderKey).set(order);
+        await db.ordersList().child(orderKey).set(order);
         await cartService.dumpCart();
         return Promise.resolve({});
 

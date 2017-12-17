@@ -1,8 +1,9 @@
 import Login from './Login/Login'
 import SignUp from './SignUp/SignUp'
 import Cooks from './Cooks/Cooks'
-import MerchantOrders from './MerchantOrders/MerchantOrders'
+import Cart from './Cart/Cart'
 import CustomerOrders from './CustomerOrders/CustomerOrders'
+import CooksOrders from './CooksOrders/CooksOrders'
 import Settings from './Settings/Settings'
 import UserSettings from './UserSettings/UserSettings'
 import InfoTab from './Info/Info'
@@ -14,12 +15,13 @@ export {
     Login,
     SignUp,
     Cooks,
-    MerchantOrders,
+    Cart,
     Settings,
     UserSettings,
     InfoTab,
     Menus,
     MenuForm,
     CookDetailsScreen,
-    CustomerOrders
+    CustomerOrders,
+    CooksOrders
 }

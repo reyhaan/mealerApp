@@ -1,5 +1,5 @@
 import {StyleSheet, Platform} from 'react-native'
-import {Colors, Metrics, Fonts} from '../../Themes/index'
+import {Colors, Metrics} from '../../Themes/index'
 
 export default StyleSheet.create({
     menuScreenContainer: {
@@ -110,7 +110,6 @@ export default StyleSheet.create({
     modal_itemCost: {
         marginTop: (Platform.OS === 'ios') ? 2 : 0,
         marginRight: 20,
-        marginTop: 5,
         textAlign: 'right',
         fontSize: 14,
         fontWeight: 'bold'

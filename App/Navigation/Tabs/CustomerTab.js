@@ -9,19 +9,18 @@ import IconBadge from 'react-native-icon-badge';
 import cartService from '../../Services/cart-service'
 import {
     Cooks,
-    MerchantOrders,
+    Cart,
     Settings,
     InfoTab,
     CookDetailsScreen,
     CustomerOrders
-} from '../../Screens/index'
-import { CustomerCartScreen } from '../../Components/index';
+} from '../../Screens/index';
 
 let totaltemsInCart = 0;
 
 cartService.totalItems().then((total) => {
     totaltemsInCart = total
-});;
+});
 
 const chefsStack = StackNavigator({
     Root: {
@@ -55,7 +54,7 @@ const customerTabsConfig = {
     },
 
     Two: {
-        screen: MerchantOrders,
+        screen: Cart,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (

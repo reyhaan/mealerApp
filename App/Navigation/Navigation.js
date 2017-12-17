@@ -2,22 +2,22 @@ import {StackNavigator} from 'react-navigation'
 import MerchantTab from './Tabs/MerchantTab'
 import CustomerTab from './Tabs/CustomerTab'
 import {
-    LoginScreen,
-    SignUpScreen,
+    Login,
+    SignUp,
     MenuForm,
     UserSettings,
 } from '../Screens'
 
 // Manifest of possible screens
 export default StackNavigator({
-    LoginScreen: {
-        screen: LoginScreen,
+    Login: {
+        screen: Login,
         navigationOptions: {
             gesturesEnabled: false
         }
     },
-    SignUpScreen: {
-        screen: SignUpScreen,
+    SignUp: {
+        screen: SignUp,
         navigationOptions: {
             gesturesEnabled: false
         }
@@ -37,7 +37,7 @@ export default StackNavigator({
 }, {
     // Default config for all screens
     headerMode: 'none',
-    initialRouteName: 'LoginScreen',
+    initialRouteName: 'Login',
     navigationOptions: ({navigation}) => ({
         header: null,
     })

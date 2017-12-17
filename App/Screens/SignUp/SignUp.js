@@ -3,17 +3,17 @@ import {List, ListItem, Button} from 'react-native-elements'
 import {connect} from 'react-redux'
 import {ScrollView, View, Image, Alert, Text, TouchableOpacity} from 'react-native'
 import {Images, Fonts, Colors} from '../../Themes/index'
-import SignUpScreenStyle from './SignUpScreen.style'
+import SignUpScreenStyle from './SignUp.style'
 import {bindActionCreators} from 'redux'
 import {authActionCreators} from '../../Redux/Auth/AuthActions'
-import {LoginScreen} from '../index'
+import {Login} from '../index'
 import {LoadingSpinner} from '../../Components/index'
 import {Form, Item, Input, Label,} from 'native-base'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
 
-class SignUpScreen extends Component {
+class SignUp extends Component {
     state = {
         name: "",
         email: "",
@@ -66,7 +66,7 @@ class SignUpScreen extends Component {
     //TODO: Add form validation for email and password
     render() {
         if (this.state.showLoginScreen) {
-            return <LoginScreen/>
+            return <Login/>
         } else {
             return (
                 <ScrollView style={SignUpScreenStyle.container}>
@@ -145,4 +145,4 @@ class SignUpScreen extends Component {
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
 const mapStateToProps = state => ({auth: state.auth});
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

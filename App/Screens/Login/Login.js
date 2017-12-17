@@ -1,19 +1,19 @@
 import React, {Component} from 'react'
 import {ScrollView, View, Image, TouchableOpacity, Alert} from 'react-native'
-import LoginScreenStyle from './LoginScreen.style'
+import LoginScreenStyle from './Login.style'
 import {Text} from 'react-native-elements'
 import {Button, Form, Item, Input, Label,} from 'native-base'
 import {Images, Colors} from '../../Themes/index'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {SignUpScreen} from '../index'
+import {SignUp} from '../index'
 import {authActionCreators} from '../../Redux/Auth/AuthActions'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {LoadingSpinner} from '../../Components/index'
 import authenticationService from '../../Services/authentication-service'
 
 
-class LoginScreen extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -63,7 +63,7 @@ class LoginScreen extends Component {
 
     render() {
         if (this.state.showSignUpScreen) {
-            return <SignUpScreen/>
+            return <SignUp/>
         } else {
             return (
                 <ScrollView style={LoginScreenStyle.container}>
@@ -118,4 +118,4 @@ const mapDispatchToProps = (dispatch) => {
         dispatch);
 };
 const mapStateToProps = state => ({auth: state.auth});
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

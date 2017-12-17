@@ -1,5 +1,5 @@
-import LoginScreen from './LoginScreen/LoginScreen'
-import SignUpScreen from './SignUpScreen/SignUpScreen'
+import Login from './Login/Login'
+import SignUp from './SignUp/SignUp'
 import Cooks from './Cooks/Cooks'
 import MerchantOrders from './MerchantOrders/MerchantOrders'
 import CustomerOrders from './CustomerOrders/CustomerOrders'
@@ -11,8 +11,8 @@ import MenuForm from './MenuForm/MenuForm'
 import CookDetailsScreen from './CooksDetails/CookDetailsScreen'
 
 export {
-    LoginScreen,
-    SignUpScreen,
+    Login,
+    SignUp,
     Cooks,
     MerchantOrders,
     Settings,

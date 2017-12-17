@@ -5,7 +5,7 @@ import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
 import {
-    MerchantOrders,
+    CooksOrders,
     Settings,
     InfoTab,
     Menus
@@ -28,7 +28,7 @@ const merchantTabsConfig = {
     },
 
     Two: {
-        screen: MerchantOrders,
+        screen: CooksOrders,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarLabel: 'Orders',

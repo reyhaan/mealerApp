@@ -209,7 +209,11 @@ class CustomerCartScreen extends Component {
 
                 </Row>
 
-                {this.state.merchantDataSourceFromCart.length > 1 && <Row style={{height: 10, backgroundColor: Colors.gray2}}></Row>}
+                {this.state.merchantDataSourceFromCart.length > 1 &&
+                <Row style={{height: 10, backgroundColor: Colors.gray2}}></Row>
+                }
+
+
             </Col>
         )
     };

@@ -8,12 +8,12 @@ import tabNavigatorConfig from './TabConfig'
 import IconBadge from 'react-native-icon-badge';
 import cartService from '../../Services/cart-service'
 import {
-    CooksTab,
-    OrdersTab,
-    SettingsTab,
+    Cooks,
+    MerchantOrders,
+    Settings,
     InfoTab,
     CookDetailsScreen,
-    CustomerOrdersScreen
+    CustomerOrders
 } from '../../Screens/index'
 import { CustomerCartScreen } from '../../Components/index';
 
@@ -25,7 +25,7 @@ cartService.totalItems().then((total) => {
 
 const chefsStack = StackNavigator({
     Root: {
-        screen: CooksTab
+        screen: Cooks
     },
     CookDetailsScreen: {
         screen: CookDetailsScreen
@@ -55,7 +55,7 @@ const customerTabsConfig = {
     },
 
     Two: {
-        screen: OrdersTab,
+        screen: MerchantOrders,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
@@ -78,7 +78,7 @@ const customerTabsConfig = {
     },
 
     Three: {
-        screen: SettingsTab,
+        screen: Settings,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
@@ -116,8 +116,8 @@ export default StackNavigator({
         CookDetailsScreen: {
             screen: CookDetailsScreen
         },
-        CustomerOrdersScreen: {
-            screen: CustomerOrdersScreen
+        CustomerOrders: {
+            screen: CustomerOrders
         }
     }, {
         headerMode: 'none',

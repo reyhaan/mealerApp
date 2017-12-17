@@ -30,13 +30,13 @@ class MenuTab extends Component {
                 iconStyle={{marginTop: 20,}}
                 underlayColor={'transparent'}
                 size={35}
-                onPress={() => this.props.navigation.navigate("EditMenuScreen", null)}
+                onPress={() => this.props.navigation.navigate("MenuForm", null)}
             />
         )
     };
 
     viewItem = (item) => {
-        this.props.navigation.navigate("EditMenuScreen", {item})
+        this.props.navigation.navigate("MenuForm", {item})
     };
 
     fetchMenu = async () => {

@@ -10,7 +10,7 @@ import {authActionCreators} from '../../Redux/Auth/AuthActions'
 
 const styles = SettingsTabStyle;
 
-class SettingsTab extends Component {
+class Settings extends Component {
 
     onSignOut = () => {
         this.props.signOut()
@@ -27,7 +27,7 @@ class SettingsTab extends Component {
                 <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
                     <ListItem
                         onPress={() => {
-                            this.props.navigation.navigate("UserSettingsScreen", {page: "Update Profile"})
+                            this.props.navigation.navigate("UserSettings", {page: "Update Profile"})
                         }}
                         chevronColor={Colors.background}
                         titleStyle={styles.listTitle}
@@ -63,4 +63,4 @@ class SettingsTab extends Component {
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsTab)
+export default connect(mapStateToProps, mapDispatchToProps)(Settings)

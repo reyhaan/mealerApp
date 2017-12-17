@@ -9,12 +9,12 @@ import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
-import styles from './EditMenu.style'
+import styles from './MenuForm.style'
 import {TextInputMask} from 'react-native-masked-text';
 import {ImagePicker} from 'expo';
 import Avatar from '../../Components/Avatar'
 
-class EditMenuScreen extends Component {
+class MenuForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -215,4 +215,4 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(merchantActionCreators, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditMenuScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(MenuForm)

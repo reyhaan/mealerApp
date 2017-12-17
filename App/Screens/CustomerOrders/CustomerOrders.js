@@ -12,7 +12,7 @@ import { orderActionCreators } from '../../Redux/Order/OrderActions';
 import { authenticationService } from '../../Services/authentication-service'
 import { Constants } from '../../Utils/Constants'
 
-class CustomerOrdersScreen extends Component {
+class CustomerOrders extends Component {
 	constructor(props) {
 		super(props);
 
@@ -196,4 +196,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(orderActionCreators, dispatch);
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrdersScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrders)

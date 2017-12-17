@@ -11,7 +11,7 @@ import { customerActionCreators } from '../../Redux/Customer/CustomerActions'
 // Styles
 const styles = CooksTabStyle
 
-class CooksTab extends Component {
+class Cooks extends Component {
   constructor (props) {
     super(props);
     this.props.fetchCooks();
@@ -127,4 +127,4 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(customerActionCreators, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CooksTab)
+export default connect(mapStateToProps, mapDispatchToProps)(Cooks)

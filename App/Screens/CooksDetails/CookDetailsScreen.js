@@ -56,7 +56,7 @@ class CookDetailsScreen extends Component {
 			<Icon
 				name='add'
 				color={Colors.snow}
-				onPress={() => this.props.navigation.navigate("EditMenuScreen")}
+				onPress={() => this.props.navigation.navigate("MenuForm")}
 			/>
 		)
 	};

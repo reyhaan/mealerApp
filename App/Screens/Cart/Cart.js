@@ -1,11 +1,4 @@
 import React, {Component} from 'react'
-import {
-    ScrollView,
-    View,
-    Text,
-    TouchableOpacity,
-    Image
-} from 'react-native'
 import {connect} from 'react-redux'
 import styles from './Cart.style'
 import {CustomerCartScreen} from '../../Components/index'
@@ -18,6 +11,13 @@ import cartService from '../../Services/cart-service'
 import _ from 'lodash'
 import {bindActionCreators} from 'redux'
 import {cartActionCreators} from '../../Redux/Cart/CartActions'
+import {
+    ScrollView,
+    View,
+    Text,
+    TouchableOpacity,
+    Image
+} from 'react-native'
 
 class MerchantOrders extends Component {
     constructor(props) {
@@ -47,7 +47,7 @@ class MerchantOrders extends Component {
         }
     };
 
-    _showPreviousOrders = () => {
+    navigateToPreviousOrders = () => {
         this.props.navigation.navigate('CustomerOrders')
     };
 
@@ -92,11 +92,13 @@ class MerchantOrders extends Component {
         )
     };
 
-    _headerButtonShowPreviousOrders = () => {
+    showPreviousOrdersButton = () => {
         return (
             <Col size={1}
                  style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center'}}>
-                <TouchableOpacity onPress={() => {this._showPreviousOrders()}}>
+                <TouchableOpacity onPress={() => {
+                    this.navigateToPreviousOrders()
+                }}>
                     <Row>
                         <Icon size={16}
                               name={'archive'}
@@ -114,37 +116,22 @@ class MerchantOrders extends Component {
         return (
             <View style={styles.container}>
                 <Header leftComponent={this._cartHeaderTitle()}
-                        rightComponent={this._headerButtonShowPreviousOrders()}
+                        rightComponent={this.showPreviousOrdersButton()}
                         backgroundColor={Colors.background}
                         outerContainerStyles={styles.headerContainer}/>
                 <ScrollView>
                     {this._renderCustomerCart()}
                 </ScrollView>
-
-                <Row style={{
-                    height: 45,
-                    backgroundColor: Colors.background,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: 10,
-                    borderRadius: 3
-                }}>
-                    <TouchableOpacity onPress={() => {
-                        this._doCheckout()
-                    }}>
-                        <Row style={{
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: Metrics.screenWidth
-                        }}>
-                            <Text style={{fontWeight: 'bold', fontSize: 14, color: Colors.snow}}>CHECKOUT:
-                                <Text style={{fontWeight: 'bold', fontSize: 17, color: Colors.snow}}>
-                                    $ {this.state.totalCost}</Text>
-                            </Text>
-                        </Row>
-                    </TouchableOpacity>
-                </Row>
+                <TouchableOpacity
+                    onPress={() => {this._doCheckout()}}
+                    style={styles.checkoutButtonContainer}>
+                    <Row style={styles.checkoutButton}>
+                        <Text style={{fontWeight: 'bold', fontSize: 14, color: Colors.snow}}>CHECKOUT:
+                            <Text style={{fontWeight: 'bold', fontSize: 17, color: Colors.snow}}>
+                                $ {this.state.totalCost}</Text>
+                        </Text>
+                    </Row>
+                </TouchableOpacity>
             </View>
         )
     }

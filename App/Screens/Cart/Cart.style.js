@@ -81,12 +81,18 @@ export default StyleSheet.create({
         alignSelf: 'center',
         textAlignVertical: 'center'
     },
-    cartItemsContainer: {
+    checkoutButtonContainer: {
         height: 45,
         backgroundColor: Colors.background,
         alignItems: 'center',
         justifyContent: 'center',
         margin: 10,
         borderRadius: 3
+    },
+    checkoutButton: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: Metrics.screenWidth
     }
 })

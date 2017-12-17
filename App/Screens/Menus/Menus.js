@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Text, View, ListView, TouchableOpacity, FlatList, Image} from 'react-native'
 import {connect} from 'react-redux'
 import style from './Menus.style'
-import {Header, Avatar, Icon} from 'react-native-elements'
+import {Header, Icon} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';

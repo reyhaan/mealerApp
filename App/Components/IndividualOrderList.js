@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View, Text, FlatList} from 'react-native'
-import {Avatar, ButtonGroup} from 'react-native-elements'
+import {Avatar, ButtonGroup, Badge} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 
 import {Colors, Images} from '../Themes'
@@ -124,19 +124,19 @@ export default class IndividualOrderList extends Component {
         let status = 'CONFIRMED';
         switch (status) {
             case 'CANCELLED':
-                return (<Text style={{color: Colors.pink, fontWeight: 'bold', fontSize: 12}}>: CANCELLED</Text>)
+                return (<Text style={{color: Colors.pink, fontWeight: 'bold', fontSize: 12}}> CANCELLED</Text>)
                 break;
 
             case 'CONFIRMED':
-                return (<Text style={{color: Colors.orange, fontWeight: 'bold', fontSize: 12}}>: CONFIRMED</Text>)
+                return (<Text style={{color: Colors.orange, fontWeight: 'bold', fontSize: 12}}> CONFIRMED</Text>)
                 break;
 
             case 'DELIVERED':
-                return (<Text style={{color: Colors.green, fontWeight: 'bold', fontSize: 12}}>: DELIVERED</Text>)
+                return (<Text style={{color: Colors.green, fontWeight: 'bold', fontSize: 12}}> DELIVERED</Text>)
                 break;
 
             default:
-                return (<Text style={{color: Colors.darkOrange, fontWeight: 'bold', fontSize: 12}}>: CONFIRMED</Text>)
+                return (<Text style={{color: Colors.darkOrange, fontWeight: 'bold', fontSize: 12}}> CONFIRMED</Text>)
         }
     };
 
@@ -145,7 +145,11 @@ export default class IndividualOrderList extends Component {
         return (
             <View style={styles.container}>
                 <Grid>
-                    <Col style={{paddingBottom: 30, paddingTop: 0}}>
+                    <Col style={{paddingBottom: 30, paddingTop: 0,
+                    borderWidth: 2, margin: 4, borderRadius: 4,
+                    shadowOffset: {width: 1, height: 1},
+                    shadowOpacity: 0.8,
+                    shadowRadius: 4, shadowColor:'red'}}>
 
                         <Row
                             style={{paddingLeft: 10, paddingBottom: 15, paddingTop: 15, backgroundColor: Colors.cloud}}>
@@ -154,14 +158,16 @@ export default class IndividualOrderList extends Component {
                         </Row>
 
                         {isCustomer &&
-                        <Row style={{paddingLeft: 10, paddingTop: 15, paddingBottom: 10}}>
-                            <Text style={{color: Colors.gray}}>From
-                                <Text style={{
-                                    fontWeight: 'bold',
-                                    fontSize: 14,
-                                    color: Colors.background
-                                }}> {this.orderObject.customerName}</Text>
-                            </Text>
+                        <Row style={{paddingLeft: 10, paddingTop: 15, paddingBottom: 10, display: 'flex',
+                          flexDirection: 'row', justifyContent: 'flex-start'}}>
+                          <Badge value='From' textStyle={{color: Colors.gray}} 
+                            containerStyle={{width: 70, backgroundColor:Colors.cloud, height: 20}}/>
+                          <Text style={{
+                              fontWeight: 'bold',
+                              fontSize: 14,
+                              color: Colors.background
+                          }}> {this.orderObject.customerName}
+                          </Text>
                         </Row>
                         }
 
@@ -208,20 +214,21 @@ export default class IndividualOrderList extends Component {
                             }
 
                             {isCustomer &&
-                            <Col size={2} style={{paddingLeft: 10}}>
-                                <Text style={{color: Colors.gray}}>Status
-                                    <Text style={{
-                                        color: Colors.snow,
-                                        fontWeight: 'bold'
-                                    }}>: {this._getOrderStatus()}</Text>
-                                </Text>
+                            <Col size={2} style={{paddingLeft: 10, display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
+                              <Badge value='Status' textStyle={{color: Colors.gray}} 
+                              containerStyle={{width: 70, backgroundColor:Colors.cloud, height: 20}}/>
+                              <Text style={{
+                                  color: Colors.snow,
+                                  fontWeight: 'bold'
+                              }}>: {this._getOrderStatus()}</Text>
                             </Col>
                             }
 
-                            <Col size={1} style={{alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20}}>
-                                <Text style={{color: Colors.gray}}>Total:
-                                    <Text style={{color: Colors.coal, fontWeight: 'bold'}}>
-                                        $ {this._calculateTotalCost()}</Text>
+                            <Col size={1} style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', paddingRight: 10}}>
+                                <Badge value='Total' textStyle={{color: Colors.gray}} 
+                                  containerStyle={{width: 60, backgroundColor:Colors.cloud, height: 20}}/>
+                                <Text style={{color: Colors.coal, fontWeight: 'bold'}}>
+                                    $ {this._calculateTotalCost()}
                                 </Text>
                             </Col>
                         </Row>

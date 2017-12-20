@@ -15,38 +15,35 @@ cartService.getCart = () => {
             reject(error);
         })
     });
-}
+};
 
 /**
  * Empty out the cart
  */
 cartService.dumpCart = () => {
     AsyncStorage.setItem('cart', '');
-}
+};
 
 /**
  * Add an item to cart
  * @param item: object
  */
 cartService.addToCart = async (item) => {
-    let from = item.from
-    let toMerchant = item.to
-    let orderItem = item.item
+    let from = item.from;
+    let toMerchant = item.to;
+    let orderItem = item.item;
     orderItem.itemCount = item.itemCount;  // set item count on orderItem itself
     orderItem.merchantInfo = item.merchantInfo;
 
-    // AsyncStorage.setItem('cart', '');
-
-    let storedCart = {};
     let cart = await AsyncStorage.getItem('cart');
-    storedCart = JSON.parse(cart)
+    let storedCart = JSON.parse(cart);
 
     // if there is no cart, populate one
     if (storedCart === null && _.keys(storedCart).length === 0) {
         let order = {
             from: from,
             to: {}
-        }
+        };
         order.to[toMerchant] = {};
         order.to[toMerchant][orderItem.id] = orderItem;
         AsyncStorage.setItem('cart', JSON.stringify(order));
@@ -60,7 +57,7 @@ cartService.addToCart = async (item) => {
             let itemsForFoundMerchant = _.values(storedCart.to[foundMerchantId]);
             let foundItem = _.find(itemsForFoundMerchant, function (item) {
                 return item.id === orderItem.id
-            })
+            });
             // Add item count to same item being added from same merchant
             if (foundItem) {
                 storedCart.to[toMerchant][foundItem.id]['itemCount'] = storedCart.to[toMerchant][foundItem.id]['itemCount'] + item.itemCount;
@@ -72,13 +69,13 @@ cartService.addToCart = async (item) => {
             }
             // Add a new merchant
         } else {
-            storedCart.to[toMerchant] = {}
+            storedCart.to[toMerchant] = {};
             storedCart.to[toMerchant][orderItem.id] = orderItem;
             AsyncStorage.setItem('cart', JSON.stringify(storedCart));
         }
     }
     return Promise.resolve(storedCart);
-}
+};
 
 /**
  * Remove an item from cart
@@ -138,7 +135,7 @@ cartService.totalItems = async () => {
         let itemsForAllMerchants = _.values(cart.to);
         _.each(itemsForAllMerchants, function (itemFromOneMerchant) {
             let itemArray = _.values(itemFromOneMerchant);
-            _.each(itemArray, function (item) {
+            _.each(itemArray, function () {
                 totalItemCount = totalItemCount + 1;
             })
         });
@@ -156,18 +153,17 @@ cartService.doCheckout = async (userInfo) => {
 
         let cart = await cartService.getCart();
         // create unified order object
-        let order = Object.assign(cart, data)
+        let order = Object.assign(cart, data);
 
         const orderRef = db.orders();
         const orderKey = await orderRef.push().getKey();
         order.id = orderKey; //!important
 
         // Grab customer and merchant ref to update their order's list
-        let customerRef = db.user(order.userInfo.uid);
         let merchantRefArray = _.keys(order.to);
         merchantRefArray.push(order.userInfo.uid);
 
-        let userOders = {}
+        let userOders = {};
 
         _.each(merchantRefArray, function (userRef) {
             // If its the user placing the order, add the complete order object
@@ -176,10 +172,10 @@ cartService.doCheckout = async (userInfo) => {
 
                 // If its a merchant, then only add info from order relevant to each merchant
             } else {
-                let merchantOrder = Object.assign({}, order)
+                let merchantOrder = Object.assign({}, order);
                 // Omit `to` ref for merchants, we dont need other merchant's info
                 merchantOrder = _.omit(merchantOrder, 'to');
-                merchantOrder['itemsList'] = order.to[userRef]
+                merchantOrder['itemsList'] = order.to[userRef];
                 userOders["orders/" + userRef + "/" + orderKey] = merchantOrder
             }
         });
@@ -187,8 +183,7 @@ cartService.doCheckout = async (userInfo) => {
         let rootRef = db.root();
         await rootRef.update(userOders);
 
-        // Write order ID to customer and merchant
-        await orderRef.child(orderKey).set(order);
+        await db.ordersList().child(orderKey).set(order);
         await cartService.dumpCart();
         return Promise.resolve({});
 

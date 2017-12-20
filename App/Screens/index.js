@@ -1,25 +1,27 @@
-import LoginScreen from './LoginScreen/LoginScreen'
-import SignUpScreen from './SignUpScreen/SignUpScreen'
-import CooksTab from './Customer/CooksTab/CooksTab'
-import OrdersTab from './OrdersTab/OrdersTab'
-import CustomerOrdersScreen from './OrdersTab/CustomerOrdersScreen'
-import SettingsTab from './SettingsTab/SettingsTab'
-import UserSettingsScreen from './SettingsTab/UserSettingsScreen'
-import InfoTab from './InfoTab/InfoTab'
-import MenuScreen from './Merchant/MenuTab/MenuScreen'
-import EditMenuScreen from './Merchant/MenuTab/EditMenuScreen'
-import CookDetailsScreen from './Customer/CooksTab/CookDetailsScreen'
+import Login from './Login/Login'
+import SignUp from './SignUp/SignUp'
+import Cooks from './Cooks/Cooks'
+import Cart from './Cart/Cart'
+import CustomerOrders from './CustomerOrders/CustomerOrders'
+import CooksOrders from './CooksOrders/CooksOrders'
+import Settings from './Settings/Settings'
+import UserSettings from './UserSettings/UserSettings'
+import InfoTab from './Info/Info'
+import Menus from './Menus/Menus'
+import MenuForm from './MenuForm/MenuForm'
+import CookDetailsScreen from './CooksDetails/CookDetailsScreen'
 
 export {
-    LoginScreen,
-    SignUpScreen,
-    CooksTab,
-    OrdersTab,
-    SettingsTab,
-    UserSettingsScreen,
+    Login,
+    SignUp,
+    Cooks,
+    Cart,
+    Settings,
+    UserSettings,
     InfoTab,
-    MenuScreen,
-    EditMenuScreen,
+    Menus,
+    MenuForm,
     CookDetailsScreen,
-    CustomerOrdersScreen
+    CustomerOrders,
+    CooksOrders
 }

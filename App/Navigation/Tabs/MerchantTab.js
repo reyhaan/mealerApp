@@ -5,15 +5,15 @@ import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
 import {
-    OrdersTab,
-    SettingsTab,
+    CooksOrders,
+    Settings,
     InfoTab,
-    MenuScreen
+    Menus
 } from '../../Screens/index'
 
 const merchantTabsConfig = {
     One: {
-        screen: MenuScreen,
+        screen: Menus,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarLabel: 'Menu',
@@ -28,7 +28,7 @@ const merchantTabsConfig = {
     },
 
     Two: {
-        screen: OrdersTab,
+        screen: CooksOrders,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarLabel: 'Orders',
@@ -42,7 +42,7 @@ const merchantTabsConfig = {
     },
 
     Three: {
-        screen: SettingsTab,
+        screen: Settings,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarLabel: 'Settings',

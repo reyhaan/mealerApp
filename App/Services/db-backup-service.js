@@ -33,14 +33,14 @@ backupDB.writeUsers = async () => {
             "uid":"r1SWHkkGq6g6sCHKv3ph0EK8b9w2"
         }
     })
-}
+};
 
 backupDB.populateDB = async () => {
     await db.root().set(JSON.parse(dbString));
-}
+};
 
 backupDB.getBackupJson = () => {
     return JSON.parse(dbString)
-}
+};
 
 export default backupDB

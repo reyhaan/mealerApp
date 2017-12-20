@@ -1,12 +1,8 @@
 import db from '../Config/database';
-import authenticationService from './authentication-service';
 
 let customerOrderService = {};
 
-/**
- * Get merchant orders
- * @param userId: string
- */
+// Get merchant orders
 customerOrderService.getOrders = async (userId) => {
     try {
         let ordersSnapshot = await db.orders(userId).orderByChild("timestamp").once('value');

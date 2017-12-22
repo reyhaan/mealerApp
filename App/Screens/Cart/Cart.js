@@ -48,11 +48,11 @@ class MerchantOrders extends Component {
     };
 
     componentWillReceiveProps = async () => {
-        let isCartEmpty = await cartService.isCartEmpty()
+        let isCartEmpty = await cartService.isCartEmpty();
         this.setState({
             isCartEmpty: isCartEmpty
         })
-    }
+    };
 
     navigateToPreviousOrders = () => {
         this.props.navigation.navigate('CustomerOrders')

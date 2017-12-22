@@ -18,7 +18,7 @@ database.firebase = firebase;
 // Root reference
 database.root = () => {
     return firebase.database().ref();
-}
+};
 
 // Oders list join reference
 database.orders = (id) => {
@@ -27,7 +27,7 @@ database.orders = (id) => {
     } else {
         return firebase.database().ref('orders');
     }
-}
+};
 
 // orders reference
 database.ordersList = (id) => {

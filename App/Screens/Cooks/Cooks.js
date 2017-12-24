@@ -102,7 +102,6 @@ class Cooks extends Component {
           leftComponent = {{ icon: 'filter', color: Colors.background, type: 'font-awesome' }}
           centerComponent = {{ text: 'CHEFS', style: { color: Colors.background, fontWeight: 'bold' } }}
           rightComponent = {{ icon: 'search', color: Colors.background }}
-          backgroundColor = {Colors.snow}
           outerContainerStyles = { styles.headerOuterContainer }
         />
 

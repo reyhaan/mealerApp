@@ -5,7 +5,7 @@ export default StyleSheet.create({
     ...ApplicationStyles.screen,
     container: {
         paddingBottom: Metrics.baseMargin,
-        backgroundColor: Colors.background
+        backgroundColor: Colors.snow
     },
     logo: {
         marginTop: Metrics.doubleSection,
@@ -15,10 +15,15 @@ export default StyleSheet.create({
     },
     mealerLogo: {
         height: 50,
-        resizeMode: 'contain'
+        resizeMode: 'contain',
+        tintColor: Colors.background
     },
     centered: {
         alignItems: 'center'
+    },
+    section: {
+        margin: 20,
+        paddingRight: 20
     },
     mainLoginView: {
         flex: 1,
@@ -35,15 +40,17 @@ export default StyleSheet.create({
     },
     registerButton: {
         margin: 15,
-        fontSize: 12,
-        color: 'white',
-        fontWeight: 'bold',
+        color: Colors.charcoal,
+        marginRight: 3
+    },
+    loginButton: {
+        margin: 15,
         marginRight: 3
     },
     signUpButton: {
         fontSize: 12,
-        color: 'white',
-        paddingTop: 5,
+        color: Colors.background,
+        paddingTop: 2,
         paddingLeft: 6,
         borderStyle: 'solid',
         borderWidth: 1,

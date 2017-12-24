@@ -5,7 +5,7 @@ export default StyleSheet.create({
     ...ApplicationStyles.screen,
     container: {
         paddingBottom: Metrics.baseMargin,
-        backgroundColor: Colors.background
+        backgroundColor: Colors.snow
     },
     logo: {
         marginTop: Metrics.doubleSection,
@@ -15,7 +15,8 @@ export default StyleSheet.create({
     },
     mealerLogo: {
         height: 50,
-        resizeMode: 'contain'
+        resizeMode: 'contain',
+        tintColor: Colors.background
     },
     centered: {
         alignItems: 'center'
@@ -25,10 +26,14 @@ export default StyleSheet.create({
         backgroundColor: Colors.facebook,
         borderRadius: 3
     },
+    forgotPasswordView: {
+        marginBottom: 30,
+        marginTop: 10,
+        flex: 1,
+    },
     formContainer: {
-        marginTop: 10 ,
-        marginRight: 35 ,
-        marginLeft: 20 ,
+        margin: 20,
+        paddingRight: 20
     },
     signUpView: {
         flex: 1,
@@ -38,15 +43,12 @@ export default StyleSheet.create({
         margin: 10
     },
     signUpButton: {
-        marginTop: 20,
-        marginLeft: 5,
-        marginRight: 5,
-        borderRadius: 3,
-        width:296,
-        backgroundColor: Colors.green
+        margin: 15,
+        marginRight: 0,
+        borderRadius: 3
     },
     inputField:{
-        color:Colors.white
+        color:Colors.charcoal
     },
     userTypePickerBtn:{
         width:306,
@@ -57,24 +59,21 @@ export default StyleSheet.create({
     },
     userTypePickerDropDown:{
         marginTop:5,
-        marginLeft:15,
-
+        marginLeft:15
     },
     userTypePickerTitle:{
         fontWeight:'700',
         fontSize: 13
     },
-    userTypePickerText:{
-        color:Colors.text,
-        fontSize:15,
-        fontWeight:'500',
-    },
     goBackToLoginButton: {
-        marginTop: 20,
-        marginLeft: 30,
-        marginRight: 30,
         borderRadius: 3,
         height:30,
-        backgroundColor:'transparent'
+        backgroundColor:'transparent',
+        color: Colors.background,
+        fontSize: 12,
+        fontWeight: "bold"
+    },
+    formItemContainer: {
+        marginTop: 15
     }
 })

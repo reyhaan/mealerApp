@@ -7,14 +7,18 @@ export default StyleSheet.create({
         backgroundColor: Colors.white
     },
     headerOuterContainer: {
-        shadowColor: '#000',
+        width: Metrics.screenWidth,
+        backgroundColor: Colors.snow,
+        padding: 15,
+        height: 75,
+        shadowColor: (Platform.OS === 'ios') ? Colors.charcoal : Colors.snow,
         shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
         shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
         shadowOffset: {
-          height: (Platform.OS === 'ios') ? 0 : 0,
+        height: (Platform.OS === 'ios') ? 0 : 0,
         },
         elevation: 4,
-        zIndex: 15
+        zIndex: 10
     },
     listContainer: {
         borderBottomWidth: 0,
@@ -23,7 +27,7 @@ export default StyleSheet.create({
         marginTop: 0,
         paddingLeft: 5,
         paddingRight: 5,
-        zIndex: 1
+        zIndex: 0
     },
     listWrapper: {
     },
@@ -31,10 +35,5 @@ export default StyleSheet.create({
     },
     listItem: {
         borderBottomColor: Colors.gray4
-    },
-    headerOuterContainer: {
-        width: Metrics.screenWidth,
-        padding: 15,
-        height: 75,
     }
 })

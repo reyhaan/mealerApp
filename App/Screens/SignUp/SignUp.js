@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {List, ListItem, Button} from 'react-native-elements'
+import {List, ListItem, Icon} from 'react-native-elements'
 import {connect} from 'react-redux'
 import {ScrollView, View, Image, Alert, Text, TouchableOpacity} from 'react-native'
 import {Images, Fonts, Colors} from '../../Themes/index'
@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux'
 import {authActionCreators} from '../../Redux/Auth/AuthActions'
 import {Login} from '../index'
 import {LoadingSpinner} from '../../Components/index'
-import {Form, Item, Input, Label,} from 'native-base'
+import {Form, Item, Input, Label, Button, Content, Left, Radio} from 'native-base'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -42,16 +42,18 @@ class SignUp extends Component {
         });
     };
 
-    onSelectUserType = (value) => {
-        this.toggleUserTypeDropDown();
-        this.setState({
-            type: value,
-            userTypeTitle: value === 'customer' ? customerTitle : merchantTitle
-        });
-    };
-
-    toggleUserTypeDropDown = () => {
-        this.setState({userTypeDropDown: !this.state.userTypeDropDown});
+    toggleUserType = (value) => {
+        if (value === "customer") {
+            this.setState({
+                type: value,
+                userTypeTitle: customerTitle
+            });
+        } else {
+            this.setState({
+                type: value,
+                userTypeTitle: merchantTitle
+            });
+        }
     };
 
     signUp = () => {
@@ -75,22 +77,22 @@ class SignUp extends Component {
                         <Image source={Images.mealerLogo} style={SignUpScreenStyle.mealerLogo}/>
                     </View>
 
-                    <View style={SignUpScreenStyle.formContainer}>
-                        <Form>
-                            <Item floatingLabel>
-                                <Label style={{color: Colors.white}}>Name</Label>
+                    <View style={[SignUpScreenStyle.formContainer]}>
+                        <Form style={SignUpScreenStyle.forgotPasswordView}>
+                            <Item floatingLabel style={SignUpScreenStyle.formItemContainer}>
+                                <Label style={{color: Colors.charcoal}}>Name</Label>
                                 <Input style={SignUpScreenStyle.inputField}
                                        onChangeText={(e) => this.formUpdate('name', e)}/>
                             </Item>
-                            <Item floatingLabel>
-                                <Label style={{color: Colors.white}}>Email</Label>
+                            <Item floatingLabel style={SignUpScreenStyle.formItemContainer}>
+                                <Label style={{color: Colors.charcoal}}>Email</Label>
                                 <Input keyboardType="email-address"
                                        autoCapitalize="none"
                                        style={SignUpScreenStyle.inputField}
                                        onChangeText={(e) => this.formUpdate('email', e)}/>
                             </Item>
-                            <Item floatingLabel>
-                                <Label style={{color: Colors.white}}>Password</Label>
+                            <Item floatingLabel style={SignUpScreenStyle.formItemContainer}>
+                                <Label style={{color: Colors.charcoal}}>Password</Label>
                                 <Input keyboardType="email-address"
                                        style={SignUpScreenStyle.inputField}
                                        secureTextEntry={true}
@@ -98,44 +100,54 @@ class SignUp extends Component {
                             </Item>
                         </Form>
 
-                        {/*/!*Todo use TouchableOpacity for this button instead since icon is not showing properly*!/*/}
-                        <Button
-                            buttonStyle={SignUpScreenStyle.userTypePickerBtn}
-                            fontWeight={'500'}
-                            iconRight={{name: 'check'}}
-                            title={this.state.userTypeTitle}
-                            onPress={() => {
-                                this.toggleUserTypeDropDown()
-                            }}/>
+                        <Content style={{ marginLeft: 15, marginTop: 0 }}>
 
-                        {this.state.userTypeDropDown ?
-                            <List containerStyle={SignUpScreenStyle.userTypePickerDropDown}>
-                                <ListItem titleStyle={SignUpScreenStyle.userTypePickerTitle} hideChevron={true}
-                                          title={"I AM A CUSTOMER"} onPress={() => {
-                                    this.onSelectUserType("customer")
-                                }}/>
-                                <ListItem titleStyle={SignUpScreenStyle.userTypePickerTitle} hideChevron={true}
-                                          title={"I AM A MERCHANT"} onPress={() => {
-                                    this.onSelectUserType("merchant")
-                                }}/>
-                            </List> : null}
+                            <TouchableOpacity onPress={() => this.toggleUserType('customer')}>
+                                <View style={{ padding: 10, backgroundColor: this.state.type === "customer" ? Colors.background : "#F5F5F5", flex: 1, flexDirection: "row", borderRadius: 3 }}>
+                                    <Text style={{ color: this.state.type === "customer" ? Colors.snow : Colors.gray, fontWeight: "bold", flex: 1 }}>AS A CUSTOMER</Text>
+                                    <View style={{ width: 40, height: 20, alignItems: 'flex-end' }}>
+                                        { this.state.type === "customer" &&
+                                        <Icon
+                                            size={20}
+                                            name='check'
+                                            color={Colors.snow}
+                                        />
+                                        }
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={() => this.toggleUserType('merchant')}>
+                                <View style={{ backgroundColor: this.state.type === "merchant" ? Colors.background : "#F5F5F5", marginTop: 10, padding: 10, flex: 1, flexDirection: "row", borderRadius: 3 }}>
+                                    <Text style={{ color: this.state.type === "merchant" ? Colors.snow : Colors.gray, fontWeight: "bold", flex: 1 }}>AS A MERCHANT</Text>
+                                    <View style={{ width: 40, height: 20, alignItems: 'flex-end' }}>
+                                        { this.state.type === "merchant" &&
+                                        <Icon
+                                            size={20}
+                                            name='check'
+                                            color={Colors.snow}
+                                        />
+                                        }
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+
+                        </Content>
 
                         <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
-                        <Button
-                            buttonStyle={SignUpScreenStyle.signUpButton}
-                            textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                            title="SIGN UP"
+                        <Button block success
+                            style={SignUpScreenStyle.signUpButton}
                             onPress={() => {
                                 this.signUp()
-                            }}/>
-                        <Button
-                            fontSize={15}
-                            buttonStyle={SignUpScreenStyle.goBackToLoginButton}
-                            textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                            title="GO BACK TO LOGIN"
-                            onPress={() => {
-                                this.toggleLoginScreen()
-                            }}/>
+                            }}>
+                            <Text style={{ textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold', color: Colors.snow }}>SIGN UP</Text>
+                        </Button>
+
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginLeft: 15 }}>
+                            <TouchableOpacity onPress={() => this.toggleLoginScreen()}>
+                                <Text h5 style={SignUpScreenStyle.goBackToLoginButton}>GO BACK TO LOGIN</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </ScrollView>
             )

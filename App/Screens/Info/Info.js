@@ -10,8 +10,8 @@ class InfoTab extends Component {
             <View style={styles.subContainer}>
                 <Image source={Images.logo} style={styles.logo}/>
                 <Image source={Images.mealerLogo} style={styles.mealerLogo}/>
-                <Text style={{color: Colors.snow, marginTop: Metrics.doubleBaseMargin}}>version: 1.0.0</Text>
-                <Text style={{color: Colors.snow, marginTop: Metrics.doubleBaseMargin}}>copyright © 2017</Text>
+                <Text style={{color: Colors.background, marginTop: Metrics.doubleBaseMargin}}>version: 1.0.0</Text>
+                <Text style={{color: Colors.background, marginTop: Metrics.doubleBaseMargin}}>copyright © 2017</Text>
             </View>
         )
     }

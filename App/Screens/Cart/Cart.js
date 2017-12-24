@@ -4,8 +4,7 @@ import styles from './Cart.style'
 import {CustomerCartScreen} from '../../Components/index'
 import {Colors, Metrics, Images} from '../../Themes/index'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Header} from 'react-native-elements'
-import {Icon} from 'react-native-elements'
+import { Header, Icon } from 'react-native-elements'
 import authenticationService from '../../Services/authentication-service'
 import cartService from '../../Services/cart-service'
 import _ from 'lodash'
@@ -87,7 +86,7 @@ class MerchantOrders extends Component {
     _cartHeaderTitle = () => {
         return (
             <Col size={1}
-                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center'}}>
+                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center' }}>
                 <Row>
                     <Icon size={16}
                           name={'cutlery'}
@@ -102,7 +101,7 @@ class MerchantOrders extends Component {
     showPreviousOrdersButton = () => {
         return (
             <Col size={1}
-                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center'}}>
+                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center' }}>
                 <TouchableOpacity onPress={() => {
                     this.navigateToPreviousOrders()
                 }}>
@@ -122,10 +121,12 @@ class MerchantOrders extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header leftComponent={this._cartHeaderTitle()}
-                        rightComponent={this.showPreviousOrdersButton()}
-                        backgroundColor={Colors.background}
-                        outerContainerStyles={styles.headerContainer}/>
+                <Header 
+                    leftComponent={this._cartHeaderTitle()}
+                    rightComponent={this.showPreviousOrdersButton()}
+                    backgroundColor={Colors.background}
+                    outerContainerStyles={styles.headerContainer}/>
+
                 <ScrollView>
                     {this._renderCustomerCart()}
                 </ScrollView>

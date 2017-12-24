@@ -59,8 +59,7 @@ export default StyleSheet.create({
     },
     userTypePickerDropDown:{
         marginTop:5,
-        marginLeft:15,
-
+        marginLeft:15
     },
     userTypePickerTitle:{
         fontWeight:'700',
@@ -73,5 +72,8 @@ export default StyleSheet.create({
         color: Colors.background,
         fontSize: 12,
         fontWeight: "bold"
+    },
+    formItemContainer: {
+        marginTop: 15
     }
 })

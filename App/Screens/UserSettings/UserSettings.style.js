@@ -8,9 +8,17 @@ export default StyleSheet.create({
     },
     headerOuterContainer: {
         width: Metrics.screenWidth,
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.snow,
         padding: 15,
         height: 75,
+        shadowColor: (Platform.OS === 'ios') ? Colors.charcoal : Colors.snow,
+        shadowOpacity: (Platform.OS === 'ios') ? 0.2 : 0.4,
+        shadowRadius: (Platform.OS === 'ios') ? 2 : 3,
+        shadowOffset: {
+        height: (Platform.OS === 'ios') ? 0 : 0,
+        },
+        elevation: 4,
+        zIndex: 10
     },
     inputContainer: {
         paddingLeft: 10,

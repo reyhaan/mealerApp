@@ -58,10 +58,9 @@ class UserSettings extends Component {
         return (
             <Icon
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
-                color={Colors.snow}
-                iconStyle={{marginTop: 20,}}
+                color={Colors.background}
+                iconStyle={{marginTop: 25}}
                 underlayColor={'transparent'}
-                size={35}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
             />
         )
@@ -113,7 +112,7 @@ class UserSettings extends Component {
                 <View style={styles.container}>
                     <Header
                         leftComponent={this._backButton()}
-                        centerComponent={{text: "Settings", style: {color: '#fff', fontWeight: 'bold'}}}
+                        centerComponent={{text: "SETTINGS", style: {color: Colors.background, fontWeight: "bold" }}}
                         backgroundColor={Colors.background}
                         outerContainerStyles={styles.headerOuterContainer}
                     />
@@ -150,6 +149,7 @@ class UserSettings extends Component {
                                         <Item stackedLabel>
                                             <Label>Phone Number</Label>
                                             <TextInputMask
+                                                underlineColorAndroid="transparent"
                                                 ref={'celPhone'}
                                                 type={'cel-phone'}
                                                 options={{
@@ -183,7 +183,7 @@ class UserSettings extends Component {
                                                     }}
                                                     onPress={() => this._updateUserDetails()}
                                             >
-                                                <Text style={{color: Colors.white}}> Save </Text>
+                                                <Text style={{color: Colors.white, fontWeight: "bold"}}> UPDATE </Text>
                                             </Button>
                                         </Col>
                                     </Row>

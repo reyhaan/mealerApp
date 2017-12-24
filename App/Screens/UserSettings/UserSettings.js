@@ -122,7 +122,7 @@ class UserSettings extends Component {
                                 <View style={styles.formContainer}>
                                     <UserAvatar image={this.state.user.avatar} setUserAvatar={this.setUserAvatar}/>
                                     <Form>
-                                        <Item stackedLabel>
+                                        <Item stackedLabel style={ styles.formItemContainer }>
                                             <Label>Display Name</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -130,7 +130,7 @@ class UserSettings extends Component {
                                                 placeholder={'Your name'}
                                                 onChangeText={(value) => this.onInputChange(value, 'name')}/>
                                         </Item>
-                                        <Item stackedLabel>
+                                        <Item stackedLabel style={ styles.formItemContainer }>
                                             <Label>Address</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -138,7 +138,7 @@ class UserSettings extends Component {
                                                 value={this.state.user.address}
                                                 onChangeText={(value) => this.onInputChange(value, 'address')}/>
                                         </Item>
-                                        <Item stackedLabel>
+                                        <Item stackedLabel style={ styles.formItemContainer }>
                                             <Label>Email</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -146,7 +146,7 @@ class UserSettings extends Component {
                                                 value={this.state.user.email}
                                                 onChangeText={(value) => this.onInputChange(value, 'email')}/>
                                         </Item>
-                                        <Item stackedLabel>
+                                        <Item stackedLabel style={ styles.formItemContainer }>
                                             <Label>Phone Number</Label>
                                             <TextInputMask
                                                 underlineColorAndroid="transparent"
@@ -158,7 +158,7 @@ class UserSettings extends Component {
                                                 }}
                                                 value={this.state.user.phone}
                                                 onChangeText={(value) => this.onInputChange(value, 'phone')}
-                                                style={{width: '100%', height: 50}}
+                                                style={{width: '100%', height: 45}}
                                                 placeholder="613-XXX-XXXX"
                                                 keyboardType="number-pad"
                                             />

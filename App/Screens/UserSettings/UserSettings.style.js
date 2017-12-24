@@ -46,5 +46,8 @@ export default StyleSheet.create({
     formContainer: {
         flex: 1,
         backgroundColor: Colors.white,
+    },
+    formItemContainer: {
+        marginTop: 15
     }
 })

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {List, ListItem, Button} from 'react-native-elements'
+import {List, ListItem} from 'react-native-elements'
 import {connect} from 'react-redux'
 import {ScrollView, View, Image, Alert, Text, TouchableOpacity} from 'react-native'
 import {Images, Fonts, Colors} from '../../Themes/index'
@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux'
 import {authActionCreators} from '../../Redux/Auth/AuthActions'
 import {Login} from '../index'
 import {LoadingSpinner} from '../../Components/index'
-import {Form, Item, Input, Label,} from 'native-base'
+import {Form, Item, Input, Label, Button} from 'native-base'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -75,22 +75,22 @@ class SignUp extends Component {
                         <Image source={Images.mealerLogo} style={SignUpScreenStyle.mealerLogo}/>
                     </View>
 
-                    <View style={SignUpScreenStyle.formContainer}>
-                        <Form>
+                    <View style={[SignUpScreenStyle.formContainer]}>
+                        <Form style={SignUpScreenStyle.forgotPasswordView}>
                             <Item floatingLabel>
-                                <Label style={{color: Colors.white}}>Name</Label>
+                                <Label style={{color: Colors.charcoal}}>Name</Label>
                                 <Input style={SignUpScreenStyle.inputField}
                                        onChangeText={(e) => this.formUpdate('name', e)}/>
                             </Item>
                             <Item floatingLabel>
-                                <Label style={{color: Colors.white}}>Email</Label>
+                                <Label style={{color: Colors.charcoal}}>Email</Label>
                                 <Input keyboardType="email-address"
                                        autoCapitalize="none"
                                        style={SignUpScreenStyle.inputField}
                                        onChangeText={(e) => this.formUpdate('email', e)}/>
                             </Item>
                             <Item floatingLabel>
-                                <Label style={{color: Colors.white}}>Password</Label>
+                                <Label style={{color: Colors.charcoal}}>Password</Label>
                                 <Input keyboardType="email-address"
                                        style={SignUpScreenStyle.inputField}
                                        secureTextEntry={true}
@@ -121,21 +121,19 @@ class SignUp extends Component {
                             </List> : null}
 
                         <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
-                        <Button
-                            buttonStyle={SignUpScreenStyle.signUpButton}
-                            textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                            title="SIGN UP"
+                        <Button block success
+                            style={SignUpScreenStyle.signUpButton}
                             onPress={() => {
                                 this.signUp()
-                            }}/>
-                        <Button
-                            fontSize={15}
-                            buttonStyle={SignUpScreenStyle.goBackToLoginButton}
-                            textStyle={{textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold'}}
-                            title="GO BACK TO LOGIN"
-                            onPress={() => {
-                                this.toggleLoginScreen()
-                            }}/>
+                            }}>
+                            <Text style={{ textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold', color: Colors.snow }}>SIGN UP</Text>
+                        </Button>
+
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginLeft: 15 }}>
+                            <TouchableOpacity onPress={() => this.toggleLoginScreen()}>
+                                <Text h5 style={SignUpScreenStyle.goBackToLoginButton}>GO BACK TO LOGIN</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </ScrollView>
             )

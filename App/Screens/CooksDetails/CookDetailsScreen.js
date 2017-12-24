@@ -162,11 +162,13 @@ class CookDetailsScreen extends Component {
 
     backButton = () => {
         return (
-            <Icon
-                name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
-                color={Colors.background}
-                onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
-            />
+            <View style={{ paddingTop: 25 }}>
+                <Icon
+                    name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
+                    color={Colors.background}
+                    onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
+                />
+            </View>
         )
     };
 

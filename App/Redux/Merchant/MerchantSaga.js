@@ -1,6 +1,7 @@
 import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
 import merchantService from '../../Services/menu-service';
+import merchantService2 from '../../Services/merchant-service';
 import authentication from '../../Services/authentication-service';
 import imgService from '../../Services/image-service';
 import {merchantActionCreators} from './MerchantActions'
@@ -76,5 +77,21 @@ menuEffects.removeMenu = function* (menu) {
         yield put(merchantActionCreators.showActivityIndicator(false))
     }
 };
+
+menuEffects.updateRating = function* (ratingData) {
+    try {
+        let {data} = ratingData;
+        let merchantId = data.merchantId;
+        let rating = data.rating;
+        yield put(merchantActionCreators.showActivityIndicator(true));
+        yield call(merchantService2.updateRating, merchantId, rating);
+    }
+    catch (error) {
+        Alert.alert('Error', error.message)
+    }
+    finally {
+        yield put(merchantActionCreators.showActivityIndicator(false))
+    }
+}
 
 export default menuEffects;

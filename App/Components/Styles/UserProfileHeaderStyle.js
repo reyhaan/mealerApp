@@ -17,7 +17,7 @@ export default StyleSheet.create({
     // justifyContent: 'center', 
     flexDirection: 'row',
     height: 50,
-    backgroundColor: Colors.windowTint
+    backgroundColor: Colors.windowDark
   },
   userImage: {
       width: 100,

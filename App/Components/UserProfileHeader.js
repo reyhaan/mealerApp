@@ -14,9 +14,11 @@ import menuService from '../Services/menu-service'
 export default class UserProfileHeader extends Component {
   constructor (props) {
     super(props)
+    const selectedCook = this.props.navigation.state.params.selectedCook;
     this.state = {
-      user: this.props.navigation.state.params.selectedCook,
-      numOfItems: 0
+      user: selectedCook,
+      numOfItems: 0,
+      rating: selectedCook.rating ? (selectedCook.rating.cumulativeRating / selectedCook.rating.numberOfRatings) : 0
     }
   }
 
@@ -70,7 +72,7 @@ export default class UserProfileHeader extends Component {
           source={Images.bg1}
         >
 
-          <Grid style={{ backgroundColor: Colors.windowTint }}>
+          <Grid style={{ backgroundColor: Colors.windowDark }}>
               <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}></Col>
 
               <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -90,26 +92,26 @@ export default class UserProfileHeader extends Component {
                     <Text style={styles.userName}>{user.name}</Text>
                   </Row>
 
-                  <Row size={1} style={{ }}>
-                    <Col size={1} style={{ }}>
+                  <Row size={1}>
+                    <Col size={1}>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{user.quota}</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{user.quota || 20}</Text>
                       </Row>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
                         <Text style={{ color: Colors.snow, fontSize: 12 }}>ORDER LIMIT</Text>
                       </Row>
                     </Col>
                     
-                    <Col size={1} style={{ }}>
+                    <Col size={1}>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{user.rating || 4.2}</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{this.state.rating.toFixed(1)}</Text>
                       </Row>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
                         <Text style={{ color: Colors.snow, fontSize: 12 }}>RATING</Text>
                       </Row>
                     </Col>
                     
-                    <Col size={1} style={{ }}>
+                    <Col size={1}>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
                         <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{this.state.numOfItems}</Text>
                       </Row>

@@ -46,8 +46,8 @@ class MerchantOrders extends Component {
         }
     };
 
-    componentWillReceiveProps = async () => {
-        let isCartEmpty = await cartService.isCartEmpty()
+    componentWillReceiveProps = async (newProps) => {
+        let isCartEmpty = _.isEmpty(newProps.cart.to);
         this.setState({
             isCartEmpty: isCartEmpty
         })

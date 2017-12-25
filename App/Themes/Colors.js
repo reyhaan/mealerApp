@@ -25,6 +25,7 @@ const colors = {
     frost: '#D8D8D8',
     cloud: 'rgba(200,200,200, 0.35)',
     windowTint: 'rgba(0, 0, 0, 0.4)',
+    windowDark: 'rgba(0, 0, 0, 0.6)',
     panther: '#161616',
     charcoal: '#595959',
     coal: '#2d2d2d',

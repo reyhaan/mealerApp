@@ -9,10 +9,7 @@ class Avatar extends Component {
     render() {
         const {image, _pickImage} = this.props;
 
-        console.log(image);
         return (
-
-
             <TouchableOpacity onPress={_pickImage} style={{
                 flex: 1,
                 alignItems: 'center',

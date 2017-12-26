@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import style from './CookDetailsScreen.style'
-import {Icon, Header} from 'react-native-elements'
+import {Icon, Header, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
@@ -21,6 +21,7 @@ import {UserProfileHeader, AddToCartModal} from '../../Components/index'
 import {NavigationActions} from 'react-navigation'
 import _ from 'lodash'
 import {cartActions} from '../../Redux/Cart/CartActions';
+import SnackBar from 'react-native-snackbar-component';
 
 class CookDetailsScreen extends Component {
     constructor(props) {
@@ -74,9 +75,41 @@ class CookDetailsScreen extends Component {
         }
     };
 
+    ratingCompleted = (rating) => {
+        let ratingData = {
+            rating: rating,
+            merchantId: this.state.activeMerchant.uid
+        }
+        this.props.updateRating(ratingData)
+
+        this.setState({showToast: true, toastMessage: 'Rating applied!'}, () =>
+                setTimeout(() => {
+                    this.setState({showToast: false, toastMessage: ''})
+                }, 2000))
+    }
+
     _renderChefDetails = () => {
         return (
             <Col style={{padding: 20}}>
+                <Row style={{
+                    paddingBottom: 10,
+                    marginBottom: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: "column"
+                }}>
+                    <Rating
+                        showRating
+                        type="star"
+                        fractions={1}
+                        startingValue={this.state.activeMerchant.rating.cumulativeRating/this.state.activeMerchant.rating.numberOfRatings || 2.5}
+                        imageSize={20}
+                        onFinishRating={this.ratingCompleted}
+                        style={{ paddingVertical: 10, paddingTop: 0 }}
+                    />
+                    <Text style={{color: Colors.gray, fontSize: 10 }}>slide over to rate</Text>
+                </Row>
+                
                 {this.state.activeMerchant.address &&
                 <Row style={{
                     borderBottomColor: Colors.steel,
@@ -162,11 +195,13 @@ class CookDetailsScreen extends Component {
 
     backButton = () => {
         return (
-            <Icon
-                name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
-                color={Colors.background}
-                onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
-            />
+            <View style={{ paddingTop: 25 }}>
+                <Icon
+                    name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
+                    color={Colors.background}
+                    onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
+                />
+            </View>
         )
     };
 
@@ -276,6 +311,12 @@ class CookDetailsScreen extends Component {
                     }
 
                 </ScrollView>
+
+                <SnackBar 
+                    visible={this.state.showToast} 
+                    textMessage={this.state.toastMessage}
+                    bottom={0} position='bottom' backgroundColor='#272A2F'
+                />
             </Col>
         )
     }

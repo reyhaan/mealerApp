@@ -4,14 +4,14 @@ import { Colors, Metrics } from '../../Themes/index'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background
+    backgroundColor: Colors.snow
   },
   subContainer: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.snow,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    // justifyContent: 'center'
   },
   headerOuterContainer: {
     width: Metrics.screenWidth,
@@ -22,13 +22,14 @@ export default StyleSheet.create({
     height: 75,
   },
   logo: {
-    marginTop: Metrics.doubleSection,
+    marginTop: (Metrics.screenHeight / 2) - 200,
     height: 90,
     width: 90,
     resizeMode: 'contain'
   },
   mealerLogo: {
       height: 50,
-      resizeMode: 'contain'
+      resizeMode: 'contain',
+      tintColor: Colors.background
   }
 })

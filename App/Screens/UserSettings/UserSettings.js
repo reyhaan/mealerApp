@@ -58,10 +58,9 @@ class UserSettings extends Component {
         return (
             <Icon
                 name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
-                color={Colors.snow}
-                iconStyle={{marginTop: 20,}}
+                color={Colors.background}
+                iconStyle={{marginTop: 25}}
                 underlayColor={'transparent'}
-                size={35}
                 onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
             />
         )
@@ -113,7 +112,7 @@ class UserSettings extends Component {
                 <View style={styles.container}>
                     <Header
                         leftComponent={this._backButton()}
-                        centerComponent={{text: "Settings", style: {color: '#fff', fontWeight: 'bold'}}}
+                        centerComponent={{text: "SETTINGS", style: {color: Colors.background, fontWeight: "bold" }}}
                         backgroundColor={Colors.background}
                         outerContainerStyles={styles.headerOuterContainer}
                     />
@@ -123,7 +122,7 @@ class UserSettings extends Component {
                                 <View style={styles.formContainer}>
                                     <UserAvatar image={this.state.user.avatar} setUserAvatar={this.setUserAvatar}/>
                                     <Form>
-                                        <Item stackedLabel>
+                                        <Item stackedLabel style={ styles.formItemContainer }>
                                             <Label>Display Name</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -131,7 +130,7 @@ class UserSettings extends Component {
                                                 placeholder={'Your name'}
                                                 onChangeText={(value) => this.onInputChange(value, 'name')}/>
                                         </Item>
-                                        <Item stackedLabel>
+                                        <Item stackedLabel style={ styles.formItemContainer }>
                                             <Label>Address</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -139,7 +138,7 @@ class UserSettings extends Component {
                                                 value={this.state.user.address}
                                                 onChangeText={(value) => this.onInputChange(value, 'address')}/>
                                         </Item>
-                                        <Item stackedLabel>
+                                        <Item stackedLabel style={ styles.formItemContainer }>
                                             <Label>Email</Label>
                                             <Input
                                                 autoCapitalize="none"
@@ -147,9 +146,10 @@ class UserSettings extends Component {
                                                 value={this.state.user.email}
                                                 onChangeText={(value) => this.onInputChange(value, 'email')}/>
                                         </Item>
-                                        <Item stackedLabel>
+                                        <Item stackedLabel style={ styles.formItemContainer }>
                                             <Label>Phone Number</Label>
                                             <TextInputMask
+                                                underlineColorAndroid="transparent"
                                                 ref={'celPhone'}
                                                 type={'cel-phone'}
                                                 options={{
@@ -158,7 +158,7 @@ class UserSettings extends Component {
                                                 }}
                                                 value={this.state.user.phone}
                                                 onChangeText={(value) => this.onInputChange(value, 'phone')}
-                                                style={{width: '100%', height: 50}}
+                                                style={{width: '100%', height: 45}}
                                                 placeholder="613-XXX-XXXX"
                                                 keyboardType="number-pad"
                                             />
@@ -183,7 +183,7 @@ class UserSettings extends Component {
                                                     }}
                                                     onPress={() => this._updateUserDetails()}
                                             >
-                                                <Text style={{color: Colors.white}}> Save </Text>
+                                                <Text style={{color: Colors.white, fontWeight: "bold"}}> UPDATE </Text>
                                             </Button>
                                         </Col>
                                     </Row>

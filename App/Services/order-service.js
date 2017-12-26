@@ -17,9 +17,12 @@ orderService.createNewOrder = async () => {
         };
         const cart = await cartService.getCart();
         let merchantIds = [];
+
+        // Get the merchant Id's
         _.forIn(cart.to, (_, merchantId) => {
             merchantIds.push(merchantId)
         });
+
         const user = await authenticationService.currentUser();
         order.customer = await authenticationService.fetchUser(user.uid);
         order.customer.id = order.customer.uid;

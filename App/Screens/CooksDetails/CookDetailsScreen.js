@@ -109,7 +109,7 @@ class CookDetailsScreen extends Component {
                     />
                     <Text style={{color: Colors.gray, fontSize: 10 }}>slide over to rate</Text>
                 </Row>
-                
+
                 {this.state.activeMerchant.address &&
                 <Row style={{
                     borderBottomColor: Colors.steel,
@@ -312,8 +312,8 @@ class CookDetailsScreen extends Component {
 
                 </ScrollView>
 
-                <SnackBar 
-                    visible={this.state.showToast} 
+                <SnackBar
+                    visible={this.state.showToast}
                     textMessage={this.state.toastMessage}
                     bottom={0} position='bottom' backgroundColor='#272A2F'
                 />

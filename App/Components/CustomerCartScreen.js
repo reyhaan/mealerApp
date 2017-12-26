@@ -25,12 +25,16 @@ class CustomerCartScreen extends Component {
     componentDidMount = async () => {
         // cart is not yet on state object, populate it from session object
         let cart = await cartService.getCart();
-        this.initializeUserCart(cart)
+        if (cart){
+            this.initializeUserCart(cart)
+        }
     };
 
     componentWillReceiveProps = async () => {
         let cart = await cartService.getCart();
-        this.initializeUserCart(cart)
+        if (cart){
+            this.initializeUserCart(cart)
+        }
     };
 
     initializeUserCart = (cart) => {

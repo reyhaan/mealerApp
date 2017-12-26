@@ -68,6 +68,8 @@ class MenuTab extends Component {
     };
 
     render() {
+
+        // Add key to the list of Menus
         let menus = [];
         if (this.props.merchant && this.props.merchant.menus) {
             menus = this.props.merchant.menus.map(menu => {

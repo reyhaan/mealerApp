@@ -1,19 +1,18 @@
 import React, {Component} from 'react'
-import {View, Text, Image, TouchableOpacity, ListView, FlatList} from 'react-native'
-import {Header, Icon, Button, Avatar, ButtonGroup} from 'react-native-elements'
+import {View, Text, TouchableOpacity, FlatList} from 'react-native'
+import {Icon} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors, Fonts, Images} from '../Themes'
+import {Colors} from '../Themes'
 import styles from './Styles/CustomerCartScreenStyle'
 import cartService from '../Services/cart-service'
 import _ from 'lodash'
-import {merchant} from '../Redux/Merchant/MerchantReducers';
 import {cartActionCreators} from '../Redux/Cart/CartActions'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 class CustomerCartScreen extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             index: 4,
@@ -26,29 +25,40 @@ class CustomerCartScreen extends Component {
     componentDidMount = async () => {
         // cart is not yet on state object, populate it from session object
         let cart = await cartService.getCart();
-        this._createDatasource(cart)
+        this.initializeUserCart(cart)
     };
 
     componentWillReceiveProps = async () => {
         let cart = await cartService.getCart();
-
-        console.log(cart);
-        this._createDatasource(cart)
+        this.initializeUserCart(cart)
     };
 
-    _createDatasource = (cart) => {
+    initializeUserCart = (cart) => {
         if (cart !== undefined && cart !== null && !_.isEmpty(cart)) {
-            let merchantList = cart.to;
-            let itemListByEachMerchant = _.values(merchantList);
+            let merchantIds = [];
+            let userCart = [];
 
-            // convert array of item objects to array of item arrays
-            itemListByEachMerchant = _.map(itemListByEachMerchant, function (itemListObject) {
-                return _.values(itemListObject);
+            _.forIn(cart.to, (_, merchantId) => {
+                merchantIds.push(merchantId)
+            });
+            merchantIds.forEach((id) => {
+                let key = id;
+                let itemsObject = cart.to[id];
+                let itemIds = [];
+                let items = [];
+
+                _.forIn(itemsObject, (_, id) => {
+                    itemIds.push(id)
+                });
+                itemIds.forEach((id) => {
+                    items.push(itemsObject[id])
+                });
+                userCart.push({key, items});
             });
 
             this.setState({
                 isCartEmpty: false,
-                merchantDataSourceFromCart: itemListByEachMerchant
+                merchantDataSourceFromCart: userCart
             })
         } else {
             this.setState({
@@ -154,7 +164,7 @@ class CustomerCartScreen extends Component {
         )
     };
 
-    _renderIndividualMerchantRow = (rowData) => {
+    _renderIndividualMerchantRow = (cart) => {
         return (
             <Col style={{paddingTop: 0, backgroundColor: Colors.snow}}>
 
@@ -174,7 +184,7 @@ class CustomerCartScreen extends Component {
                             <Text style={{
                                 fontSize: 14,
                                 color: Colors.gray3
-                            }}>&nbsp;{rowData[0].merchantInfo.name.toUpperCase()}</Text>
+                            }}>&nbsp;{cart.items[0].merchantInfo.name.toUpperCase()}</Text>
                         </Text>
                     </Col>
 
@@ -191,7 +201,7 @@ class CustomerCartScreen extends Component {
                 <Row size={1} style={styles.listContainer}>
                     <FlatList
                         contentContainerStyle={styles.listContent}
-                        data={rowData}
+                        data={cart.items}
                         renderItem={({item}) => this._renderRow(item)}
                     />
                 </Row>
@@ -204,16 +214,13 @@ class CustomerCartScreen extends Component {
 
                     <Col size={1} style={{alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20}}>
                         <Text style={{color: Colors.charcoal, fontWeight: 'bold'}}>
-                            $ {this._calculateTotalCost(rowData)}</Text>
+                            $ {this._calculateTotalCost(cart.items)}</Text>
                     </Col>
 
                 </Row>
 
                 {this.state.merchantDataSourceFromCart.length > 1 &&
-                <Row style={{height: 10, backgroundColor: Colors.gray2}}></Row>
-                }
-
-
+                <Row style={{height: 10, backgroundColor: Colors.gray2}}></Row>}
             </Col>
         )
     };

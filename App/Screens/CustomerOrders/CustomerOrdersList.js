@@ -19,12 +19,10 @@ let _calculateTotalCost = (rowData) => {
 };
 
 let renderOrder = (rowData) => {
-    console.log(rowData);
     return (
         <View style={style.row}>
             <View style={style.rowInnerContainer}>
-                <Grid style={{}}>
-
+                <Grid>
                     <Row style={{height: 30}}>
                         <Col size={1}>
                             <Row style={{height: 20}}>

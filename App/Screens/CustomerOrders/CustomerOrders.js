@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
 import {
-    Text,
-    View,
-    TouchableOpacity,
     FlatList,
     Platform,
     ScrollView,
@@ -10,14 +7,12 @@ import {
 import {connect} from 'react-redux'
 import style from './CustomerOrders.style'
 import {Icon, Header} from 'react-native-elements'
-import {Col, Row, Grid} from 'react-native-easy-grid';
+import {Col} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {bindActionCreators} from 'redux';
 import {NavigationActions} from 'react-navigation'
 import _ from 'lodash'
 import {orderActionCreators} from '../../Redux/Order/OrderActions';
-import {authenticationService} from '../../Services/authentication-service'
-import {Constants} from '../../Utils/Constants'
 import CustomerOrdersList from './CustomerOrdersList'
 
 class CustomerOrders extends Component {

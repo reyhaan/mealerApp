@@ -18,7 +18,6 @@ import CustomerOrdersList from './CustomerOrdersList'
 class CustomerOrders extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             dataSource: []
         }
@@ -43,17 +42,6 @@ class CustomerOrders extends Component {
         })
     };
 
-    // Render multiple orders
-    _renderOrders = (order) => {
-        let items = [];
-        _.forIn(order.items, (_, id) => {
-            items.push(order.items[id])
-        });
-        order.items = items;
-
-        return CustomerOrdersList(order)
-    };
-
     backButton = () => {
         return (
             <Icon
@@ -72,13 +60,12 @@ class CustomerOrders extends Component {
                     rightComponent={null}
                     centerComponent={{text: "ORDER HISTORY", style: {color: Colors.background, fontWeight: 'bold'}}}
                     backgroundColor={Colors.snow}
-                    outerContainerStyles={style.headerOuterContainer}
-                />
+                    outerContainerStyles={style.headerOuterContainer}/>
                 <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
                     <FlatList
                         style={{backgroundColor: Colors.snow, paddingTop: 10}}
                         data={this.state.ordersArray}
-                        renderItem={({item}) => this._renderOrders(item)}/>
+                        renderItem={({item}) => CustomerOrdersList(item)}/>
                 </ScrollView>
             </Col>
         )

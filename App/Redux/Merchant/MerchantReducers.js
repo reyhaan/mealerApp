@@ -14,6 +14,10 @@ export function merchant(state=initialState, action){
             return Object.assign({}, state, {
                 showActivityIndicator: action.data,
             });
+        case merchantActions.UPDATE_MERCHANT_ORDERS:
+            return Object.assign({}, state, {
+                orders: action.data,
+            });
         default:
             return state
     }

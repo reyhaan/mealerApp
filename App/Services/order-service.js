@@ -2,6 +2,7 @@ import db from '../Config/database';
 import authenticationService from './authentication-service';
 import cartService from './cart-service';
 import _ from 'lodash';
+import moment from 'moment';
 import each from 'async/each';
 
 let orderService = {};
@@ -44,18 +45,48 @@ orderService.createNewOrder = async () => {
 };
 
 /**
- * Get merchant orders
+ * Get customer orders
  * @param userId: string
  */
 orderService.getCustomerOrders = async (userId) => {
     try {
         const orders = [];
         const snapshot = await db.orders().orderByChild("customerId").equalTo(userId).once("value");
-
-        snapshot.forEach(function (childSnapshot) {
+        snapshot.forEach(childSnapshot => {
             let id = childSnapshot.key;
+            let key = childSnapshot.key;
             let data = childSnapshot.val();
-            orders.push({id, ...data});
+            let items = [];
+            _.forIn(data.items, (_, id) => {
+                items.push(data.items[id])
+            });
+            data.items = items;
+            orders.push({id,key, ...data});
+        });
+        return orders;
+    } catch (error) {
+        return {error};
+    }
+};
+
+/**
+ * Get merchant orders
+ * @param userId: string
+ */
+orderService.getMerchantOrders = async (userId) => {
+    try {
+        const orders = [];
+        const snapshot = await db.orders().orderByChild("merchantId").equalTo(userId).once("value");
+        snapshot.forEach(childSnapshot => {
+            let id = childSnapshot.key;
+            let key = childSnapshot.key;
+            let data = childSnapshot.val();
+            let items = [];
+            _.forIn(data.items, (_, id) => {
+                items.push(data.items[id])
+            });
+            data.items = items;
+            orders.push({id,key, ...data});
         });
         return orders;
     } catch (error) {

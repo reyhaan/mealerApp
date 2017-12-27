@@ -26,7 +26,7 @@ class MenuTab extends Component {
         return (
             <Icon
                 name='add'
-                color={Colors.snow}
+                color={Colors.background}
                 iconStyle={{marginTop: 20,}}
                 underlayColor={'transparent'}
                 size={35}
@@ -82,7 +82,7 @@ class MenuTab extends Component {
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <Header
                     rightComponent={this.addMenuItemButton()}
-                    centerComponent={{text: 'MENU', style: {color: '#fff', fontWeight: 'bold'}}}
+                    centerComponent={{text: 'MENU', style: {color: Colors.background, fontWeight: 'bold'}}}
                     backgroundColor={Colors.background}
                     outerContainerStyles={style.headerOuterContainer}/>
 

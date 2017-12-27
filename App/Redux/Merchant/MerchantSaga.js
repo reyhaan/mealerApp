@@ -1,7 +1,8 @@
 import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
-import merchantService from '../../Services/menu-service';
-import merchantService2 from '../../Services/merchant-service';
+import menuService from '../../Services/menu-service';
+import merchantService from '../../Services/merchant-service';
+import orderService from '../../Services/order-service';
 import authentication from '../../Services/authentication-service';
 import imgService from '../../Services/image-service';
 import {merchantActionCreators} from './MerchantActions'
@@ -11,7 +12,7 @@ const menuEffects = {};
 menuEffects.fetchMerchantMenu = function* (merchant) {
     try {
         yield put(merchantActionCreators.showActivityIndicator(true));
-        const menus = yield call(merchantService.getMenu, merchant.data);
+        const menus = yield call(menuService.getMenu, merchant.data);
         yield put(merchantActionCreators.fetchMenuSuccessful(menus))
     } catch (error) {
         Alert.alert('Error', error.message,)
@@ -31,7 +32,7 @@ menuEffects.createMenu = function* (menu) {
         }
         delete data.base64img; // !important
         yield put(merchantActionCreators.showActivityIndicator(true));
-        yield call(merchantService.createMenu, user.uid, data);
+        yield call(menuService.createMenu, user.uid, data);
         yield put(merchantActionCreators.fetchMerchantMenu(user.uid));
     }
     catch (error) {
@@ -52,7 +53,7 @@ menuEffects.updateMenu = function* (menu) {
         }
         delete data.base64img; // !important
         yield put(merchantActionCreators.showActivityIndicator(true));
-        yield call(merchantService.updateMenu, user.uid, menu.data);
+        yield call(menuService.updateMenu, user.uid, menu.data);
         yield put(merchantActionCreators.fetchMerchantMenu(user.uid));
     }
     catch (error) {
@@ -67,7 +68,7 @@ menuEffects.removeMenu = function* (menu) {
     try {
         yield put(merchantActionCreators.showActivityIndicator(true));
         const user = yield call(authentication.currentUser);
-        yield call(merchantService.removeMenu, user.uid, menu.data.id);
+        yield call(menuService.removeMenu, user.uid, menu.data.id);
         yield put(merchantActionCreators.fetchMerchantMenu(user.uid));
     }
     catch (error) {
@@ -84,7 +85,7 @@ menuEffects.updateRating = function* (ratingData) {
         let merchantId = data.merchantId;
         let rating = data.rating;
         yield put(merchantActionCreators.showActivityIndicator(true));
-        yield call(merchantService2.updateRating, merchantId, rating);
+        yield call(merchantService.updateRating, merchantId, rating);
     }
     catch (error) {
         Alert.alert('Error', error.message)
@@ -92,6 +93,21 @@ menuEffects.updateRating = function* (ratingData) {
     finally {
         yield put(merchantActionCreators.showActivityIndicator(false))
     }
-}
+};
+
+menuEffects.fetchMerchantOrders = function* () {
+    try {
+        const user = yield call(authentication.currentUser);
+        yield put(merchantActionCreators.showActivityIndicator(true));
+        const orders = yield call(orderService.getMerchantOrders, user.uid);
+        yield put(merchantActionCreators.updateMerchantOrders(orders))
+    }
+    catch (error) {
+        Alert.alert('Error', error.message)
+    }
+    finally {
+        yield put(merchantActionCreators.showActivityIndicator(false))
+    }
+};
 
 export default menuEffects;

@@ -28,20 +28,20 @@ merchant.updateRating = async (merchantId, rating) => {
             let newRating = {
                 numberOfRatings: (merchantRating.numberOfRatings + 1),
                 cumulativeRating: (merchantRating.cumulativeRating + rating)
-            }
+            };
             await db.user(merchantId).child('rating').set(newRating);
         } else {
             let newRating = {
                 numberOfRatings: 1,
                 cumulativeRating: rating
-            }
+            };
             await db.user(merchantId).child("rating").update(newRating);
         }
         
     } catch (error) {
         return {error};
     }
-}
+};
 
 export default merchant;
 

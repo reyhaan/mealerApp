@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {View, Text, FlatList} from 'react-native'
-import {Avatar, ButtonGroup} from 'react-native-elements'
+import {View, Text, FlatList, Platform} from 'react-native'
+import {Avatar, ButtonGroup, Badge} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 
 import {Colors, Images} from '../Themes'
@@ -124,19 +124,19 @@ export default class IndividualOrderList extends Component {
         let status = 'CONFIRMED';
         switch (status) {
             case 'CANCELLED':
-                return (<Text style={{color: Colors.pink, fontWeight: 'bold', fontSize: 12}}>: CANCELLED</Text>)
+                return (<Text style={{color: Colors.pink, fontWeight: 'bold', fontSize: 12}}> CANCELLED</Text>)
                 break;
 
             case 'CONFIRMED':
-                return (<Text style={{color: Colors.orange, fontWeight: 'bold', fontSize: 12}}>: CONFIRMED</Text>)
+                return (<Text style={{color: Colors.orange, fontWeight: 'bold', fontSize: 12}}> CONFIRMED</Text>)
                 break;
 
             case 'DELIVERED':
-                return (<Text style={{color: Colors.green, fontWeight: 'bold', fontSize: 12}}>: DELIVERED</Text>)
+                return (<Text style={{color: Colors.green, fontWeight: 'bold', fontSize: 12}}> DELIVERED</Text>)
                 break;
 
             default:
-                return (<Text style={{color: Colors.darkOrange, fontWeight: 'bold', fontSize: 12}}>: CONFIRMED</Text>)
+                return (<Text style={{color: Colors.darkOrange, fontWeight: 'bold', fontSize: 12}}> CONFIRMED</Text>)
         }
     };
 
@@ -145,23 +145,16 @@ export default class IndividualOrderList extends Component {
         return (
             <View style={styles.container}>
                 <Grid>
-                    <Col style={{paddingBottom: 30, paddingTop: 0}}>
-
-                        <Row
-                            style={{paddingLeft: 10, paddingBottom: 15, paddingTop: 15, backgroundColor: Colors.cloud}}>
-                            <Text style={{fontWeight: 'bold', fontSize: 14, color: Colors.gray}}>Tuesday, Oct
-                                12th</Text>
+                    <Col style={styles.orderCardContainer}>
+                        <Row style={styles.cardDateHeader}>
+                          <Text style={styles.dateText}>Tuesday, Oct 12th</Text>
                         </Row>
-
                         {isCustomer &&
-                        <Row style={{paddingLeft: 10, paddingTop: 15, paddingBottom: 10}}>
-                            <Text style={{color: Colors.gray}}>From
-                                <Text style={{
-                                    fontWeight: 'bold',
-                                    fontSize: 14,
-                                    color: Colors.background
-                                }}> {this.orderObject.customerName}</Text>
-                            </Text>
+                        <Row style={styles.customerNameContainer}>
+                          <Badge value='From' textStyle={{color: Colors.gray}} 
+                            containerStyle={styles.customerNameBadge}/>
+                          <Text style={styles.customerNameText}> {this.orderObject.customerName}
+                          </Text>
                         </Row>
                         }
 
@@ -182,48 +175,44 @@ export default class IndividualOrderList extends Component {
                                 contentContainerStyle={styles.listContent}
                                 data={this.state.dataSource}
                                 renderItem={({item}) => this._renderRow(item)}
+                                showsVerticalScrollIndicator={false}
                             />
                         </Row>
 
                         <Row>
-
-                            {isMerchant &&
-                            <Col size={2}>
-                                <ButtonGroup
-                                    selectedBackgroundColor={this._setButtonColor()}
-                                    onPress={this._updateIndex}
-                                    selectedIndex={this.state.index}
-                                    buttons={['CANCEL', 'CONFIRM', 'DELIVERED']}
-                                    containerStyle={{
-                                        height: 30,
-                                        borderWidth: 0,
-                                        borderRadius: 2,
-                                        backgroundColor: Colors.backgroundDarker
-                                    }}
-                                    containerBorderRadius={2}
-                                    textStyle={{fontSize: 10, color: Colors.snow}}
-                                    selectedTextStyle={{color: Colors.snow}}
-                                    innerBorderStyle={{color: Colors.background}}/>
-                            </Col>
-                            }
-
-                            {isCustomer &&
-                            <Col size={2} style={{paddingLeft: 10}}>
-                                <Text style={{color: Colors.gray}}>Status
-                                    <Text style={{
-                                        color: Colors.snow,
-                                        fontWeight: 'bold'
-                                    }}>: {this._getOrderStatus()}</Text>
-                                </Text>
-                            </Col>
-                            }
-
-                            <Col size={1} style={{alignItems: 'flex-end', justifyContent: 'center', paddingRight: 20}}>
-                                <Text style={{color: Colors.gray}}>Total:
-                                    <Text style={{color: Colors.coal, fontWeight: 'bold'}}>
-                                        $ {this._calculateTotalCost()}</Text>
-                                </Text>
-                            </Col>
+                          {isMerchant &&
+                          <Col size={2}>
+                              <ButtonGroup
+                                  selectedBackgroundColor={this._setButtonColor()}
+                                  onPress={this._updateIndex}
+                                  selectedIndex={this.state.index}
+                                  buttons={['CANCEL', 'CONFIRM', 'DELIVERED']}
+                                  containerStyle={{
+                                      height: 30,
+                                      borderWidth: 0,
+                                      borderRadius: 2,
+                                      backgroundColor: Colors.backgroundDarker
+                                  }}
+                                  containerBorderRadius={2}
+                                  textStyle={{fontSize: 10, color: Colors.snow}}
+                                  selectedTextStyle={{color: Colors.snow}}
+                                  innerBorderStyle={{color: Colors.background}}/>
+                          </Col>
+                          }
+                          {isCustomer &&
+                          <Col size={2} style={styles.customerOrderStatusContainer}>
+                            <Badge value='Status' textStyle={{color: Colors.gray}} 
+                            containerStyle={styles.customerOrderStatusBadge}/>
+                            <Text style={styles.customerOrderStatusText}>{this._getOrderStatus()}</Text>
+                          </Col>
+                          }
+                          <Col size={1} style={styles.customerTotalCostContainer}>
+                              <Badge value='Total' textStyle={{color: Colors.gray}} 
+                                containerStyle={styles.customerTotalCostBadge}/>
+                              <Text style={styles.customerTotalCostText}>
+                                  {`${' '} $ ${this._calculateTotalCost()}`}
+                              </Text>
+                          </Col>
                         </Row>
 
                     </Col>

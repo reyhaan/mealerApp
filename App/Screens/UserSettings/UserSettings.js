@@ -33,6 +33,7 @@ class UserSettings extends Component {
             toastMessage: ''
         };
         this.props.getUser(this.props.settings.user.uid)
+       
     }
 
     async componentDidMount() {

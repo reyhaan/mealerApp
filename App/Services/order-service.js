@@ -1,28 +1,43 @@
 import db from '../Config/database';
 import authenticationService from './authentication-service';
+import cartService from './cart-service';
+import _ from 'lodash';
+import each from 'async/each';
 
 let orderService = {};
 
 /**
  * Create a merchant order
  */
-orderService.createNewOrder = async (customerId, merchantId, items) => {
+orderService.createNewOrder = async () => {
     try {
         let order = {
-            from: customerId,
-            to: merchantId,
-            time: db.firebase.database.ServerValue.TIMESTAMP,
-            status: 'new',
-            items:items
+            timeStamp: db.firebase.database.ServerValue.TIMESTAMP,
+            subtotal: null,
         };
-        const orderRef = db.orders(customerId);
-        const orderKey = await orderRef.push().getKey();
-        order.customerInfo = await authenticationService.fetchUser(customerId);
-        order.merchantInfo = await authenticationService.fetchUser(merchantId);
-        order.id = orderKey; //!important
-        await orderRef.child(orderKey).set(order);
-        const orderSnapshot = await orderRef.child(orderKey).once('value');
-        return {id: orderSnapshot.key, ...orderSnapshot.val()};
+        const cart = await cartService.getCart();
+        let merchantIds = [];
+
+        // Get the merchant Id's
+        _.forIn(cart.to, (_, merchantId) => {
+            merchantIds.push(merchantId)
+        });
+
+        const user = await authenticationService.currentUser();
+        order.customer = await authenticationService.fetchUser(user.uid);
+        order.customerId = user.uid;
+
+        //Place an order to each merchant existing in the cart, every merchant has a separate order.
+        each(merchantIds, async (merchantId) => {
+            order.status = 'new';
+            order.items = cart.to[merchantId];
+            order.merchant = await authenticationService.fetchUser(merchantId);
+            order.merchantId = order.merchant.uid;
+            order.id = await db.orders().push().getKey();
+            await db.orders().child(order.id).set(order);
+        });
+        await cartService.dumpCart();
+        return Promise.resolve();
     } catch (error) {
         return {error};
     }
@@ -32,14 +47,15 @@ orderService.createNewOrder = async (customerId, merchantId, items) => {
  * Get merchant orders
  * @param userId: string
  */
-orderService.getOrders = async (userId) => {
+orderService.getCustomerOrders = async (userId) => {
     try {
-        let orders = [];
-        let userMenuSnapshot = await db.orders(userId).once('value');
-        userMenuSnapshot.forEach(function (childSnapshot) {
-            let order = { ...childSnapshot.val()};
-            order.id = childSnapshot.key;
-            orders.push(order);
+        const orders = [];
+        const snapshot = await db.orders().orderByChild("customerId").equalTo(userId).once("value");
+
+        snapshot.forEach(function (childSnapshot) {
+            let id = childSnapshot.key;
+            let data = childSnapshot.val();
+            orders.push({id, ...data});
         });
         return orders;
     } catch (error) {

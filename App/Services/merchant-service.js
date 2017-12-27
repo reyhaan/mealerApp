@@ -1,6 +1,7 @@
 import db from '../Config/database'
 import orderService from './order-service';
 import authService from './authentication-service';
+import _ from 'lodash'
 
 let merchant = {};
 
@@ -18,6 +19,29 @@ merchant.updateQuota = async (merhantId) => {
         return {error};
     }
 };
+
+merchant.updateRating = async (merchantId, rating) => {
+    try {
+        let merchantRating =  await db.user(merchantId).child('rating').once('value');
+        merchantRating = merchantRating.val();
+        if (!_.isNull(merchantRating)) {
+            let newRating = {
+                numberOfRatings: (merchantRating.numberOfRatings + 1),
+                cumulativeRating: (merchantRating.cumulativeRating + rating)
+            }
+            await db.user(merchantId).child('rating').set(newRating);
+        } else {
+            let newRating = {
+                numberOfRatings: 1,
+                cumulativeRating: rating
+            }
+            await db.user(merchantId).child("rating").update(newRating);
+        }
+        
+    } catch (error) {
+        return {error};
+    }
+}
 
 export default merchant;
 

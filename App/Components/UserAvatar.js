@@ -17,7 +17,7 @@ class UserAvatar extends Component {
 
     render() {
         let {image} = this.props;
-        let userImage = image ? {uri: image + '?' + new Date().getTime()} : Images.addImagePlaceHolder;
+        let userImage = image ? {uri: image + '?' + new Date().getTime()} : {'uri': Images.addImagePlaceHolder};
         return (
             <Avatar image={userImage } _pickImage={this._pickImage}/>
         )

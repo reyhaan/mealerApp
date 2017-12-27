@@ -9,18 +9,23 @@ import { NavigationActions } from 'react-navigation'
 import { Colors, Fonts, Images, Metrics } from '../Themes'
 import styles from './Styles/UserProfileHeaderStyle'
 import _ from 'lodash'
+import menuService from '../Services/menu-service'
 
 export default class UserProfileHeader extends Component {
   constructor (props) {
     super(props)
+    const selectedCook = this.props.navigation.state.params.selectedCook;
     this.state = {
-      user: ''
+      user: selectedCook,
+      numOfItems: 0,
+      rating: selectedCook.rating ? (selectedCook.rating.cumulativeRating / selectedCook.rating.numberOfRatings) : 0
     }
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
+    let menu = await menuService.getMenu(this.state.user.id);
     this.setState({
-      user: this.props.user
+      numOfItems: menu.length
     })
   }
 
@@ -67,27 +72,17 @@ export default class UserProfileHeader extends Component {
           source={Images.bg1}
         >
 
-          <Grid style={{ backgroundColor: Colors.windowTint }}>
-              <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                {/* <View style={{ marginTop: 45 }}>
-                  {this._backButton()}
-                </View> */}
-              </Col>
+          <Grid style={{ backgroundColor: Colors.windowDark }}>
+              <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}></Col>
 
               <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Image
-                    source={{uri: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARGAAAAJGE5ZTUxOWE3LWUwNjItNGZiMi1hMDdkLTA1MzE5YWVlYzBmZQ.jpg'}} 
+                    source={{uri: user.avatar}} 
                     style={styles.userImage}>
                 </Image>
               </Col>
 
-              <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                {/* <View style={{ marginTop: 45 }}>
-                  {this._infoButton()}
-                </View> */}
-              </Col>
-
-
+              <Col size={1} style={{ alignItems: 'center', justifyContent: 'center' }}></Col>
           </Grid>
           
           <View style={ styles.subContainer }>
@@ -97,41 +92,28 @@ export default class UserProfileHeader extends Component {
                     <Text style={styles.userName}>{user.name}</Text>
                   </Row>
 
-                  {/* <Row style={{ height: 30, alignItems: 'center', justifyContent: 'center' }}>
-                    <Rating
-                      type="star"
-                      ratingColor={Colors.pink2}
-                      fractions={1}
-                      startingValue={4}
-                      readonly
-                      imageSize={18}
-                      onFinishRating={this.ratingCompleted}
-                      style={{ paddingVertical: 2, backgroundColor: Colors.windowTint}}
-                    />
-                  </Row> */}
-
-                  <Row size={1} style={{ }}>
-                    <Col size={1} style={{ }}>
+                  <Row size={1}>
+                    <Col size={1}>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>70</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{user.quota || 20}</Text>
                       </Row>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
                         <Text style={{ color: Colors.snow, fontSize: 12 }}>ORDER LIMIT</Text>
                       </Row>
                     </Col>
                     
-                    <Col size={1} style={{ }}>
+                    <Col size={1}>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{user.rating || 4.2}</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{this.state.rating.toFixed(1)}</Text>
                       </Row>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
                         <Text style={{ color: Colors.snow, fontSize: 12 }}>RATING</Text>
                       </Row>
                     </Col>
                     
-                    <Col size={1} style={{ }}>
+                    <Col size={1}>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{_.keys(user.menu).length}</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.snow }}>{this.state.numOfItems}</Text>
                       </Row>
                       <Row size={1} style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', paddingTop: 2 }}>
                         <Text style={{ color: Colors.snow, fontSize: 12 }}>ITEMS</Text>

@@ -123,9 +123,9 @@ cartService.getTotalCost = async () => {
 cartService.isCartEmpty = async () => {
     let cart = await AsyncStorage.getItem('cart');
     if (cart === null || cart === '' || cart === undefined) {
-        return true;
+        return Promise.resolve(true);
     }
-    return cart.hasOwnProperty('to') && _.isEmpty(cart.to);
+    return Promise.resolve(cart.hasOwnProperty('to') && _.isEmpty(cart.to));
 };
 
 cartService.totalItems = async () => {
@@ -163,12 +163,12 @@ cartService.doCheckout = async (userInfo) => {
         let merchantRefArray = _.keys(order.to);
         merchantRefArray.push(order.userInfo.uid);
 
-        let userOders = {};
+        let userOrders = {};
 
         _.each(merchantRefArray, function (userRef) {
             // If its the user placing the order, add the complete order object
             if (userRef === order.userInfo.uid) {
-                userOders["orders/" + userRef + "/" + orderKey] = order
+                userOrders["orders/" + userRef + "/" + orderKey] = order
 
                 // If its a merchant, then only add info from order relevant to each merchant
             } else {
@@ -176,7 +176,7 @@ cartService.doCheckout = async (userInfo) => {
                 // Omit `to` ref for merchants, we dont need other merchant's info
                 merchantOrder = _.omit(merchantOrder, 'to');
                 merchantOrder['itemsList'] = order.to[userRef];
-                userOders["orders/" + userRef + "/" + orderKey] = merchantOrder
+                userOrders["orders/" + userRef + "/" + orderKey] = merchantOrder
             }
         });
 

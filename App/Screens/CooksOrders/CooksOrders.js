@@ -1,14 +1,16 @@
 import React, {Component} from 'react'
 import {
     ScrollView,
-    View
+    View,
+    FlatList
 } from 'react-native'
 import {connect} from 'react-redux'
 import OrdersTabStyle from './CooksOrders.style'
-import {IndividualOrderList} from '../../Components'
+import {Order} from '../../Components'
 import {Col, Row, Grid} from 'react-native-easy-grid';
+import {Colors} from '../../Themes/index';
+import {Icon, Header} from 'react-native-elements'
 import {bindActionCreators} from 'redux'
-import {cartActionCreators} from '../../Redux/Cart/CartActions'
 import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions'
 
 // Styles
@@ -23,10 +25,6 @@ class Cart extends Component {
         merchantActions.fetchMerchantOrders();
     }
 
-    componentDidMount = async () => {
-
-    };
-
     _renderMerchantOrders = () => {
         return (
             <Col>
@@ -39,8 +37,6 @@ class Cart extends Component {
     };
 
     render() {
-        // console.log(this.props.merchant.orders);
-        // console.log(this.props.merchant.orders);
 
         if (this.props.merchant.orders){
             // console.log(this.props.merchant.orders.length);
@@ -48,10 +44,17 @@ class Cart extends Component {
 
         return (
             <View style={styles.container}>
-                <ScrollView>
-                    <Col>
-                        {this._renderMerchantOrders()}
-                    </Col>
+                <Header
+                    rightComponent={null}
+                    centerComponent={{text: "ORDERS", style: {color: Colors.background, fontWeight: 'bold'}}}
+                    backgroundColor={Colors.snow}
+                    outerContainerStyles={styles.headerOuterContainer}
+                />
+                <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
+                    <FlatList
+                        style={{backgroundColor: Colors.snow, paddingTop: 5}}
+                        data={this.props.merchant.orders}
+                        renderItem={({item}) => Order(item)}/>
                 </ScrollView>
             </View>
         )

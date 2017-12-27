@@ -2,6 +2,7 @@ import db from '../Config/database';
 import authenticationService from './authentication-service';
 import cartService from './cart-service';
 import _ from 'lodash';
+import moment from 'moment';
 import each from 'async/each';
 
 let orderService = {};
@@ -55,6 +56,11 @@ orderService.getCustomerOrders = async (userId) => {
             let id = childSnapshot.key;
             let key = childSnapshot.key;
             let data = childSnapshot.val();
+            let items = [];
+            _.forIn(data.items, (_, id) => {
+                items.push(data.items[id])
+            });
+            data.items = items;
             orders.push({id,key, ...data});
         });
         return orders;
@@ -75,6 +81,11 @@ orderService.getMerchantOrders = async (userId) => {
             let id = childSnapshot.key;
             let key = childSnapshot.key;
             let data = childSnapshot.val();
+            let items = [];
+            _.forIn(data.items, (_, id) => {
+                items.push(data.items[id])
+            });
+            data.items = items;
             orders.push({id,key, ...data});
         });
         return orders;

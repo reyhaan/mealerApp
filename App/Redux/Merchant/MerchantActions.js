@@ -10,7 +10,9 @@ export const merchantActions = {
     UPDATE_MENU : "UPDATE_MENU",
     REMOVE_MENU : "REMOVE_MENU",
     SHOW_ACTIVITY_INDICATOR: 'SHOW_ACTIVITY_INDICATOR',
-    UPDATE_RATING: "UPDATE_RATING"
+    UPDATE_RATING: "UPDATE_RATING",
+    FETCH_MERCHANT_ORDERS: "FETCH_MERCHANT_ORDERS",
+    UPDATE_MERCHANT_ORDERS: "UPDATE_MERCHANT_ORDERS"
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -24,7 +26,9 @@ export const merchantActionCreators = {
     updateMenu: (data)=> createAction(merchantActions.UPDATE_MENU, data),
     removeMenu: (data)=> createAction(merchantActions.REMOVE_MENU, data),
     showActivityIndicator: (data)=> createAction(merchantActions.SHOW_ACTIVITY_INDICATOR, data),
-    updateRating: (data) => createAction(merchantActions.UPDATE_RATING, data)
+    updateRating: (data) => createAction(merchantActions.UPDATE_RATING, data),
+    fetchMerchantOrders: () => createAction(merchantActions.FETCH_MERCHANT_ORDERS),
+    updateMerchantOrders: (data) => createAction(merchantActions.UPDATE_MERCHANT_ORDERS, data)
 };
 
 /******************************* SAGA WATCHERS *************************************/
@@ -33,5 +37,6 @@ export const merchantActionWatchers = [
     takeLatest(merchantActions.CREATE_MENU, MerchantSaga.createMenu),
     takeLatest(merchantActions.UPDATE_MENU, MerchantSaga.updateMenu),
     takeLatest(merchantActions.REMOVE_MENU, MerchantSaga.removeMenu),
-    takeLatest(merchantActions.UPDATE_RATING, MerchantSaga.updateRating)
+    takeLatest(merchantActions.UPDATE_RATING, MerchantSaga.updateRating),
+    takeLatest(merchantActions.FETCH_MERCHANT_ORDERS, MerchantSaga.fetchMerchantOrders)
 ];

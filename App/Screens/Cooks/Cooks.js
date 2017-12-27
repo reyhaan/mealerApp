@@ -30,7 +30,6 @@ class Cooks extends Component {
     }
 
     componentWillReceiveProps = (newProps) => {
-
         let cooks = newProps.cooks.map(cook => {
             cook.key = cook.id;
             return cook

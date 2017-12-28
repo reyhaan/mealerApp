@@ -37,11 +37,6 @@ class Cart extends Component {
     };
 
     render() {
-
-        if (this.props.merchant.orders){
-            // console.log(this.props.merchant.orders.length);
-        }
-
         return (
             <View style={styles.container}>
                 <Header

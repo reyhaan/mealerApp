@@ -20,12 +20,21 @@ database.root = () => {
     return firebase.database().ref();
 };
 
-// Oders list join reference
-database.orders = (id) => {
+// Customer user Orders reference
+database.ordersFromCustomer = (id) => {
     if (id) {
-        return firebase.database().ref('orders').child(id);
+        return firebase.database().ref('ordersFromCustomer').child(id);
     } else {
-        return firebase.database().ref('orders');
+        return firebase.database().ref('ordersFromCustomer');
+    }
+};
+
+// Vendor user Orders reference
+database.ordersToVendor = (id) => {
+    if (id) {
+        return firebase.database().ref('ordersToVendor').child(id);
+    } else {
+        return firebase.database().ref('ordersToVendor');
     }
 };
 

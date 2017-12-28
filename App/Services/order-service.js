@@ -10,34 +10,44 @@ let orderService = {};
 /**
  * Create a merchant order
  */
-orderService.createNewOrder = async () => {
+orderService.createCustomerOrder = async () => {
     try {
-        let order = {
-            timeStamp: db.firebase.database.ServerValue.TIMESTAMP,
-            subtotal: null,
-        };
         const cart = await cartService.getCart();
-        let merchantIds = [];
-
-        // Get the merchant Id's
-        _.forIn(cart.to, (_, merchantId) => {
-            merchantIds.push(merchantId)
-        });
-
         const user = await authenticationService.currentUser();
-        order.customer = await authenticationService.fetchUser(user.uid);
-        order.customerId = user.uid;
 
-        //Place an order to each merchant existing in the cart, every merchant has a separate order.
-        each(merchantIds, async (merchantId) => {
-            order.status = 'new';
-            order.items = cart.to[merchantId];
-            order.merchant = await authenticationService.fetchUser(merchantId);
-            order.merchantId = order.merchant.uid;
-            order.id = await db.orders().push().getKey();
-            await db.orders().child(order.id).set(order);
+        let customerOrder = {};
+        customerOrder.customerId = user.uid;
+        customerOrder.timeStamp = db.firebase.database.ServerValue.TIMESTAMP;
+        customerOrder.subtotal = null;
+        customerOrder.orders = [];
+        customerOrder.customer = await authenticationService.fetchUser(user.uid);
+        customerOrder.id = await db.ordersFromCustomer().push().getKey();
+        await db.ordersFromCustomer().child(customerOrder.id).set(customerOrder);
+
+        //Place an order to each vendor existing in the cart, every vendor has a separate order
+        let vendorIds = [];
+        _.forIn(cart.to, (_, vendorId) => {
+            vendorIds.push(vendorId)
         });
-        await cartService.dumpCart();
+        await each(vendorIds, async (vendorId) => {
+            let order = {};
+            order.timeStamp = db.firebase.database.ServerValue.TIMESTAMP;
+            order.subtotal = null;
+            order.status = 'new';
+            order.items = cart.to[vendorId];
+            order.vendor = await authenticationService.fetchUser(vendorId);
+            order.vendorId = order.vendor.uid;
+            order.id = await db.ordersToVendor().push().getKey();
+            await db.ordersToVendor().child(order.id).set(order);
+            const vendorOrderRef = db.ordersToVendor().child(order.id);
+            const orderSnapshot = await vendorOrderRef.once('value');
+            await db.ordersFromCustomer().child(customerOrder.id).child('ordersToVendor').child(orderSnapshot.key).set({
+                id: orderSnapshot.key,
+                key: orderSnapshot.key,
+                ...orderSnapshot.val()
+            });
+        });
+        // await cartService.dumpCart();
         return Promise.resolve();
     } catch (error) {
         return {error};
@@ -50,20 +60,30 @@ orderService.createNewOrder = async () => {
  */
 orderService.getCustomerOrders = async (userId) => {
     try {
-        const orders = [];
-        const snapshot = await db.orders().orderByChild("customerId").equalTo(userId).once("value");
+        let customerOrders = [];
+        const snapshot = await db.ordersFromCustomer().orderByChild("customerId").equalTo(userId).once("value");
         snapshot.forEach(childSnapshot => {
             let id = childSnapshot.key;
             let key = childSnapshot.key;
-            let data = childSnapshot.val();
-            let items = [];
-            _.forIn(data.items, (_, id) => {
-                items.push(data.items[id])
+            let customerOrder = childSnapshot.val();
+            let vendorOrders = []; // A customer order consist of multiple vendor orders
+
+            _.forIn(customerOrder.ordersToVendor, (_, id) => {
+                let vendorOrder = customerOrder.ordersToVendor[id];
+                let items = [];
+                let itemIds = Object.keys(vendorOrder.items);
+                itemIds.forEach((id) => {
+                    items.push(vendorOrder.items[id])
+                });
+                vendorOrder.items = items;
+                vendorOrders.push(vendorOrder)
             });
-            data.items = items;
-            orders.push({id,key, ...data});
+
+            customerOrder.ordersToVendor = vendorOrders;
+            customerOrders.push({id, key, ...customerOrder});
         });
-        return orders;
+
+        return customerOrders;
     } catch (error) {
         return {error};
     }
@@ -86,7 +106,7 @@ orderService.getMerchantOrders = async (userId) => {
                 items.push(data.items[id])
             });
             data.items = items;
-            orders.push({id,key, ...data});
+            orders.push({id, key, ...data});
         });
         return orders;
     } catch (error) {

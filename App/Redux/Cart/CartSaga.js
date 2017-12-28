@@ -40,7 +40,7 @@ cartEffects.updateItemCount = function* (item) {
 
 cartEffects.doCheckout = function* () {
     try {
-        let updatedCart = yield call(orderService.createNewOrder);
+        let updatedCart = yield call(orderService.createCustomerOrder);
         yield put(cartActionCreators.cartUpdateSuccessful(updatedCart));
     } catch (error) {
         Alert.alert('Error', error.message,)

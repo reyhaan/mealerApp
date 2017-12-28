@@ -114,8 +114,8 @@ export default StyleSheet.create({
         marginTop: 12,
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-        paddingRight: 10
+        justifyContent: 'flex-end',
+        marginRight:20
     },
     customerTotalCostBadge: {
         width: 60,

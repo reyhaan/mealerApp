@@ -25,7 +25,7 @@ afterAll(async () => {
 describe('order-service', function () {
     test('should add order to customerUser', async () => {
         try {
-            const order = await orderService.createNewOrder(customerUser.uid, merchantUser.uid, merchantUser.order().items);
+            const order = await orderService.createCustomerOrder(customerUser.uid, merchantUser.uid, merchantUser.order().items);
             expect(order.id).toBeTruthy();
             expect(order.status).toEqual("new");
             expect(order.time).toBeTruthy();

@@ -11,9 +11,8 @@ import {Col} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {bindActionCreators} from 'redux';
 import {NavigationActions} from 'react-navigation'
-import _ from 'lodash'
 import {orderActionCreators} from '../../Redux/Order/OrderActions';
-import CustomerOrdersList from './CustomerOrdersList'
+import RenderCustomerOrder from './RenderCustomerOrder'
 
 class CustomerOrders extends Component {
     constructor(props) {
@@ -26,8 +25,7 @@ class CustomerOrders extends Component {
     componentWillReceiveProps = (newProps) => {
         let {orders} = newProps;
         if (orders) {
-            let ordersArray = _.values(orders);
-            this.initializeOrders(ordersArray)
+            this.initializeOrders(orders)
         }
     };
 
@@ -38,7 +36,7 @@ class CustomerOrders extends Component {
     initializeOrders = (orders) => {
         orders.reverse();
         this.setState({
-            ordersArray: orders
+            orders: orders
         })
     };
 
@@ -63,9 +61,8 @@ class CustomerOrders extends Component {
                     outerContainerStyles={style.headerOuterContainer}/>
                 <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
                     <FlatList
-                        style={{backgroundColor: Colors.snow, paddingTop: 10}}
-                        data={this.state.ordersArray}
-                        renderItem={({item}) => CustomerOrdersList(item)}/>
+                        data={this.state.orders}
+                        renderItem={({item}) => RenderCustomerOrder(item)}/>
                 </ScrollView>
             </Col>
         )

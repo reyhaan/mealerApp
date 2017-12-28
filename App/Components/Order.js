@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, FlatList} from 'react-native'
+import {View, Text, FlatList, TouchableOpacity} from 'react-native'
 import {Avatar, Badge} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import moment from 'moment'
@@ -98,7 +98,7 @@ const renderItem = (item) => {
 
 export default (order) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container}>
             <Grid>
                 <Col style={styles.orderCardContainer}>
                     <Row style={styles.cardDateHeader}>
@@ -125,7 +125,7 @@ export default (order) => {
                     </Row>
 
                     <Row>
-                        <Col size={2} style={styles.customerOrderStatusContainer}>
+                        <Col size={1} style={styles.customerOrderStatusContainer}>
                             <Text style={{color: Colors.gray}}>Status
                                 <Text style={{
                                     fontWeight: 'bold',
@@ -146,6 +146,6 @@ export default (order) => {
 
                 </Col>
             </Grid>
-        </View>
+        </TouchableOpacity>
     )
 };

@@ -37,7 +37,6 @@ export default StyleSheet.create({
     itemName: {
         marginTop: 12,
         fontWeight: 'bold',
-        marginLeft: 10,
         fontSize: 16,
         color: Colors.background
     },
@@ -47,13 +46,6 @@ export default StyleSheet.create({
         marginLeft: 10,
         color: Colors.gray
     },
-    itemCost: {
-        marginTop:10,
-        marginLeft: 10,
-        fontWeight: 'bold', 
-        fontSize: 14
-    },
-
     // FULL MODE STYLES
 
     fullModeItemContainer: {
@@ -147,9 +139,10 @@ export default StyleSheet.create({
 
 
     // customer cart screen component reused styles
-    listContainer: {
+    vendorOrderContainer: {
         flex: 1,
         backgroundColor: Colors.snow,
+        margin:5,
         flexDirection: 'column'
     },
     row: {
@@ -163,13 +156,11 @@ export default StyleSheet.create({
         paddingTop: 0,
         marginBottom: 0
     },
-    rowInnerContainer: {
+    vendorOrderItemsContainer: {
         flex: 1,
-        backgroundColor: Colors.clear,
         borderRadius: 3,
-        padding: 10,
-        paddingRight: 20,
-        paddingLeft: 20
+        paddingRight: 15,
+        paddingLeft: 5
     },
     boldLabel: {
         fontWeight: 'bold',

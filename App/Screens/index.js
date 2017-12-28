@@ -3,7 +3,7 @@ import SignUp from './SignUp/SignUp'
 import Cooks from './Cooks/Cooks'
 import Cart from './Cart/Cart'
 import CustomerOrders from './CustomerOrders/CustomerOrders'
-import CooksOrders from './CooksOrders/CooksOrders'
+import VendorOrders from './VendorOrders/VendorOrders'
 import Settings from './Settings/Settings'
 import UserSettings from './UserSettings/UserSettings'
 import InfoTab from './Info/Info'
@@ -23,5 +23,5 @@ export {
     MenuForm,
     CookDetailsScreen,
     CustomerOrders,
-    CooksOrders
+    VendorOrders
 }

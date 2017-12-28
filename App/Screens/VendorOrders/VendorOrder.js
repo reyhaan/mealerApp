@@ -3,8 +3,8 @@ import {View, Text, FlatList, TouchableOpacity} from 'react-native'
 import {Avatar, Badge} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import moment from 'moment'
-import {Colors} from '../Themes'
-import styles from './Styles/Order'
+import {Colors} from '../../Themes'
+import styles from './VendorOrder.style'
 
 const _getOrderStatus = () => {
     let status = 'CONFIRMED';
@@ -34,7 +34,7 @@ const _calculateTotalCost = (items) => {
 
         total += (items[i].itemCost * quantity)
     }
-    return total;
+    return parseFloat(total).toFixed(2);
 };
 
 const _setButtonColor = (index) => {

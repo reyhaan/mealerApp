@@ -35,6 +35,8 @@ orderService.createCustomerOrder = async () => {
             order.subtotal = null;
             order.status = 'new';
             order.items = cart.to[vendorId];
+            order.customer = customerOrder.customer;
+            order.customerId = customerOrder.customerId;
             order.vendor = await authenticationService.fetchUser(vendorId);
             order.vendorId = order.vendor.uid;
             order.id = await db.ordersToVendor().push().getKey();
@@ -47,7 +49,7 @@ orderService.createCustomerOrder = async () => {
                 ...orderSnapshot.val()
             });
         });
-        // await cartService.dumpCart();
+        await cartService.dumpCart();
         return Promise.resolve();
     } catch (error) {
         return {error};
@@ -96,7 +98,7 @@ orderService.getCustomerOrders = async (userId) => {
 orderService.getMerchantOrders = async (userId) => {
     try {
         const orders = [];
-        const snapshot = await db.orders().orderByChild("merchantId").equalTo(userId).once("value");
+        const snapshot = await db.ordersToVendor().orderByChild("vendorId").equalTo(userId).once("value");
         snapshot.forEach(childSnapshot => {
             let id = childSnapshot.key;
             let key = childSnapshot.key;

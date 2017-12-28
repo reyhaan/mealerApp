@@ -5,11 +5,11 @@ import {
     FlatList
 } from 'react-native'
 import {connect} from 'react-redux'
-import OrdersTabStyle from './CooksOrders.style'
-import {Order} from '../../Components'
+import OrdersTabStyle from './VendorOrders.style'
+import VendorOrder from './VendorOrder'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
-import {Icon, Header} from 'react-native-elements'
+import {Header} from 'react-native-elements'
 import {bindActionCreators} from 'redux'
 import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions'
 
@@ -20,21 +20,11 @@ class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-
         const {merchantActions} = this.props;
         merchantActions.fetchMerchantOrders();
-    }
 
-    _renderMerchantOrders = () => {
-        return (
-            <Col>
-                <IndividualOrderList></IndividualOrderList>
-                <IndividualOrderList></IndividualOrderList>
-                <IndividualOrderList></IndividualOrderList>
-                <IndividualOrderList></IndividualOrderList>
-            </Col>
-        );
-    };
+        console.log("ertyujik");
+    }
 
     render() {
         return (
@@ -49,7 +39,7 @@ class Cart extends Component {
                     <FlatList
                         style={{backgroundColor: Colors.snow, paddingTop: 5}}
                         data={this.props.merchant.orders}
-                        renderItem={({item}) => Order(item)}/>
+                        renderItem={({item}) => VendorOrder(item)}/>
                 </ScrollView>
             </View>
         )

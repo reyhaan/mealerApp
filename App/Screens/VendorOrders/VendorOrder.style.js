@@ -1,5 +1,5 @@
 import {StyleSheet, Platform} from 'react-native'
-import {Colors, Metrics, Fonts} from '../../Themes'
+import {Colors, Fonts} from '../../Themes'
 
 export default StyleSheet.create({
     container: {
@@ -9,7 +9,6 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.snow,
         flexDirection: 'column',
-        // alignItems: 'center'
     },
     row: {
         flex: 1,
@@ -115,7 +114,7 @@ export default StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginRight:20
+        marginRight: 20
     },
     customerTotalCostBadge: {
         width: 60,
@@ -126,4 +125,4 @@ export default StyleSheet.create({
         color: Colors.coal,
         fontWeight: 'bold'
     }
-})
+});

@@ -2,7 +2,7 @@ import Login from './Login/Login'
 import SignUp from './SignUp/SignUp'
 import Vendors from './Vendors/Vendors'
 import Cart from './Cart/Cart'
-import CustomerOrders from './CustomerOrders/CustomerOrders'
+import CustomerOrderHistory from './CustomerOrderHistory/CustomerOrderHistory'
 import VendorOrders from './VendorOrders/VendorOrders'
 import Settings from './Settings/Settings'
 import UserSettings from './UserSettings/UserSettings'
@@ -22,6 +22,6 @@ export {
     Menus,
     MenuForm,
     VendorDetails,
-    CustomerOrders,
+    CustomerOrderHistory,
     VendorOrders
 }

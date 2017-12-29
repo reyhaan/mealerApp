@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
-import style from './CustomerOrders.style'
+import style from './CustomerOrderHistory.style'
 import {Constants} from '../../Utils/Constants'
 
 let _calculateTotalCost = (rowData) => {

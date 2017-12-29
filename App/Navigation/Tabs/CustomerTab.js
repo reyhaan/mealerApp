@@ -13,7 +13,7 @@ import {
     Settings,
     InfoTab,
     VendorDetails,
-    CustomerOrders
+    CustomerOrderHistory
 } from '../../Screens/index';
 
 let totaltemsInCart = 0;
@@ -115,8 +115,8 @@ export default StackNavigator({
         VendorDetails: {
             screen: VendorDetails
         },
-        CustomerOrders: {
-            screen: CustomerOrders
+        CustomerOrderHistory: {
+            screen: CustomerOrderHistory
         }
     }, {
         headerMode: 'none',

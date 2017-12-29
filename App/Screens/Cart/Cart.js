@@ -22,18 +22,13 @@ class MerchantOrders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isMerchant: false,
-            isCustomer: true,
             isCartEmpty: true
         };
-
-        // Turn off warnings for now :/
-        console.disableYellowBox = true;
     }
 
     componentDidMount = async () => {
         let cart = await cartService.getCart();
-        if (cart === undefined || cart === null || _.isEmpty(cart) || _.isEmpty(cart.to)) {
+        if (!cart || _.isEmpty(cart) || _.isEmpty(cart.to)) {
             this.setState({
                 isCartEmpty: true
             })
@@ -54,7 +49,7 @@ class MerchantOrders extends Component {
     };
 
     navigateToPreviousOrders = () => {
-        this.props.navigation.navigate('CustomerOrders')
+        this.props.navigation.navigate('CustomerOrderHistory')
     };
 
     _doCheckout = async () => {

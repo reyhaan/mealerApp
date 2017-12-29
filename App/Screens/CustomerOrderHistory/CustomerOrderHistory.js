@@ -5,7 +5,7 @@ import {
     ScrollView,
 } from 'react-native'
 import {connect} from 'react-redux'
-import style from './CustomerOrders.style'
+import style from './CustomerOrderHistory.style'
 import {Icon, Header} from 'react-native-elements'
 import {Col} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
@@ -14,7 +14,7 @@ import {NavigationActions} from 'react-navigation'
 import {orderActionCreators} from '../../Redux/Order/OrderActions';
 import RenderCustomerOrder from './RenderCustomerOrder'
 
-class CustomerOrders extends Component {
+class CustomerOrderHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -78,4 +78,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(orderActionCreators, dispatch);
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrders)
+export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrderHistory)

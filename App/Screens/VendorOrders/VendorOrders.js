@@ -22,8 +22,6 @@ class Cart extends Component {
         this.state = {};
         const {merchantActions} = this.props;
         merchantActions.fetchMerchantOrders();
-
-        console.log("ertyujik");
     }
 
     render() {

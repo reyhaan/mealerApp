@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import CooksTabStyle from './Cooks.style'
+import CooksTabStyle from './Vendors.style'
 import {Header, SearchBar, Avatar, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors, Fonts} from '../../Themes/index'
@@ -19,7 +19,7 @@ import {customerActionCreators} from '../../Redux/Customer/CustomerActions'
 // Styles
 const styles = CooksTabStyle
 
-class Cooks extends Component {
+class Vendors extends Component {
     constructor(props) {
         super(props);
         this.props.fetchCooks();
@@ -53,10 +53,7 @@ class Cooks extends Component {
 
     _renderRow(rowData) {
         return (
-            <TouchableOpacity onPress={
-                () => this.props.navigation.navigate('CookDetailsScreen', {selectedCook: rowData})
-            }
-            >
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('VendorDetails', {selectedCook: rowData})}>
                 <View style={styles.row}>
                     <View style={styles.rowInnerContainer}>
                         <Grid>
@@ -110,18 +107,15 @@ class Cooks extends Component {
         return (
             <View style={styles.container}>
                 <Header
-                    leftComponent={{icon: 'filter', color: Colors.background, type: 'font-awesome'}}
-                    centerComponent={{text: 'COOKS', style: {color: Colors.background, fontWeight: 'bold'}}}
+                    // leftComponent={{icon: 'filter', color: Colors.background, type: 'font-awesome'}}
+                    centerComponent={{text: 'VENDORS', style: {color: Colors.background, fontWeight: 'bold'}}}
                     rightComponent={{icon: 'search', color: Colors.background}}
-                    outerContainerStyles={styles.headerOuterContainer}
-                />
+                    outerContainerStyles={styles.headerOuterContainer}/>
 
                 <FlatList
                     contentContainerStyle={styles.listContent}
                     data={this.state.dataSource}
-                    renderItem={({item}) => this._renderRow(item)}
-                />
-
+                    renderItem={({item}) => this._renderRow(item)}/>
             </View>
         )
     }
@@ -137,4 +131,4 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(customerActionCreators, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cooks)
+export default connect(mapStateToProps, mapDispatchToProps)(Vendors)

@@ -39,6 +39,7 @@ orderService.createCustomerOrder = async () => {
             order.customerId = customerOrder.customerId;
             order.vendor = await authenticationService.fetchUser(vendorId);
             order.vendorId = order.vendor.uid;
+            order.ordersFromCustomerId = customerOrder.id;
             order.id = await db.ordersToVendor().push().getKey();
             await db.ordersToVendor().child(order.id).set(order);
             const vendorOrderRef = db.ordersToVendor().child(order.id);

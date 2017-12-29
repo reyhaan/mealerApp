@@ -1,5 +1,5 @@
 import {StackNavigator} from 'react-navigation'
-import MerchantTab from './Tabs/MerchantTab'
+import VendorTab from './Tabs/VendorTab'
 import CustomerTab from './Tabs/CustomerTab'
 import {
     Login,
@@ -22,8 +22,8 @@ export default StackNavigator({
             gesturesEnabled: false
         }
     },
-    MerchantTab: {
-        screen: MerchantTab
+    VendorTab: {
+        screen: VendorTab
     },
     CustomerTab: {
         screen: CustomerTab

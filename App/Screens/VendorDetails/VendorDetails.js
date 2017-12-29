@@ -10,7 +10,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native'
 import {connect} from 'react-redux'
-import style from './CookDetailsScreen.style'
+import style from './VendorDetails.style'
 import {Icon, Header, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
@@ -19,11 +19,84 @@ import {cartActionCreators} from '../../Redux/Cart/CartActions'
 import {bindActionCreators} from 'redux';
 import {UserProfileHeader, AddToCartModal} from '../../Components/index'
 import {NavigationActions} from 'react-navigation'
-import _ from 'lodash'
-import {cartActions} from '../../Redux/Cart/CartActions';
 import SnackBar from 'react-native-snackbar-component';
 
-class CookDetailsScreen extends Component {
+class VendorAddress extends Component {
+    render () {
+        if (this.props.address){
+            return (
+                <View>
+                    <Row style={{
+                        borderBottomColor: Colors.steel,
+                        borderBottomWidth: 1,
+                        paddingBottom: 10,
+                        marginBottom: 10
+                    }}>
+                        <Text style={{color: Colors.gray, fontWeight: 'bold'}}>ADDRESS</Text>
+                    </Row>
+
+                    <Row style={{marginBottom: 20}}>
+                        <Text>{this.props.address}</Text>
+                    </Row>
+                </View>
+            )
+        } else {
+            return null
+        }
+    }
+}
+
+class VendorPhone extends Component {
+    render () {
+        if (this.props.phone){
+            return (
+                <View>
+                    <Row style={{
+                        borderBottomColor: Colors.steel,
+                        borderBottomWidth: 1,
+                        paddingBottom: 10,
+                        marginBottom: 10
+                    }}>
+                        <Text style={{color: Colors.gray, fontWeight: 'bold'}}>PHONE</Text>
+                    </Row>
+
+                    <Row style={{marginBottom: 20}}>
+                        <Text>{this.props.phone}</Text>
+                    </Row>
+                </View>
+            )
+        } else {
+            return null
+        }
+    }
+}
+
+class VendorEmail extends Component {
+    render () {
+        if (this.props.email){
+            return (
+                <View>
+                    <Row style={{
+                        borderBottomColor: Colors.steel,
+                        borderBottomWidth: 1,
+                        paddingBottom: 10,
+                        marginBottom: 10
+                    }}>
+                        <Text style={{color: Colors.gray, fontWeight: 'bold'}}>EMAIL</Text>
+                    </Row>
+
+                    <Row style={{marginBottom: 20}}>
+                        <Text>{this.props.email}</Text>
+                    </Row>
+                </View>
+            )
+        } else {
+            return null
+        }
+    }
+}
+
+class VendorDetails extends Component {
     constructor(props) {
         super(props);
 
@@ -79,16 +152,21 @@ class CookDetailsScreen extends Component {
         let ratingData = {
             rating: rating,
             merchantId: this.state.activeMerchant.uid
-        }
-        this.props.updateRating(ratingData)
+        };
+        this.props.updateRating(ratingData);
 
         this.setState({showToast: true, toastMessage: 'Rating applied!'}, () =>
-                setTimeout(() => {
-                    this.setState({showToast: false, toastMessage: ''})
-                }, 2000))
-    }
+            setTimeout(() => {
+                this.setState({showToast: false, toastMessage: ''})
+            }, 2000))
+    };
 
     _renderChefDetails = () => {
+        let ratingStartingValue = 5;
+        if (this.state.activeMerchant.rating && this.state.activeMerchant.rating.cumulativeRating){
+            ratingStartingValue = this.state.activeMerchant.rating.cumulativeRating / this.state.activeMerchant.rating.numberOfRatings || 2.5;
+        }
+
         return (
             <Col style={{padding: 20}}>
                 <Row style={{
@@ -98,70 +176,27 @@ class CookDetailsScreen extends Component {
                     justifyContent: 'center',
                     flexDirection: "column"
                 }}>
+
                     <Rating
                         showRating
                         type="star"
                         fractions={1}
-                        startingValue={this.state.activeMerchant.rating.cumulativeRating/this.state.activeMerchant.rating.numberOfRatings || 2.5}
+                        startingValue={ratingStartingValue}
                         imageSize={20}
                         onFinishRating={this.ratingCompleted}
-                        style={{ paddingVertical: 10, paddingTop: 0 }}
+                        style={{paddingVertical: 10, paddingTop: 0}}
                     />
-                    <Text style={{color: Colors.gray, fontSize: 10 }}>slide over to rate</Text>
+                    <Text style={{color: Colors.gray, fontSize: 10}}>slide over to rate</Text>
                 </Row>
 
-                {this.state.activeMerchant.address &&
-                <Row style={{
-                    borderBottomColor: Colors.steel,
-                    borderBottomWidth: 1,
-                    paddingBottom: 10,
-                    marginBottom: 10
-                }}>
-                    <Text style={{color: Colors.gray, fontWeight: 'bold'}}>ADDRESS</Text>
-                </Row>
-                }
-                {this.state.activeMerchant.address &&
-                <Row style={{marginBottom: 20}}>
-                    <Text>{this.state.activeMerchant.address}</Text>
-                </Row>
-                }
-
-                {this.state.activeMerchant.phone &&
-                <Row style={{
-                    borderBottomColor: Colors.steel,
-                    borderBottomWidth: 1,
-                    paddingBottom: 10,
-                    marginBottom: 10
-                }}>
-                    <Text style={{color: Colors.gray, fontWeight: 'bold'}}>PHONE</Text>
-                </Row>
-                }
-                {this.state.activeMerchant.phone &&
-                <Row style={{marginBottom: 20}}>
-                    <Text>{this.state.activeMerchant.phone}</Text>
-                </Row>
-                }
-
-                {this.state.activeMerchant.email &&
-                <Row style={{
-                    borderBottomColor: Colors.steel,
-                    borderBottomWidth: 1,
-                    paddingBottom: 10,
-                    marginBottom: 10
-                }}>
-                    <Text style={{color: Colors.gray, fontWeight: 'bold'}}>EMAIL</Text>
-                </Row>
-                }
-                {this.state.activeMerchant.email &&
-                <Row style={{marginBottom: 20}}>
-                    <Text>{this.state.activeMerchant.email}</Text>
-                </Row>
-                }
+                <VendorAddress address={this.state.activeMerchant.address}/>
+                <VendorPhone phone={this.state.activeMerchant.phone}/>
+                <VendorEmail email={this.state.activeMerchant.email}/>
             </Col>
         )
     };
 
-    _renderFullModeItem = (item) => {
+    renderVendorItem = (item) => {
         return (
             <TouchableOpacity onPress={() => this.onPress('full', item)} style={style.fullModeItemContainer}>
                 <Grid>
@@ -184,10 +219,9 @@ class CookDetailsScreen extends Component {
                                   style={style.fullModeItemName}>{item.itemName}</Text>
                         </Col>
                         <Col size={1} style={{alignItems: 'flex-end', justifyContent: 'center'}}>
-                            <Text style={style.fullModeItemCost}>$ {item.itemCost}</Text>
+                            <Text style={style.fullModeItemCost}>$ {parseFloat(item.itemCost).toFixed(2)}</Text>
                         </Col>
                     </Row>
-
                 </Grid>
             </TouchableOpacity>
         )
@@ -195,7 +229,7 @@ class CookDetailsScreen extends Component {
 
     backButton = () => {
         return (
-            <View style={{ paddingTop: 25 }}>
+            <View style={{paddingTop: 25}}>
                 <Icon
                     name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
                     color={Colors.background}
@@ -242,13 +276,10 @@ class CookDetailsScreen extends Component {
                 />
                 <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
 
-                    <AddToCartModal visible={!this.props.shouldHideAddToCartModal} activeItem={this.state.activeItem}
-                                    activeMerchant={this.state.activeMerchant}></AddToCartModal>
-
-                    {/* <LoadingSpinner show={!this.props.menu.length}/> */}
-
-                    <UserProfileHeader navigation={this.props.navigation}
-                                       user={this.state.activeMerchant}></UserProfileHeader>
+                    <AddToCartModal visible={!this.props.shouldHideAddToCartModal}
+                                    activeItem={this.state.activeItem}
+                                    activeMerchant={this.state.activeMerchant}/>
+                    <UserProfileHeader navigation={this.props.navigation} user={this.state.activeMerchant}/>
 
                     <View style={{
                         height: 50,
@@ -257,12 +288,10 @@ class CookDetailsScreen extends Component {
                         backgroundColor: Colors.silver
                     }}>
                         <Grid>
-
                             <TouchableWithoutFeedback onPress={() => this.switchView('menu')}>
                                 <Col size={1}
                                      style={{
                                          backgroundColor: (this.state.showMenu) ? Colors.background : Colors.clear,
-                                         borderLeftWidth: 1,
                                          borderLeftColor: Colors.gray2,
                                          alignItems: 'center',
                                          justifyContent: 'center'
@@ -298,17 +327,14 @@ class CookDetailsScreen extends Component {
                         </Grid>
                     </View>
 
-                    {this.state.showDetails &&
-                    this._renderChefDetails()
-                    }
+                    {this.state.showDetails && this._renderChefDetails()}
 
                     {this.state.showMenu &&
                     <FlatList
                         style={{backgroundColor: Colors.backgroundGray, paddingTop: 10}}
                         data={menus}
-                        renderItem={({item}) => this._renderFullModeItem(item)}
-                    />
-                    }
+                        renderItem={({item}) => this.renderVendorItem(item)}
+                    />}
 
                 </ScrollView>
 
@@ -333,4 +359,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(Object.assign({}, merchantActionCreators, cartActionCreators), dispatch);
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CookDetailsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(VendorDetails)

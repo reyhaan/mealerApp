@@ -5,11 +5,9 @@ import {CustomerCartScreen} from '../../Components/index'
 import {Colors, Metrics, Images} from '../../Themes/index'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Header, Icon} from 'react-native-elements'
-import authenticationService from '../../Services/authentication-service'
-import cartService from '../../Services/cart-service'
-import _ from 'lodash'
 import {bindActionCreators} from 'redux'
 import {cartActionCreators} from '../../Redux/Cart/CartActions'
+import {LoadingSpinner} from '../../Components/index'
 import {
     ScrollView,
     View,
@@ -63,6 +61,7 @@ class MerchantOrders extends Component {
     renderCheckoutButton = () => {
         if (this.props.cart && !this.props.cart.isEmpty) {
             return (<TouchableOpacity
+                disabled={this.props.cart && this.props.cart.showActivityIndicator}
                 onPress={() => {
                     this.placeOrder()
                 }}
@@ -124,6 +123,7 @@ class MerchantOrders extends Component {
                     outerContainerStyles={styles.headerContainer}/>
 
                 <ScrollView>
+                    <LoadingSpinner show={this.props.cart && this.props.cart.showActivityIndicator}/>
                     {this.renderCustomerCart()}
                 </ScrollView>
                 {this.renderCheckoutButton()}

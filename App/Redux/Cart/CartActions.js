@@ -12,7 +12,8 @@ export const cartActions = {
     UPDATE_CART: "UPDATE_CART",
     DO_CHECKOUT: "DO_CHECKOUT",
     GET_USER_CART: "GET_USER_CART",
-    UPDATE_USER_CART: "UPDATE_USER_CART"
+    UPDATE_USER_CART: "UPDATE_USER_CART",
+    showActivityIndicator: 'showActivityIndicator',
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -27,6 +28,7 @@ export const cartActionCreators = {
     updateCart: (data) => createAction(cartActions.UPDATE_CART, data),
     checkout: (data) => createAction(cartActions.DO_CHECKOUT, data),
     getCart: () => createAction(cartActions.GET_USER_CART),
+    showActivityIndicator: (data) => createAction(cartActions.showActivityIndicator, data)
 };
 
 /******************************* SAGA WATCHERS *************************************/

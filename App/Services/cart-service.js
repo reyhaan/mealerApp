@@ -10,7 +10,25 @@ let cartService = {};
 cartService.getCart = () => {
     return new Promise((resolve, reject) => {
         AsyncStorage.getItem("cart").then((value) => {
-            resolve(JSON.parse(value));
+            let cart = JSON.parse(value);
+            if (cart && cart.to) {
+                cart.isEmpty = _.isEmpty(cart.to);
+                if (!cart.isEmpty) {
+                    let itemsForAllMerchants = _.values(cart.to);
+                    cart.cost = 0;
+                    _.each(itemsForAllMerchants, function (itemFromOneMerchant) {
+                        let itemArray = _.values(itemFromOneMerchant);
+                        _.each(itemArray, function (item) {
+                            cart.cost = cart.cost + (item.itemCost).toFixed(2) * (item.itemCount);
+                        })
+                    });
+                }
+            } else {
+                cart = {isEmpty: true};
+            }
+
+            cart.cost = parseFloat(cart.cost).toFixed(2);
+            resolve(cart);
         }).catch(error => {
             reject(error);
         })
@@ -123,10 +141,7 @@ cartService.getTotalCost = async () => {
 
 cartService.isCartEmpty = async () => {
     let cart = await AsyncStorage.getItem('cart');
-    if (cart === null || cart === '' || cart === undefined) {
-        return Promise.resolve(true);
-    }
-    return Promise.resolve(cart.hasOwnProperty('to') && _.isEmpty(cart.to));
+    return Promise.resolve(cart);
 };
 
 cartService.totalItems = async () => {
@@ -144,7 +159,7 @@ cartService.totalItems = async () => {
     return totalItemCount;
 };
 
-cartService.doCheckout = async (userInfo) => {
+cartService.checkout = async (userInfo) => {
     try {
         let data = {
             timestamp: db.firebase.database.ServerValue.TIMESTAMP,

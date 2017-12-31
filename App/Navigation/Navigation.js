@@ -6,6 +6,7 @@ import {
     SignUp,
     MenuForm,
     UserSettings,
+    Cart
 } from '../Screens'
 
 // Manifest of possible screens
@@ -33,6 +34,9 @@ export default StackNavigator({
     },
     MenuForm: {
         screen: MenuForm
+    },
+    Cart: {
+        screen: Cart
     }
 }, {
     // Default config for all screens

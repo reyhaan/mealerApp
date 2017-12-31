@@ -76,7 +76,7 @@ class CustomerCartScreen extends Component {
         for (let i = 0; i < rowData.length; i++) {
             total += (rowData[i].itemCost * rowData[i].itemCount)
         }
-        return total;
+        return parseFloat(total).toFixed(2);
     };
 
     _updateItemCount = (itemId, merchantId, newCount) => {

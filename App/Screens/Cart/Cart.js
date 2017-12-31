@@ -4,12 +4,10 @@ import styles from './Cart.style'
 import {CustomerCartScreen} from '../../Components/index'
 import {Colors, Metrics, Images} from '../../Themes/index'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import { Header, Icon } from 'react-native-elements'
-import authenticationService from '../../Services/authentication-service'
-import cartService from '../../Services/cart-service'
-import _ from 'lodash'
+import {Header, Icon} from 'react-native-elements'
 import {bindActionCreators} from 'redux'
 import {cartActionCreators} from '../../Redux/Cart/CartActions'
+import {LoadingSpinner} from '../../Components/index'
 import {
     ScrollView,
     View,
@@ -26,42 +24,26 @@ class MerchantOrders extends Component {
         };
     }
 
-    componentDidMount = async () => {
-        let cart = await cartService.getCart();
-        if (!cart || _.isEmpty(cart) || _.isEmpty(cart.to)) {
-            this.setState({
-                isCartEmpty: true
-            })
-        } else {
-            let totalCost = await cartService.getTotalCost();
-            this.setState({
-                totalCost: totalCost,
-                isCartEmpty: false
-            })
-        }
+    componentDidMount = () => {
+        this.props.cartActions.getCart();
     };
 
     componentWillReceiveProps = async () => {
-        let isCartEmpty = await cartService.isCartEmpty();
-        this.setState({
-            isCartEmpty: isCartEmpty
-        })
+
     };
 
     navigateToPreviousOrders = () => {
         this.props.navigation.navigate('CustomerOrderHistory')
     };
 
-    _doCheckout = async () => {
-        let currentUser = await authenticationService.currentUser();
-        let data = {
-            userInfo: currentUser
-        };
-        this.props.doCheckout(data);
+    placeOrder = () => {
+        this.props.cartActions.checkout();
     };
 
-    _renderCustomerCart = () => {
-        if (this.state.isCartEmpty) {
+    renderCustomerCart = () => {
+        if (this.props.cart && !this.props.cart.isEmpty) {
+            return <CustomerCartScreen/>
+        } else {
             return (
                 <View style={styles.subContainer}>
                     <Image source={Images.emptyCart} style={styles.logo}/>
@@ -73,15 +55,33 @@ class MerchantOrders extends Component {
                     }}>Your cart is empty!</Text>
                 </View>
             )
+        }
+    };
+
+    renderCheckoutButton = () => {
+        if (this.props.cart && !this.props.cart.isEmpty) {
+            return (<TouchableOpacity
+                disabled={this.props.cart && this.props.cart.showActivityIndicator}
+                onPress={() => {
+                    this.placeOrder()
+                }}
+                style={styles.checkoutButtonContainer}>
+                <Row style={styles.checkoutButton}>
+                    <Text style={{fontWeight: 'bold', fontSize: 14, color: Colors.snow}}>CHECKOUT:
+                        <Text style={{fontWeight: 'bold', fontSize: 17, color: Colors.snow}}>
+                            $ {this.props.cart.cost}</Text>
+                    </Text>
+                </Row>
+            </TouchableOpacity>)
         } else {
-            return <CustomerCartScreen/>
+            return null;
         }
     };
 
     _cartHeaderTitle = () => {
         return (
             <Col size={1}
-                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center' }}>
+                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center'}}>
                 <Row>
                     <Icon size={16}
                           name={'cutlery'}
@@ -96,7 +96,7 @@ class MerchantOrders extends Component {
     showPreviousOrdersButton = () => {
         return (
             <Col size={1}
-                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center' }}>
+                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center'}}>
                 <TouchableOpacity onPress={() => {
                     this.navigateToPreviousOrders()
                 }}>
@@ -116,33 +116,28 @@ class MerchantOrders extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header 
+                <Header
                     leftComponent={this._cartHeaderTitle()}
                     rightComponent={this.showPreviousOrdersButton()}
                     backgroundColor={Colors.background}
                     outerContainerStyles={styles.headerContainer}/>
 
                 <ScrollView>
-                    {this._renderCustomerCart()}
+                    <LoadingSpinner show={this.props.cart && this.props.cart.showActivityIndicator}/>
+                    {this.renderCustomerCart()}
                 </ScrollView>
-                { !this.state.isCartEmpty &&
-                    <TouchableOpacity
-                        onPress={() => {this._doCheckout()}}
-                        style={styles.checkoutButtonContainer}>
-                        <Row style={styles.checkoutButton}>
-                            <Text style={{fontWeight: 'bold', fontSize: 14, color: Colors.snow}}>CHECKOUT:
-                                <Text style={{fontWeight: 'bold', fontSize: 17, color: Colors.snow}}>
-                                    $ {this.state.totalCost}</Text>
-                            </Text>
-                        </Row>
-                    </TouchableOpacity>
-                }
+                {this.renderCheckoutButton()}
             </View>
         )
     }
 }
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(cartActionCreators, dispatch));
+const mapDispatchToProps = (dispatch) => {
+    return {
+        cartActions: bindActionCreators(cartActionCreators, dispatch)
+    }
+};
+
 const mapStateToProps = (state) => {
     return {
         cart: state.cart.cart

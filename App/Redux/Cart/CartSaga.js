@@ -2,15 +2,18 @@ import { put, call } from 'redux-saga/effects'
 import { Alert } from 'react-native';
 import orderService from '../../Services/order-service';
 import cartService from '../../Services/cart-service';
-import { cartActionCreators } from './CartActions'
+import { cartActionCreators } from './CartActions';
+import { orderActionCreators } from '../Order/OrderActions';
+import {NavigationActions} from 'react-navigation';
+
 
 const cartEffects = {};
 
 cartEffects.addToCart = function* (item) {
     try {
         let { data } = item;
-        let updatedCart = yield call(cartService.addToCart, data);
-        yield put(cartActionCreators.addToCartSuccessful(updatedCart));
+        yield call(cartService.addToCart, data);
+        yield put(cartActionCreators.getCart());
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {
@@ -21,8 +24,8 @@ cartEffects.addToCart = function* (item) {
 cartEffects.removeItemFromCart = function* (item) {
     try {
         let { data } = item;
-        let updatedCart = yield call(cartService.removeItemFromCart, data.itemId, data.merchantId);
-        yield put(cartActionCreators.cartUpdateSuccessful(updatedCart));
+        yield call(cartService.removeItemFromCart, data.itemId, data.merchantId);
+        yield put(cartActionCreators.getCart());
     } catch (error) {
         Alert.alert('Error', error.message,)
     }
@@ -31,19 +34,35 @@ cartEffects.removeItemFromCart = function* (item) {
 cartEffects.updateItemCount = function* (item) {
     try {
         let { data } = item;
-        let updatedCart = yield call(cartService.updateItemCount, data.itemId, data.merchantId, data.newCount);
-        yield put(cartActionCreators.cartUpdateSuccessful(updatedCart));
+        yield call(cartService.updateItemCount, data.itemId, data.merchantId, data.newCount);
+        yield put(cartActionCreators.getCart());
     } catch (error) {
         Alert.alert('Error', error.message,)
     }
 };
 
-cartEffects.doCheckout = function* () {
+cartEffects.checkout = function* () {
     try {
+        yield put(cartActionCreators.showActivityIndicator(true));
         let updatedCart = yield call(orderService.createCustomerOrder);
-        yield put(cartActionCreators.cartUpdateSuccessful(updatedCart));
+        yield put(cartActionCreators.updateCart(updatedCart));
+        yield put(cartActionCreators.getCart());
     } catch (error) {
         Alert.alert('Error', error.message,)
+    } finally {
+        yield put(cartActionCreators.showActivityIndicator(false));
+    }
+};
+
+cartEffects.getUserCart = function* () {
+    try {
+        yield put(cartActionCreators.showActivityIndicator(true));
+        let cart = yield call(cartService.getCart);
+        yield put(cartActionCreators.updateCart(cart));
+    } catch  (error) {
+        Alert.alert('Error', error.message,)
+    } finally {
+        yield put(cartActionCreators.showActivityIndicator(false));
     }
 };
 

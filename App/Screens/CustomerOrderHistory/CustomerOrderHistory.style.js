@@ -2,8 +2,14 @@ import {StyleSheet, Platform} from 'react-native'
 import {Colors, Metrics, Fonts} from '../../Themes/index'
 
 export default StyleSheet.create({
-    container: {
-
+    emptyHistoryContainer: {
+        backgroundColor: Colors.snow,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    emptyHistoryLogo: {
+        height: 220,
+        resizeMode: 'contain'
     },
     menuScreenContainer: {
         flex: 1,

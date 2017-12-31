@@ -1,9 +1,9 @@
 import React from 'react'
-import { Colors } from '../../Themes/index'
-import { Image, Text } from 'react-native'
+import {Colors} from '../../Themes/index'
+import {Image, Text} from 'react-native'
 import styles from '../Navigation.style'
-import { Images } from '../../Themes/index'
-import { TabNavigator, StackNavigator } from 'react-navigation'
+import {Images} from '../../Themes/index'
+import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
 import IconBadge from 'react-native-icon-badge';
 import cartService from '../../Services/cart-service'
@@ -16,11 +16,11 @@ import {
     CustomerOrderHistory
 } from '../../Screens/index';
 
-let totaltemsInCart = 0;
-
-cartService.totalItems().then((total) => {
-    totaltemsInCart = total
-});
+// let totaltemsInCart = 0;
+//
+// cartService.totalItems().then((total) => {
+//     totaltemsInCart = total
+// });
 
 const chefsStack = StackNavigator({
     Root: {
@@ -29,7 +29,7 @@ const chefsStack = StackNavigator({
     VendorDetails: {
         screen: VendorDetails
     }
-},{
+}, {
     headerMode: 'none',
     initialRouteName: 'Root',
     navigationOptions: ({navigation}) => ({
@@ -58,20 +58,26 @@ const customerTabsConfig = {
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
-                <IconBadge
-                    MainElement={<Image
-                        source={Images.ordersWhite}
-                        style={[styles.icon, {tintColor: tintColor}]}
-                    />}
-                    IconBadgeStyle={
-                        {   
-                            backgroundColor: Colors.background
-                        }
-                    }
-                    BadgeElement={<Text style={{ color: 'white' }}>{totaltemsInCart}</Text>}
-                    Hidden={totaltemsInCart === 0}
+                <Image
+                    source={Images.ordersWhite}
+                    style={[styles.icon, {tintColor: tintColor}]}
                 />
             ),
+            // tabBarIcon: ({tintColor}) => (
+            //     <IconBadge
+            //         MainElement={<Image
+            //             source={Images.ordersWhite}
+            //             style={[styles.icon, {tintColor: tintColor}]}
+            //         />}
+            //         IconBadgeStyle={
+            //             {
+            //                 backgroundColor: Colors.background
+            //             }
+            //         }
+            //         BadgeElement={<Text style={{ color: 'white' }}>{totaltemsInCart}</Text>}
+            //         Hidden={totaltemsInCart === 0}
+            //     />
+            // ),
             title: 'Cart'
         },
     },

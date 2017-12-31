@@ -9,9 +9,12 @@ orderEffects.getOrders = function* (data) {
     try {
         let userId = data.data;
         let orders = yield call(orderService.getCustomerOrders, userId);
+        yield put(orderActionCreators.showActivityIndicator(true));
         yield put(orderActionCreators.getOrdersSuccessful(orders));
     } catch (error) {
         Alert.alert('Error', error.message,)
+    } finally {
+        yield put(orderActionCreators.showActivityIndicator(false));
     }
 };
 

@@ -5,7 +5,8 @@ import OrderSaga from './OrderSaga';
 /******************************* ACTIONS *************************************/
 export const orderActions = {
     GET_ORDERS: 'GET_ORDERS',
-    GET_ORDERS_SUCCESSFUL: 'GET_ORDERS_SUCCESSFUL'
+    GET_ORDERS_SUCCESSFUL: 'GET_ORDERS_SUCCESSFUL',
+    showActivityIndicator: 'showActivityIndicator',
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -14,7 +15,8 @@ function createAction(type, data) {
 }
 export const orderActionCreators = {
     getOrders: (data) => createAction(orderActions.GET_ORDERS, data),
-    getOrdersSuccessful: (data) => createAction(orderActions.GET_ORDERS_SUCCESSFUL, data)
+    getOrdersSuccessful: (data) => createAction(orderActions.GET_ORDERS_SUCCESSFUL, data),
+    showActivityIndicator: (data) => createAction(orderActions.showActivityIndicator, data)
 };
 
 /******************************* SAGA WATCHERS *************************************/

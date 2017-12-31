@@ -16,6 +16,7 @@ import {bindActionCreators} from 'redux';
 import {NavigationActions} from 'react-navigation'
 import {orderActionCreators} from '../../Redux/Order/OrderActions';
 import RenderCustomerOrder from './RenderCustomerOrder'
+import {LoadingSpinner} from '../../Components/index'
 
 class CustomerOrderHistory extends Component {
     constructor(props) {
@@ -54,9 +55,10 @@ class CustomerOrderHistory extends Component {
     };
 
     renderHistory = () => {
-        if (this.state.orders && this.state.orders.length > 0) {
+        const {orders} = this.props.order;
+        if (orders && orders.length > 0) {
             return (
-                <FlatList data={this.state.orders} renderItem={({item}) => RenderCustomerOrder(item)}/>
+                <FlatList data={orders} renderItem={({item}) => RenderCustomerOrder(item)}/>
             )
         } else {
             return (
@@ -83,6 +85,7 @@ class CustomerOrderHistory extends Component {
                     backgroundColor={Colors.snow}
                     outerContainerStyles={style.headerOuterContainer}/>
                 <ScrollView style={{flex: 1, backgroundColor: '#fff'} }>
+                    <LoadingSpinner show={this.props.order && this.props.order.showActivityIndicator}/>
                     {this.renderHistory()}
                 </ScrollView>
             </Col>
@@ -93,7 +96,7 @@ class CustomerOrderHistory extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.settings.user,
-        orders: state.order.orders
+        order: state.order
     }
 };
 const mapDispatchToProps = (dispatch) => {

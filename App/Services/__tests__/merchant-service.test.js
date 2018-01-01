@@ -1,4 +1,4 @@
-import merchantService from '../merchant-service';
+import merchantService from '../vendor-service';
 import {merchant, customer, User} from './test-data-service';
 
 afterAll(async () => {

@@ -1,5 +1,4 @@
 import db from '../Config/database'
-import {AsyncStorage, Alert} from 'react-native';
 
 let SettingsService = {};
 

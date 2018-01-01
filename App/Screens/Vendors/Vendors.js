@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
 import {
-    ScrollView,
     Text,
     View,
     FlatList,
-    TouchableHighlight,
-    TouchableNativeFeedback,
     TouchableOpacity
 } from 'react-native'
 import {connect} from 'react-redux'
@@ -13,31 +10,20 @@ import {bindActionCreators} from 'redux';
 import CooksTabStyle from './Vendors.style'
 import {Header, SearchBar, Avatar, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors, Fonts} from '../../Themes/index'
-import {customerActionCreators} from '../../Redux/Customer/CustomerActions'
+import {Colors,} from '../../Themes/index'
+import {vendorActionCreators} from '../../Redux/Vendors/VendorActions'
+import {LoadingSpinner} from '../../Components/index'
 
 // Styles
-const styles = CooksTabStyle
+const styles = CooksTabStyle;
 
 class Vendors extends Component {
     constructor(props) {
         super(props);
-        this.props.fetchCooks();
-        this.state = {
-            dataSource: []
-        }
-
     }
 
-    componentWillReceiveProps = (newProps) => {
-        let cooks = newProps.cooks.map(cook => {
-            cook.key = cook.id;
-            return cook
-        });
-
-        this.setState({
-            dataSource: cooks
-        })
+    componentDidMount = () => {
+        this.props.vendorActions.fetchVendors();
     };
 
     searchComponent() {
@@ -111,10 +97,10 @@ class Vendors extends Component {
                     centerComponent={{text: 'VENDORS', style: {color: Colors.background, fontWeight: 'bold'}}}
                     rightComponent={{icon: 'search', color: Colors.background}}
                     outerContainerStyles={styles.headerOuterContainer}/>
-
+                <LoadingSpinner show={this.props.vendors && this.props.vendors.showActivityIndicator}/>
                 <FlatList
                     contentContainerStyle={styles.listContent}
-                    data={this.state.dataSource}
+                    data={this.props.vendors.vendors}
                     renderItem={({item}) => this._renderRow(item)}/>
             </View>
         )
@@ -123,12 +109,14 @@ class Vendors extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        cooks: state.customer.cooks
+        vendors: state.vendors
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(customerActionCreators, dispatch);
+    return {
+        vendorActions: bindActionCreators(vendorActionCreators, dispatch)
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Vendors)

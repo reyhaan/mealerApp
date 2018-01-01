@@ -1,7 +1,7 @@
 import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
 import menuService from '../../Services/menu-service';
-import merchantService from '../../Services/merchant-service';
+import merchantService from '../../Services/vendor-service';
 import orderService from '../../Services/order-service';
 import authentication from '../../Services/authentication-service';
 import imgService from '../../Services/image-service';

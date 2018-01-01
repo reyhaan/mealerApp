@@ -3,7 +3,7 @@ import auth from './Auth/AuthReducers';
 import navigation from './Navigation/NavigationReducer';
 import {merchant} from './Merchant/MerchantReducers';
 import { settings } from './Settings/SettingsReducers';
-import { customer } from './Customer/CustomerReducers';
+import { vendors } from './Vendors/VendorsReducers';
 import { cart } from './Cart/CartReducers';
 import { order } from './Order/OrderReducers';
 
@@ -12,7 +12,7 @@ export const rootReducer = combineReducers({
     navigation,
     merchant,
     settings,
-    customer,
+    vendors,
     cart,
     order
 });

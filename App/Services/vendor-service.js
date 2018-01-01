@@ -3,24 +3,37 @@ import orderService from './order-service';
 import authService from './authentication-service';
 import _ from 'lodash'
 
-let merchant = {};
+let vendor = {};
 
 /**
  * Update merchant quota
  */
-merchant.updateQuota = async (merhantId) => {
+
+vendor.fetchVendors = async () => {
     try {
-        const merchant =  await authService.fetchUser(merhantId);
-        const merchantOrders = await orderService.getOrders(merchant.uid);
-        const newOrders = await orderService.getOrdersByStatus(merchant.uid, 'new');
-        const acceptedOrders = await orderService.getOrdersByStatus(merchant.uid, 'accepted');
-        return merchant
+        const cooks = [];
+        const snapshot = await db.user().orderByChild("type").equalTo("vendor").once("value");
+        snapshot.forEach(function (childSnapshot) {
+            let id = childSnapshot.key;
+            let key = childSnapshot.key;
+            let data = childSnapshot.val();
+            cooks.push({id, key, ...data});
+        });
+        return cooks;
     } catch (error) {
         return {error};
     }
 };
 
-merchant.updateRating = async (merchantId, rating) => {
+vendor.updateQuota = async (vendorId) => {
+    try {
+        return vendorId
+    } catch (error) {
+        return {error};
+    }
+};
+
+vendor.updateRating = async (merchantId, rating) => {
     try {
         let merchantRating =  await db.user(merchantId).child('rating').once('value');
         merchantRating = merchantRating.val();
@@ -43,6 +56,6 @@ merchant.updateRating = async (merchantId, rating) => {
     }
 };
 
-export default merchant;
+export default vendor;
 
 

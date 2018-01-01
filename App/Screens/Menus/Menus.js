@@ -18,8 +18,8 @@ class MenuTab extends Component {
         }
     }
 
-    async componentDidMount() {
-        await this.fetchMenu();
+    componentDidMount() {
+        this.fetchMenu();
     }
 
     addMenuItemButton = () => {

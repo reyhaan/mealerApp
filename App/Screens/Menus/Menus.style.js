@@ -45,5 +45,6 @@ export default StyleSheet.create({
     itemCost: {
         marginTop:5,
         marginLeft: 4,
+        color: Colors.background
     },
 })

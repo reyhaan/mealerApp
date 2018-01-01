@@ -5,7 +5,7 @@ import {Header, Icon,} from 'react-native-elements'
 import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
+import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
@@ -61,11 +61,23 @@ class MenuForm extends Component {
 
     onMenuSubmit() {
         let {itemName, itemCost, itemDetail, itemImage, base64img} = this.state;
-        if (itemName &&
-            itemDetail &&
-            itemImage &&
-            itemCost &&
-            itemCost.slice(4, itemCost.length) > 0) {
+
+        if (!itemName) {
+            Alert.alert("Missing item name")
+        }
+        else if (!itemCost) {
+            Alert.alert("Missing item cost")
+        }
+        else if (!itemDetail) {
+            Alert.alert("Missing item details")
+        }
+        else if (!itemImage) {
+            Alert.alert("Missing item image")
+        }
+        else {
+            itemCost = itemCost.replace('$ ', '');
+            itemCost = Number(itemCost);
+            itemCost = parseFloat(itemCost).toFixed(2);
             this.setState({
                 itemCost: itemCost,
             }, () => {
@@ -76,9 +88,6 @@ class MenuForm extends Component {
                 }
                 this.props.navigation.dispatch(NavigationActions.back())
             });
-        }
-        else {
-            Alert.alert("Please check menu values")
         }
     }
 
@@ -116,8 +125,8 @@ class MenuForm extends Component {
 
     render() {
         //Set the item image or show a placeholder
-        let image = this.state.itemImage ? {uri: this.state.itemImage} : {uri: Images.addImagePlaceHolder} ;
-        
+        let image = this.state.itemImage ? {uri: this.state.itemImage} : {uri: Images.addImagePlaceHolder};
+
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <ScrollView style={styles.container}>
@@ -137,18 +146,12 @@ class MenuForm extends Component {
                             </Item>
                             <Item stackedLabel>
                                 <Label>Price</Label>
-                                <TextInputMask
+                                <Input
                                     ref={'moneyUnit'}
-                                    type={'money'}
-                                    options={{
-                                        separator: '.',
-                                        delimiter: ',',
-                                        unit: 'CAD$ '
-                                    }}
                                     value={this.state.itemCost}
                                     onChangeText={(e) => this.formUpdate('itemCost', e)}
                                     style={{width: '100%', height: 50}}
-                                    placeholder="CAD$ 0.00"
+                                    placeholder="$ 0.00"
                                     keyboardType="numeric"
                                 />
                             </Item>
@@ -212,7 +215,7 @@ const mapStateToProps = (state) => {
     return {}
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(merchantActionCreators, dispatch);
+    return bindActionCreators(vendorActionCreators, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuForm)

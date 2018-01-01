@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
 import {
-    ScrollView,
     Text,
     View,
     FlatList,
-    TouchableHighlight,
-    TouchableNativeFeedback,
     TouchableOpacity
 } from 'react-native'
 import {connect} from 'react-redux'
@@ -13,31 +10,20 @@ import {bindActionCreators} from 'redux';
 import CooksTabStyle from './Vendors.style'
 import {Header, SearchBar, Avatar, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors, Fonts} from '../../Themes/index'
-import {customerActionCreators} from '../../Redux/Customer/CustomerActions'
+import {Colors,} from '../../Themes/index'
+import {vendorActionCreators} from '../../Redux/Vendor/VendorActions'
+import {LoadingSpinner} from '../../Components/index'
 
 // Styles
-const styles = CooksTabStyle
+const styles = CooksTabStyle;
 
 class Vendors extends Component {
     constructor(props) {
         super(props);
-        this.props.fetchCooks();
-        this.state = {
-            dataSource: []
-        }
-
     }
 
-    componentWillReceiveProps = (newProps) => {
-        let cooks = newProps.cooks.map(cook => {
-            cook.key = cook.id;
-            return cook
-        });
-
-        this.setState({
-            dataSource: cooks
-        })
+    componentDidMount = () => {
+        this.props.vendorActions.fetchVendors();
     };
 
     searchComponent() {
@@ -51,9 +37,16 @@ class Vendors extends Component {
         )
     }
 
-    _renderRow(rowData) {
+    navigateToVendorsMenu = (vendor) => {
+        this.props.navigation.navigate('VendorDetails', {selectedCook: vendor})
+    };
+
+    renderVendor = data => {
+        const vendor = data.item;
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('VendorDetails', {selectedCook: rowData})}>
+            <TouchableOpacity onPress={() => {
+                this.navigateToVendorsMenu(vendor)
+            }}>
                 <View style={styles.row}>
                     <View style={styles.rowInnerContainer}>
                         <Grid>
@@ -61,16 +54,16 @@ class Vendors extends Component {
                                 <Avatar
                                     medium
                                     rounded
-                                    source={{uri: rowData.avatar}}
+                                    source={{uri: vendor.avatar}}
                                 />
                             </Col>
                             <Col style={{paddingLeft: 5}}>
                                 <Row style={{height: 20}}>
-                                    <Text style={styles.boldLabel}>{rowData.name}</Text>
+                                    <Text style={styles.boldLabel}>{vendor.name}</Text>
                                 </Row>
                                 <Row style={{height: 18}}>
                                     <Text style={{fontSize: 12, color: Colors.charcoal}}>Cousine Type
-                                        <Text style={{fontWeight: 'bold'}}>: {rowData.cousineType}</Text>
+                                        <Text style={{fontWeight: 'bold'}}>: {vendor.cousineType}</Text>
                                     </Text>
                                 </Row>
                                 <Row style={{height: 18}}>
@@ -80,7 +73,7 @@ class Vendors extends Component {
                                             textAlign: 'left',
                                             paddingRight: 5,
                                             color: Colors.charcoal
-                                        }}>{rowData.quotaUsed} of {rowData.quotaLimit} left</Text>
+                                        }}>{vendor.quotaUsed} of {vendor.quotaLimit} left</Text>
                                     </Col>
                                 </Row>
                                 <Row style={{height: 22}}>
@@ -88,7 +81,7 @@ class Vendors extends Component {
                                         type="star"
                                         ratingColor={Colors.pink2}
                                         fractions={1}
-                                        startingValue={Number(rowData.rating)}
+                                        startingValue={Number(vendor.rating)}
                                         readonly
                                         imageSize={10}
                                         onFinishRating={this.ratingCompleted}
@@ -101,7 +94,7 @@ class Vendors extends Component {
                 </View>
             </TouchableOpacity>
         )
-    }
+    };
 
     render() {
         return (
@@ -111,11 +104,11 @@ class Vendors extends Component {
                     centerComponent={{text: 'VENDORS', style: {color: Colors.background, fontWeight: 'bold'}}}
                     rightComponent={{icon: 'search', color: Colors.background}}
                     outerContainerStyles={styles.headerOuterContainer}/>
-
+                <LoadingSpinner show={this.props.vendors && this.props.vendors.showActivityIndicator}/>
                 <FlatList
                     contentContainerStyle={styles.listContent}
-                    data={this.state.dataSource}
-                    renderItem={({item}) => this._renderRow(item)}/>
+                    data={this.props.vendor.vendors}
+                    renderItem={this.renderVendor}/>
             </View>
         )
     }
@@ -123,12 +116,14 @@ class Vendors extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        cooks: state.customer.cooks
+        vendor: state.vendor
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(customerActionCreators, dispatch);
+    return {
+        vendorActions: bindActionCreators(vendorActionCreators, dispatch)
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Vendors)

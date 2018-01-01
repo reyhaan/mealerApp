@@ -5,7 +5,7 @@ import style from './Menus.style'
 import {Header, Icon} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
-import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
+import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
 import {bindActionCreators} from 'redux';
 import {LoadingSpinner} from '../../Components/index'
 import authenticationService from '../../Services/authentication-service'
@@ -18,8 +18,8 @@ class MenuTab extends Component {
         }
     }
 
-    async componentDidMount() {
-        await this.fetchMenu();
+    componentDidMount() {
+        this.fetchMenu();
     }
 
     addMenuItemButton = () => {
@@ -54,7 +54,7 @@ class MenuTab extends Component {
                     <Col size={65}>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemName}>{item.itemName}</Text>
                         <Text ellipsizeMode="tail" numberOfLines={2} style={style.itemDetails}>{item.itemDetail}</Text>
-                        <Text style={style.itemCost}>{item.itemCost}</Text>
+                        <Text style={style.itemCost}>$ {parseFloat(item.itemCost).toFixed(2)}</Text>
                     </Col>
                     <Col size={35} style={{}}>
                         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -70,8 +70,8 @@ class MenuTab extends Component {
     render() {
         // Add key to the list of Menus
         let menus = [];
-        if (this.props.merchant && this.props.merchant.menus) {
-            menus = this.props.merchant.menus.map(menu => {
+        if (this.props.vendor && this.props.vendor.menus) {
+            menus = this.props.vendor.menus.map(menu => {
                 menu.key = menu.id;
                 return menu
             });
@@ -86,7 +86,7 @@ class MenuTab extends Component {
                     outerContainerStyles={style.headerOuterContainer}/>
 
                 <LoadingSpinner
-                    show={this.props.merchant.showActivityIndicator && menus.length === 0 || this.state.refreshing}/>
+                    show={this.props.vendor.showActivityIndicator && menus.length === 0 || this.state.refreshing}/>
 
                 <FlatList
                     style={{backgroundColor: style.white}}
@@ -101,11 +101,11 @@ class MenuTab extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        merchant: state.merchant,
+        vendor: state.vendor,
         auth: state.auth
     }
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(merchantActionCreators, dispatch);
+    return bindActionCreators(vendorActionCreators, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MenuTab)

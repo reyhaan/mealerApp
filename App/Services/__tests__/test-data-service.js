@@ -8,11 +8,11 @@ export const customer = {
     uid: "yPeGFu975KQbfFrKo04lcn44VGz1"
 };
 
-export const merchant = {
-    email: "merchant@mealer.com",
-    password: "merchant",
-    name: "Merchant Sir",
-    type: "merchant",
+export const vendor = {
+    email: "vendor@mealer.com",
+    password: "vendor",
+    name: "vendor Sir",
+    type: "vendor",
     uid: "12j3VND2oXZBhMG9Y14ytB5YY3y1",
 };
 
@@ -44,7 +44,7 @@ export class User {
     order() {
         return {
             from: customer.uid,
-            to: merchant.uid,
+            to: vendor.uid,
             items: [this.menu(),this.menu()],
             time: db.firebase.database.ServerValue.TIMESTAMP,
             status: "new",

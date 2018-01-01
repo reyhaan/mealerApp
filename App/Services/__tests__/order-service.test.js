@@ -1,13 +1,13 @@
 import orderService from '../order-service';
-import {merchant, customer, User} from './test-data-service';
+import {vendor, customer, User} from './test-data-service';
 import database from '../../Config/database';
 
 let createdOrder = null;
-const merchantUser = new User(merchant);
+const merchantUser = new User(vendor);
 const customerUser = new User(customer);
 
 afterAll(async () => {
-    // delete a merchant order.
+    // delete a vendor order.
     try {
         await orderService.removeOrder(customerUser.uid, createdOrder.id);
     } catch (err) {
@@ -85,7 +85,7 @@ describe('order-service', function () {
         }
     });
 
-    test('should get merchant order by status', async () => {
+    test('should get vendor order by status', async () => {
         try {
             const orders = await orderService.getOrdersByStatus(merchantUser.uid, "accepted");
             expect(orders.length).toBeGreaterThan(0);

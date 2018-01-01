@@ -1,5 +1,5 @@
-import merchantService from '../merchant-service';
-import {merchant, customer, User} from './test-data-service';
+import merchantService from '../vendor-service';
+import {vendor, customer, User} from './test-data-service';
 
 afterAll(async () => {
 
@@ -8,7 +8,7 @@ afterAll(async () => {
 describe('order-service', function () {
     test('should update merchants quota', async () => {
         try {
-            const result = await merchantService.updateQuota(merchant.uid);
+            const result = await merchantService.updateQuota(vendor.uid);
             expect(result).toBeTruthy();
         } catch (err) {
             expect(err).toBeUndefined();

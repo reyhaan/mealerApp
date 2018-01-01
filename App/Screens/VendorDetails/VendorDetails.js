@@ -14,7 +14,7 @@ import style from './VendorDetails.style'
 import {Icon, Header, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
-import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
+import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
 import {cartActionCreators} from '../../Redux/Cart/CartActions'
 import {bindActionCreators} from 'redux';
 import {UserProfileHeader, AddToCartModal} from '../../Components/index'
@@ -258,9 +258,9 @@ class VendorDetails extends Component {
 
     render() {
         // Set the key for the menu
-        let {menus} = this.props.merchant;
-        if (this.props.merchant && this.props.merchant.menus) {
-            menus = this.props.merchant.menus.map(menu => {
+        let {menus} = this.props.vendor;
+        if (this.props.vendor && this.props.vendor.menus) {
+            menus = this.props.vendor.menus.map(menu => {
                 menu.key = menu.id;
                 return menu
             });
@@ -350,13 +350,13 @@ class VendorDetails extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        merchant: state.merchant,
+        vendor: state.vendor,
         menu: state.menu,
         auth: state.auth,
         shouldHideAddToCartModal: (state.cart.shouldHideAddToCartModal === undefined) || (state.cart.shouldHideAddToCartModal === null) ? true : state.cart.shouldHideAddToCartModal
     }
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(Object.assign({}, merchantActionCreators, cartActionCreators), dispatch);
+    return bindActionCreators(Object.assign({}, vendorActionCreators, cartActionCreators), dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(VendorDetails)

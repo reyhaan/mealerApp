@@ -18,7 +18,7 @@ authEffect.signIn = function* (userCredentials) {
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield put(authActionCreators.signInSuccessful(user));
         yield put(settingsActionCreators.setUser(user)); //!important to update the user state
-        yield put(NavigationActions.navigate({routeName: user.type === "merchant" ? 'MerchantTab' : 'CustomerTab'}));
+        yield put(NavigationActions.navigate({routeName: user.type === "vendor" ? 'VendorTab' : 'CustomerTab'}));
     } catch (error) {
         Alert.alert('Error', error.message);
     } finally {
@@ -42,7 +42,7 @@ authEffect.signUp = function* (userCredentials) {
         yield call(authenticationService.addUser, user);
         yield put(authActionCreators.signUpSuccessful(user));
         yield put(settingsActionCreators.setUser(user)); //!important to update the user state
-        yield put(NavigationActions.navigate({routeName: user.type === "merchant" ? 'MerchantTab' : 'CustomerTab'}));
+        yield put(NavigationActions.navigate({routeName: user.type === "vendor" ? 'MerchantTab' : 'CustomerTab'}));
     } catch (error) {
         Alert.alert('Error', error.message);
     } finally {

@@ -117,11 +117,11 @@ class SignUp extends Component {
                                 </View>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => this.toggleUserType('merchant')}>
-                                <View style={{ backgroundColor: this.state.type === "merchant" ? Colors.background : "#F5F5F5", marginTop: 10, padding: 10, flex: 1, flexDirection: "row", borderRadius: 3 }}>
-                                    <Text style={{ color: this.state.type === "merchant" ? Colors.snow : Colors.gray, fontWeight: "bold", flex: 1 }}>AS A MERCHANT</Text>
+                            <TouchableOpacity onPress={() => this.toggleUserType('vendor')}>
+                                <View style={{ backgroundColor: this.state.type === "vendor" ? Colors.background : "#F5F5F5", marginTop: 10, padding: 10, flex: 1, flexDirection: "row", borderRadius: 3 }}>
+                                    <Text style={{ color: this.state.type === "vendor" ? Colors.snow : Colors.gray, fontWeight: "bold", flex: 1 }}>AS A MERCHANT</Text>
                                     <View style={{ width: 40, height: 20, alignItems: 'flex-end' }}>
-                                        { this.state.type === "merchant" &&
+                                        { this.state.type === "vendor" &&
                                         <Icon
                                             size={20}
                                             name='check'

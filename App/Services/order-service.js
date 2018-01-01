@@ -8,7 +8,7 @@ import each from 'async/each';
 let orderService = {};
 
 /**
- * Create a merchant order
+ * Create a vendor order
  */
 orderService.createCustomerOrder = async () => {
     try {
@@ -93,7 +93,7 @@ orderService.getCustomerOrders = async (userId) => {
 };
 
 /**
- * Get merchant orders
+ * Get vendor orders
  * @param userId: string
  */
 orderService.getMerchantOrders = async (userId) => {
@@ -118,7 +118,7 @@ orderService.getMerchantOrders = async (userId) => {
 };
 
 /**
- * Update Order for a merchant
+ * Update Order for a vendor
  * @param userId: string
  * @param order: object
  */
@@ -134,7 +134,7 @@ orderService.updateOrder = async (userId, order) => {
 };
 
 /**
- * Create Get merchant order by Id
+ * Create Get vendor order by Id
  * @param userId: string
  * @param orderId: string
  */
@@ -148,7 +148,7 @@ orderService.getOrderById = async (userId, orderId) => {
 };
 
 /**
- * Create Remove merchant menu
+ * Create Remove vendor menu
  * @param userId: string
  * @param orderId: string
  */

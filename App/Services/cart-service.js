@@ -70,22 +70,22 @@ cartService.addToCart = async (item) => {
             return merchantId === toMerchant
         });
 
-        // If item belongs to already present merchant in the cart
+        // If item belongs to already present vendor in the cart
         if (foundMerchantId) {
             let itemsForFoundMerchant = _.values(storedCart.to[foundMerchantId]);
             let foundItem = _.find(itemsForFoundMerchant, function (item) {
                 return item.id === orderItem.id
             });
-            // Add item count to same item being added from same merchant
+            // Add item count to same item being added from same vendor
             if (foundItem) {
                 storedCart.to[toMerchant][foundItem.id]['itemCount'] = storedCart.to[toMerchant][foundItem.id]['itemCount'] + item.itemCount;
                 AsyncStorage.setItem('cart', JSON.stringify(storedCart));
-                // Else, just add the new item under this merchant
+                // Else, just add the new item under this vendor
             } else {
                 storedCart.to[toMerchant][orderItem.id] = orderItem;
                 AsyncStorage.setItem('cart', JSON.stringify(storedCart));
             }
-            // Add a new merchant
+            // Add a new vendor
         } else {
             storedCart.to[toMerchant] = {};
             storedCart.to[toMerchant][orderItem.id] = orderItem;
@@ -175,7 +175,7 @@ cartService.checkout = async (userInfo) => {
         const orderKey = await orderRef.push().getKey();
         order.id = orderKey; //!important
 
-        // Grab customer and merchant ref to update their order's list
+        // Grab customer and vendor ref to update their order's list
         let merchantRefArray = _.keys(order.to);
         merchantRefArray.push(order.userInfo.uid);
 
@@ -186,10 +186,10 @@ cartService.checkout = async (userInfo) => {
             if (userRef === order.userInfo.uid) {
                 userOrders["orders/" + userRef + "/" + orderKey] = order
 
-                // If its a merchant, then only add info from order relevant to each merchant
+                // If its a vendor, then only add info from order relevant to each vendor
             } else {
                 let merchantOrder = Object.assign({}, order);
-                // Omit `to` ref for merchants, we dont need other merchant's info
+                // Omit `to` ref for merchants, we dont need other vendor's info
                 merchantOrder = _.omit(merchantOrder, 'to');
                 merchantOrder['itemsList'] = order.to[userRef];
                 userOrders["orders/" + userRef + "/" + orderKey] = merchantOrder

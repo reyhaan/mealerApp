@@ -1,13 +1,13 @@
 import authenticationService from '../authentication-service';
-import {merchant, customer, User} from './test-data-service';
+import {vendor, customer, User} from './test-data-service';
 import database from '../../Config/database';
 
-const merchantUser = new User(merchant);
+const merchantUser = new User(vendor);
 const customerUser = new User(customer);
 const fakeUser = {
     email: "test",
     name:"name mane",
-    type:"merchant",
+    type:"vendor",
     uid:"testUser"
 };
 

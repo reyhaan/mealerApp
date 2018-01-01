@@ -6,7 +6,7 @@ import _ from 'lodash'
 let vendor = {};
 
 /**
- * Update merchant quota
+ * Update vendor quota
  */
 
 vendor.fetchVendors = async () => {

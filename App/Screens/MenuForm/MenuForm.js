@@ -5,7 +5,7 @@ import {Header, Icon,} from 'react-native-elements'
 import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions';
+import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 import {Form, Item, Input, Label, Button} from 'native-base';
@@ -66,6 +66,10 @@ class MenuForm extends Component {
             itemImage &&
             itemCost &&
             itemCost.slice(4, itemCost.length) > 0) {
+            itemCost = itemCost.replace('$ ', '');
+
+            console.log(itemCost);
+
             this.setState({
                 itemCost: itemCost,
             }, () => {
@@ -137,18 +141,11 @@ class MenuForm extends Component {
                             </Item>
                             <Item stackedLabel>
                                 <Label>Price</Label>
-                                <TextInputMask
-                                    ref={'moneyUnit'}
-                                    type={'money'}
-                                    options={{
-                                        separator: '.',
-                                        delimiter: ',',
-                                        unit: 'CAD$ '
-                                    }}
+                                <Input
                                     value={this.state.itemCost}
                                     onChangeText={(e) => this.formUpdate('itemCost', e)}
                                     style={{width: '100%', height: 50}}
-                                    placeholder="CAD$ 0.00"
+                                    placeholder="$ 0.00"
                                     keyboardType="numeric"
                                 />
                             </Item>
@@ -212,7 +209,7 @@ const mapStateToProps = (state) => {
     return {}
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(merchantActionCreators, dispatch);
+    return bindActionCreators(vendorActionCreators, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuForm)

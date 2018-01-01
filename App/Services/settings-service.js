@@ -5,7 +5,7 @@ let SettingsService = {};
 // Update user's details
 
 /**
- * Update Order for a merchant
+ * Update Order for a vendor
  * @param userId: string
  * @param userInfo: object
  */

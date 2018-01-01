@@ -1,12 +1,12 @@
 import menuService from '../menu-service';
-import {merchant, User} from './test-data-service';
+import {vendor, User} from './test-data-service';
 import database from '../../Config/database';
 
 let createdMenu = null;
-const merchantUser = new User(merchant);
+const merchantUser = new User(vendor);
 
 afterAll(async () => {
-    // delete a merchant menu.
+    // delete a vendor menu.
     try {
         await menuService.removeMenu(merchantUser.uid, createdMenu.id);
     } catch (err) {
@@ -22,7 +22,7 @@ afterAll(async () => {
 });
 
 describe('menu-service', function () {
-    test('should create merchant menu', async () => {
+    test('should create vendor menu', async () => {
         try {
             const menu = await menuService.createMenu(merchantUser.uid, merchantUser.menu());
             expect(menu.id).toBeTruthy();
@@ -36,7 +36,7 @@ describe('menu-service', function () {
         }
     });
 
-    test('should get merchant menu', async () => {
+    test('should get vendor menu', async () => {
         try {
             const menus = await menuService.getMenu(merchantUser.uid);
             expect(menus.length).toBeGreaterThan(0);
@@ -50,7 +50,7 @@ describe('menu-service', function () {
         }
     });
 
-    test('should update merchant menu', async () => {
+    test('should update vendor menu', async () => {
         try {
             createdMenu.itemName = "john snow";
             createdMenu.itemCost = 10000.00;
@@ -65,7 +65,7 @@ describe('menu-service', function () {
         }
     });
 
-    test('should get merchant menu by Id', async () => {
+    test('should get vendor menu by Id', async () => {
         try {
             const menu = await menuService.getMenuById(merchantUser.uid, createdMenu.id);
             expect(menu.id).toEqual(createdMenu.id);

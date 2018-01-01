@@ -11,7 +11,7 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {Header} from 'react-native-elements'
 import {bindActionCreators} from 'redux'
-import {merchantActionCreators} from '../../Redux/Merchant/MerchantActions'
+import {vendorActionCreators} from '../../Redux/Vendor/VendorActions'
 
 // Styles
 const styles = OrdersTabStyle;
@@ -20,8 +20,8 @@ class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-        const {merchantActions} = this.props;
-        merchantActions.fetchMerchantOrders();
+        const {vendorActions} = this.props;
+        vendorActions.fetchMerchantOrders();
     }
 
     render() {
@@ -36,7 +36,7 @@ class Cart extends Component {
                 <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
                     <FlatList
                         style={{backgroundColor: Colors.snow, paddingTop: 5}}
-                        data={this.props.merchant.orders}
+                        data={this.props.vendor.orders}
                         renderItem={({item}) => VendorOrder(item)}/>
                 </ScrollView>
             </View>
@@ -46,12 +46,12 @@ class Cart extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        merchantActions: bindActionCreators(merchantActionCreators, dispatch),
+        vendorActions: bindActionCreators(vendorActionCreators, dispatch),
     }
 };
 
 const mapStateToProps = state => ({
-    merchant: state.merchant,
+    vendor: state.vendor,
     settings: state.settings
 });
 

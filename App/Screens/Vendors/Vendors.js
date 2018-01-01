@@ -11,7 +11,7 @@ import CooksTabStyle from './Vendors.style'
 import {Header, SearchBar, Avatar, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors,} from '../../Themes/index'
-import {vendorActionCreators} from '../../Redux/Vendors/VendorActions'
+import {vendorActionCreators} from '../../Redux/Vendor/VendorActions'
 import {LoadingSpinner} from '../../Components/index'
 
 // Styles
@@ -37,9 +37,16 @@ class Vendors extends Component {
         )
     }
 
-    _renderRow(rowData) {
+    navigateToVendorsMenu = (vendor) => {
+        this.props.navigation.navigate('VendorDetails', {selectedCook: vendor})
+    };
+
+    renderVendor = data => {
+        const vendor = data.item;
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('VendorDetails', {selectedCook: rowData})}>
+            <TouchableOpacity onPress={() => {
+                this.navigateToVendorsMenu(vendor)
+            }}>
                 <View style={styles.row}>
                     <View style={styles.rowInnerContainer}>
                         <Grid>
@@ -47,16 +54,16 @@ class Vendors extends Component {
                                 <Avatar
                                     medium
                                     rounded
-                                    source={{uri: rowData.avatar}}
+                                    source={{uri: vendor.avatar}}
                                 />
                             </Col>
                             <Col style={{paddingLeft: 5}}>
                                 <Row style={{height: 20}}>
-                                    <Text style={styles.boldLabel}>{rowData.name}</Text>
+                                    <Text style={styles.boldLabel}>{vendor.name}</Text>
                                 </Row>
                                 <Row style={{height: 18}}>
                                     <Text style={{fontSize: 12, color: Colors.charcoal}}>Cousine Type
-                                        <Text style={{fontWeight: 'bold'}}>: {rowData.cousineType}</Text>
+                                        <Text style={{fontWeight: 'bold'}}>: {vendor.cousineType}</Text>
                                     </Text>
                                 </Row>
                                 <Row style={{height: 18}}>
@@ -66,7 +73,7 @@ class Vendors extends Component {
                                             textAlign: 'left',
                                             paddingRight: 5,
                                             color: Colors.charcoal
-                                        }}>{rowData.quotaUsed} of {rowData.quotaLimit} left</Text>
+                                        }}>{vendor.quotaUsed} of {vendor.quotaLimit} left</Text>
                                     </Col>
                                 </Row>
                                 <Row style={{height: 22}}>
@@ -74,7 +81,7 @@ class Vendors extends Component {
                                         type="star"
                                         ratingColor={Colors.pink2}
                                         fractions={1}
-                                        startingValue={Number(rowData.rating)}
+                                        startingValue={Number(vendor.rating)}
                                         readonly
                                         imageSize={10}
                                         onFinishRating={this.ratingCompleted}
@@ -87,7 +94,7 @@ class Vendors extends Component {
                 </View>
             </TouchableOpacity>
         )
-    }
+    };
 
     render() {
         return (
@@ -100,8 +107,8 @@ class Vendors extends Component {
                 <LoadingSpinner show={this.props.vendors && this.props.vendors.showActivityIndicator}/>
                 <FlatList
                     contentContainerStyle={styles.listContent}
-                    data={this.props.vendors.vendors}
-                    renderItem={({item}) => this._renderRow(item)}/>
+                    data={this.props.vendor.vendors}
+                    renderItem={this.renderVendor}/>
             </View>
         )
     }
@@ -109,7 +116,7 @@ class Vendors extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        vendors: state.vendors
+        vendor: state.vendor
     }
 };
 

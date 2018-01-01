@@ -32,8 +32,8 @@ class Login extends Component {
 
             if (currentUser && currentUser.type === "customer") {
                 navigation.navigate('CustomerTab')
-            } else if (currentUser && currentUser.type === "merchant") {
-                navigation.navigate('MerchantTab')
+            } else if (currentUser && currentUser.type === "vendor") {
+                navigation.navigate('VendorTab')
             }
 
         } catch (err) {

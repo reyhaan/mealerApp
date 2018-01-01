@@ -61,15 +61,23 @@ class MenuForm extends Component {
 
     onMenuSubmit() {
         let {itemName, itemCost, itemDetail, itemImage, base64img} = this.state;
-        if (itemName &&
-            itemDetail &&
-            itemImage &&
-            itemCost &&
-            itemCost.slice(4, itemCost.length) > 0) {
+
+        if (!itemName) {
+            Alert.alert("Missing item name")
+        }
+        else if (!itemCost) {
+            Alert.alert("Missing item cost")
+        }
+        else if (!itemDetail) {
+            Alert.alert("Missing item details")
+        }
+        else if (!itemImage) {
+            Alert.alert("Missing item image")
+        }
+        else {
             itemCost = itemCost.replace('$ ', '');
-
-            console.log(itemCost);
-
+            itemCost = Number(itemCost);
+            itemCost = parseFloat(itemCost).toFixed(2);
             this.setState({
                 itemCost: itemCost,
             }, () => {
@@ -80,9 +88,6 @@ class MenuForm extends Component {
                 }
                 this.props.navigation.dispatch(NavigationActions.back())
             });
-        }
-        else {
-            Alert.alert("Please check menu values")
         }
     }
 
@@ -120,8 +125,8 @@ class MenuForm extends Component {
 
     render() {
         //Set the item image or show a placeholder
-        let image = this.state.itemImage ? {uri: this.state.itemImage} : {uri: Images.addImagePlaceHolder} ;
-        
+        let image = this.state.itemImage ? {uri: this.state.itemImage} : {uri: Images.addImagePlaceHolder};
+
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <ScrollView style={styles.container}>
@@ -142,6 +147,7 @@ class MenuForm extends Component {
                             <Item stackedLabel>
                                 <Label>Price</Label>
                                 <Input
+                                    ref={'moneyUnit'}
                                     value={this.state.itemCost}
                                     onChangeText={(e) => this.formUpdate('itemCost', e)}
                                     style={{width: '100%', height: 50}}

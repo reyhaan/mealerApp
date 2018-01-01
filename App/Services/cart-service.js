@@ -1,38 +1,39 @@
 import db from '../Config/database'
+import authenticationService from './authentication-service'
 import {AsyncStorage} from 'react-native';
 import _ from 'lodash'
 
 let cartService = {};
 
-/**
- * Get latest cart from session
- */
-cartService.getCart = () => {
-    return new Promise((resolve, reject) => {
-        AsyncStorage.getItem("cart").then((value) => {
-            let cart = JSON.parse(value);
+cartService.getCart = async () => {
+    try {
+        const currentUser = await authenticationService.currentUser();
+        if (currentUser && currentUser.type === "customer") {
+            let storedCart = await AsyncStorage.getItem('cart');
+            let cart = JSON.parse(storedCart);
             if (cart && cart.to) {
                 cart.isEmpty = _.isEmpty(cart.to);
                 if (!cart.isEmpty) {
                     let itemsForAllMerchants = _.values(cart.to);
                     cart.cost = 0;
-                    _.each(itemsForAllMerchants, function (itemFromOneMerchant) {
+                    _.each(itemsForAllMerchants, (itemFromOneMerchant) => {
                         let itemArray = _.values(itemFromOneMerchant);
-                        _.each(itemArray, function (item) {
-                            cart.cost = cart.cost + (item.itemCost).toFixed(2) * (item.itemCount);
+                        _.each(itemArray, (item) => {
+                            cart.cost = cart.cost + item.itemCost * (item.itemCount);
                         })
                     });
                 }
+                cart.cost = parseFloat(cart.cost).toFixed(2);
             } else {
                 cart = {isEmpty: true};
             }
 
-            cart.cost = parseFloat(cart.cost).toFixed(2);
-            resolve(cart);
-        }).catch(error => {
-            reject(error);
-        })
-    });
+            return Promise.resolve(cart);
+        }
+    }
+    catch (error) {
+        return Promise.reject(error);
+    }
 };
 
 /**
@@ -55,7 +56,6 @@ cartService.addToCart = async (item) => {
 
     let cart = await AsyncStorage.getItem('cart');
     let storedCart = JSON.parse(cart);
-
     // if there is no cart, populate one
     if (storedCart === null && _.keys(storedCart).length === 0) {
         let order = {

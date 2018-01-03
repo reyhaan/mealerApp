@@ -127,9 +127,9 @@ orderService.updateOrderStatus = async (order) => {
         const ordersFromCustomerRef = db.ordersFromCustomer(order.ordersFromCustomerId);
         await orderToVendorRef.child('status').set(order.status);
         await ordersFromCustomerRef.child('ordersToVendor').child(order.id).child('status').set(order.status);
-        return Promise.resolve(true);
+        return Promise.resolve();
     } catch (error) {
-        return {error};
+        return Promise.reject(error);
     }
 };
 

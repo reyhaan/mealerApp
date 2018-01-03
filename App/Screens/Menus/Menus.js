@@ -39,11 +39,8 @@ class MenuTab extends Component {
         this.props.navigation.navigate("MenuForm", {item})
     };
 
-    fetchMenu = async () => {
-        const currentUser = await authenticationService.currentUser();
-        if (currentUser) {
-            this.props.fetchMerchantMenu(currentUser.uid);
-        }
+    fetchMenu = () => {
+        this.props.fetchMerchantMenu();
     };
 
     _renderItem = (data) => {

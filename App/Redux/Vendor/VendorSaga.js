@@ -9,10 +9,11 @@ import {vendorActionCreators} from './VendorActions'
 
 const vendorEffects = {};
 
-vendorEffects.fetchMerchantMenu = function* (vendor) {
+vendorEffects.fetchMerchantMenu = function* () {
     try {
         yield put(vendorActionCreators.showActivityIndicator(true));
-        const menus = yield call(menuService.getMenu, vendor.data);
+        const user = yield call(authentication.currentUser);
+        const menus = yield call(menuService.getMenu, user.uid);
         yield put(vendorActionCreators.fetchMenuSuccessful(menus))
     } catch (error) {
         Alert.alert('Error', error.message,)
@@ -107,7 +108,7 @@ vendorEffects.updateRating = function* (ratingData) {
     }
 };
 
-vendorEffects.fetchMerchantOrders = function* () {
+vendorEffects.fetchVendorOrders = function* () {
     try {
         const user = yield call(authentication.currentUser);
         yield put(vendorActionCreators.showActivityIndicator(true));

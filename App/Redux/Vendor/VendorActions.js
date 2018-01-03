@@ -30,7 +30,7 @@ export const vendorActionCreators = {
     removeMenu: (data)=> createAction(vendorActions.REMOVE_MENU, data),
     showActivityIndicator: (data)=> createAction(vendorActions.SHOW_ACTIVITY_INDICATOR, data),
     updateRating: (data) => createAction(vendorActions.UPDATE_RATING, data),
-    fetchMerchantOrders: () => createAction(vendorActions.FETCH_MERCHANT_ORDERS),
+    fetchVendorOrders: () => createAction(vendorActions.FETCH_MERCHANT_ORDERS),
     updateMerchantOrders: (data) => createAction(vendorActions.UPDATE_MERCHANT_ORDERS, data),
     fetchVendors: ()=> createAction(vendorActions.FETCH_VENDORS),
     updateVendors: (data) => createAction(vendorActions.UPDATE_VENDORS, data),
@@ -43,6 +43,6 @@ export const vendorActionWatchers = [
     takeLatest(vendorActions.UPDATE_MENU, VendorSaga.updateMenu),
     takeLatest(vendorActions.REMOVE_MENU, VendorSaga.removeMenu),
     takeLatest(vendorActions.UPDATE_RATING, VendorSaga.updateRating),
-    takeLatest(vendorActions.FETCH_MERCHANT_ORDERS, VendorSaga.fetchMerchantOrders),
+    takeLatest(vendorActions.FETCH_MERCHANT_ORDERS, VendorSaga.fetchVendorOrders),
     takeLatest(vendorActions.FETCH_VENDORS, VendorSaga.fetchVendors)
 ];

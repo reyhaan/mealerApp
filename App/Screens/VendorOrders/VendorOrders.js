@@ -20,9 +20,16 @@ class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-        const {vendorActions} = this.props;
-        vendorActions.fetchMerchantOrders();
+        this.getVendorOrders();
+        this.state = {
+            refreshing: false
+        }
     }
+
+    getVendorOrders = () => {
+        const {vendorActions} = this.props;
+        vendorActions.fetchVendorOrders();
+    };
 
     render() {
         return (
@@ -37,7 +44,9 @@ class Cart extends Component {
                     <FlatList
                         style={{backgroundColor: Colors.snow, paddingTop: 5}}
                         data={this.props.vendor.orders}
-                        renderItem={VendorOrder}/>
+                        refreshing={this.state.refreshing}
+                        onRefresh={() => this.getVendorOrders()}
+                        renderItem={({item}) => <VendorOrder order={item}/>}/>
                 </ScrollView>
             </View>
         )

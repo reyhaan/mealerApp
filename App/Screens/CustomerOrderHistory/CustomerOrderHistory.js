@@ -26,22 +26,8 @@ class CustomerOrderHistory extends Component {
         }
     }
 
-    componentWillReceiveProps = (newProps) => {
-        let {orders} = newProps;
-        if (orders) {
-            this.initializeOrders(orders)
-        }
-    };
-
     componentDidMount = () => {
         this.props.getOrders(this.props.user.uid)
-    };
-
-    initializeOrders = (orders) => {
-        orders.reverse();
-        this.setState({
-            orders: orders
-        })
     };
 
     backButton = () => {

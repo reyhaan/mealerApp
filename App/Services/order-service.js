@@ -118,18 +118,18 @@ orderService.getMerchantOrders = async (userId) => {
 };
 
 /**
- * Update Order for a vendor
- * @param userId: string
+ * Update Order status
  * @param order: object
  */
-orderService.updateOrder = async (userId, order) => {
+orderService.updateOrderStatus = async (order) => {
     try {
-        const userOrderRef = db.orders(userId).child(order.id);
-        await userOrderRef.update(order);
-        const orderSnapshot = await userOrderRef.once('value');
-        return {id: orderSnapshot.key, ...orderSnapshot.val()};
+        const orderToVendorRef = db.ordersToVendor(order.id);
+        const ordersFromCustomerRef = db.ordersFromCustomer(order.ordersFromCustomerId);
+        await orderToVendorRef.child('status').set(order.status);
+        await ordersFromCustomerRef.child('ordersToVendor').child(order.id).child('status').set(order.status);
+        return Promise.resolve();
     } catch (error) {
-        return {error};
+        return Promise.reject(error);
     }
 };
 

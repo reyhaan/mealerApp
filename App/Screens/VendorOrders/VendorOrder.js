@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, TouchableOpacity} from 'react-native';
+import {View, FlatList, Alert} from 'react-native';
 import {Avatar, Badge} from 'react-native-elements';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import moment from 'moment';
@@ -55,6 +55,20 @@ const _setButtonColor = (index) => {
         default:
             return Colors.snow
     }
+};
+
+const acceptOrder = (order) => {
+    console.log(order);
+    console.log("accept order");
+    Alert.alert(
+        order.customer.name ,
+        'Are you you want to accept order',
+        [
+            {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        { cancelable: false }
+    )
 };
 
 const renderItem = (data) => {
@@ -126,7 +140,7 @@ export default (data) => {
                     </Row>
                     <Row style={styles.statusUpdateContainer}>
                         <Col style={styles.statusUpdateButton}>
-                            <Button small block success>
+                            <Button small block primary onPress={() => acceptOrder(order)}>
                                 <Text>Accept</Text>
                             </Button>
                         </Col>

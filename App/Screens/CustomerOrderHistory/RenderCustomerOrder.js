@@ -16,7 +16,9 @@ let _calculateTotalCost = (rowData) => {
     return parseFloat(total).toFixed(2);
 };
 
-let RenderItems = (rowData) => {
+let RenderItems = (data) => {
+    const {item} = data;
+    const rowData = item;
     return (
         <Grid style={style.vendorOrderItemsContainer}>
             <Row style={{height: 25}}>
@@ -36,7 +38,9 @@ let RenderItems = (rowData) => {
     )
 };
 
-let RenderVendorOrder = order => {
+let RenderVendorOrder = data => {
+    const {item} = data;
+    const order = item;
     return (
         <Col>
             <Col style={{paddingTop: 0, backgroundColor: Colors.snow}}>
@@ -69,7 +73,7 @@ let RenderVendorOrder = order => {
                     style={style.vendorOrderContainer}
                     contentContainerStyle={style.listContent}
                     data={order.items}
-                    renderItem={({item}) => RenderItems(item)}
+                    renderItem={RenderItems}
                 />
 
                 <Row style={{backgroundColor: Colors.snow, paddingBottom: 25, paddingTop: 10}}>
@@ -105,7 +109,7 @@ export default order => {
                 <FlatList
                     style={{backgroundColor: Colors.snow}}
                     data={order.ordersToVendor}
-                    renderItem={({item}) => RenderVendorOrder(item)}/>
+                    renderItem={RenderVendorOrder}/>
             </Col>
         </Col>
     )

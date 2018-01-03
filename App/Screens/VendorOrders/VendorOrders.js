@@ -37,7 +37,7 @@ class Cart extends Component {
                     <FlatList
                         style={{backgroundColor: Colors.snow, paddingTop: 5}}
                         data={this.props.vendor.orders}
-                        renderItem={({item}) => VendorOrder(item)}/>
+                        renderItem={VendorOrder}/>
                 </ScrollView>
             </View>
         )

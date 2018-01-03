@@ -5,11 +5,6 @@ export default StyleSheet.create({
     container: {
         flex: 1
     },
-    listContainer: {
-        flex: 1,
-        backgroundColor: Colors.snow,
-        flexDirection: 'column',
-    },
     row: {
         flex: 1,
         backgroundColor: Colors.clear,
@@ -42,10 +37,6 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: Colors.snow
     },
-    listContent: {
-        marginTop: 0,
-        paddingBottom: 10
-    },
     orderCardContainer: {
         paddingBottom: 30,
         paddingTop: 0,
@@ -72,6 +63,11 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 14,
         color: Colors.gray
+    },
+    customerName: {
+        fontWeight: 'bold',
+        fontSize: 14,
+        color: Colors.background
     },
     customerNameContainer: {
         paddingLeft: 10,
@@ -110,7 +106,6 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
     customerTotalCostContainer: {
-        marginTop: 12,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-end',
@@ -124,5 +119,12 @@ export default StyleSheet.create({
     customerTotalCostText: {
         color: Colors.coal,
         fontWeight: 'bold'
+    },
+    statusUpdateContainer: {
+        margin:5,
+    },
+    statusUpdateButton: {
+        marginLeft:5,
+        marginRight:5,
     }
 });

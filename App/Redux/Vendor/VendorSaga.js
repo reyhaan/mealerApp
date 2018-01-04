@@ -9,7 +9,7 @@ import {vendorActionCreators} from './VendorActions'
 
 const vendorEffects = {};
 
-vendorEffects.fetchMerchantMenu = function* () {
+vendorEffects.fetchVendorMenu = function* () {
     try {
         yield put(vendorActionCreators.showActivityIndicator(true));
         const user = yield call(authentication.currentUser);

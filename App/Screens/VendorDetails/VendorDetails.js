@@ -22,8 +22,8 @@ import {NavigationActions} from 'react-navigation'
 import SnackBar from 'react-native-snackbar-component';
 
 class VendorAddress extends Component {
-    render () {
-        if (this.props.address){
+    render() {
+        if (this.props.address) {
             return (
                 <View>
                     <Row style={{
@@ -47,8 +47,8 @@ class VendorAddress extends Component {
 }
 
 class VendorPhone extends Component {
-    render () {
-        if (this.props.phone){
+    render() {
+        if (this.props.phone) {
             return (
                 <View>
                     <Row style={{
@@ -72,8 +72,8 @@ class VendorPhone extends Component {
 }
 
 class VendorEmail extends Component {
-    render () {
-        if (this.props.email){
+    render() {
+        if (this.props.email) {
             return (
                 <View>
                     <Row style={{
@@ -118,8 +118,11 @@ class VendorDetails extends Component {
 
     componentDidMount() {
         const {state} = this.props.navigation;
+
+        console.log(state);
+
         if (state.params && state.params.selectedCook) {
-            this.props.fetchMerchantMenu(state.params.selectedCook.uid);
+            this.props.vendorActions.fetchVendorMenu(state.params.selectedCook.uid);
             this.setState({
                 activeMerchant: state.params.selectedCook
             })
@@ -153,7 +156,7 @@ class VendorDetails extends Component {
             rating: rating,
             merchantId: this.state.activeMerchant.uid
         };
-        this.props.updateRating(ratingData);
+        this.props.vendorActions.updateRating(ratingData);
 
         this.setState({showToast: true, toastMessage: 'Rating applied!'}, () =>
             setTimeout(() => {
@@ -163,7 +166,7 @@ class VendorDetails extends Component {
 
     _renderChefDetails = () => {
         let ratingStartingValue = 5;
-        if (this.state.activeMerchant.rating && this.state.activeMerchant.rating.cumulativeRating){
+        if (this.state.activeMerchant.rating && this.state.activeMerchant.rating.cumulativeRating) {
             ratingStartingValue = this.state.activeMerchant.rating.cumulativeRating / this.state.activeMerchant.rating.numberOfRatings || 2.5;
         }
 
@@ -259,6 +262,9 @@ class VendorDetails extends Component {
     render() {
         // Set the key for the menu
         let {menus} = this.props.vendor;
+
+        // console.log(this.props.vendor);
+
         if (this.props.vendor && this.props.vendor.menus) {
             menus = this.props.vendor.menus.map(menu => {
                 menu.key = menu.id;
@@ -338,11 +344,10 @@ class VendorDetails extends Component {
 
                 </ScrollView>
 
-                <SnackBar
-                    visible={this.state.showToast}
-                    textMessage={this.state.toastMessage}
-                    bottom={0} position='bottom' backgroundColor='#272A2F'
-                />
+                <SnackBar visible={this.state.showToast}
+                          textMessage={this.state.toastMessage}
+                          bottom={0}
+                          position='bottom' backgroundColor='#272A2F'/>
             </Col>
         )
     }
@@ -357,6 +362,9 @@ const mapStateToProps = (state) => {
     }
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(Object.assign({}, vendorActionCreators, cartActionCreators), dispatch);
+    return {
+        vendorActions: bindActionCreators(vendorActionCreators, dispatch),
+        cartActions: bindActionCreators(cartActionCreators, dispatch)
+    }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(VendorDetails)

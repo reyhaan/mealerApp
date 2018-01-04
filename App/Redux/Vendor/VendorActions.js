@@ -4,7 +4,7 @@ import VendorSaga from './VendorSaga';
 
 /******************************* ACTIONS *************************************/
 export const vendorActions = {
-    FETCH_MERCHANT_MENU : 'MERCHANT_MENU',
+    FETCH_VENDOR_MENU : 'FETCH_VENDOR_MENU',
     FETCH_MENU_SUCCESSFUL : 'FETCH_MENU_SUCCESSFUL',
     CREATE_MENU : "CREATE_MENU",
     UPDATE_MENU : "UPDATE_MENU",
@@ -23,7 +23,7 @@ function createAction(type, data) {
 }
 
 export const vendorActionCreators = {
-    fetchMerchantMenu: (data)=> createAction(vendorActions.FETCH_MERCHANT_MENU, data),
+    fetchVendorMenu: (data)=> createAction(vendorActions.FETCH_VENDOR_MENU, data),
     fetchMenuSuccessful: (data)=> createAction(vendorActions.FETCH_MENU_SUCCESSFUL, data),
     createMenu: (data)=> createAction(vendorActions.CREATE_MENU, data),
     updateMenu: (data)=> createAction(vendorActions.UPDATE_MENU, data),
@@ -38,7 +38,7 @@ export const vendorActionCreators = {
 
 /******************************* SAGA WATCHERS *************************************/
 export const vendorActionWatchers = [
-    takeLatest(vendorActions.FETCH_MERCHANT_MENU, VendorSaga.fetchMerchantMenu),
+    takeLatest(vendorActions.FETCH_VENDOR_MENU, VendorSaga.fetchVendorMenu),
     takeLatest(vendorActions.CREATE_MENU, VendorSaga.createMenu),
     takeLatest(vendorActions.UPDATE_MENU, VendorSaga.updateMenu),
     takeLatest(vendorActions.REMOVE_MENU, VendorSaga.removeMenu),

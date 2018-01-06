@@ -4,7 +4,7 @@ import VendorSaga from './VendorSaga';
 
 /******************************* ACTIONS *************************************/
 export const vendorActions = {
-    FETCH_MERCHANT_MENU : 'MERCHANT_MENU',
+    FETCH_VENDOR_MENU : 'FETCH_VENDOR_MENU',
     FETCH_MENU_SUCCESSFUL : 'FETCH_MENU_SUCCESSFUL',
     CREATE_MENU : "CREATE_MENU",
     UPDATE_MENU : "UPDATE_MENU",
@@ -14,6 +14,8 @@ export const vendorActions = {
     UPDATE_MERCHANT_ORDERS: "UPDATE_MERCHANT_ORDERS",
     FETCH_VENDORS : 'FETCH_VENDORS',
     UPDATE_VENDORS: 'UPDATE_VENDORS',
+    GET_SELECTED_VENDOR: 'GET_SELECTED_VENDOR',
+    SET_SELECTED_VENDOR: 'SET_SELECTED_VENDOR',
     SHOW_ACTIVITY_INDICATOR: 'SHOW_ACTIVITY_INDICATOR'
 };
 
@@ -23,7 +25,7 @@ function createAction(type, data) {
 }
 
 export const vendorActionCreators = {
-    fetchMerchantMenu: (data)=> createAction(vendorActions.FETCH_MERCHANT_MENU, data),
+    fetchVendorMenu: (data)=> createAction(vendorActions.FETCH_VENDOR_MENU, data),
     fetchMenuSuccessful: (data)=> createAction(vendorActions.FETCH_MENU_SUCCESSFUL, data),
     createMenu: (data)=> createAction(vendorActions.CREATE_MENU, data),
     updateMenu: (data)=> createAction(vendorActions.UPDATE_MENU, data),
@@ -34,15 +36,18 @@ export const vendorActionCreators = {
     updateMerchantOrders: (data) => createAction(vendorActions.UPDATE_MERCHANT_ORDERS, data),
     fetchVendors: ()=> createAction(vendorActions.FETCH_VENDORS),
     updateVendors: (data) => createAction(vendorActions.UPDATE_VENDORS, data),
+    getSelectedVendor: (data) => createAction(vendorActions.GET_SELECTED_VENDOR, data),
+    setSelectedVendor: (data) => createAction(vendorActions.SET_SELECTED_VENDOR, data),
 };
 
 /******************************* SAGA WATCHERS *************************************/
 export const vendorActionWatchers = [
-    takeLatest(vendorActions.FETCH_MERCHANT_MENU, VendorSaga.fetchMerchantMenu),
+    takeLatest(vendorActions.FETCH_VENDOR_MENU, VendorSaga.fetchVendorMenu),
     takeLatest(vendorActions.CREATE_MENU, VendorSaga.createMenu),
     takeLatest(vendorActions.UPDATE_MENU, VendorSaga.updateMenu),
     takeLatest(vendorActions.REMOVE_MENU, VendorSaga.removeMenu),
     takeLatest(vendorActions.UPDATE_RATING, VendorSaga.updateRating),
     takeLatest(vendorActions.FETCH_MERCHANT_ORDERS, VendorSaga.fetchVendorOrders),
-    takeLatest(vendorActions.FETCH_VENDORS, VendorSaga.fetchVendors)
+    takeLatest(vendorActions.FETCH_VENDORS, VendorSaga.fetchVendors),
+    takeLatest(vendorActions.GET_SELECTED_VENDOR, VendorSaga.getSelectedVendor),
 ];

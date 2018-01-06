@@ -37,15 +37,13 @@ class Vendors extends Component {
         )
     }
 
-    navigateToVendorsMenu = (vendor) => {
-        this.props.navigation.navigate('VendorDetails', {selectedCook: vendor})
-    };
-
     renderVendor = data => {
         const vendor = data.item;
         return (
             <TouchableOpacity onPress={() => {
-                this.navigateToVendorsMenu(vendor)
+                this.props.vendorActions.setSelectedVendor(vendor);
+                this.props.vendorActions.getSelectedVendor(vendor);
+                this.props.navigation.navigate('VendorDetails');
             }}>
                 <View style={styles.row}>
                     <View style={styles.rowInnerContainer}>

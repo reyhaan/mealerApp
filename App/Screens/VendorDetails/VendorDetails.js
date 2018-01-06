@@ -20,81 +20,9 @@ import {bindActionCreators} from 'redux';
 import {UserProfileHeader, AddToCartModal} from '../../Components/index'
 import {NavigationActions} from 'react-navigation'
 import SnackBar from 'react-native-snackbar-component';
-
-class VendorAddress extends Component {
-    render () {
-        if (this.props.address){
-            return (
-                <View>
-                    <Row style={{
-                        borderBottomColor: Colors.steel,
-                        borderBottomWidth: 1,
-                        paddingBottom: 10,
-                        marginBottom: 10
-                    }}>
-                        <Text style={{color: Colors.gray, fontWeight: 'bold'}}>ADDRESS</Text>
-                    </Row>
-
-                    <Row style={{marginBottom: 20}}>
-                        <Text>{this.props.address}</Text>
-                    </Row>
-                </View>
-            )
-        } else {
-            return null
-        }
-    }
-}
-
-class VendorPhone extends Component {
-    render () {
-        if (this.props.phone){
-            return (
-                <View>
-                    <Row style={{
-                        borderBottomColor: Colors.steel,
-                        borderBottomWidth: 1,
-                        paddingBottom: 10,
-                        marginBottom: 10
-                    }}>
-                        <Text style={{color: Colors.gray, fontWeight: 'bold'}}>PHONE</Text>
-                    </Row>
-
-                    <Row style={{marginBottom: 20}}>
-                        <Text>{this.props.phone}</Text>
-                    </Row>
-                </View>
-            )
-        } else {
-            return null
-        }
-    }
-}
-
-class VendorEmail extends Component {
-    render () {
-        if (this.props.email){
-            return (
-                <View>
-                    <Row style={{
-                        borderBottomColor: Colors.steel,
-                        borderBottomWidth: 1,
-                        paddingBottom: 10,
-                        marginBottom: 10
-                    }}>
-                        <Text style={{color: Colors.gray, fontWeight: 'bold'}}>EMAIL</Text>
-                    </Row>
-
-                    <Row style={{marginBottom: 20}}>
-                        <Text>{this.props.email}</Text>
-                    </Row>
-                </View>
-            )
-        } else {
-            return null
-        }
-    }
-}
+import VendorEmail from './VendorEmail';
+import VendorAddress from './VendorAddress';
+import VendorPhone from './VendorPhone';
 
 class VendorDetails extends Component {
     constructor(props) {
@@ -103,47 +31,32 @@ class VendorDetails extends Component {
         this.state = {
             showMenu: true,
             showDetails: false,
-            islistMode: false,
-            isFullMode: true,
-            isModalVisible: false,
-            activeItem: {
+            showSelectedItem: false,
+            selectedItem: {
                 itemName: '',
                 itemImage: '',
                 itemDetail: '',
                 itemCost: ''
-            },
-            activeMerchant: ''
+            }
         }
     }
 
-    componentDidMount() {
-        const {state} = this.props.navigation;
-        if (state.params && state.params.selectedCook) {
-            this.props.fetchMerchantMenu(state.params.selectedCook.uid);
-            this.setState({
-                activeMerchant: state.params.selectedCook
-            })
-        }
-    }
+    componentDidMount() {}
 
-    _showModal = () => {
-        this.props.hideAddToCartModal(false);
-    };
-
-    onPress = (mode, activeItem) => {
+    selectVendorItem = (mode, selectedItem) => {
         switch (mode) {
             case 'list':
                 this.setState({
-                    activeItem: activeItem
+                    selectedItem: selectedItem,
+                    showSelectedItem: true
                 });
-                this._showModal();
                 break;
             // TODO: made 2 cases because I want to apply transitions instead of dialog box
             case 'full':
                 this.setState({
-                    activeItem: activeItem
+                    selectedItem: selectedItem,
+                    showSelectedItem: true
                 });
-                this._showModal();
                 break;
         }
     };
@@ -151,9 +64,9 @@ class VendorDetails extends Component {
     ratingCompleted = (rating) => {
         let ratingData = {
             rating: rating,
-            merchantId: this.state.activeMerchant.uid
+            merchantId: this.props.vendor.selectedVendor.uid
         };
-        this.props.updateRating(ratingData);
+        this.props.vendorActions.updateRating(ratingData);
 
         this.setState({showToast: true, toastMessage: 'Rating applied!'}, () =>
             setTimeout(() => {
@@ -161,10 +74,16 @@ class VendorDetails extends Component {
             }, 2000))
     };
 
+    closeSelectedItemModal = () => {
+        this.setState({
+            showSelectedItem: false
+        });
+    };
+
     _renderChefDetails = () => {
         let ratingStartingValue = 5;
-        if (this.state.activeMerchant.rating && this.state.activeMerchant.rating.cumulativeRating){
-            ratingStartingValue = this.state.activeMerchant.rating.cumulativeRating / this.state.activeMerchant.rating.numberOfRatings || 2.5;
+        if (this.props.vendor.selectedVendor.rating && this.props.vendor.selectedVendor.rating.cumulativeRating) {
+            ratingStartingValue = this.props.vendor.selectedVendor.rating.cumulativeRating / this.props.vendor.selectedVendor.rating.numberOfRatings || 2.5;
         }
 
         return (
@@ -189,16 +108,16 @@ class VendorDetails extends Component {
                     <Text style={{color: Colors.gray, fontSize: 10}}>slide over to rate</Text>
                 </Row>
 
-                <VendorAddress address={this.state.activeMerchant.address}/>
-                <VendorPhone phone={this.state.activeMerchant.phone}/>
-                <VendorEmail email={this.state.activeMerchant.email}/>
+                <VendorAddress address={this.props.vendor.selectedVendor.address}/>
+                <VendorPhone phone={this.props.vendor.selectedVendor.phone}/>
+                <VendorEmail email={this.props.vendor.selectedVendor.email}/>
             </Col>
         )
     };
 
     renderVendorItem = (item) => {
         return (
-            <TouchableOpacity onPress={() => this.onPress('full', item)} style={style.fullModeItemContainer}>
+            <TouchableOpacity onPress={() => this.selectVendorItem('full', item)} style={style.fullModeItemContainer}>
                 <Grid>
                     <Row style={{height: 200}}>
                         <View style={{
@@ -257,15 +176,6 @@ class VendorDetails extends Component {
     };
 
     render() {
-        // Set the key for the menu
-        let {menus} = this.props.vendor;
-        if (this.props.vendor && this.props.vendor.menus) {
-            menus = this.props.vendor.menus.map(menu => {
-                menu.key = menu.id;
-                return menu
-            });
-        }
-
         return (
             <Col>
                 <Header
@@ -276,10 +186,12 @@ class VendorDetails extends Component {
                 />
                 <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
 
-                    <AddToCartModal visible={!this.props.shouldHideAddToCartModal}
-                                    activeItem={this.state.activeItem}
-                                    activeMerchant={this.state.activeMerchant}/>
-                    <UserProfileHeader navigation={this.props.navigation} user={this.state.activeMerchant}/>
+                    <AddToCartModal showSelectedItem={this.state.showSelectedItem}
+                                    selectedItem={this.state.selectedItem}
+                                    closeSelectedItemModal={this.closeSelectedItemModal}
+                                    selectedVendor={this.props.vendor.selectedVendor}/>
+
+                    <UserProfileHeader user={this.props.vendor.selectedVendor}/>
 
                     <View style={{
                         height: 50,
@@ -332,17 +244,16 @@ class VendorDetails extends Component {
                     {this.state.showMenu &&
                     <FlatList
                         style={{backgroundColor: Colors.backgroundGray, paddingTop: 10}}
-                        data={menus}
+                        data={this.props.vendor.selectedVendor.menus}
                         renderItem={({item}) => this.renderVendorItem(item)}
                     />}
 
                 </ScrollView>
 
-                <SnackBar
-                    visible={this.state.showToast}
-                    textMessage={this.state.toastMessage}
-                    bottom={0} position='bottom' backgroundColor='#272A2F'
-                />
+                <SnackBar visible={this.state.showToast}
+                          textMessage={this.state.toastMessage}
+                          bottom={0}
+                          position='bottom' backgroundColor='#272A2F'/>
             </Col>
         )
     }
@@ -353,10 +264,12 @@ const mapStateToProps = (state) => {
         vendor: state.vendor,
         menu: state.menu,
         auth: state.auth,
-        shouldHideAddToCartModal: (state.cart.shouldHideAddToCartModal === undefined) || (state.cart.shouldHideAddToCartModal === null) ? true : state.cart.shouldHideAddToCartModal
     }
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(Object.assign({}, vendorActionCreators, cartActionCreators), dispatch);
+    return {
+        vendorActions: bindActionCreators(vendorActionCreators, dispatch),
+        cartActions: bindActionCreators(cartActionCreators, dispatch)
+    }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(VendorDetails)

@@ -23,6 +23,10 @@ export function vendor(state=initialState, action){
             return Object.assign({}, state, {
                 vendors: action.data,
             });
+        case vendorActions.SET_SELECTED_VENDOR:
+            return Object.assign({}, state, {
+                selectedVendor: action.data,
+            });
         default:
             return state
     }

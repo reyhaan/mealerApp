@@ -9,7 +9,7 @@ import {vendorActionCreators} from './VendorActions'
 
 const vendorEffects = {};
 
-vendorEffects.fetchMerchantMenu = function* () {
+vendorEffects.fetchVendorMenu = function* () {
     try {
         yield put(vendorActionCreators.showActivityIndicator(true));
         const user = yield call(authentication.currentUser);
@@ -35,6 +35,20 @@ vendorEffects.fetchVendors = function* () {
     }
 };
 
+vendorEffects.getSelectedVendor = function* (action) {
+    try {
+        yield put(vendorActionCreators.showActivityIndicator(true));
+
+        let vendor = action.data;
+        vendor.menus = yield call(menuService.getMenu, vendor.uid);
+        yield put(vendorActionCreators.setSelectedVendor(vendor));
+    } catch (error) {
+        Alert.alert('Error', error.message)
+    } finally {
+        yield put(vendorActionCreators.showActivityIndicator(false));
+    }
+};
+
 vendorEffects.createMenu = function* (menu) {
     try {
         const user = yield call(authentication.currentUser);
@@ -46,7 +60,7 @@ vendorEffects.createMenu = function* (menu) {
         delete data.base64img; // !important
         yield put(vendorActionCreators.showActivityIndicator(true));
         yield call(menuService.createMenu, user.uid, data);
-        yield put(vendorActionCreators.fetchMerchantMenu(user.uid));
+        yield put(vendorActionCreators.fetchVendorMenu(user.uid));
     }
     catch (error) {
         Alert.alert('Error', error.message)
@@ -67,7 +81,7 @@ vendorEffects.updateMenu = function* (menu) {
         delete data.base64img; // !important
         yield put(vendorActionCreators.showActivityIndicator(true));
         yield call(menuService.updateMenu, user.uid, menu.data);
-        yield put(vendorActionCreators.fetchMerchantMenu(user.uid));
+        yield put(vendorActionCreators.fetchVendorMenu(user.uid));
     }
     catch (error) {
         Alert.alert('Error', error.message)
@@ -82,7 +96,7 @@ vendorEffects.removeMenu = function* (menu) {
         yield put(vendorActionCreators.showActivityIndicator(true));
         const user = yield call(authentication.currentUser);
         yield call(menuService.removeMenu, user.uid, menu.data.id);
-        yield put(vendorActionCreators.fetchMerchantMenu(user.uid));
+        yield put(vendorActionCreators.fetchVendorMenu(user.uid));
     }
     catch (error) {
         Alert.alert('Error', error.message)

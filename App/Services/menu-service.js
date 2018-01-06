@@ -61,8 +61,9 @@ menuService.getMenu = async (userId) => {
         let menusSnapshot = await db.menus(userId).once('value');
         menusSnapshot.forEach(function (childSnapshot) {
             let id = childSnapshot.key;
+            let key = childSnapshot.key;
             let data = childSnapshot.val();
-            menus.push({id, ...data});
+            menus.push({id,key, ...data});
         });
         return menus;
     } catch (error) {

@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native'
-import {ImagePicker} from 'expo';
-import {Colors, Fonts, Images} from '../Themes'
+import {View, Text, Image, ScrollView} from 'react-native'
+import {Colors} from '../Themes'
 import {Button} from 'native-base';
 import style from './Styles/AddToCartModalStyle'
 import Modal from 'react-native-modal'
 import {Col, Row, Grid} from 'react-native-easy-grid'
-import {Header, Avatar, Icon} from 'react-native-elements'
+import {Icon} from 'react-native-elements'
 import { AddToCartButton } from './index';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -16,49 +15,32 @@ import { Constants } from '../Utils/Constants'
 class AddToCartModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            activeMerchant: '',
-            activeItem: '',
-            isModalVisible: false
-        }
     }
 
-    componentWillReceiveProps(newProps) {
-        this.setState({
-            isModalVisible: newProps.visible,
-            activeItem: newProps.activeItem,
-            activeMerchant: newProps.activeMerchant
-        })
-    }
+    addItemToCart = (itemCount) => {
 
-    _hideModal = () => {
-        this.props.hideAddToCartModal(true)
-        this.setState({
-            isModalVisible: false
-        })
-    }
-
-    addToCartButtonCallback = (itemCount) => {
         let orderItem = {
             from: this.props.user.uid,
-            to: this.state.activeMerchant.uid,
-            item: this.state.activeItem,
+            to: this.props.selectedVendor.uid,
+            item: Object.assign({}, this.props.selectedItem), // !important if not we get a circular dependency
             itemCount: itemCount,
             status: Constants.orderStatus.new,
-            merchantInfo: this.state.activeMerchant
-        }
-        this.props.addToCart(orderItem)
-    }
+            merchantInfo: this.props.selectedVendor
+        };
+
+        this.props.cartActions.addToCart(orderItem);
+        this.props.closeSelectedItemModal();
+    };
 
     render() {
         return (
-            <Modal isVisible={this.state.isModalVisible} backdropOpacity={0.4} onBackButtonPress={() => this._hideModal()} style={style.modalContainer}>
+            <Modal isVisible={this.props.showSelectedItem} backdropOpacity={0.4} onBackButtonPress={() => this.closeSelectedItemModal()} style={style.modalContainer}>
                 <View style={style.addItemModal}>
                     <Grid>
                         <Row style={{ height: 200 }}>
                             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', borderTopLeftRadius: 3, borderTopRightRadius: 3}}>
                                 <Image style={style.modal_itemImage}
-                                    source={{uri: this.state.activeItem.itemImage}}/>
+                                    source={{uri: this.props.selectedItem.itemImage}}/>
                             </View>
                         </Row>
 
@@ -68,23 +50,23 @@ class AddToCartModal extends Component {
                                     name={'times'}
                                     color={Colors.gray3}
                                     type='font-awesome'
-                                    onPress={() => this._hideModal()}
+                                    onPress={() => this.props.closeSelectedItemModal()}
                                 />
                             </Col>
                             <Col size={2} style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
-                                <Text ellipsizeMode="tail" style={style.modal_itemName}>{this.state.activeItem.itemName}</Text>
-                                <Text style={style.modal_itemCost}>$ {this.state.activeItem.itemCost}</Text>
+                                <Text ellipsizeMode="tail" style={style.modal_itemName}>{this.props.selectedItem.itemName}</Text>
+                                <Text style={style.modal_itemCost}>$ {this.props.selectedItem.itemCost}</Text>
                             </Col>
                         </Row>
 
                         <Row style={{ padding: 10, borderTopWidth: 1, borderTopColor: Colors.lightGray, marginTop: 10 }}>
                             <ScrollView style={{ flex: 1 }}>
-                                <Text ellipsizeMode="tail" style={style.modal_itemDetails}>{this.state.activeItem.itemDetail}</Text>
+                                <Text ellipsizeMode="tail" style={style.modal_itemDetails}>{this.props.selectedItem.itemDetail}</Text>
                             </ScrollView>
                         </Row>
 
                         <Row style={{ height: 60 }}>
-                            <AddToCartButton callback={(itemCount) => this.addToCartButtonCallback(itemCount)}></AddToCartButton>
+                            <AddToCartButton callback={(itemCount) => this.addItemToCart(itemCount)}/>
                         </Row>
                     </Grid>
                 </View>
@@ -93,11 +75,14 @@ class AddToCartModal extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch) => (bindActionCreators(cartActionCreators, dispatch));
+const mapDispatchToProps = (dispatch) => {
+    return {
+        cartActions: bindActionCreators(cartActionCreators, dispatch)
+    }
+};
 const mapStateToProps = state => {
     return {
         user: state.settings.user,
-        shouldHideAddToCartModal: state.cart.shouldHideAddToCartModal,
         cart: state.cart
     }
 };

@@ -40,7 +40,7 @@ class MenuTab extends Component {
     };
 
     fetchMenu = () => {
-        this.props.fetchMerchantMenu();
+        this.props.vendorActions.fetchVendorMenu();
     };
 
     _renderItem = (data) => {
@@ -102,7 +102,10 @@ const mapStateToProps = (state) => {
         auth: state.auth
     }
 };
+
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(vendorActionCreators, dispatch);
+    return {
+        vendorActions: bindActionCreators(vendorActionCreators, dispatch)
+    }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(MenuTab)

@@ -27,6 +27,22 @@ export function vendor(state=initialState, action){
             return Object.assign({}, state, {
                 selectedVendor: action.data,
             });
+        case vendorActions.SET_NEW_VENDOR_ORDERS:
+            return Object.assign({}, state, {
+                newVendorOrders: action.data,
+            });
+        case vendorActions.SET_ACCEPTED_VENDOR_ORDERS:
+            return Object.assign({}, state, {
+                acceptedVendorOrders: action.data,
+            });
+        case vendorActions.SET_DELIVERED_VENDOR_ORDERS:
+            return Object.assign({}, state, {
+                deliveredVendorOrders: action.data,
+            });
+        case vendorActions.SET_CANCELLED_VENDOR_ORDERS:
+            return Object.assign({}, state, {
+                cancelledVendorOrders: action.data,
+            });
         default:
             return state
     }

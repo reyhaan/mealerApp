@@ -15,6 +15,10 @@ export const vendorActions = {
     FETCH_VENDORS : 'FETCH_VENDORS',
     UPDATE_VENDORS: 'UPDATE_VENDORS',
     GET_SELECTED_VENDOR: 'GET_SELECTED_VENDOR',
+    SET_NEW_VENDOR_ORDERS: 'SET_NEW_VENDOR_ORDERS',
+    SET_ACCEPTED_VENDOR_ORDERS: 'SET_ACCEPTED_VENDOR_ORDERS',
+    SET_DELIVERED_VENDOR_ORDERS: 'SET_DELIVERED_VENDOR_ORDERS',
+    SET_CANCELLED_VENDOR_ORDERS: 'SET_CANCELLED_VENDOR_ORDERS',
     SET_SELECTED_VENDOR: 'SET_SELECTED_VENDOR',
     SHOW_ACTIVITY_INDICATOR: 'SHOW_ACTIVITY_INDICATOR'
 };
@@ -38,6 +42,10 @@ export const vendorActionCreators = {
     updateVendors: (data) => createAction(vendorActions.UPDATE_VENDORS, data),
     getSelectedVendor: (data) => createAction(vendorActions.GET_SELECTED_VENDOR, data),
     setSelectedVendor: (data) => createAction(vendorActions.SET_SELECTED_VENDOR, data),
+    setNewVendorOrders: (data) => createAction(vendorActions.SET_NEW_VENDOR_ORDERS, data),
+    setAcceptedVendorOrders: (data) => createAction(vendorActions.SET_ACCEPTED_VENDOR_ORDERS, data),
+    setDeliveredVendorOrders: (data) => createAction(vendorActions.SET_DELIVERED_VENDOR_ORDERS, data),
+    setCancelledVendorOrders: (data) => createAction(vendorActions.SET_CANCELLED_VENDOR_ORDERS, data),
 };
 
 /******************************* SAGA WATCHERS *************************************/

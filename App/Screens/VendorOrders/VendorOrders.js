@@ -46,7 +46,7 @@ class Cart extends Component {
                         <Tab heading="New" activeTextStyle={{color: Colors.background}}>
                             <ScrollView style={{flex: 1}}>
                                 <FlatList
-                                    data={this.props.vendor.orders}
+                                    data={this.props.vendor.newVendorOrders}
                                     refreshing={this.state.refreshing}
                                     onRefresh={() => this.getVendorOrders()}
                                     renderItem={({item}) => <VendorOrder order={item}/>}/>
@@ -55,7 +55,7 @@ class Cart extends Component {
                         <Tab heading="Accepted" activeTextStyle={{color: Colors.background}}>
                             <ScrollView style={{flex: 1}}>
                                 <FlatList
-                                    data={this.props.vendor.orders}
+                                    data={this.props.vendor.acceptedVendorOrders}
                                     refreshing={this.state.refreshing}
                                     onRefresh={() => this.getVendorOrders()}
                                     renderItem={({item}) => <VendorOrder order={item}/>}/>
@@ -64,7 +64,7 @@ class Cart extends Component {
                         <Tab heading="Delivered" activeTextStyle={{color: Colors.background}}>
                             <ScrollView style={{flex: 1}}>
                                 <FlatList
-                                    data={this.props.vendor.orders}
+                                    data={this.props.vendor.deliveredVendorOrders}
                                     refreshing={this.state.refreshing}
                                     onRefresh={() => this.getVendorOrders()}
                                     renderItem={({item}) => <VendorOrder order={item}/>}/>
@@ -73,7 +73,7 @@ class Cart extends Component {
                         <Tab heading="Cancelled" activeTextStyle={{color: Colors.background}}>
                             <ScrollView style={{flex: 1}}>
                                 <FlatList
-                                    data={this.props.vendor.orders}
+                                    data={this.props.vendor.cancelledVendorOrders}
                                     refreshing={this.state.refreshing}
                                     onRefresh={() => this.getVendorOrders()}
                                     renderItem={({item}) => <VendorOrder order={item}/>}/>

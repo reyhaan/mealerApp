@@ -5,6 +5,7 @@ const colors = {
     backgroundGray: '#DBDFE8',
     pink: '#EE388D',
     pink2: '#7041C9',
+    blue: 'blue',
     pinkLight1: '#B27CF4',
     green: '#33cd5f',
     orange: '#F5A623',

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {
     ScrollView,
     View,
+    Text,
     FlatList
 } from 'react-native'
 import {connect} from 'react-redux'
@@ -10,6 +11,7 @@ import VendorOrder from './VendorOrder'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {Header} from 'react-native-elements'
+import { Container, Content, Tab, Tabs,ScrollableTab } from 'native-base';
 import {bindActionCreators} from 'redux'
 import {vendorActionCreators} from '../../Redux/Vendor/VendorActions'
 
@@ -40,14 +42,44 @@ class Cart extends Component {
                     backgroundColor={Colors.snow}
                     outerContainerStyles={styles.headerOuterContainer}
                 />
-                <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
-                    <FlatList
-                        style={{backgroundColor: Colors.snow, paddingTop: 5}}
-                        data={this.props.vendor.orders}
-                        refreshing={this.state.refreshing}
-                        onRefresh={() => this.getVendorOrders()}
-                        renderItem={({item}) => <VendorOrder order={item}/>}/>
-                </ScrollView>
+                     <Tabs initialPage={0} tabBarUnderlineStyle={{backgroundColor:Colors.background}} renderTabBar={()=> <ScrollableTab />}>
+                        <Tab heading="New" activeTextStyle={{color: Colors.background}}>
+                            <ScrollView style={{flex: 1}}>
+                                <FlatList
+                                    data={this.props.vendor.orders}
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={() => this.getVendorOrders()}
+                                    renderItem={({item}) => <VendorOrder order={item}/>}/>
+                            </ScrollView>
+                        </Tab>
+                        <Tab heading="Accepted" activeTextStyle={{color: Colors.background}}>
+                            <ScrollView style={{flex: 1}}>
+                                <FlatList
+                                    data={this.props.vendor.orders}
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={() => this.getVendorOrders()}
+                                    renderItem={({item}) => <VendorOrder order={item}/>}/>
+                            </ScrollView>
+                        </Tab>
+                        <Tab heading="Delivered" activeTextStyle={{color: Colors.background}}>
+                            <ScrollView style={{flex: 1}}>
+                                <FlatList
+                                    data={this.props.vendor.orders}
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={() => this.getVendorOrders()}
+                                    renderItem={({item}) => <VendorOrder order={item}/>}/>
+                            </ScrollView>
+                        </Tab>
+                        <Tab heading="Cancelled" activeTextStyle={{color: Colors.background}}>
+                            <ScrollView style={{flex: 1}}>
+                                <FlatList
+                                    data={this.props.vendor.orders}
+                                    refreshing={this.state.refreshing}
+                                    onRefresh={() => this.getVendorOrders()}
+                                    renderItem={({item}) => <VendorOrder order={item}/>}/>
+                            </ScrollView>
+                        </Tab>
+                    </Tabs>
             </View>
         )
     }

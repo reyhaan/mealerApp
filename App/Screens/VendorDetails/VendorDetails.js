@@ -232,7 +232,7 @@ class VendorDetails extends Component {
                                             color: (this.state.showDetails) ? Colors.snow : Colors.charcoal,
                                             fontSize: 14,
                                             fontWeight: 'bold'
-                                        }}>DETAILS</Text>
+                                        }}>CONTACT INFO</Text>
                                     </View>
                                 </Col>
                             </TouchableWithoutFeedback>

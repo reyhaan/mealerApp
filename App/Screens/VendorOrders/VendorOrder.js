@@ -41,7 +41,7 @@ class VendorOrder extends Component {
                 return Colors.background;
                 break;
             case constants.orderStates.accepted:
-                return Colors.pink2;
+                return Colors.blue;
                 break;
             case constants.orderStates.delivered:
                 return Colors.green;
@@ -144,29 +144,27 @@ class VendorOrder extends Component {
     renderItem = (data) => {
         const {item} = data;
         return (
-            <View style={styles.row}>
-                <View style={styles.rowInnerContainer}>
-                    <Grid>
-                        <Col style={{width: 60}}>
-                            <Avatar medium source={{uri: item.itemImage + '?' + new Date().getTime()}}/>
-                        </Col>
-                        <Col>
-                            <Row style={{height: 20, width: 200}}>
-                                <Text style={[styles.boldLabel, {color: Colors.coal}]}>{item.itemName}</Text>
-                            </Row>
-                            <Row>
-                                <Text style={{fontSize: 11, color: Colors.charcoal}}
-                                      numberOfLines={2}>{item.itemDetail}</Text>
-                            </Row>
-                            <Row>
-                                <Text style={styles.itemCost}>$ {item.itemCost}
-                                    <Text style={{color: Colors.gray, fontSize: 12}}>
-                                        x {item.quantity ? item.quantity : 1}</Text>
-                                </Text>
-                            </Row>
-                        </Col>
-                    </Grid>
-                </View>
+            <View style={styles.orderItemContainer}>
+                <Grid>
+                    <Col style={{width: 60}}>
+                        <Avatar medium source={{uri: item.itemImage + '?' + new Date().getTime()}}/>
+                    </Col>
+                    <Col>
+                        <Row style={{height: 20, width: 200}}>
+                            <Text style={[styles.boldLabel, {color: Colors.coal}]}>{item.itemName}</Text>
+                        </Row>
+                        <Row>
+                            <Text style={{fontSize: 11, color: Colors.charcoal}}
+                                  numberOfLines={2}>{item.itemDetail}</Text>
+                        </Row>
+                        <Row>
+                            <Text style={styles.itemCost}>$ {item.itemCost}
+                                <Text style={{color: Colors.gray, fontSize: 12}}>
+                                    x {item.quantity ? item.quantity : 1}</Text>
+                            </Text>
+                        </Row>
+                    </Col>
+                </Grid>
             </View>
         )
     };
@@ -177,33 +175,56 @@ class VendorOrder extends Component {
             <Card>
                 <CardItem>
                     <Body>
-                    <Row size={1}>
-                        <Text style={styles.dateText}>{moment(moment.utc(order.timeStamp)).format('LLLL')} </Text>
-                    </Row>
-                    <Row>
-                        <Text style={{color: Colors.gray, marginTop: 5}}>From
-                            <Text style={styles.customerName}> {order.customer.name.toUpperCase()}</Text>
-                        </Text>
-                    </Row>
-                    <Row size={1}>
-                        <FlatList data={order.items} renderItem={this.renderItem} showsVerticalScrollIndicator={false}/>
-                    </Row>
-
                     <Row>
                         <Col size={1}>
-                            <Text style={{color: Colors.gray}}>Status:
-                                <Text style={{
-                                    fontWeight: 'bold',
-                                    fontSize: 14,
-                                    color: this.orderStatusColor(order)
-                                }}> {order.status.toUpperCase()}</Text>
-                            </Text>
+                            <FlatList data={order.items} renderItem={this.renderItem}/>
                         </Col>
-
-                        <Col size={1} style={styles.customerTotalCostContainer}>
-                            <Badge value='Total' textStyle={{color: Colors.gray}}
-                                   containerStyle={styles.customerTotalCostBadge}/>
-                            <Text style={styles.customerTotalCostText}>
+                    </Row>
+                    <Row>
+                        <Col size={1}>
+                            <Text style={{color: Colors.gray, marginTop: 5}}>Name</Text>
+                        </Col>
+                        <Col size={1} style={styles.orderInfo}>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                fontSize: 14,
+                                marginBottom: 5,
+                                color: Colors.gray
+                            }}>{order.customer.name.toUpperCase()}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col size={1}>
+                            <Text style={{color: Colors.gray, marginTop: 5}}>Time</Text>
+                        </Col>
+                        <Col size={1} style={styles.orderInfo}>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                fontSize: 14,
+                                marginBottom: 5,
+                                color: Colors.gray
+                            }}>{moment(moment.utc(order.timeStamp)).format('lll')}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col size={1}>
+                            <Text style={{color: Colors.gray, marginTop: 5}}>Status</Text>
+                        </Col>
+                        <Col size={1} style={styles.orderInfo}>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                fontSize: 14,
+                                marginBottom: 5,
+                                color: this.orderStatusColor(order)
+                            }}> {order.status.toUpperCase()}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col size={1}>
+                            <Badge value='Total' textStyle={{color: Colors.gray}} containerStyle={styles.customerTotalCostBadge}/>
+                        </Col>
+                        <Col size={1} style={styles.orderInfo}>
+                            <Text style={[styles.customerTotalCostText,{marginTop:5}]}>
                                 {`${' '} $ ${this._calculateTotalCost(order.items)}`}
                             </Text>
                         </Col>

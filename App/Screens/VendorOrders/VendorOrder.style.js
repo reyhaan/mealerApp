@@ -15,12 +15,11 @@ export default StyleSheet.create({
         paddingBottom: 0,
         paddingTop: 0
     },
-    rowInnerContainer: {
-        flex: 1,
-        height: 60,
-        backgroundColor: Colors.snow,
-        borderRadius: 3,
-        padding: 10
+    orderItemContainer: {
+        marginBottom: 5,
+        paddingBottom:4,
+        borderBottomColor: Colors.lightGray,
+        borderBottomWidth: 1,
     },
     boldLabel: {
         fontWeight: 'bold',
@@ -104,16 +103,18 @@ export default StyleSheet.create({
         color: Colors.background,
         fontWeight: 'bold'
     },
-    customerTotalCostContainer: {
+    orderInfo: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        marginRight: 20
+        marginRight: 10
     },
     customerTotalCostBadge: {
         width: 60,
         backgroundColor: Colors.cloud,
-        height: 20
+        height: 20,
+        marginTop:5,
+        marginLeft:-5
     },
     customerTotalCostText: {
         color: Colors.coal,

@@ -13,7 +13,6 @@ import {Header} from 'react-native-elements';
 import {Container, Content, Tab, Tabs, ScrollableTab} from 'native-base';
 import {bindActionCreators} from 'redux';
 import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
-import {LoadingSpinner} from '../../Components/index';
 
 // Styles
 const styles = OrdersTabStyle;

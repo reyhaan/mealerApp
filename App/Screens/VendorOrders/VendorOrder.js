@@ -25,36 +25,33 @@ import {
     Thumbnail
 } from 'native-base';
 
-const _getOrderStatus = () => {
-    let status = 'CONFIRMED';
-    switch (status) {
-        case 'CANCELLED':
-            return (<Text style={{color: Colors.pink, fontWeight: 'bold', fontSize: 12}}> CANCELLED</Text>)
-            break;
-
-        case 'CONFIRMED':
-            return (<Text style={{color: Colors.orange, fontWeight: 'bold', fontSize: 12}}> CONFIRMED</Text>)
-            break;
-
-        case 'DELIVERED':
-            return (<Text style={{color: Colors.green, fontWeight: 'bold', fontSize: 12}}> DELIVERED</Text>)
-            break;
-
-        default:
-            return (<Text style={{color: Colors.darkOrange, fontWeight: 'bold', fontSize: 12}}> CONFIRMED</Text>)
-    }
-};
-
 class VendorOrder extends Component {
     _calculateTotalCost = (items) => {
         let total = 0;
         for (let i = 0; i < items.length; i++) {
             let quantity = items[i].quantity ? items[i].quantity : 1;
-
-
             total += (items[i].itemCost * quantity)
         }
         return parseFloat(total).toFixed(2);
+    };
+
+    orderStatusColor = (order) => {
+        switch (order.status) {
+            case constants.orderStates.new:
+                return Colors.background;
+                break;
+            case constants.orderStates.accepted:
+                return Colors.pink2;
+                break;
+            case constants.orderStates.delivered:
+                return Colors.green;
+                break;
+            case constants.orderStates.cancelled:
+                return Colors.red;
+                break;
+            default:
+                return null
+        }
     };
 
     orderActionButton = (order) => {
@@ -185,7 +182,7 @@ class VendorOrder extends Component {
                     </Row>
                     <Row>
                         <Text style={{color: Colors.gray, marginTop: 5}}>From
-                            <Text style={styles.customerName}> {order.customer.name}</Text>
+                            <Text style={styles.customerName}> {order.customer.name.toUpperCase()}</Text>
                         </Text>
                     </Row>
                     <Row size={1}>
@@ -198,8 +195,8 @@ class VendorOrder extends Component {
                                 <Text style={{
                                     fontWeight: 'bold',
                                     fontSize: 14,
-                                    color: Colors.background
-                                }}> {order.status}</Text>
+                                    color: this.orderStatusColor(order)
+                                }}> {order.status.toUpperCase()}</Text>
                             </Text>
                         </Col>
 
@@ -219,7 +216,8 @@ class VendorOrder extends Component {
                     </Body>
                 </CardItem>
             </Card>
-        </View>)}
+        </View>)
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

@@ -67,7 +67,6 @@ export default StyleSheet.create({
     customerName: {
         fontWeight: 'bold',
         fontSize: 14,
-        color: Colors.background
     },
     customerNameContainer: {
         paddingLeft: 10,

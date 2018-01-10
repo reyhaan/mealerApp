@@ -14,6 +14,13 @@ import './App/Config/ReactotronConfig'
  * We separate like this to play nice with React Native's hot reloading.
  */
 class App extends Component {
+    constructor () {
+      super();
+      // walk around for firebase timer RN warnings
+      console.ignoredYellowBox = [
+        'Setting a timer'
+      ];
+    }
 
     render() {
         return (

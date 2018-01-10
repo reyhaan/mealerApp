@@ -8,6 +8,7 @@ import imgService from '../../Services/image-service';
 import _ from 'lodash';
 import Constants from '../../Services/constants-service';
 import {vendorActionCreators} from './VendorActions'
+import {requestActionCreators} from '../Request/RequestActions'
 
 const vendorEffects = {};
 
@@ -127,7 +128,7 @@ vendorEffects.updateRating = function* (ratingData) {
 vendorEffects.fetchVendorOrders = function* () {
     try {
         const user = yield call(authentication.currentUser);
-        yield put(vendorActionCreators.showActivityIndicator(true));
+        yield put(requestActionCreators.showLoadingSpinner(true));
         const orders = yield call(orderService.getMerchantOrders, user.uid);
         const newOrders = _.filter(orders, o => { return o.status === Constants.orderStates.new });
         const acceptedOrders = _.filter(orders, o => { return o.status === Constants.orderStates.accepted });
@@ -143,7 +144,7 @@ vendorEffects.fetchVendorOrders = function* () {
         Alert.alert('Error', error.message)
     }
     finally {
-        yield put(vendorActionCreators.showActivityIndicator(false))
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 

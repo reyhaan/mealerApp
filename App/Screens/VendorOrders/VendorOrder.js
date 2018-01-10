@@ -25,55 +25,54 @@ import {
     Thumbnail
 } from 'native-base';
 
-const _getOrderStatus = () => {
-    let status = 'CONFIRMED';
-    switch (status) {
-        case 'CANCELLED':
-            return (<Text style={{color: Colors.pink, fontWeight: 'bold', fontSize: 12}}> CANCELLED</Text>)
-            break;
-
-        case 'CONFIRMED':
-            return (<Text style={{color: Colors.orange, fontWeight: 'bold', fontSize: 12}}> CONFIRMED</Text>)
-            break;
-
-        case 'DELIVERED':
-            return (<Text style={{color: Colors.green, fontWeight: 'bold', fontSize: 12}}> DELIVERED</Text>)
-            break;
-
-        default:
-            return (<Text style={{color: Colors.darkOrange, fontWeight: 'bold', fontSize: 12}}> CONFIRMED</Text>)
-    }
-};
-
-const _setButtonColor = (index) => {
-    switch (index) {
-        case 0:
-            return Colors.error;
-            break;
-
-        case 1:
-            return Colors.darkOrange;
-            break;
-
-        case 2:
-            return Colors.green;
-            break;
-
-        default:
-            return Colors.snow
-    }
-};
-
 class VendorOrder extends Component {
     _calculateTotalCost = (items) => {
         let total = 0;
         for (let i = 0; i < items.length; i++) {
             let quantity = items[i].quantity ? items[i].quantity : 1;
-
-
             total += (items[i].itemCost * quantity)
         }
         return parseFloat(total).toFixed(2);
+    };
+
+    orderStatusColor = (order) => {
+        switch (order.status) {
+            case constants.orderStates.new:
+                return Colors.background;
+                break;
+            case constants.orderStates.accepted:
+                return Colors.blue;
+                break;
+            case constants.orderStates.delivered:
+                return Colors.green;
+                break;
+            case constants.orderStates.cancelled:
+                return Colors.red;
+                break;
+            default:
+                return null
+        }
+    };
+
+    orderActionButton = (order) => {
+        switch (order.status) {
+            case constants.orderStates.new:
+                return (
+                    <Button small block primary onPress={() => this.acceptOrder(order)}>
+                        <Text>Accept</Text>
+                    </Button>
+                );
+                break;
+            case constants.orderStates.accepted:
+                return (
+                    <Button small block success onPress={() => this.deliverOrder(order)}>
+                        <Text>Deliver</Text>
+                    </Button>
+                );
+                break;
+            default:
+                return null
+        }
     };
 
     acceptOrder = (order) => {
@@ -98,32 +97,74 @@ class VendorOrder extends Component {
         )
     };
 
+    deliverOrder = (order) => {
+        Alert.alert(
+            order.customer.name,
+            'Are you you want to deliver order',
+            [
+                {
+                    text: 'Cancel', onPress: () => {
+                    console.log('Cancel Pressed')
+                }, style: 'cancel'
+                },
+                {
+                    text: 'OK', onPress: () => {
+                    order.status = constants.orderStates.delivered;
+                    orderActionCreators.updateOrderStatus(order);
+                    this.props.orderActions.updateOrderStatus(order)
+                }
+                },
+            ],
+            {cancelable: false}
+        )
+    };
+
+    cancelOrder = (order) => {
+        Alert.alert(
+            order.customer.name,
+            'Are you you want to accept order',
+            [
+                {
+                    text: 'Cancel', onPress: () => {
+                    console.log('Cancel Pressed')
+                }, style: 'cancel'
+                },
+                {
+                    text: 'OK', onPress: () => {
+                    order.status = constants.orderStates.accepted;
+                    orderActionCreators.updateOrderStatus(order);
+                    this.props.orderActions.updateOrderStatus(order)
+                }
+                },
+            ],
+            {cancelable: false}
+        )
+    };
+
     renderItem = (data) => {
         const {item} = data;
         return (
-            <View style={styles.row}>
-                <View style={styles.rowInnerContainer}>
-                    <Grid>
-                        <Col style={{width: 60}}>
-                            <Avatar medium source={{uri: item.itemImage + '?' + new Date().getTime()}}/>
-                        </Col>
-                        <Col>
-                            <Row style={{height: 20, width: 200}}>
-                                <Text style={[styles.boldLabel, {color: Colors.coal}]}>{item.itemName}</Text>
-                            </Row>
-                            <Row>
-                                <Text style={{fontSize: 11, color: Colors.charcoal}}
-                                      numberOfLines={2}>{item.itemDetail}</Text>
-                            </Row>
-                            <Row>
-                                <Text style={styles.itemCost}>$ {item.itemCost}
-                                    <Text style={{color: Colors.gray, fontSize: 12}}>
-                                        x {item.quantity ? item.quantity : 1}</Text>
-                                </Text>
-                            </Row>
-                        </Col>
-                    </Grid>
-                </View>
+            <View style={styles.orderItemContainer}>
+                <Grid>
+                    <Col style={{width: 60}}>
+                        <Avatar medium source={{uri: item.itemImage + '?' + new Date().getTime()}}/>
+                    </Col>
+                    <Col>
+                        <Row style={{height: 20, width: 200}}>
+                            <Text style={[styles.boldLabel, {color: Colors.coal}]}>{item.itemName}</Text>
+                        </Row>
+                        <Row>
+                            <Text style={{fontSize: 11, color: Colors.charcoal}}
+                                  numberOfLines={2}>{item.itemDetail}</Text>
+                        </Row>
+                        <Row>
+                            <Text style={styles.itemCost}>$ {item.itemCost}
+                                <Text style={{color: Colors.gray, fontSize: 12}}>
+                                    x {item.quantity ? item.quantity : 1}</Text>
+                            </Text>
+                        </Row>
+                    </Col>
+                </Grid>
             </View>
         )
     };
@@ -134,53 +175,70 @@ class VendorOrder extends Component {
             <Card>
                 <CardItem>
                     <Body>
-                    <Row size={1}>
-                        <Text style={styles.dateText}>{moment(moment.utc(order.timeStamp)).format('LLLL')} </Text>
-                    </Row>
-                    <Row>
-                        <Text style={{color: Colors.gray, marginTop: 5}}>From
-                            <Text style={styles.customerName}> {order.customer.name}</Text>
-                        </Text>
-                    </Row>
-                    <Row size={1}>
-                        <FlatList data={order.items} renderItem={this.renderItem} showsVerticalScrollIndicator={false}/>
-                    </Row>
-
                     <Row>
                         <Col size={1}>
-                            <Text style={{color: Colors.gray}}>Status:
-                                <Text style={{
-                                    fontWeight: 'bold',
-                                    fontSize: 14,
-                                    color: Colors.background
-                                }}> {order.status}</Text>
-                            </Text>
+                            <FlatList data={order.items} renderItem={this.renderItem}/>
                         </Col>
-
-                        <Col size={1} style={styles.customerTotalCostContainer}>
-                            <Badge value='Total' textStyle={{color: Colors.gray}}
-                                   containerStyle={styles.customerTotalCostBadge}/>
-                            <Text style={styles.customerTotalCostText}>
+                    </Row>
+                    <Row>
+                        <Col size={1}>
+                            <Text style={{color: Colors.gray, marginTop: 5}}>Name</Text>
+                        </Col>
+                        <Col size={1} style={styles.orderInfo}>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                fontSize: 14,
+                                marginBottom: 5,
+                                color: Colors.gray
+                            }}>{order.customer.name.toUpperCase()}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col size={1}>
+                            <Text style={{color: Colors.gray, marginTop: 5}}>Time</Text>
+                        </Col>
+                        <Col size={1} style={styles.orderInfo}>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                fontSize: 14,
+                                marginBottom: 5,
+                                color: Colors.gray
+                            }}>{moment(moment.utc(order.timeStamp)).format('lll')}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col size={1}>
+                            <Text style={{color: Colors.gray, marginTop: 5}}>Status</Text>
+                        </Col>
+                        <Col size={1} style={styles.orderInfo}>
+                            <Text style={{
+                                fontWeight: 'bold',
+                                fontSize: 14,
+                                marginBottom: 5,
+                                color: this.orderStatusColor(order)
+                            }}> {order.status.toUpperCase()}</Text>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col size={1}>
+                            <Badge value='Total' textStyle={{color: Colors.gray}} containerStyle={styles.customerTotalCostBadge}/>
+                        </Col>
+                        <Col size={1} style={styles.orderInfo}>
+                            <Text style={[styles.customerTotalCostText,{marginTop:5}]}>
                                 {`${' '} $ ${this._calculateTotalCost(order.items)}`}
                             </Text>
                         </Col>
                     </Row>
                     <Row style={styles.statusUpdateContainer}>
                         <Col style={styles.statusUpdateButton}>
-                            <Button small block primary onPress={() => this.acceptOrder(order)}>
-                                <Text>Accept</Text>
-                            </Button>
-                        </Col>
-                        <Col>
-                            <Button small block warning>
-                                <Text>Cancel</Text>
-                            </Button>
+                            {this.orderActionButton(order)}
                         </Col>
                     </Row>
                     </Body>
                 </CardItem>
             </Card>
-        </View>)}
+        </View>)
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

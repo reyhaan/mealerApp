@@ -45,25 +45,6 @@ const _getOrderStatus = () => {
     }
 };
 
-const _setButtonColor = (index) => {
-    switch (index) {
-        case 0:
-            return Colors.error;
-            break;
-
-        case 1:
-            return Colors.darkOrange;
-            break;
-
-        case 2:
-            return Colors.green;
-            break;
-
-        default:
-            return Colors.snow
-    }
-};
-
 class VendorOrder extends Component {
     _calculateTotalCost = (items) => {
         let total = 0;
@@ -76,7 +57,72 @@ class VendorOrder extends Component {
         return parseFloat(total).toFixed(2);
     };
 
+    orderActionButton = (order) => {
+        switch (order.status) {
+            case constants.orderStates.new:
+                return (
+                    <Button small block primary onPress={() => this.acceptOrder(order)}>
+                        <Text>Accept</Text>
+                    </Button>
+                );
+                break;
+            case constants.orderStates.accepted:
+                return (
+                    <Button small block success onPress={() => this.deliverOrder(order)}>
+                        <Text>Deliver</Text>
+                    </Button>
+                );
+                break;
+            default:
+                return null
+        }
+    };
+
     acceptOrder = (order) => {
+        Alert.alert(
+            order.customer.name,
+            'Are you you want to accept order',
+            [
+                {
+                    text: 'Cancel', onPress: () => {
+                    console.log('Cancel Pressed')
+                }, style: 'cancel'
+                },
+                {
+                    text: 'OK', onPress: () => {
+                    order.status = constants.orderStates.accepted;
+                    orderActionCreators.updateOrderStatus(order);
+                    this.props.orderActions.updateOrderStatus(order)
+                }
+                },
+            ],
+            {cancelable: false}
+        )
+    };
+
+    deliverOrder = (order) => {
+        Alert.alert(
+            order.customer.name,
+            'Are you you want to deliver order',
+            [
+                {
+                    text: 'Cancel', onPress: () => {
+                    console.log('Cancel Pressed')
+                }, style: 'cancel'
+                },
+                {
+                    text: 'OK', onPress: () => {
+                    order.status = constants.orderStates.delivered;
+                    orderActionCreators.updateOrderStatus(order);
+                    this.props.orderActions.updateOrderStatus(order)
+                }
+                },
+            ],
+            {cancelable: false}
+        )
+    };
+
+    cancelOrder = (order) => {
         Alert.alert(
             order.customer.name,
             'Are you you want to accept order',
@@ -167,14 +213,7 @@ class VendorOrder extends Component {
                     </Row>
                     <Row style={styles.statusUpdateContainer}>
                         <Col style={styles.statusUpdateButton}>
-                            <Button small block primary onPress={() => this.acceptOrder(order)}>
-                                <Text>Accept</Text>
-                            </Button>
-                        </Col>
-                        <Col>
-                            <Button small block warning>
-                                <Text>Cancel</Text>
-                            </Button>
+                            {this.orderActionButton(order)}
                         </Col>
                     </Row>
                     </Body>

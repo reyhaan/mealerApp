@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Expo from 'expo'
 import {View, StatusBar, Alert} from 'react-native'
 import Navigation from '../../Navigation/Navigation'
 import {connect} from 'react-redux'
@@ -21,7 +22,7 @@ class RootContainer extends Component {
             const currentUser = await authenticationService.currentUser();
             const {dispatch} = this.props;
             const {getUser, clearCurrentUser} = settingsActionCreators;
-            await Font.loadAsync({
+            await Expo.Font.loadAsync({
                 'proximanova-regular': require('../../../assets/fonts/ProximaNova-Regular.ttf'),
                 'proximanova-bold': require('../../../assets/fonts/ProximaNova-Bold.ttf')
             });

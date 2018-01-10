@@ -124,7 +124,6 @@ export default StyleSheet.create({
         margin:5,
     },
     statusUpdateButton: {
-        marginLeft:5,
-        marginRight:5,
+        margin: 10
     }
 });

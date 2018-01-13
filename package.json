@@ -1,6 +1,6 @@
 {
   "name": "mealerExpo",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "@storybook/addon-storyshots": "^3.2.3",
@@ -45,10 +45,8 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^6.1.0",
-    "antd-mobile": "^2.0.1",
     "apisauce": "^0.14.0",
     "async": "^2.6.0",
-    "aws-sdk": "^2.163.0",
     "axios": "^0.17.1",
     "buffer": "^5.0.8",
     "expo": "^22.0.0",

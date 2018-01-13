@@ -22,8 +22,9 @@ class RootContainer extends Component {
             const {dispatch} = this.props;
             const {getUser, clearCurrentUser} = settingsActionCreators;
             await Expo.Font.loadAsync({
-                'proximanova-regular': require('../../../assets/fonts/ProximaNova-Regular.ttf'),
-                'proximanova-bold': require('../../../assets/fonts/ProximaNova-Bold.ttf')
+                'proximanova-regular': require('../../Assets/Fonts/ProximaNova-Regular.ttf'),
+                'proximanova-bold': require('../../Assets/Fonts/ProximaNova-Bold.ttf'),
+                'Roboto_medium': require('../../Assets/Fonts/Roboto-Medium.ttf')
             });
 
             if (currentUser) {
@@ -44,7 +45,7 @@ class RootContainer extends Component {
         }
     }
 
-    navigationContainer = (navigation)=>{
+    navigationContainer = (navigation) => {
         return <Navigation navigation={navigation}/>
     };
 

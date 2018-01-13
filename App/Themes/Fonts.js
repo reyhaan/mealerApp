@@ -1,8 +1,7 @@
 const type = {
   base: 'proximanova-regular',
   bold: 'proximanova-bold',
-  emphasis: 'HelveticaNeue-Italic'
-}
+};
 
 const size = {
   h1: 38,
@@ -16,7 +15,7 @@ const size = {
   medium: 14,
   small: 12,
   tiny: 8.5
-}
+};
 
 const style = {
   h1: {
@@ -56,7 +55,7 @@ const style = {
     fontWeight: '800',
     fontSize: size.medium
   }
-}
+};
 
 export default {
   type,

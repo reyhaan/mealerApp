@@ -3,10 +3,10 @@ import {ScrollView, View} from 'react-native'
 import {connect} from 'react-redux'
 import {List, ListItem} from 'react-native-elements'
 import SettingsTabStyle from './Settings.style'
-import {Header} from 'react-native-elements'
 import {bindActionCreators} from 'redux'
 import {Colors} from '../../Themes/index'
 import {authActionCreators} from '../../Redux/Auth/AuthActions'
+import {Header, Left, Body, Right, Button, Title} from 'native-base';
 
 const styles = SettingsTabStyle;
 
@@ -19,10 +19,11 @@ class Settings extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header
-                    centerComponent={{text: 'SETTINGS', style: {color: Colors.background, fontWeight: 'bold'}}}
-                    backgroundColor={Colors.snow}
-                    outerContainerStyles={styles.headerOuterContainer}/>
+                <Header style={{backgroundColor: Colors.snow}}>
+                    <Body>
+                    <Title style={{color: Colors.background}}>Settings</Title>
+                    </Body>
+                </Header>
 
                 <ScrollView style={styles.scrollContainer}>
                     <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>

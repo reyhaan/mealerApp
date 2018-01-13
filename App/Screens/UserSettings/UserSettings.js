@@ -2,14 +2,14 @@ import React, {Component} from 'react'
 import {ScrollView, View, Platform, KeyboardAvoidingView, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import {Header, Icon} from 'react-native-elements'
 import UserInfoChangeScreenStyle from './UserSettings.style'
 import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {Alert} from 'react-native';
-import {Form, Item, Input, Label, Button} from 'native-base';
+import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import SnackBar from 'react-native-snackbar-component'
 import {TextInputMask} from 'react-native-masked-text';
 import UserAvatar from '../../Components/UserAvatar'
@@ -55,16 +55,8 @@ class UserSettings extends Component {
         this.setState({user: {...this.state.user, avatar: image.uri, base64Img: image.base64}})
     };
 
-    _backButton = () => {
-        return (
-            <Icon
-                name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
-                color={Colors.background}
-                iconStyle={{marginTop: 25}}
-                underlayColor={'transparent'}
-                onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
-            />
-        )
+    navigateBack = () => {
+        this.props.navigation.dispatch(NavigationActions.back());
     };
 
     displayToast = (message) => {
@@ -111,12 +103,18 @@ class UserSettings extends Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <View style={styles.container}>
-                    <Header
-                        leftComponent={this._backButton()}
-                        centerComponent={{text: "SETTINGS", style: {color: Colors.background, fontWeight: "bold"}}}
-                        backgroundColor={Colors.background}
-                        outerContainerStyles={styles.headerOuterContainer}
-                    />
+                    <Header style={{backgroundColor: Colors.snow}}>
+                        <Left>
+                            <Button transparent onPress={() => this.navigateBack()}>
+                                <Icon name="chevron-left" size={20} color={Colors.background}/>
+                            </Button>
+                        </Left>
+                        <Body>
+                        <Title style={{color: Colors.background}}> Settings</Title>
+                        </Body>
+                        <Right/>
+                    </Header>
+
                     <ScrollView>
                         <Grid>
                             <Row size={1} style={{backgroundColor: Colors.cloud}}>

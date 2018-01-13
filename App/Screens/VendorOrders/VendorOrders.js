@@ -9,11 +9,11 @@ import OrdersTabStyle from './VendorOrders.style';
 import VendorOrder from './VendorOrder';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
-import {Header} from 'react-native-elements';
-import {Container, Content, Tab, Tabs, ScrollableTab} from 'native-base';
 import {bindActionCreators} from 'redux';
 import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
 import constants from '../../Services/constants-service';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {Container, Content, Tab, Tabs, ScrollableTab, Header, Left, Body, Right, Button, Title} from 'native-base';
 
 // Styles
 const styles = OrdersTabStyle;
@@ -143,12 +143,18 @@ class Cart extends Component {
 
         return (
             <View style={styles.container}>
-                <Header
-                    rightComponent={null}
-                    centerComponent={{text: "ORDERS", style: {color: Colors.background, fontWeight: 'bold'}}}
-                    backgroundColor={Colors.snow}
-                    outerContainerStyles={styles.headerOuterContainer}
-                />
+                <Header style={{backgroundColor:Colors.snow}}>
+                    <Left/>
+                    <Body>
+                    <Title style={{color: Colors.background}}>Header</Title>
+                    </Body>
+                    <Right>
+                        <Button transparent onPress={this.getVendorOrders}>
+                            <Icon name="refresh" size={20} color={Colors.background}/>
+                        </Button>
+                    </Right>
+                </Header>
+
                 <Tabs initialPage={0}
                       tabBarUnderlineStyle={{backgroundColor: Colors.background}}
                       renderTabBar={() => <ScrollableTab/>}>

@@ -31,7 +31,6 @@ class MenuTab extends Component {
     };
 
     fetchMenu = () => {
-        console.log('pull to refresh');
         this.props.vendorActions.fetchVendorMenu();
     };
 

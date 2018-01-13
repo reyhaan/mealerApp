@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "22.0.0"
+    "name": "Mealer App",
+    "icon": "./App/Images/app_logo.png",
+    "version": "1.0.0",
+    "slug": "mealerexpo",
+    "sdkVersion": "22.0.0",
+    "ios": {
+      "bundleIdentifier": "com.mealerapp.mealerapp"
+    },
+    "android": {
+      "package": "com.mealerapp.mealerapp"
+    }
   }
 }

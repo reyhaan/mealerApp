@@ -65,7 +65,7 @@ class Cart extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <Text style={{fontSize: 15, color: Colors.charcoal}} numberOfLines={2}>All new orders has been
+                    <Text style={{fontSize: 16, color: Colors.charcoal}} numberOfLines={2}>All new orders has been
                         accepted.</Text>
                 </View>
             )
@@ -86,7 +86,7 @@ class Cart extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <Text style={{fontSize: 17, color: Colors.charcoal}}
+                    <Text style={{fontSize: 16, color: Colors.charcoal}}
                           numberOfLines={2}>All accepted orders have been delivered.</Text>
                 </View>
             )
@@ -107,7 +107,7 @@ class Cart extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <Text style={{fontSize: 17, color: Colors.charcoal}}
+                    <Text style={{fontSize: 16, color: Colors.charcoal}}
                           numberOfLines={2}>All accepted orders have been delivered.</Text>
                 </View>
             )
@@ -128,7 +128,7 @@ class Cart extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <Text style={{fontSize: 17, color: Colors.charcoal}}
+                    <Text style={{fontSize: 16, color: Colors.charcoal}}
                           numberOfLines={2}>You have no cancelled orders.</Text>
                 </View>
             )
@@ -149,7 +149,7 @@ class Cart extends Component {
                     backgroundColor={Colors.snow}
                     outerContainerStyles={styles.headerOuterContainer}
                 />
-                <Tabs style={{backgroundColor: Colors.pink}} initialPage={0}
+                <Tabs initialPage={0}
                       tabBarUnderlineStyle={{backgroundColor: Colors.background}}
                       renderTabBar={() => <ScrollableTab/>}>
                     <Tab activeTextStyle={{color: Colors.background}} activeTabStyle={{backgroundColor: Colors.snow}}

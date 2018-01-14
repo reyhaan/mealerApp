@@ -137,7 +137,7 @@ class Cart extends Component {
 
     render() {
         let refreshing = this.state.refreshing;
-        if (this.props.request && this.props.request.showLoadingSpinner) {
+        if (this.props.request) {
             refreshing = this.props.request.showLoadingSpinner;
         }
 

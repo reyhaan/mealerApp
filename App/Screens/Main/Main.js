@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
-import Expo from 'expo'
+import {
+    Notifications,
+    Font
+} from 'expo';
 import {View, StatusBar, Alert} from 'react-native'
 import Navigation from '../../Navigation/Navigation'
 import {connect} from 'react-redux'
 import styles from './Main.styles'
 import {Login} from '../index'
 import authenticationService from '../../Services/authentication-service'
+import {registerForPushNotification} from '../../Services/push-notification-service'
 import * as ReactNavigation from 'react-navigation'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions';
 
@@ -21,7 +25,7 @@ class RootContainer extends Component {
             const currentUser = await authenticationService.currentUser();
             const {dispatch} = this.props;
             const {getUser, clearCurrentUser} = settingsActionCreators;
-            await Expo.Font.loadAsync({
+            await Font.loadAsync({
                 'proximanova-regular': require('../../Assets/Fonts/ProximaNova-Regular.ttf'),
                 'proximanova-bold': require('../../Assets/Fonts/ProximaNova-Bold.ttf'),
                 'Roboto_medium': require('../../Assets/Fonts/Roboto-Medium.ttf')
@@ -29,7 +33,9 @@ class RootContainer extends Component {
 
             if (currentUser) {
                 // Update the user app state
-                dispatch(getUser(currentUser.uid))
+                dispatch(getUser(currentUser.uid));
+                await registerForPushNotification();
+                this._notificationSubscription = Notifications.addListener(this._handleNotification);
             } else {
                 //clear the user app state
                 dispatch(clearCurrentUser())
@@ -44,6 +50,12 @@ class RootContainer extends Component {
             Alert.alert('Error', err);
         }
     }
+
+    _handleNotification = (notification) => {
+        console.log({notification: notification});
+        Alert.alert('Error', {notification: notification});
+        // this.setState({notification: notification});
+    };
 
     navigationContainer = (navigation) => {
         return <Navigation navigation={navigation}/>

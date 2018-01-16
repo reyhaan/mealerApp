@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {
     Notifications,
-    Font
+    Font,
 } from 'expo';
 import {View, StatusBar, Alert} from 'react-native'
 import Navigation from '../../Navigation/Navigation'
@@ -35,12 +35,11 @@ class RootContainer extends Component {
                 // Update the user app state
                 dispatch(getUser(currentUser.uid));
                 await registerForPushNotification();
-                this._notificationSubscription = Notifications.addListener(this._handleNotification);
+                Notifications.addListener(this._handleNotification);
             } else {
                 //clear the user app state
                 dispatch(clearCurrentUser())
             }
-
 
             this.setState({
                 fontLoaded: true,

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Mealer App",
-    "icon": "./App/Assets/Images/app_logo.png",
+    "name": "Mealer",
+    "icon": "./App/Assets/Images/logo.png",
     "version": "1.0.0",
     "slug": "mealerexpo",
     "sdkVersion": "22.0.0",

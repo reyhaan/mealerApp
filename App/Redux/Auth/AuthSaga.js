@@ -65,4 +65,13 @@ authEffect.signOut = function* () {
     }
 };
 
+authEffect.resetPassword = function* (userEmail) {
+  try {
+    yield put(authActionCreators.showActivityIndicator(true));
+    const user = yield call(authenticationService.fetchUserByEmail, userEmail.data)
+    console.log('user: ', user)
+  } catch(error) {
+    Alert.alert('Error', error.message);
+  }
+}
 export default authEffect;

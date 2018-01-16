@@ -14,6 +14,7 @@ export const authActions = {
     signOut: 'signOut',
     signOutSuccessful: 'signOutSuccessful',
     showActivityIndicator: 'showActivityIndicator',
+    resetPassword: 'resetPassword'
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -24,7 +25,8 @@ export const authActionCreators = {
     signUpSuccessful: (data) => createAction(authActions.signUpSuccessful, data),
     signOut: (data) => createAction(authActions.signOut, data),
     signOutSuccessful: (data) => createAction(authActions.signOutSuccessful, data),
-    showActivityIndicator: (data) => createAction(authActions.showActivityIndicator, data)
+    showActivityIndicator: (data) => createAction(authActions.showActivityIndicator, data),
+    resetPassword: (data) => createAction(authActions.resetPassword, data)
 };
 
 /******************************* ACTION WATCHERS *************************************/
@@ -32,4 +34,5 @@ export const authActionWatchers = [
     takeLatest(authActions.signIn, AuthSaga.signIn),
     takeLatest(authActions.signUp, AuthSaga.signUp),
     takeLatest(authActions.signOut, AuthSaga.signOut),
+    takeLatest(authActions.resetPassword, AuthSaga.resetPassword)
 ];

@@ -61,6 +61,23 @@ authenticationService.currentUser = () => {
     });
 };
 
+authenticationService.fetchUserByEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    db.user().orderByChild('email').equalTo(email).once('value').then((snapshot) => {
+      const user = resolve(snapshot.val())
+      console.log('service-----', snapshot.val())
+      if (snapshot.val()) {
+        db.firebase.auth().sendPasswordResetEmail(email, {setHandleCodeInApp: true})
+        console.log('-----------------------------------sent!!')
+      }
+      return user
+    }).catch(error => {
+      console.log('error ', error)
+      reject(error)
+    })
+  })
+}
+
 export default authenticationService;
 
 

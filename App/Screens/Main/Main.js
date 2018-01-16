@@ -14,6 +14,9 @@ import * as ReactNavigation from 'react-navigation'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions';
 
 class RootContainer extends Component {
+    constructor(props) {
+        super(props);
+    }
     state = {
         currentUser: null,
         fontLoaded: false,
@@ -51,9 +54,7 @@ class RootContainer extends Component {
     }
 
     _handleNotification = (notification) => {
-        console.log({notification: notification});
-        Alert.alert('Error', {notification: notification});
-        // this.setState({notification: notification});
+        Alert.alert('Error', JSON.stringify(notification));
     };
 
     navigationContainer = (navigation) => {

@@ -44,5 +44,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const mapStateToProps = state => ({auth: state.auth});
+const mapStateToProps = state => ({});
 export default connect(mapStateToProps, mapDispatchToProps)(AppEntry)

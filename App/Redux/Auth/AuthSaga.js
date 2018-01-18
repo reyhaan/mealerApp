@@ -4,7 +4,7 @@ import {Alert, AsyncStorage} from 'react-native';
 import {authActionCreators} from './AuthActions';
 import {settingsActionCreators} from '../Settings/SettingsActions';
 import authenticationService from '../../Services/authentication-service'
-import db from '../../Config/database'
+import {registerForPushNotification} from '../../Services/push-notification-service'
 
 /******************************* EFFECTS *************************************/
 const authEffect = {};
@@ -19,6 +19,7 @@ authEffect.signIn = function* (userCredentials) {
         yield put(authActionCreators.signInSuccessful(user));
         yield put(settingsActionCreators.setUser(user)); //!important to update the user state
         yield put(NavigationActions.navigate({routeName: user.type === "vendor" ? 'VendorTab' : 'CustomerTab'}));
+        yield call(registerForPushNotification);
     } catch (error) {
         Alert.alert('Error', error.message);
     } finally {
@@ -43,6 +44,7 @@ authEffect.signUp = function* (userCredentials) {
         yield put(authActionCreators.signUpSuccessful(user));
         yield put(settingsActionCreators.setUser(user)); //!important to update the user state
         yield put(NavigationActions.navigate({routeName: user.type === "vendor" ? 'MerchantTab' : 'CustomerTab'}));
+        yield call(registerForPushNotification);
     } catch (error) {
         Alert.alert('Error', error.message);
     } finally {

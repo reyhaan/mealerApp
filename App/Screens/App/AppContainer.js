@@ -1,15 +1,22 @@
 import React, {Component} from 'react'
-import Expo from 'expo'
+import {Colors} from '../../Themes/index'
+import {
+    Notifications,
+    Font,
+} from 'expo';
 import {View, StatusBar, Alert} from 'react-native'
 import Navigation from '../../Navigation/Navigation'
 import {connect} from 'react-redux'
-import styles from './Main.styles'
 import {Login} from '../index'
 import authenticationService from '../../Services/authentication-service'
+import {registerForPushNotification} from '../../Services/push-notification-service'
 import * as ReactNavigation from 'react-navigation'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions';
 
-class RootContainer extends Component {
+class App extends Component {
+    constructor(props) {
+        super(props);
+    }
     state = {
         currentUser: null,
         fontLoaded: false,
@@ -21,19 +28,21 @@ class RootContainer extends Component {
             const currentUser = await authenticationService.currentUser();
             const {dispatch} = this.props;
             const {getUser, clearCurrentUser} = settingsActionCreators;
-            await Expo.Font.loadAsync({
-                'proximanova-regular': require('../../../assets/fonts/ProximaNova-Regular.ttf'),
-                'proximanova-bold': require('../../../assets/fonts/ProximaNova-Bold.ttf')
+            await Font.loadAsync({
+                'proximanova-regular': require('../../Assets/Fonts/ProximaNova-Regular.ttf'),
+                'proximanova-bold': require('../../Assets/Fonts/ProximaNova-Bold.ttf'),
+                'Roboto_medium': require('../../Assets/Fonts/Roboto-Medium.ttf')
             });
 
             if (currentUser) {
                 // Update the user app state
-                dispatch(getUser(currentUser.uid))
+                dispatch(getUser(currentUser.uid));
+                registerForPushNotification();
+                Notifications.addListener(this._handleNotification);
             } else {
                 //clear the user app state
                 dispatch(clearCurrentUser())
             }
-
 
             this.setState({
                 fontLoaded: true,
@@ -44,26 +53,30 @@ class RootContainer extends Component {
         }
     }
 
-    navigationContainer = (navigation)=>{
-        return <Navigation navigation={navigation}/>
+    _handleNotification = (notification) => {
+        Alert.alert('Error', JSON.stringify(notification));
     };
 
-    render() {
-        const {dispatch, nav, auth} = this.props;
+    navigationContainer = () => {
+        const {dispatch, nav} = this.props;
         const navigation = ReactNavigation.addNavigationHelpers({
             dispatch,
             state: nav
         });
+        return <Navigation navigation={navigation}/>
+    };
 
+    render() {
         if (this.state.fontLoaded) {
-            if (this.state.currentUser || auth.user) {
+            if (this.state.currentUser || this.props.auth.user){
                 return (
-                    <View style={styles.applicationView}><StatusBar barStyle='dark-content'/>
-                        {this.navigationContainer(navigation)}
+                    <View style={{flex: 1, backgroundColor: Colors.white}}>
+                        <StatusBar barStyle='dark-content'/>
+                        {this.navigationContainer()}
                     </View>
                 )
             } else {
-                return <Login/>;
+                return <Login/>
             }
         } else {
             return null;
@@ -73,4 +86,4 @@ class RootContainer extends Component {
 
 const mapDispatchToProps = dispatch => ({dispatch});
 const mapStateToProps = state => ({nav: state.navigation, auth: state.auth});
-export default connect(mapStateToProps, mapDispatchToProps)(RootContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

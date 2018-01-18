@@ -1,6 +1,6 @@
 import LoadingSpinner from './LoadingSpinner'
 import Header from './Header'
-import UserProfileHeader from './UserProfileHeader'
+import VendorDetailsInfo from './VendorDetailsInfo'
 import AddToCartModal from './AddToCartModal'
 import AddToCartButton from './AddToCartButton'
 import CustomerCartScreen from './CustomerCartScreen'
@@ -8,7 +8,7 @@ import CustomerCartScreen from './CustomerCartScreen'
 export {
     Header,
     LoadingSpinner,
-    UserProfileHeader,
+    VendorDetailsInfo,
     AddToCartModal,
     AddToCartButton,
     CustomerCartScreen

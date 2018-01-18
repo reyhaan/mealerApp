@@ -6,7 +6,6 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
 import {bindActionCreators} from 'redux';
-import {LoadingSpinner} from '../../Components/index'
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -78,9 +77,6 @@ class MenuTab extends Component {
                         </Button>
                     </Right>
                 </Header>
-
-                <LoadingSpinner
-                    show={this.props.vendor.showActivityIndicator && menus.length === 0 || this.state.refreshing}/>
 
                 <FlatList
                     style={{backgroundColor: style.white}}

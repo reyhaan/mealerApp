@@ -8,6 +8,7 @@ import Settings from './Settings/Settings'
 import UserSettings from './UserSettings/UserSettings'
 import InfoTab from './Info/Info'
 import Menus from './Menus/Menus'
+import AppEntry from './App/AppEntry'
 import MenuForm from './MenuForm/MenuForm'
 import VendorDetails from './VendorDetails/VendorDetails'
 
@@ -23,5 +24,6 @@ export {
     MenuForm,
     VendorDetails,
     CustomerOrderHistory,
-    VendorOrders
+    VendorOrders,
+    AppEntry
 }

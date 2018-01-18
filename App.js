@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Provider} from 'react-redux'
-import RootContainer from './App/Screens/Main/Main'
+import AppContainer from './App/Screens/App/AppContainer'
 import createStore from './App/Redux/createStore'
 import './App/Config/ReactotronConfig'
 
@@ -25,7 +25,7 @@ class App extends Component {
     render() {
         return (
             <Provider store={createStore()}>
-                <RootContainer/>
+                <AppContainer/>
             </Provider>
         )
     }

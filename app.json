@@ -1,10 +1,15 @@
 {
   "expo": {
     "name": "Mealer",
-    "icon": "./App/Assets/Images/logo.png",
+    "icon": "./App/Assets/Images/app_logo_120x120.png",
     "version": "1.0.0",
     "slug": "mealerexpo",
     "sdkVersion": "22.0.0",
+    "splash": {
+      "image": "./App/Assets/Images/splash_screen.png",
+      "backgroundColor": "#ffffff ",
+      "resizeMode": "contain"
+    },
     "ios": {
       "bundleIdentifier": "com.mealerapp.mealerapp"
     },

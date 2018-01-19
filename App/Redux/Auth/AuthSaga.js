@@ -27,6 +27,27 @@ authEffect.signIn = function* (userCredentials) {
     }
 };
 
+// Authentication effect of signing in
+authEffect.getCurrentUser = function* () {
+    try {
+        let currentUser = yield call(authenticationService.currentUser);
+
+        if (currentUser) {
+            // Update the user app state
+            yield put(settingsActionCreators.setUser(currentUser));
+            yield put(settingsActionCreators.getUser(currentUser.uid));
+        } else {
+            //clear the user app state
+            yield put(settingsActionCreators.clearCurrentUser());
+        }
+
+    } catch (error) {
+        Alert.alert('Error', error.message);
+    } finally {
+        yield put(authActionCreators.showActivityIndicator(false));
+    }
+};
+
 // Authentication effect of signing up
 authEffect.signUp = function* (userCredentials) {
     try {
@@ -43,7 +64,7 @@ authEffect.signUp = function* (userCredentials) {
         yield call(authenticationService.addUser, user);
         yield put(authActionCreators.signUpSuccessful(user));
         yield put(settingsActionCreators.setUser(user)); //!important to update the user state
-        yield put(NavigationActions.navigate({routeName: user.type === "vendor" ? 'MerchantTab' : 'CustomerTab'}));
+        yield put(NavigationActions.navigate({routeName: user.type === "vendor" ? 'VendorTab' : 'CustomerTab'}));
         yield call(registerForPushNotification);
     } catch (error) {
         Alert.alert('Error', error.message);

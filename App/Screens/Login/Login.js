@@ -22,31 +22,10 @@ class Login extends Component {
         };
     }
 
-    async componentDidMount() {
-        try {
-            const currentUser = await authenticationService.currentUser();
-            const {navigation} = this.props;
-            if (currentUser) {
-                this.props.getUser(currentUser.uid)
-            }
-
-            if (currentUser && currentUser.type === "customer") {
-                navigation.navigate('CustomerTab')
-            } else if (currentUser && currentUser.type === "vendor") {
-                navigation.navigate('VendorTab')
-            }
-
-        } catch (err) {
-            Alert.alert('Error', err);
-        }
-    }
-
     toggleSignUpPage = () => {
         this.setState({showSignUpScreen: !this.state.showSignUpScreen});
     };
-    toggleCheckBox = () => {
-        this.setState({checked: !this.state.checked})
-    };
+
     getUserLoginInfo = (id, e) => {
         this.setState({userLoginInfo: Object.assign({}, this.state.userLoginInfo, {[id]: e})});
     };
@@ -54,7 +33,7 @@ class Login extends Component {
     login = () => {
         let {email, password} = this.state.userLoginInfo;
         if (email && password) {
-            this.props.signIn({email, password});
+            this.props.authActions.signIn({email, password});
         } else {
             Alert.alert("", "Please enter your email and password",)
         }
@@ -76,18 +55,18 @@ class Login extends Component {
                             <Item floatingLabel>
                                 <Label style={{color: Colors.charcoal}}>Email</Label>
                                 <Input autoCapitalize="none"
-									style={{color: Colors.charcoal}}
-									keyboardType="email-address"
-									onChangeText={(e) => this.getUserLoginInfo('email', e)}/>
+                                       style={{color: Colors.charcoal}}
+                                       keyboardType="email-address"
+                                       onChangeText={(e) => this.getUserLoginInfo('email', e)}/>
                             </Item>
                             <Item floatingLabel>
                                 <Label style={{color: Colors.charcoal}}>Password</Label>
                                 <Input autoCapitalize="none"
-									style={{color: Colors.charcoal}}
-									keyboardType="email-address"
-									onChangeText={(e) => this.getUserLoginInfo('password', e)}
-									secureTextEntry={true}
-									password={true}/>
+                                       style={{color: Colors.charcoal}}
+                                       keyboardType="email-address"
+                                       onChangeText={(e) => this.getUserLoginInfo('password', e)}
+                                       secureTextEntry={true}
+                                       password={true}/>
                             </Item>
                         </Form>
                         <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
@@ -110,11 +89,13 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-            ...authActionCreators,
-            ...settingsActionCreators
-        },
-        dispatch);
+    return {
+        authActions: bindActionCreators(authActionCreators, dispatch),
+        settingsActions: bindActionCreators(settingsActionCreators, dispatch)
+    }
 };
-const mapStateToProps = state => ({auth: state.auth});
+const mapStateToProps = state => ({
+    auth: state.auth,
+    settings: state.settings
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

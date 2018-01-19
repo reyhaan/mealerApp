@@ -1,36 +1,41 @@
 import React, {Component} from 'react'
 import {Alert, View} from 'react-native'
+import {Notifications} from 'expo';
 import {Colors} from '../../Themes/index'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
-import authenticationService from '../../Services/authentication-service'
+import {registerForPushNotification} from '../../Services/push-notification-service'
 
 class AppEntry extends Component {
 
-    async componentDidMount() {
+    componentDidMount() {
         try {
-            const currentUser = await authenticationService.currentUser();
             const {navigation} = this.props;
+            const {user} = this.props.settings;
 
-            if (currentUser) {
-                this.props.settingsActions.getUser(currentUser.uid)
-            }
+            if (user) {
+                if (user.type === "customer") {
+                    navigation.navigate('CustomerTab')
+                }
+                else if (user.type === "vendor") {
+                    navigation.navigate('VendorTab')
+                }
 
-            if (currentUser && currentUser.type === "customer") {
-                navigation.navigate('CustomerTab')
-            }
-            else if (currentUser && currentUser.type === "vendor") {
-                navigation.navigate('VendorTab')
+                registerForPushNotification();
+                Notifications.addListener(this.handleNotification);
             }
             else {
                 navigation.navigate('Login')
             }
-
         } catch (err) {
             Alert.alert('Error', err);
         }
     }
+
+    handleNotification = (notification) => {
+        Alert.alert('Error', JSON.stringify(notification));
+    };
 
     render() {
         return (
@@ -44,6 +49,7 @@ const mapDispatchToProps = (dispatch) => {
         settingsActions: bindActionCreators(settingsActionCreators, dispatch)
     }
 };
-
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+    settings: state.settings,
+});
 export default connect(mapStateToProps, mapDispatchToProps)(AppEntry)

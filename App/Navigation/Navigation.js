@@ -7,7 +7,7 @@ import {
     MenuForm,
     UserSettings,
     Cart,
-    AppEntry
+    Main
 } from '../Screens'
 
 // Manifest of possible screens
@@ -36,8 +36,8 @@ export default StackNavigator({
     MenuForm: {
         screen: MenuForm
     },
-    AppEntry: {
-        screen: AppEntry
+    Main: {
+        screen: Main
     },
     Cart: {
         screen: Cart
@@ -45,7 +45,7 @@ export default StackNavigator({
 }, {
     // Default config for all screens
     headerMode: 'none',
-    initialRouteName: 'AppEntry',
+    initialRouteName: 'Main',
     navigationOptions: ({navigation}) => ({
         header: null,
     })

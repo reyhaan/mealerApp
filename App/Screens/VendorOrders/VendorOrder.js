@@ -82,7 +82,6 @@ class VendorOrder extends Component {
             [
                 {
                     text: 'Cancel', onPress: () => {
-                    console.log('Cancel Pressed')
                 }, style: 'cancel'
                 },
                 {
@@ -104,7 +103,6 @@ class VendorOrder extends Component {
             [
                 {
                     text: 'Cancel', onPress: () => {
-                    console.log('Cancel Pressed')
                 }, style: 'cancel'
                 },
                 {
@@ -126,7 +124,6 @@ class VendorOrder extends Component {
             [
                 {
                     text: 'Cancel', onPress: () => {
-                    console.log('Cancel Pressed')
                 }, style: 'cancel'
                 },
                 {

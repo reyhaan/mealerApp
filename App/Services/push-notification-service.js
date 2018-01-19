@@ -12,8 +12,6 @@ export const registerForPushNotification =  async () => {
     );
     let finalStatus = existingStatus;
 
-    console.log('existingStatus: ' + existingStatus);
-
     // only ask if permissions have not already been determined, because
     // iOS won't necessarily prompt the user a second time.
     if (existingStatus !== 'granted') {
@@ -22,8 +20,6 @@ export const registerForPushNotification =  async () => {
         const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
         finalStatus = status;
     }
-
-    console.log('finalStatus: ' + finalStatus);
 
     // Stop here if the user did not grant permissions
     if (finalStatus !== 'granted') {

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import {Alert} from 'react-native'
+import {Alert, View} from 'react-native'
+import {Colors} from '../../Themes/index'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
@@ -11,8 +12,6 @@ class AppEntry extends Component {
         try {
             const currentUser = await authenticationService.currentUser();
             const {navigation} = this.props;
-
-            console.log(navigation);
 
             if (currentUser) {
                 this.props.settingsActions.getUser(currentUser.uid)
@@ -34,7 +33,9 @@ class AppEntry extends Component {
     }
 
     render() {
-        return null;
+        return (
+            <View style={{flex: 1, backgroundColor: Colors.white}}/>
+        )
     }
 }
 

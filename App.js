@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Provider} from 'react-redux'
-import AppContainer from './App/Screens/App/AppContainer'
+import AppContainer from './App/Screens/AppContainer/AppContainer'
 import createStore from './App/Redux/createStore'
 import './App/Config/ReactotronConfig'
 

@@ -18,7 +18,6 @@ authEffect.signIn = function* (userCredentials) {
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield put(authActionCreators.signInSuccessful(user));
         yield put(settingsActionCreators.setUser(user)); //!important to update the user state
-        yield put(NavigationActions.navigate({routeName: user.type === "vendor" ? 'VendorTab' : 'CustomerTab'}));
         yield call(registerForPushNotification);
     } catch (error) {
         Alert.alert('Error', error.message);

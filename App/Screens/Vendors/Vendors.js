@@ -40,7 +40,6 @@ class Vendors extends Component {
     }
 
     fetchVendors = () => {
-        console.log('fetch vendors')
         this.props.vendorActions.fetchVendors();
     };
 

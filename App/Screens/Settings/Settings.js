@@ -17,9 +17,10 @@ class Settings extends Component {
     };
 
     render() {
+        const {user} = this.props.settings;
         return (
             <View style={styles.container}>
-                <Header style={{backgroundColor: Colors.snow}}>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15}}>
                     <Body>
                     <Title style={{color: Colors.background}}>Settings</Title>
                     </Body>
@@ -29,22 +30,39 @@ class Settings extends Component {
                     <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
                         <ListItem
                             onPress={() => {
-                                this.props.navigation.navigate("UserSettings", {page: "Update Profile"})
+                                this.props.navigation.navigate("UserSettings", {page: "Account"})
                             }}
                             chevronColor={Colors.background}
                             titleStyle={styles.listTitle}
                             containerStyle={styles.listItem}
                             leftIcon={{
-                                name: 'home',
+                                name: 'user',
                                 type: 'font-awesome',
                                 style: {color: Colors.background, fontSize: 18}
                             }}
-                            title={'Update Profile'}
+                            title={'Account'}
                         />
+                        {
+                            user.type === 'customer' ?
+                                <ListItem
+                                    onPress={() => {this.props.navigation.navigate('CustomerOrderHistory')}}
+                                    chevronColor={Colors.background}
+                                    titleStyle={styles.listTitle}
+                                    containerStyle={styles.listItem}
+                                    leftIcon={{
+                                        name: 'history',
+                                        type: 'font-awesome',
+                                        style: {color: Colors.background, fontSize: 18}
+                                    }}
+                                    title={'Order History'}
+                                /> : null
+                        }
+
                         <ListItem
                             onPress={() => {
                                 this.onSignOut()
                             }}
+                            style={{marginTop: 10}}
                             chevronColor={Colors.background}
                             titleStyle={styles.listTitle}
                             containerStyle={styles.listItem}
@@ -64,6 +82,9 @@ class Settings extends Component {
 
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
-const mapStateToProps = state => ({});
-
+const mapStateToProps = (state) => {
+    return {
+        settings: state.settings
+    }
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Settings)

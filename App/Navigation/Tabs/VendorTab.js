@@ -45,7 +45,7 @@ const merchantTabsConfig = {
         screen: Settings,
         navigationOptions: {
             gesturesEnabled: false,
-            tabBarLabel: 'Settings',
+            tabBarLabel: 'Account',
             tabBarIcon: ({tintColor}) => (
                 <Image
                     source={Images.settingsWhite}

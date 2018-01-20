@@ -143,7 +143,7 @@ class Cart extends Component {
 
         return (
             <View style={styles.container}>
-                <Header style={{backgroundColor:Colors.snow}}>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
                     <Left/>
                     <Body>
                     <Title style={{color: Colors.background}}>Header</Title>

@@ -120,7 +120,7 @@ class MenuForm extends Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <ScrollView style={styles.container}>
-                    <Header style={{backgroundColor: Colors.snow}}>
+                    <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
                         <Left>
                             <Button transparent onPress={() => this.navigateBack()}>
                                 <Icon name="chevron-left" size={20} color={Colors.background}/>

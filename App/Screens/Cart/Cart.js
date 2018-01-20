@@ -4,10 +4,11 @@ import styles from './Cart.style'
 import {CustomerCartScreen} from '../../Components/index'
 import {Colors, Metrics, Images} from '../../Themes/index'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Header, Icon} from 'react-native-elements'
 import {bindActionCreators} from 'redux'
 import {cartActionCreators} from '../../Redux/Cart/CartActions'
 import {LoadingSpinner} from '../../Components/index'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import {
     ScrollView,
     View,
@@ -26,14 +27,6 @@ class MerchantOrders extends Component {
 
     componentDidMount = () => {
         this.props.cartActions.getCart();
-    };
-
-    componentWillReceiveProps = async () => {
-
-    };
-
-    navigateToPreviousOrders = () => {
-        this.props.navigation.navigate('CustomerOrderHistory')
     };
 
     placeOrder = () => {
@@ -78,49 +71,16 @@ class MerchantOrders extends Component {
         }
     };
 
-    _cartHeaderTitle = () => {
-        return (
-            <Col size={1}
-                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center'}}>
-                <Row>
-                    <Icon size={16}
-                          name={'cutlery'}
-                          color={Colors.background}
-                          type='font-awesome'/>
-                    <Text style={styles.headerTitle}>MY CART</Text>
-                </Row>
-            </Col>
-        )
-    };
-
-    showPreviousOrdersButton = () => {
-        return (
-            <Col size={1}
-                 style={{paddingLeft: 5, alignItems: 'flex-start', justifyContent: 'center'}}>
-                <TouchableOpacity onPress={() => {
-                    this.navigateToPreviousOrders()
-                }}>
-                    <Row>
-                        <Icon size={16}
-                              name={'archive'}
-                              color={Colors.background}
-                              onPress={() => {
-                              }}/>
-                        <Text style={styles.headerRightButton}>ORDERS</Text>
-                    </Row>
-                </TouchableOpacity>
-            </Col>
-        )
-    };
-
     render() {
         return (
             <View style={styles.container}>
-                <Header
-                    leftComponent={this._cartHeaderTitle()}
-                    rightComponent={this.showPreviousOrdersButton()}
-                    backgroundColor={Colors.background}
-                    outerContainerStyles={styles.headerContainer}/>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
+                    <Left/>
+                    <Body>
+                    <Title style={{color: Colors.background}}>Cart</Title>
+                    </Body>
+                    <Right/>
+                </Header>
 
                 <ScrollView>
                     <LoadingSpinner show={this.props.cart && this.props.cart.showActivityIndicator}/>

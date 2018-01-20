@@ -103,7 +103,7 @@ class Vendors extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header style={{backgroundColor: Colors.snow}}>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
                     <Left/>
                     <Body>
                     <Title style={{color: Colors.background}}>Vendors</Title>

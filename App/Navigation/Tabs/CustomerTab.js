@@ -7,6 +7,8 @@ import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
 import IconBadge from 'react-native-icon-badge';
 import cartService from '../../Services/cart-service'
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import {
     Vendors,
     Cart,
@@ -43,10 +45,7 @@ const customerTabsConfig = {
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={Images.cooksWhite}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
+                <Icon name="cutlery" size={20} color={tintColor} />
             ),
             headerStyle: styles.header,
             title: 'Vendors'
@@ -58,10 +57,7 @@ const customerTabsConfig = {
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={Images.ordersWhite}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
+                <Icon name="shopping-cart" size={20} color={tintColor} />
             ),
             // tabBarIcon: ({tintColor}) => (
             //     <IconBadge
@@ -87,12 +83,9 @@ const customerTabsConfig = {
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={Images.settingsWhite}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
+                <Icon name="user" size={20} color={tintColor} />
             ),
-            title: 'Settings'
+            title: 'Account'
         },
     },
 
@@ -101,10 +94,7 @@ const customerTabsConfig = {
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={Images.infoIcon}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
+                <Icon name="info" size={20} color={tintColor} />
             ),
             title: 'Info'
         },

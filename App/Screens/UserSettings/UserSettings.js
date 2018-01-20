@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Platform, KeyboardAvoidingView, Text} from 'react-native'
+import {ScrollView, View, KeyboardAvoidingView, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import UserInfoChangeScreenStyle from './UserSettings.style'
@@ -103,7 +103,7 @@ class UserSettings extends Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <View style={styles.container}>
-                    <Header style={{backgroundColor: Colors.snow}}>
+                    <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
                         <Left>
                             <Button transparent onPress={() => this.navigateBack()}>
                                 <Icon name="chevron-left" size={20} color={Colors.background}/>

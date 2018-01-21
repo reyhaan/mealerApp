@@ -4,9 +4,10 @@ import styles from '../Navigation.style'
 import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     VendorOrders,
-    Settings,
+    Account,
     InfoTab,
     Menus
 } from '../../Screens/index'
@@ -33,24 +34,18 @@ const merchantTabsConfig = {
             gesturesEnabled: false,
             tabBarLabel: 'Orders',
             tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={Images.ordersWhite}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
+                <Icon name="shopping-cart" size={20} color={tintColor} />
             ),
         },
     },
 
     Three: {
-        screen: Settings,
+        screen: Account,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarLabel: 'Account',
             tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={Images.settingsWhite}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
+                <Icon name="user-circle" size={20} color={tintColor} />
             ),
         },
     },

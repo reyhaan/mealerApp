@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     Vendors,
     Cart,
-    Settings,
+    Account,
     InfoTab,
     VendorDetails,
     CustomerOrderHistory
@@ -79,11 +79,11 @@ const customerTabsConfig = {
     },
 
     Three: {
-        screen: Settings,
+        screen: Account,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
-                <Icon name="user" size={20} color={tintColor} />
+                <Icon name="user-circle" size={20} color={tintColor} />
             ),
             title: 'Account'
         },

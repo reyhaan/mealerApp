@@ -11,7 +11,6 @@ import {Header, Left, Body, Right, Button, Title} from 'native-base';
 const styles = SettingsTabStyle;
 
 class Settings extends Component {
-
     onSignOut = () => {
         this.props.signOut()
     };
@@ -36,7 +35,7 @@ class Settings extends Component {
                             titleStyle={styles.listTitle}
                             containerStyle={styles.listItem}
                             leftIcon={{
-                                name: 'user',
+                                name: 'user-circle',
                                 type: 'font-awesome',
                                 style: {color: Colors.background, fontSize: 18}
                             }}
@@ -59,9 +58,7 @@ class Settings extends Component {
                         }
 
                         <ListItem
-                            onPress={() => {
-                                this.onSignOut()
-                            }}
+                            onPress={() => { this.onSignOut()}}
                             style={{marginTop: 10}}
                             chevronColor={Colors.background}
                             titleStyle={styles.listTitle}
@@ -79,7 +76,6 @@ class Settings extends Component {
         )
     }
 }
-
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
 const mapStateToProps = (state) => {

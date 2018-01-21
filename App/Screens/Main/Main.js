@@ -5,8 +5,7 @@ import {Colors} from '../../Themes/index'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
-import {registerForPushNotification} from '../../Services/push-notification-service'
-import {handleReceivedNotification} from '../../Services/push-notification-service'
+import {registerForPushNotification, handleReceivedNotification} from '../../Services/push-notification-service'
 
 class AppEntry extends Component {
 

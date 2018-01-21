@@ -14,6 +14,7 @@ import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
 import constants from '../../Services/constants-service';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Container, Content, Tab, Tabs, ScrollableTab, Header, Left, Body, Right, Button, Title} from 'native-base';
+import {clearBadgeCount} from '../../Services/push-notification-service'
 
 // Styles
 const styles = OrdersTabStyle;
@@ -25,6 +26,15 @@ class Cart extends Component {
         this.getVendorOrders();
         this.state = {
             refreshing: false
+        }
+    }
+
+    async componentDidMount() {
+        try {
+            await clearBadgeCount();
+        }
+        catch (e) {
+            console.log(e);
         }
     }
 

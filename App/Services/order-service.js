@@ -53,7 +53,7 @@ orderService.createCustomerOrder = async () => {
             if (order.vendor.pushNotificationToken){
                 await sendPush([{
                     to: order.vendor.pushNotificationToken,
-                    badge: 1,
+                    badge: +1,
                     title: "Mealer",
                     body: "New order received from " + order.customer.name,
                     data: {
@@ -144,13 +144,10 @@ orderService.updateOrderStatus = async (order) => {
         await ordersFromCustomer.child('ordersToVendor').child(order.id).child('status').set(order.status);
 
         const customer = await authenticationService.fetchUser(order.customer.uid);
-
-        console.log(customer);
-
         if (customer && customer.pushNotificationToken) {
             await sendPush([{
                 to: customer.pushNotificationToken,
-                badge: 1,
+                badge: +1,
                 title: "Mealer",
                 body: "Order updated ",
                 data: {

@@ -1,7 +1,5 @@
 import React from 'react'
-import {Image} from 'react-native'
 import styles from '../Navigation.style'
-import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -19,10 +17,7 @@ const merchantTabsConfig = {
             gesturesEnabled: false,
             tabBarLabel: 'Menu',
             tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={Images.menuWhite}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
+                <Icon name="list" size={20} color={tintColor} />
             ),
             headerStyle: styles.header
         },
@@ -56,10 +51,7 @@ const merchantTabsConfig = {
             gesturesEnabled: false,
             tabBarLabel: 'About',
             tabBarIcon: ({tintColor}) => (
-                <Image
-                    source={Images.infoIcon}
-                    style={[styles.icon, {tintColor: tintColor}]}
-                />
+                <Icon name="info" size={20} color={tintColor} />
             ),
         },
     }

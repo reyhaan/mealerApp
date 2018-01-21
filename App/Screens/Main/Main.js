@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {registerForPushNotification} from '../../Services/push-notification-service'
+import {handleReceivedNotification} from '../../Services/push-notification-service'
 
 class AppEntry extends Component {
 
@@ -34,7 +35,7 @@ class AppEntry extends Component {
     }
 
     handleNotification = (notification) => {
-        Alert.alert('Error', JSON.stringify(notification));
+        handleReceivedNotification(notification,this.props.dispatch);
     };
 
     render() {
@@ -46,10 +47,11 @@ class AppEntry extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        dispatch,
         settingsActions: bindActionCreators(settingsActionCreators, dispatch)
     }
 };
 const mapStateToProps = state => ({
-    settings: state.settings,
+    settings: state.settings
 });
 export default connect(mapStateToProps, mapDispatchToProps)(AppEntry)

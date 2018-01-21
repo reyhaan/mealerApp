@@ -74,6 +74,7 @@ class MenuTab extends Component {
                     <Right>
                         <Button transparent onPress={() => this.addMenuItem()}>
                             <Icon name="plus" size={20} color={Colors.background}/>
+                            <Text style={{marginLeft:5, color:Colors.background}}>Add</Text>
                         </Button>
                     </Right>
                 </Header>

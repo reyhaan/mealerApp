@@ -1,13 +1,17 @@
-import { Permissions, Notifications, Constants } from 'expo';
+import {Permissions, Notifications} from 'expo';
 import authentication from './authentication-service';
 import settingsService from './settings-service';
+import {vendorActionCreators} from '../Redux/Vendor/VendorActions';
+import {orderActionCreators} from '../Redux/Order/OrderActions';
+import {Alert} from 'react-native';
+import axios from 'axios';
 import DeviceInfo from 'react-native-device-info'
 
 // console.log(Constants.isDevice) // => false if simulator
 
-export const registerForPushNotification =  async () => {
+export const registerForPushNotification = async () => {
 
-    const { status: existingStatus } = await Permissions.getAsync(
+    const {status: existingStatus} = await Permissions.getAsync(
         Permissions.NOTIFICATIONS
     );
     let finalStatus = existingStatus;
@@ -17,7 +21,7 @@ export const registerForPushNotification =  async () => {
     if (existingStatus !== 'granted') {
         // Android remote notification permissions are granted during the app
         // install, so this will only ask on iOS
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+        const {status} = await Permissions.askAsync(Permissions.NOTIFICATIONS);
         finalStatus = status;
     }
 
@@ -29,9 +33,53 @@ export const registerForPushNotification =  async () => {
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
 
-    if (token){
+    if (token) {
         const user = await authentication.currentUser();
         user.pushNotificationToken = token;
         await settingsService.updateUserInfo(user.uid, user);
+    }
+};
+
+export const sendPush = async (data) => {
+    try {
+        await axios({
+            method: 'post',
+            url: 'https://exp.host/--/api/v2/push/send',
+            headers: {
+                'accept': 'application/json',
+                'accept-encoding': 'gzip, deflate',
+                'content-type': 'application/json',
+            },
+            data: data
+        });
+    }
+    catch (error) {
+        console.log(error.response.data);
+        Alert.alert('Error', error.response.data);
+    }
+};
+
+
+export const handleReceivedNotification = ({data}, dispatch) => {
+    // Vendor received  customer order
+    if (data.orderToVendor) {
+        let message = null;
+        if (data.customerName) {
+            message = data.customerName;
+        }
+        Alert.alert('New Order received', message);
+
+        dispatch(vendorActionCreators.fetchVendorOrders())
+    }
+
+    // Customer received  vendor order update
+    if (data.customerOrderStatusUpdate) {
+        let message = null;
+        if (data.vendorName) {
+            message = data.orderStatus;
+        }
+        Alert.alert('Order to ' + data.vendorName + ' updated', message );
+
+        dispatch(orderActionCreators.getOrders())
     }
 };

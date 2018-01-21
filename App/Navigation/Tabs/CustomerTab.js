@@ -1,18 +1,14 @@
 import React from 'react'
-import {Colors} from '../../Themes/index'
-import {Image, Text} from 'react-native'
 import styles from '../Navigation.style'
-import {Images} from '../../Themes/index'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
 import IconBadge from 'react-native-icon-badge';
 import cartService from '../../Services/cart-service'
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import {
     Vendors,
     Cart,
-    Settings,
+    Account,
     InfoTab,
     VendorDetails,
     CustomerOrderHistory
@@ -79,11 +75,11 @@ const customerTabsConfig = {
     },
 
     Three: {
-        screen: Settings,
+        screen: Account,
         navigationOptions: {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
-                <Icon name="user" size={20} color={tintColor} />
+                <Icon name="user-circle" size={20} color={tintColor} />
             ),
             title: 'Account'
         },

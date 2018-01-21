@@ -5,7 +5,7 @@ import {
     Login,
     SignUp,
     MenuForm,
-    UserSettings,
+    UserAccount,
     Cart,
     Main
 } from '../Screens'
@@ -30,8 +30,8 @@ export default StackNavigator({
     CustomerTab: {
         screen: CustomerTab
     },
-    UserSettings: {
-        screen: UserSettings
+    UserAccount: {
+        screen: UserAccount
     },
     MenuForm: {
         screen: MenuForm

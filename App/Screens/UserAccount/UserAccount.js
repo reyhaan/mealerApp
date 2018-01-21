@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {ScrollView, View, KeyboardAvoidingView, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import UserInfoChangeScreenStyle from './UserSettings.style'
+import UserInfoChangeScreenStyle from './UserAccount.style'
 import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
@@ -16,7 +16,7 @@ import UserAvatar from '../../Components/UserAvatar'
 
 const styles = UserInfoChangeScreenStyle;
 
-class UserSettings extends Component {
+class UserAccount extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -110,7 +110,7 @@ class UserSettings extends Component {
                             </Button>
                         </Left>
                         <Body>
-                        <Title style={{color: Colors.background}}> Settings</Title>
+                        <Title style={{color: Colors.background}}>Account</Title>
                         </Body>
                         <Right/>
                     </Header>
@@ -213,4 +213,4 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(settingsActionCreators, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSettings)
+export default connect(mapStateToProps, mapDispatchToProps)(UserAccount)

@@ -2,7 +2,7 @@ import db from '../Config/database';
 import authenticationService from './authentication-service';
 import cartService from './cart-service';
 import _ from 'lodash';
-import moment from 'moment';
+import {sendPush} from '../Services/push-notification-service'
 import each from 'async/each';
 
 let orderService = {};
@@ -49,6 +49,21 @@ orderService.createCustomerOrder = async () => {
                 key: orderSnapshot.key,
                 ...orderSnapshot.val()
             });
+
+            if (order.vendor.pushNotificationToken){
+                await sendPush([{
+                    to: order.vendor.pushNotificationToken,
+                    badge: 1,
+                    title: "Mealer",
+                    body: "New order received from " + order.customer.name,
+                    data: {
+                        orderToVendor: true,
+                        customerOrderId: customerOrder.id,
+                        vendorOrderId: order.id,
+                        customerName: order.customer.name
+                    }
+                }]);
+            }
         });
         await cartService.dumpCart();
         return Promise.resolve();
@@ -123,10 +138,31 @@ orderService.getMerchantOrders = async (userId) => {
  */
 orderService.updateOrderStatus = async (order) => {
     try {
-        const orderToVendorRef = db.ordersToVendor(order.id);
-        const ordersFromCustomerRef = db.ordersFromCustomer(order.ordersFromCustomerId);
-        await orderToVendorRef.child('status').set(order.status);
-        await ordersFromCustomerRef.child('ordersToVendor').child(order.id).child('status').set(order.status);
+        const orderToVendor = db.ordersToVendor(order.id);
+        const ordersFromCustomer = db.ordersFromCustomer(order.ordersFromCustomerId);
+        await orderToVendor.child('status').set(order.status);
+        await ordersFromCustomer.child('ordersToVendor').child(order.id).child('status').set(order.status);
+
+        const customer = await authenticationService.fetchUser(order.customer.uid);
+
+        console.log(customer);
+
+        if (customer && customer.pushNotificationToken) {
+            await sendPush([{
+                to: customer.pushNotificationToken,
+                badge: 1,
+                title: "Mealer",
+                body: "Order updated ",
+                data: {
+                    customerOrderStatusUpdate: true,
+                    customerOrderId: order.ordersFromCustomerId,
+                    vendorOrderId: order.id,
+                    vendorName: order.vendor.name,
+                    orderStatus: order.status
+                }
+            }]);
+        }
+
         return Promise.resolve();
     } catch (error) {
         return Promise.reject(error);

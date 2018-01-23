@@ -5,8 +5,9 @@ import {
     Login,
     SignUp,
     MenuForm,
-    UserSettings,
-    Cart
+    UserAccount,
+    Cart,
+    Main
 } from '../Screens'
 
 // Manifest of possible screens
@@ -29,11 +30,14 @@ export default StackNavigator({
     CustomerTab: {
         screen: CustomerTab
     },
-    UserSettings: {
-        screen: UserSettings
+    UserAccount: {
+        screen: UserAccount
     },
     MenuForm: {
         screen: MenuForm
+    },
+    Main: {
+        screen: Main
     },
     Cart: {
         screen: Cart
@@ -41,7 +45,7 @@ export default StackNavigator({
 }, {
     // Default config for all screens
     headerMode: 'none',
-    initialRouteName: 'Login',
+    initialRouteName: 'Main',
     navigationOptions: ({navigation}) => ({
         header: null,
     })

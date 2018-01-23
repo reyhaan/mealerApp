@@ -4,10 +4,11 @@ import Vendors from './Vendors/Vendors'
 import Cart from './Cart/Cart'
 import CustomerOrderHistory from './CustomerOrderHistory/CustomerOrderHistory'
 import VendorOrders from './VendorOrders/VendorOrders'
-import Settings from './Settings/Settings'
-import UserSettings from './UserSettings/UserSettings'
+import Account from './Account/Account'
+import UserAccount from './UserAccount/UserAccount'
 import InfoTab from './Info/Info'
 import Menus from './Menus/Menus'
+import Main from './Main/Main'
 import MenuForm from './MenuForm/MenuForm'
 import VendorDetails from './VendorDetails/VendorDetails'
 
@@ -16,12 +17,13 @@ export {
     SignUp,
     Vendors,
     Cart,
-    Settings,
-    UserSettings,
+    Account,
+    UserAccount,
     InfoTab,
     Menus,
     MenuForm,
     VendorDetails,
     CustomerOrderHistory,
-    VendorOrders
+    VendorOrders,
+    Main
 }

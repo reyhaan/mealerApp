@@ -1,19 +1,19 @@
 import React, {Component} from 'react'
 import {
-    ScrollView,
     View,
     Text,
     FlatList
-} from 'react-native'
-import {connect} from 'react-redux'
-import OrdersTabStyle from './VendorOrders.style'
-import VendorOrder from './VendorOrder'
+} from 'react-native';
+import {connect} from 'react-redux';
+import OrdersTabStyle from './VendorOrders.style';
+import VendorOrder from './VendorOrder';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
-import {Header} from 'react-native-elements'
-import { Container, Content, Tab, Tabs,ScrollableTab } from 'native-base';
-import {bindActionCreators} from 'redux'
-import {vendorActionCreators} from '../../Redux/Vendor/VendorActions'
+import {bindActionCreators} from 'redux';
+import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
+import constants from '../../Services/constants-service';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {Container, Content, Tab, Tabs, ScrollableTab, Header, Left, Body, Right, Button, Title} from 'native-base';
 
 // Styles
 const styles = OrdersTabStyle;
@@ -29,57 +29,156 @@ class Cart extends Component {
     }
 
     getVendorOrders = () => {
-        const {vendorActions} = this.props;
-        vendorActions.fetchVendorOrders();
+        this.props.vendorActions.fetchVendorOrders();
+    };
+
+    orderCount = (state) => {
+        switch (state) {
+            case constants.orderStates.new:
+                return this.props.vendor.newVendorOrders && this.props.vendor.newVendorOrders.length ? this.props.vendor.newVendorOrders.length : 0;
+                break;
+            case constants.orderStates.accepted:
+                return this.props.vendor.acceptedVendorOrders && this.props.vendor.acceptedVendorOrders.length ? this.props.vendor.acceptedVendorOrders.length : 0;
+                break;
+            case constants.orderStates.delivered:
+                return this.props.vendor.deliveredVendorOrders && this.props.vendor.deliveredVendorOrders.length ? this.props.vendor.deliveredVendorOrders.length : 0;
+                break;
+            case constants.orderStates.cancelled:
+                return this.props.vendor.cancelledVendorOrders && this.props.vendor.cancelledVendorOrders.length ? this.props.vendor.cancelledVendorOrders.length : 0;
+                break;
+            default:
+                return 0
+        }
+    };
+
+    renderNewOrders = (refreshing) => {
+        if (this.props.vendor.newVendorOrders && this.props.vendor.newVendorOrders.length > 0) {
+            return (<FlatList
+                data={this.props.vendor.newVendorOrders}
+                refreshing={refreshing}
+                onRefresh={() => this.getVendorOrders()}
+                renderItem={({item}) => <VendorOrder order={item}/>}/>)
+        } else {
+            return (
+                <View style={{
+                    marginTop: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <Text style={{fontSize: 16, color: Colors.charcoal}} numberOfLines={2}>All new orders has been
+                        accepted.</Text>
+                </View>
+            )
+        }
+    };
+
+    renderAcceptedOrders = (refreshing) => {
+        if (this.props.vendor.acceptedVendorOrders && this.props.vendor.acceptedVendorOrders.length > 0) {
+            return (<FlatList
+                data={this.props.vendor.acceptedVendorOrders}
+                refreshing={refreshing}
+                onRefresh={() => this.getVendorOrders()}
+                renderItem={({item}) => <VendorOrder order={item}/>}/>)
+        } else {
+            return (
+                <View style={{
+                    marginTop: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <Text style={{fontSize: 16, color: Colors.charcoal}}
+                          numberOfLines={2}>All accepted orders have been delivered.</Text>
+                </View>
+            )
+        }
+    };
+
+    renderDeliveredOrders = (refreshing) => {
+        if (this.props.vendor.deliveredVendorOrders && this.props.vendor.deliveredVendorOrders.length > 0) {
+            return (<FlatList
+                data={this.props.vendor.deliveredVendorOrders}
+                refreshing={refreshing}
+                onRefresh={() => this.getVendorOrders()}
+                renderItem={({item}) => <VendorOrder order={item}/>}/>)
+        } else {
+            return (
+                <View style={{
+                    marginTop: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <Text style={{fontSize: 16, color: Colors.charcoal}}
+                          numberOfLines={2}>All accepted orders have been delivered.</Text>
+                </View>
+            )
+        }
+    };
+
+    renderCancelledOrders = (refreshing) => {
+        if (this.props.vendor.cancelledVendorOrders && this.props.vendor.cancelledVendorOrders.length > 0) {
+            return (<FlatList
+                data={this.props.vendor.cancelledVendorOrders}
+                refreshing={refreshing}
+                onRefresh={() => this.getVendorOrders()}
+                renderItem={({item}) => <VendorOrder order={item}/>}/>)
+        } else {
+            return (
+                <View style={{
+                    marginTop: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <Text style={{fontSize: 16, color: Colors.charcoal}}
+                          numberOfLines={2}>You have no cancelled orders.</Text>
+                </View>
+            )
+        }
     };
 
     render() {
+        let refreshing = this.state.refreshing;
+        if (this.props.request) {
+            refreshing = this.props.request.showLoadingSpinner;
+        }
+
         return (
             <View style={styles.container}>
-                <Header
-                    rightComponent={null}
-                    centerComponent={{text: "ORDERS", style: {color: Colors.background, fontWeight: 'bold'}}}
-                    backgroundColor={Colors.snow}
-                    outerContainerStyles={styles.headerOuterContainer}
-                />
-                     <Tabs initialPage={0} tabBarUnderlineStyle={{backgroundColor:Colors.background}} renderTabBar={()=> <ScrollableTab />}>
-                        <Tab heading="New" activeTextStyle={{color: Colors.background}}>
-                            <ScrollView style={{flex: 1}}>
-                                <FlatList
-                                    data={this.props.vendor.newVendorOrders}
-                                    refreshing={this.state.refreshing}
-                                    onRefresh={() => this.getVendorOrders()}
-                                    renderItem={({item}) => <VendorOrder order={item}/>}/>
-                            </ScrollView>
-                        </Tab>
-                        <Tab heading="Accepted" activeTextStyle={{color: Colors.background}}>
-                            <ScrollView style={{flex: 1}}>
-                                <FlatList
-                                    data={this.props.vendor.acceptedVendorOrders}
-                                    refreshing={this.state.refreshing}
-                                    onRefresh={() => this.getVendorOrders()}
-                                    renderItem={({item}) => <VendorOrder order={item}/>}/>
-                            </ScrollView>
-                        </Tab>
-                        <Tab heading="Delivered" activeTextStyle={{color: Colors.background}}>
-                            <ScrollView style={{flex: 1}}>
-                                <FlatList
-                                    data={this.props.vendor.deliveredVendorOrders}
-                                    refreshing={this.state.refreshing}
-                                    onRefresh={() => this.getVendorOrders()}
-                                    renderItem={({item}) => <VendorOrder order={item}/>}/>
-                            </ScrollView>
-                        </Tab>
-                        <Tab heading="Cancelled" activeTextStyle={{color: Colors.background}}>
-                            <ScrollView style={{flex: 1}}>
-                                <FlatList
-                                    data={this.props.vendor.cancelledVendorOrders}
-                                    refreshing={this.state.refreshing}
-                                    onRefresh={() => this.getVendorOrders()}
-                                    renderItem={({item}) => <VendorOrder order={item}/>}/>
-                            </ScrollView>
-                        </Tab>
-                    </Tabs>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
+                    <Left/>
+                    <Body>
+                    <Title style={{color: Colors.background}}>Header</Title>
+                    </Body>
+                    <Right>
+                        <Button transparent onPress={this.getVendorOrders}>
+                            <Icon name="refresh" size={20} color={Colors.background}/>
+                        </Button>
+                    </Right>
+                </Header>
+
+                <Tabs initialPage={0}
+                      tabBarUnderlineStyle={{backgroundColor: Colors.background}}
+                      renderTabBar={() => <ScrollableTab/>}>
+                    <Tab activeTextStyle={{color: Colors.background}} activeTabStyle={{backgroundColor: Colors.snow}}
+                         tabStyle={{backgroundColor: Colors.lightGray}} textStyle={{color: Colors.gray}}
+                         heading={"New" + " (" + this.orderCount(constants.orderStates.new) + ")"}>
+                        {this.renderNewOrders(refreshing)}
+                    </Tab>{}
+                    <Tab activeTextStyle={{color: Colors.background}} activeTabStyle={{backgroundColor: Colors.snow}}
+                         tabStyle={{backgroundColor: Colors.lightGray}} textStyle={{color: Colors.gray}}
+                         heading={"Accepted" + " (" + this.orderCount(constants.orderStates.accepted) + ")"}>
+                        {this.renderAcceptedOrders(refreshing)}
+                    </Tab>
+                    <Tab activeTextStyle={{color: Colors.background}} activeTabStyle={{backgroundColor: Colors.snow}}
+                         tabStyle={{backgroundColor: Colors.lightGray}} textStyle={{color: Colors.gray}}
+                         heading={"Delivered" + " (" + this.orderCount(constants.orderStates.delivered) + ")"}>
+                        {this.renderDeliveredOrders(refreshing)}
+                    </Tab>
+                    <Tab activeTextStyle={{color: Colors.background}} activeTabStyle={{backgroundColor: Colors.snow}}
+                         tabStyle={{backgroundColor: Colors.lightGray}} textStyle={{color: Colors.gray}}
+                         heading={"Cancelled" + " (" + this.orderCount(constants.orderStates.cancelled) + ")"}>
+                        {this.renderCancelledOrders(refreshing)}
+                    </Tab>
+                </Tabs>
             </View>
         )
     }
@@ -93,7 +192,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = state => ({
     vendor: state.vendor,
-    settings: state.settings
+    settings: state.settings,
+    request: state.request
 });
 
 

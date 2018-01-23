@@ -8,12 +8,13 @@ import imgService from '../../Services/image-service';
 import _ from 'lodash';
 import Constants from '../../Services/constants-service';
 import {vendorActionCreators} from './VendorActions'
+import {requestActionCreators} from '../Request/RequestActions'
 
 const vendorEffects = {};
 
 vendorEffects.fetchVendorMenu = function* () {
     try {
-        yield put(vendorActionCreators.showActivityIndicator(true));
+        yield put(requestActionCreators.showLoadingSpinner(true));
         const user = yield call(authentication.currentUser);
         const menus = yield call(menuService.getMenu, user.uid);
         yield put(vendorActionCreators.fetchMenuSuccessful(menus))
@@ -21,38 +22,38 @@ vendorEffects.fetchVendorMenu = function* () {
         Alert.alert('Error', error.message,)
     }
     finally {
-        yield put(vendorActionCreators.showActivityIndicator(false))
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 
 vendorEffects.fetchVendors = function* () {
     try {
         const vendors = yield call(vendorService.fetchVendors);
-        yield put(vendorActionCreators.showActivityIndicator(true));
+        yield put(requestActionCreators.showLoadingSpinner(true));
         yield put(vendorActionCreators.updateVendors(vendors));
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {
-        yield put(vendorActionCreators.showActivityIndicator(false));
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 
 vendorEffects.getSelectedVendor = function* (action) {
     try {
-        yield put(vendorActionCreators.showActivityIndicator(true));
-
+        yield put(requestActionCreators.showLoadingSpinner(true));
         let vendor = action.data;
         vendor.menus = yield call(menuService.getMenu, vendor.uid);
         yield put(vendorActionCreators.setSelectedVendor(vendor));
     } catch (error) {
         Alert.alert('Error', error.message)
     } finally {
-        yield put(vendorActionCreators.showActivityIndicator(false));
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 
 vendorEffects.createMenu = function* (menu) {
     try {
+        yield put(requestActionCreators.showLoadingSpinner(true));
         const user = yield call(authentication.currentUser);
         let {data} = menu;
         if (data.base64img) {
@@ -60,7 +61,6 @@ vendorEffects.createMenu = function* (menu) {
             data.itemImage = yield call(imgService.uploadBase64Image, imageUrlName, data.base64img);
         }
         delete data.base64img; // !important
-        yield put(vendorActionCreators.showActivityIndicator(true));
         yield call(menuService.createMenu, user.uid, data);
         yield put(vendorActionCreators.fetchVendorMenu(user.uid));
     }
@@ -68,12 +68,13 @@ vendorEffects.createMenu = function* (menu) {
         Alert.alert('Error', error.message)
     }
     finally {
-        yield put(vendorActionCreators.showActivityIndicator(false))
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 
 vendorEffects.updateMenu = function* (menu) {
     try {
+        yield put(requestActionCreators.showLoadingSpinner(true));
         let {data} = menu;
         const user = yield call(authentication.currentUser);
         if (data.base64img) {
@@ -81,7 +82,6 @@ vendorEffects.updateMenu = function* (menu) {
             data.itemImage = yield call(imgService.uploadBase64Image, imageUrlName, data.base64img);
         }
         delete data.base64img; // !important
-        yield put(vendorActionCreators.showActivityIndicator(true));
         yield call(menuService.updateMenu, user.uid, menu.data);
         yield put(vendorActionCreators.fetchVendorMenu(user.uid));
     }
@@ -89,13 +89,13 @@ vendorEffects.updateMenu = function* (menu) {
         Alert.alert('Error', error.message)
     }
     finally {
-        yield put(vendorActionCreators.showActivityIndicator(false))
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 
 vendorEffects.removeMenu = function* (menu) {
     try {
-        yield put(vendorActionCreators.showActivityIndicator(true));
+        yield put(requestActionCreators.showLoadingSpinner(true));
         const user = yield call(authentication.currentUser);
         yield call(menuService.removeMenu, user.uid, menu.data.id);
         yield put(vendorActionCreators.fetchVendorMenu(user.uid));
@@ -104,30 +104,30 @@ vendorEffects.removeMenu = function* (menu) {
         Alert.alert('Error', error.message)
     }
     finally {
-        yield put(vendorActionCreators.showActivityIndicator(false))
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 
 vendorEffects.updateRating = function* (ratingData) {
     try {
+        yield put(requestActionCreators.showLoadingSpinner(true));
         let {data} = ratingData;
         let merchantId = data.merchantId;
         let rating = data.rating;
-        yield put(vendorActionCreators.showActivityIndicator(true));
         yield call(vendorService.updateRating, merchantId, rating);
     }
     catch (error) {
         Alert.alert('Error', error.message)
     }
     finally {
-        yield put(vendorActionCreators.showActivityIndicator(false))
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 
 vendorEffects.fetchVendorOrders = function* () {
     try {
         const user = yield call(authentication.currentUser);
-        yield put(vendorActionCreators.showActivityIndicator(true));
+        yield put(requestActionCreators.showLoadingSpinner(true));
         const orders = yield call(orderService.getMerchantOrders, user.uid);
         const newOrders = _.filter(orders, o => { return o.status === Constants.orderStates.new });
         const acceptedOrders = _.filter(orders, o => { return o.status === Constants.orderStates.accepted });
@@ -143,7 +143,7 @@ vendorEffects.fetchVendorOrders = function* () {
         Alert.alert('Error', error.message)
     }
     finally {
-        yield put(vendorActionCreators.showActivityIndicator(false))
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 

@@ -50,10 +50,10 @@ class Login extends Component {
       this.setState({resetPasswordEmail: e.toLowerCase()})
     }
     closeResetPasswordModal = () => {
-      this.props.showResetPasswordModal(false)
+      this.props.authActions.showResetPasswordModal(false)
     }
     openResetPasswordModal = () => {
-      this.props.showResetPasswordModal(true)
+      this.props.authActions.showResetPasswordModal(true)
     }
     isEmailValid = () => {
       let emailError = {}
@@ -68,19 +68,18 @@ class Login extends Component {
     sendResetPasswordLink = () => {
       const errors = this.isEmailValid()
       if (errors.errorText === undefined) {
-        this.props.setResetPasswordError('')
-        this.props.resetPassword(this.state.resetPasswordEmail)
+        this.props.authActions.setResetPasswordError('')
+        this.props.authActions.resetPassword(this.state.resetPasswordEmail)
         this.setState({showToast: true})
       } else {
-        this.props.setResetPasswordError(errors.errorText)
+        this.props.authActions.setResetPasswordError(errors.errorText)
       }
     }
+
     toggleSignUpPage = () => {
         this.setState({showSignUpScreen: !this.state.showSignUpScreen});
     };
-    toggleCheckBox = () => {
-        this.setState({checked: !this.state.checked})
-    };
+
     getUserLoginInfo = (id, e) => {
         this.setState({userLoginInfo: Object.assign({}, this.state.userLoginInfo, {[id]: e})});
     };
@@ -88,7 +87,7 @@ class Login extends Component {
     login = () => {
         let {email, password} = this.state.userLoginInfo;
         if (email && password) {
-            this.props.signIn({email, password});
+            this.props.authActions.signIn({email, password});
         } else {
             Alert.alert("", "Please enter your email and password",)
         }
@@ -163,11 +162,13 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-            ...authActionCreators,
-            ...settingsActionCreators
-        },
-        dispatch);
+    return {
+        authActions: bindActionCreators(authActionCreators, dispatch),
+        settingsActions: bindActionCreators(settingsActionCreators, dispatch)
+    }
 };
-const mapStateToProps = state => ({auth: state.auth});
+const mapStateToProps = state => ({
+    auth: state.auth,
+    settings: state.settings
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

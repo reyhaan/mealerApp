@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux';
 import auth from './Auth/AuthReducers';
 import navigation from './Navigation/NavigationReducer';
+import request from './Request/RequestReducers';
 import { settings } from './Settings/SettingsReducers';
 import { vendor } from './Vendor/VendorReducers';
 import { cart } from './Cart/CartReducers';
@@ -12,5 +13,6 @@ export const rootReducer = combineReducers({
     settings,
     vendor,
     cart,
-    order
+    order,
+    request
 });

@@ -8,18 +8,20 @@ import {
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import CooksTabStyle from './Vendors.style'
-import {Header, SearchBar, Avatar, Rating} from 'react-native-elements'
+import {SearchBar, Avatar, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors,} from '../../Themes/index'
 import {vendorActionCreators} from '../../Redux/Vendor/VendorActions'
-import {LoadingSpinner} from '../../Components/index'
-
+import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 // Styles
 const styles = CooksTabStyle;
 
 class Vendors extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            refreshing: false
+        }
     }
 
     componentDidMount = () => {
@@ -36,6 +38,10 @@ class Vendors extends Component {
                 placeholder='Type Here...'/>
         )
     }
+
+    fetchVendors = () => {
+        this.props.vendorActions.fetchVendors();
+    };
 
     renderVendor = data => {
         const vendor = data.item;
@@ -97,12 +103,13 @@ class Vendors extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header
-                    // leftComponent={{icon: 'filter', color: Colors.background, type: 'font-awesome'}}
-                    centerComponent={{text: 'VENDORS', style: {color: Colors.background, fontWeight: 'bold'}}}
-                    rightComponent={{icon: 'search', color: Colors.background}}
-                    outerContainerStyles={styles.headerOuterContainer}/>
-                <LoadingSpinner show={this.props.vendors && this.props.vendors.showActivityIndicator}/>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
+                    <Left/>
+                    <Body>
+                    <Title style={{color: Colors.background}}>Vendors</Title>
+                    </Body>
+                    <Right/>
+                </Header>
                 <FlatList
                     contentContainerStyle={styles.listContent}
                     data={this.props.vendor.vendors}
@@ -114,7 +121,8 @@ class Vendors extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        vendor: state.vendor
+        vendor: state.vendor,
+        request: state.request
     }
 };
 

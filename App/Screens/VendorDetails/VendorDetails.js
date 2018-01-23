@@ -5,24 +5,25 @@ import {
     TouchableOpacity,
     FlatList,
     Image,
-    Platform,
     ScrollView,
     TouchableWithoutFeedback
 } from 'react-native'
 import {connect} from 'react-redux'
 import style from './VendorDetails.style'
-import {Icon, Header, Rating} from 'react-native-elements'
+import {Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
 import {cartActionCreators} from '../../Redux/Cart/CartActions'
 import {bindActionCreators} from 'redux';
-import {UserProfileHeader, AddToCartModal} from '../../Components/index'
+import {VendorDetailsInfo, AddToCartModal} from '../../Components/index'
 import {NavigationActions} from 'react-navigation'
 import SnackBar from 'react-native-snackbar-component';
 import VendorEmail from './VendorEmail';
 import VendorAddress from './VendorAddress';
 import VendorPhone from './VendorPhone';
+import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class VendorDetails extends Component {
     constructor(props) {
@@ -146,16 +147,8 @@ class VendorDetails extends Component {
         )
     };
 
-    backButton = () => {
-        return (
-            <View style={{paddingTop: 25}}>
-                <Icon
-                    name={Platform.OS === 'ios' ? 'chevron-left' : 'arrow-back'}
-                    color={Colors.background}
-                    onPress={() => this.props.navigation.dispatch(NavigationActions.back())}
-                />
-            </View>
-        )
+    navigateBack = () => {
+        this.props.navigation.dispatch(NavigationActions.back())
     };
 
     switchView = (mode) => {
@@ -178,12 +171,18 @@ class VendorDetails extends Component {
     render() {
         return (
             <Col>
-                <Header
-                    leftComponent={this.backButton()}
-                    rightComponent={null}
-                    centerComponent={{text: "CHEF", style: {color: Colors.background, fontWeight: 'bold'}}}
-                    backgroundColor={Colors.snow}
-                />
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
+                    <Left>
+                        <Button transparent onPress={() => this.navigateBack()}>
+                            <Icon name="chevron-left" size={20} color={Colors.background}/>
+                        </Button>
+                    </Left>
+                    <Body>
+                    <Title style={{color: Colors.background}}>{this.props.vendor.selectedVendor.name}</Title>
+                    </Body>
+                    <Right/>
+                </Header>
+
                 <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
 
                     <AddToCartModal showSelectedItem={this.state.showSelectedItem}
@@ -191,7 +190,7 @@ class VendorDetails extends Component {
                                     closeSelectedItemModal={this.closeSelectedItemModal}
                                     selectedVendor={this.props.vendor.selectedVendor}/>
 
-                    <UserProfileHeader user={this.props.vendor.selectedVendor}/>
+                    <VendorDetailsInfo user={this.props.vendor.selectedVendor}/>
 
                     <View style={{
                         height: 50,

@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
-import {Text, View, ListView, TouchableOpacity, FlatList, Image} from 'react-native'
+import {Text, View, TouchableOpacity, FlatList, Image} from 'react-native'
 import {connect} from 'react-redux'
 import style from './Menus.style'
-import {Header, Icon} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
 import {bindActionCreators} from 'redux';
-import {LoadingSpinner} from '../../Components/index'
-import authenticationService from '../../Services/authentication-service'
+import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class MenuTab extends Component {
     constructor(props) {
@@ -22,17 +21,8 @@ class MenuTab extends Component {
         this.fetchMenu();
     }
 
-    addMenuItemButton = () => {
-        return (
-            <Icon
-                name='add'
-                color={Colors.background}
-                iconStyle={{marginTop: 20,}}
-                underlayColor={'transparent'}
-                size={35}
-                onPress={() => this.props.navigation.navigate("MenuForm", null)}
-            />
-        )
+    addMenuItem = () => {
+        this.props.navigation.navigate("MenuForm", null);
     };
 
     viewItem = (item) => {
@@ -76,14 +66,18 @@ class MenuTab extends Component {
 
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}}>
-                <Header
-                    rightComponent={this.addMenuItemButton()}
-                    centerComponent={{text: 'MENU', style: {color: Colors.background, fontWeight: 'bold'}}}
-                    backgroundColor={Colors.background}
-                    outerContainerStyles={style.headerOuterContainer}/>
-
-                <LoadingSpinner
-                    show={this.props.vendor.showActivityIndicator && menus.length === 0 || this.state.refreshing}/>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
+                    <Left/>
+                    <Body>
+                    <Title style={{color: Colors.background}}>Menu</Title>
+                    </Body>
+                    <Right>
+                        <Button transparent onPress={() => this.addMenuItem()}>
+                            <Icon name="plus" size={20} color={Colors.background}/>
+                            <Text style={{marginLeft:5, color:Colors.background}}>Add</Text>
+                        </Button>
+                    </Right>
+                </Header>
 
                 <FlatList
                     style={{backgroundColor: style.white}}

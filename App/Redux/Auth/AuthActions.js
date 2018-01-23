@@ -14,7 +14,9 @@ export const authActions = {
     signOut: 'signOut',
     signOutSuccessful: 'signOutSuccessful',
     showActivityIndicator: 'showActivityIndicator',
-    resetPassword: 'resetPassword'
+    resetPassword: 'resetPassword',
+    showResetPasswordModal: 'showResetPasswordModal',
+    setResetPasswordError: 'setResetPasswordError',
 };
 
 /******************************* ACTION CREATORS *************************************/
@@ -26,7 +28,9 @@ export const authActionCreators = {
     signOut: (data) => createAction(authActions.signOut, data),
     signOutSuccessful: (data) => createAction(authActions.signOutSuccessful, data),
     showActivityIndicator: (data) => createAction(authActions.showActivityIndicator, data),
-    resetPassword: (data) => createAction(authActions.resetPassword, data)
+    resetPassword: (data) => createAction(authActions.resetPassword, data),
+    showResetPasswordModal: (data) => createAction(authActions.showResetPasswordModal, data),
+    setResetPasswordError: (data) => createAction(authActions.setResetPasswordError, data)
 };
 
 /******************************* ACTION WATCHERS *************************************/

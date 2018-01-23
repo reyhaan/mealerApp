@@ -11,8 +11,9 @@ import {authActionCreators} from '../../Redux/Auth/AuthActions'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
 import {LoadingSpinner} from '../../Components/index'
 import authenticationService from '../../Services/authentication-service'
-import ResetPassword from './Login'
+import ResetPassword from './ResetPassword'
 import Modal from 'react-native-modal'
+import SnackBar from 'react-native-snackbar-component';
 
 
 class Login extends Component {
@@ -22,8 +23,8 @@ class Login extends Component {
             showSignUpScreen: false,
             checked: false,
             userLoginInfo: {'email': '', 'password': ''},
-            showResetPasswordModal: false,
-            resetPasswordEmail: ''
+            resetPasswordEmail: '',
+            showToast: false
         };
     }
 
@@ -45,24 +46,34 @@ class Login extends Component {
             Alert.alert('Error', err);
         }
     }
+    handleResetPasswordEmail = (e) => {
+      this.setState({resetPasswordEmail: e.toLowerCase()})
+    }
     closeResetPasswordModal = () => {
-      this.setState({showResetPasswordModal: false})
+      this.props.showResetPasswordModal(false)
     }
     openResetPasswordModal = () => {
-      this.setState({showResetPasswordModal: true})
+      this.props.showResetPasswordModal(true)
     }
-    isEmailValid = (email) => {
+    isEmailValid = () => {
       let emailError = {}
-      if(email){
-        // check if email is in the db and send reset password
-      }
-      else {
+      let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+      if (!this.state.resetPasswordEmail) {
         emailError = {errorText: 'Email is required'}
+      } else if (emailFormat.test(this.state.resetPasswordEmail) === false) {
+        emailError = {errorText: 'Email format is invalid'}
       }
       return emailError
     }
     sendResetPasswordLink = () => {
-      this.props.resetPassword(this.state.resetPasswordEmail)
+      const errors = this.isEmailValid()
+      if (errors.errorText === undefined) {
+        this.props.setResetPasswordError('')
+        this.props.resetPassword(this.state.resetPasswordEmail)
+        this.setState({showToast: true})
+      } else {
+        this.props.setResetPasswordError(errors.errorText)
+      }
     }
     toggleSignUpPage = () => {
         this.setState({showSignUpScreen: !this.state.showSignUpScreen});
@@ -98,18 +109,18 @@ class Login extends Component {
                           <Item floatingLabel>
                               <Label style={{color: Colors.charcoal}}>Email</Label>
                               <Input autoCapitalize="none"
-                style={{color: Colors.charcoal}}
-                keyboardType="email-address"
-                onChangeText={(e) => this.getUserLoginInfo('email', e)}/>
+                                style={{color: Colors.charcoal}}
+                                keyboardType="email-address"
+                                onChangeText={(e) => this.getUserLoginInfo('email', e)}/>
                           </Item>
                           <Item floatingLabel>
                               <Label style={{color: Colors.charcoal}}>Password</Label>
                               <Input autoCapitalize="none"
-                style={{color: Colors.charcoal}}
-                keyboardType="email-address"
-                onChangeText={(e) => this.getUserLoginInfo('password', e)}
-                secureTextEntry={true}
-                password={true}/>
+                                style={{color: Colors.charcoal}}
+                                keyboardType="email-address"
+                                onChangeText={(e) => this.getUserLoginInfo('password', e)}
+                                secureTextEntry={true}
+                                password={true}/>
                           </Item>
                         <Button transparent style={{marginLeft: '4%'}} 
                           onPress={() => this.openResetPasswordModal()}>
@@ -122,54 +133,28 @@ class Login extends Component {
                       </Form>
                       <LoadingSpinner show={this.props.auth.showActivityIndicator}/>
                       <Button block success
-                              style={LoginScreenStyle.loginButton}
-                              onPress={this.login}>
-                          <Text style={{color: Colors.snow, fontSize: 16, fontWeight: "bold"}}>LOGIN</Text>
+                            style={LoginScreenStyle.loginButton}
+                            onPress={this.login}>
+                        <Text style={{color: Colors.snow, fontSize: 16, fontWeight: "bold"}}>LOGIN</Text>
                       </Button>
                       <View style={[LoginScreenStyle.signUpView]}>
-                          <Text style={LoginScreenStyle.registerButton}> Not Registered?</Text>
-                          <TouchableOpacity onPress={() => this.toggleSignUpPage()}>
-                              <Text h5 style={LoginScreenStyle.signUpButton}>SIGN UP!</Text>
-                          </TouchableOpacity>
+                        <Text style={LoginScreenStyle.registerButton}> Not Registered?</Text>
+                        <TouchableOpacity onPress={() => this.toggleSignUpPage()}>
+                            <Text h5 style={LoginScreenStyle.signUpButton}>SIGN UP!</Text>
+                        </TouchableOpacity>
                       </View>
-                      <Modal isVisible={this.state.showResetPasswordModal}>
-                        <View style={{ display: 'flex', backgroundColor: 'white',
-                        height: 300, width: '90%', borderRadius: 8, borderStyle: 'solid',
-                        borderWidth: 4, borderColor: 'white',  alignSelf: 'center', paddingRight: 10,
-                        paddingLeft: 10}}>
-                          <Form style={LoginScreenStyle.forgotPasswordView}>
-                          <View style={{alignSelf: 'flex-end'}}>
-                            <RNE_Icon
-                              raised
-                              name='times'
-                              type='font-awesome'
-                              color={Colors.bloodOrange}
-                              onPress={() => this.closeResetPasswordModal()} />
-                          </View>
-                            <Label style={{color: Colors.charcoal, marginBottom: 10}}>
-                              Enter your email address and we'll send you a link to reset your password.
-                            </Label>
-                            <Item rounded>
-                              <Input autoCapitalize="none"
-                                placeholder="Enter email"
-                                style={{color: Colors.charcoal}}
-                                keyboardType="email-address"
-                                onChangeText={(e) => { console.log('e', e)
-                                  this.setState({resetPasswordEmail: e})}}/>
-                              <Icon active name='mail' style={{color: Colors.bloodOrange}}/>
-                            </Item>
-                            { this.isEmailValid() && this.isEmailValid().errorText && 
-                            <Label style={{color: 'red', marginBottom: 10, fontSize: 14}}> 
-                              {'*' + this.isEmailValid().errorText} 
-                            </Label>}
-                            <Button block success
-                              style={{margin: 15}}
-                              onPress={this.sendResetPasswordLink}>
-                              <Text style={{color: Colors.snow, fontSize: 16, fontWeight: "bold"}}>SEND LINK</Text>
-                            </Button>
-                          </Form>
-                        </View>
+                      <Modal isVisible={this.props.auth.showResetPasswordModal}>
+                        <ResetPassword
+                          closeResetPasswordModal={this.closeResetPasswordModal}
+                          sendResetPasswordLink={this.sendResetPasswordLink}
+                          handleResetPasswordEmail={this.handleResetPasswordEmail}
+                          auth={this.props.auth}
+                         />
                       </Modal>
+                      <SnackBar visible={this.state.showToast}
+                        textMessage={'Your reset password email has been sent'}
+                        bottom={0}
+                        position='bottom' backgroundColor='#272A2F'/>
                   </View>                    
               </ScrollView>
             )

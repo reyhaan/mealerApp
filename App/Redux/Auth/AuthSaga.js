@@ -88,4 +88,21 @@ authEffect.signOut = function* () {
     }
 };
 
+authEffect.resetPassword = function* (userEmail) {
+  try {
+    const userFoundResult = yield call(authenticationService.fetchUserByEmail, userEmail.data)
+    const isResetPasswordSuccessful = userFoundResult && userFoundResult.userFound
+    if (isResetPasswordSuccessful){
+      const showResetPasswordModal = false
+      yield put(authActionCreators.showResetPasswordModal(showResetPasswordModal))
+      // TODO: create a global snackbar component
+      // Alert.alert('Success!', 'Your reset password email has been sent');
+    }
+    else if (userFoundResult.error) {
+      yield put(authActionCreators.setResetPasswordError(userFoundResult.error));
+    }
+  } catch(error) {
+    Alert.alert('Error', error.message);
+  }
+}
 export default authEffect;

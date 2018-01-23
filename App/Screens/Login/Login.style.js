@@ -74,8 +74,8 @@ export default StyleSheet.create({
         borderWidth: 0
     },
     forgotPasswordTextStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 12
+      color: 'red',
+      fontSize: 14,
+      textDecorationLine: 'underline'
     }
 })

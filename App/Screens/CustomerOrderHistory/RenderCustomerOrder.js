@@ -7,6 +7,7 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import style from './CustomerOrderHistory.style'
 import {Constants} from '../../Utils/Constants'
+import moment from 'moment';
 
 let _calculateTotalCost = (rowData) => {
     let total = 0;
@@ -51,8 +52,13 @@ let RenderVendorOrder = data => {
                     borderTopColor: Colors.gray2,
                     borderTopWidth: 1
                 }}/>
-
                 <Row style={{marginTop: 5}}>
+                  <Text style={{alignItems: 'flex-start', marginRight: 20, 
+                    color: Colors.charcoal, fontWeight: 'bold', marginLeft: 10}}>
+                    DATE: {moment(moment.utc(order.timeStamp)).format('lll')}
+                  </Text>
+                </Row>
+                <Row style={{marginTop: 5}}>  
                     <Col style={{alignItems: 'flex-start', marginRight: 20}}>
                         <Text style={{
                             marginLeft: 10,

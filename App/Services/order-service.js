@@ -100,8 +100,10 @@ orderService.getCustomerOrders = async (userId) => {
             customerOrder.ordersToVendor = vendorOrders;
             customerOrders.push({id, key, ...customerOrder});
         });
-
-        return customerOrders;
+        const customerOrdersByTimestamp = customerOrders.length > 0 && customerOrders.sort((a, b) => {
+          return b.timeStamp - a.timeStamp
+        })
+        return customerOrdersByTimestamp;
     } catch (error) {
         return {error};
     }

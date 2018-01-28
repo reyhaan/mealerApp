@@ -110,7 +110,6 @@ class Login extends Component {
                           <PasswordTextField
                             keyboardType="email-address"
                             value={this.state.userLoginInfo.email}
-                            secureTextEntry={true}
                             autoCapitalize='none'
                             autoCorrect={false}
                             style={{color: Colors.charcoal, fontSize: 14}}

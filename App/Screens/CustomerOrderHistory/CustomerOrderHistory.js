@@ -32,6 +32,7 @@ class CustomerOrderHistory extends Component {
 
     renderHistory = () => {
         const {orders} = this.props.order;
+
         if (orders && orders.length > 0) {
             return (
                 <FlatList data={orders} renderItem={({item}) => RenderCustomerOrder(item)}/>

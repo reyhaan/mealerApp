@@ -101,6 +101,8 @@ class Vendors extends Component {
     };
 
     render() {
+
+
         return (
             <View style={styles.container}>
                 <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
@@ -113,6 +115,8 @@ class Vendors extends Component {
                 <FlatList
                     contentContainerStyle={styles.listContent}
                     data={this.props.vendor.vendors}
+                    refreshing={this.state.refreshing}
+                    onRefresh={() => this.fetchVendors()}
                     renderItem={this.renderVendor}/>
             </View>
         )

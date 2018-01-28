@@ -119,15 +119,7 @@ class Vendors extends Component {
                     }}>Vendors</Title>
                     </Body>
                 </Header>
-
-                {/*<Header*/}
-                    {/*statusBarProps={{ barStyle: 'light-content', translucent: false, animated: false, hidden:false, backgroundColor: Colors.background }}*/}
-                    {/*leftComponent={{ icon: 'menu', color: Colors.background }}*/}
-                    {/*centerComponent={{ text: 'MY TITLE', style: { color: Colors.background } }}*/}
-                    {/*rightComponent={{ icon: 'home', color: Colors.background }}*/}
-                    {/*backgroundColor={Colors.snow}/>*/}
-
-                {/*<LoadingSpinner show={refreshing}/>*/}
+                
                 <FlatList
                     contentContainerStyle={styles.listContent}
                     data={this.props.vendor.vendors}

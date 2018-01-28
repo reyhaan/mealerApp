@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Text, Image, StatusBar} from 'react-native'
+import {View, Text, Image} from 'react-native'
 import {Grid, Col, Row} from 'react-native-easy-grid'
 import {Colors} from '../Themes'
 import styles from './Styles/VendorDetailsInfoStyle'
@@ -27,7 +27,6 @@ export default class UserProfileHeader extends Component {
         let {user} = this.props;
         return (
             <View style={styles.mainContainer}>
-                <StatusBar barStyle='dark-content'/>
                 <Grid>
                     <Row size={70} style={{alignItems: 'center', justifyContent: 'center'}}>
                         <Image source={{uri: user.avatar}} style={styles.userImage}/>

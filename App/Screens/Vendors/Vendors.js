@@ -3,11 +3,14 @@ import {
     Text,
     View,
     FlatList,
-    TouchableOpacity
+    TouchableOpacity,
+    StatusBar,
+    Platform
 } from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import CooksTabStyle from './Vendors.style'
+import {LoadingSpinner} from '../../Components'
 import {SearchBar, Avatar, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors,} from '../../Themes/index'
@@ -101,18 +104,27 @@ class Vendors extends Component {
     };
 
     render() {
+        let refreshing = this.state.refreshing;
+        if (this.props.request === true ||  this.props.request === false) {
+            refreshing = this.props.request.showLoadingSpinner;
+        }
+
         return (
             <View style={styles.container}>
-                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
-                    <Left/>
+                <Header iosBarStyle="light-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0 }}>
                     <Body>
-                    <Title style={{color: Colors.background}}>Vendors</Title>
+                    <Title style={{
+                        color: Colors.background,
+                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                    }}>Vendors</Title>
                     </Body>
-                    <Right/>
                 </Header>
+                
                 <FlatList
                     contentContainerStyle={styles.listContent}
                     data={this.props.vendor.vendors}
+                    refreshing={refreshing}
+                    onRefresh={() => this.fetchVendors()}
                     renderItem={this.renderVendor}/>
             </View>
         )

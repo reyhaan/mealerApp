@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View, TouchableOpacity, FlatList, Image} from 'react-native'
+import {Text, View, TouchableOpacity, FlatList, Image, Platform} from 'react-native'
 import {connect} from 'react-redux'
 import style from './Menus.style'
 import {Col, Row, Grid} from 'react-native-easy-grid';
@@ -66,10 +66,14 @@ class MenuTab extends Component {
 
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}}>
-                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
+                <Header iosBarStyle="light-content"
+                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
                     <Left/>
                     <Body>
-                    <Title style={{color: Colors.background}}>Menu</Title>
+                    <Title style={{
+                        color: Colors.background,
+                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                    }}>Menu</Title>
                     </Body>
                     <Right>
                         <Button transparent onPress={() => this.addMenuItem()}>

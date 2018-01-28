@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, View} from 'react-native'
+import {ScrollView, View, Alert, Platform} from 'react-native'
 import {connect} from 'react-redux'
 import {List, ListItem} from 'react-native-elements'
 import SettingsTabStyle from './Account.style'
@@ -11,18 +11,27 @@ import {Header, Left, Body, Right, Button, Title} from 'native-base';
 const styles = SettingsTabStyle;
 
 class Settings extends Component {
-
-    onSignOut = () => {
-        this.props.signOut()
+    logout = () => {
+        Alert.alert(
+            'Are you sure you want to logout ?', '',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'OK', onPress: () => this.props.signOut()},
+            ],
+            { cancelable: false }
+        );
     };
 
     render() {
         const {user} = this.props.settings;
         return (
             <View style={styles.container}>
-                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15}}>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
                     <Body>
-                    <Title style={{color: Colors.background}}>Account</Title>
+                    <Title style={{
+                        color: Colors.background,
+                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                    }}>Account</Title>
                     </Body>
                 </Header>
 
@@ -36,7 +45,7 @@ class Settings extends Component {
                             titleStyle={styles.listTitle}
                             containerStyle={styles.listItem}
                             leftIcon={{
-                                name: 'user',
+                                name: 'user-circle',
                                 type: 'font-awesome',
                                 style: {color: Colors.background, fontSize: 18}
                             }}
@@ -45,7 +54,9 @@ class Settings extends Component {
                         {
                             user && user.type === 'customer' ?
                                 <ListItem
-                                    onPress={() => {this.props.navigation.navigate('CustomerOrderHistory')}}
+                                    onPress={() => {
+                                        this.props.navigation.navigate('CustomerOrderHistory')
+                                    }}
                                     chevronColor={Colors.background}
                                     titleStyle={styles.listTitle}
                                     containerStyle={styles.listItem}
@@ -60,7 +71,7 @@ class Settings extends Component {
 
                         <ListItem
                             onPress={() => {
-                                this.onSignOut()
+                                this.logout()
                             }}
                             style={{marginTop: 10}}
                             chevronColor={Colors.background}
@@ -79,7 +90,6 @@ class Settings extends Component {
         )
     }
 }
-
 
 const mapDispatchToProps = (dispatch) => (bindActionCreators(authActionCreators, dispatch));
 const mapStateToProps = (state) => {

@@ -1,16 +1,16 @@
 import {Permissions, Notifications} from 'expo';
 import authentication from './authentication-service';
 import settingsService from './settings-service';
+import authService from './authentication-service';
 import {vendorActionCreators} from '../Redux/Vendor/VendorActions';
 import {orderActionCreators} from '../Redux/Order/OrderActions';
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
 import axios from 'axios';
 import DeviceInfo from 'react-native-device-info'
 
 // console.log(Constants.isDevice) // => false if simulator
 
 export const registerForPushNotification = async () => {
-
     const {status: existingStatus} = await Permissions.getAsync(
         Permissions.NOTIFICATIONS
     );
@@ -60,7 +60,19 @@ export const sendPush = async (data) => {
 };
 
 
-export const handleReceivedNotification = ({data}, dispatch) => {
+export const handleReceivedNotification = async (notification, dispatch) => {
+    const {data} = notification;
+    if (Platform.OS === 'ios' && notification.origin === 'received') {
+        let iosBadgeCount = await Notifications.getBadgeNumberAsync();
+        await Notifications.setBadgeNumberAsync(iosBadgeCount + 1);
+    }
+
+    // Clear badge count immediately if the user is a customer
+    let currentUser = await authService.currentUser();
+    if (currentUser.type === 'customer' && notification.origin === 'selected') {
+        await clearBadgeCount();
+    }
+
     // Vendor received  customer order
     if (data.orderToVendor) {
         let message = null;
@@ -68,8 +80,8 @@ export const handleReceivedNotification = ({data}, dispatch) => {
             message = data.customerName;
         }
         Alert.alert('New Order received', message);
-
-        dispatch(vendorActionCreators.fetchVendorOrders())
+        dispatch(vendorActionCreators.fetchVendorOrders());
+        await clearBadgeCount();
     }
 
     // Customer received  vendor order update
@@ -78,8 +90,16 @@ export const handleReceivedNotification = ({data}, dispatch) => {
         if (data.vendorName) {
             message = data.orderStatus;
         }
-        Alert.alert('Order to ' + data.vendorName + ' updated', message );
-
+        Alert.alert('Order to ' + data.vendorName + ' updated', message);
         dispatch(orderActionCreators.getOrders())
+    }
+};
+
+export const clearBadgeCount = async () => {
+    if (Platform.OS === 'android') {
+        await Notifications.dismissAllNotificationsAsync();
+    }
+    else if (Platform.OS === 'ios') {
+        await Notifications.setBadgeNumberAsync(0);
     }
 };

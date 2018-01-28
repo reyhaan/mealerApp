@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, View, KeyboardAvoidingView, Text} from 'react-native'
+import {ScrollView, View, KeyboardAvoidingView, Text, Platform} from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
 import UserInfoChangeScreenStyle from './UserAccount.style'
@@ -33,7 +33,7 @@ class UserAccount extends Component {
             toastMessage: ''
         };
         this.props.getUser(this.props.settings.user.uid)
-       
+
     }
 
     async componentDidMount() {
@@ -103,14 +103,15 @@ class UserAccount extends Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <View style={styles.container}>
-                    <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
-                        <Left>
+                    <Header iosBarStyle="light-content"
+                            style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
+                        <Left style={{marginTop: Platform.OS === 'android' ? 80 : 0}}>
                             <Button transparent onPress={() => this.navigateBack()}>
                                 <Icon name="chevron-left" size={20} color={Colors.background}/>
                             </Button>
                         </Left>
                         <Body>
-                        <Title style={{color: Colors.background}}>Account</Title>
+                        <Title style={{ color: Colors.background, marginTop: Platform.OS === 'android' ? 80 : 0}}>Account</Title>
                         </Body>
                         <Right/>
                     </Header>

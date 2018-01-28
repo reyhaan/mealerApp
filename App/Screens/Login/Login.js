@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {ScrollView, View, Image, TouchableOpacity, Alert, Text as TextField} from 'react-native'
 import LoginScreenStyle from './Login.style'
 import {Text, Icon as RNE_Icon} from 'react-native-elements'
-import {Button, Form, Item, Input, Label, Icon} from 'native-base'
+import {Button, Form, Input, Label, Icon} from 'native-base'
 import {Images, Colors} from '../../Themes/index'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -13,7 +13,8 @@ import {LoadingSpinner} from '../../Components/index'
 import authenticationService from '../../Services/authentication-service'
 import ResetPassword from './ResetPassword'
 import Modal from 'react-native-modal'
-import SnackBar from 'react-native-snackbar-component';
+import SnackBar from 'react-native-snackbar-component'
+import { TextField as PasswordTextField } from 'react-native-material-textfield'
 
 
 class Login extends Component {
@@ -105,22 +106,33 @@ class Login extends Component {
                   </View>
                   <View style={[LoginScreenStyle.section, {marginBottom: 5}]}>
                       <Form style={LoginScreenStyle.forgotPasswordView}>
-                          <Item floatingLabel>
-                              <Label style={{color: Colors.charcoal}}>Email</Label>
-                              <Input autoCapitalize="none"
-                                style={{color: Colors.charcoal}}
-                                keyboardType="email-address"
-                                onChangeText={(e) => this.getUserLoginInfo('email', e)}/>
-                          </Item>
-                          <Item floatingLabel>
-                              <Label style={{color: Colors.charcoal}}>Password</Label>
-                              <Input autoCapitalize="none"
-                                style={{color: Colors.charcoal}}
-                                keyboardType="email-address"
-                                onChangeText={(e) => this.getUserLoginInfo('password', e)}
-                                secureTextEntry={true}
-                                password={true}/>
-                          </Item>
+                        <View style={{marginLeft: 12}}>
+                          <PasswordTextField
+                            keyboardType="email-address"
+                            value={this.state.userLoginInfo.email}
+                            secureTextEntry={true}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            style={{color: Colors.charcoal, fontSize: 14}}
+                            enablesReturnKeyAutomatically={true}
+                            onChangeText={(e) => this.getUserLoginInfo('email', e)}
+                            label='Email'
+                            tintColor={Colors.charcoal}
+                          /></View>
+                        <View style={{marginLeft: 12}}>
+                          <PasswordTextField
+                            value={this.state.userLoginInfo.password}
+                            secureTextEntry={true}
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            style={{color: Colors.charcoal, fontSize: 14}}
+                            enablesReturnKeyAutomatically={true}
+                            clearTextOnFocus={true}
+                            onChangeText={(e) => this.getUserLoginInfo('password', e)}
+                            label='Password'
+                            tintColor={Colors.charcoal}
+                          />
+                        </View>
                         <Button transparent style={{marginLeft: '4%'}} 
                           onPress={() => this.openResetPasswordModal()}>
                           <TextField> 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, View} from 'react-native'
+import {ScrollView, View, Alert} from 'react-native'
 import {connect} from 'react-redux'
 import {List, ListItem} from 'react-native-elements'
 import SettingsTabStyle from './Account.style'
@@ -11,8 +11,15 @@ import {Header, Left, Body, Right, Button, Title} from 'native-base';
 const styles = SettingsTabStyle;
 
 class Settings extends Component {
-    onSignOut = () => {
-        this.props.signOut()
+    logout = () => {
+        Alert.alert(
+            'Are you sure you want to logout ?', '',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'OK', onPress: () => this.props.signOut()},
+            ],
+            { cancelable: false }
+        );
     };
 
     render() {
@@ -44,7 +51,9 @@ class Settings extends Component {
                         {
                             user && user.type === 'customer' ?
                                 <ListItem
-                                    onPress={() => {this.props.navigation.navigate('CustomerOrderHistory')}}
+                                    onPress={() => {
+                                        this.props.navigation.navigate('CustomerOrderHistory')
+                                    }}
                                     chevronColor={Colors.background}
                                     titleStyle={styles.listTitle}
                                     containerStyle={styles.listItem}
@@ -58,7 +67,9 @@ class Settings extends Component {
                         }
 
                         <ListItem
-                            onPress={() => { this.onSignOut()}}
+                            onPress={() => {
+                                this.logout()
+                            }}
                             style={{marginTop: 10}}
                             chevronColor={Colors.background}
                             titleStyle={styles.listTitle}

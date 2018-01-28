@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ScrollView, View, Alert} from 'react-native'
+import {ScrollView, View, Alert, Platform} from 'react-native'
 import {connect} from 'react-redux'
 import {List, ListItem} from 'react-native-elements'
 import SettingsTabStyle from './Account.style'
@@ -26,9 +26,12 @@ class Settings extends Component {
         const {user} = this.props.settings;
         return (
             <View style={styles.container}>
-                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15}}>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
                     <Body>
-                    <Title style={{color: Colors.background}}>Account</Title>
+                    <Title style={{
+                        color: Colors.background,
+                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                    }}>Account</Title>
                     </Body>
                 </Header>
 

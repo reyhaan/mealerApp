@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {
     View,
     Text,
-    FlatList
+    FlatList,
+    Platform
 } from 'react-native';
 import {connect} from 'react-redux';
 import OrdersTabStyle from './VendorOrders.style';
@@ -153,10 +154,14 @@ class Cart extends Component {
 
         return (
             <View style={styles.container}>
-                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
+                <Header iosBarStyle="light-content"
+                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
                     <Left/>
                     <Body>
-                    <Title style={{color: Colors.background}}>Header</Title>
+                    <Title style={{
+                        color: Colors.background,
+                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                    }}>Orders</Title>
                     </Body>
                     <Right>
                         <Button transparent onPress={this.getVendorOrders}>

@@ -7,14 +7,14 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import {bindActionCreators} from 'redux'
 import {cartActionCreators} from '../../Redux/Cart/CartActions'
 import {LoadingSpinner} from '../../Components/index'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import {
     ScrollView,
     View,
     Text,
     TouchableOpacity,
-    Image
+    Image,
+    Platform
 } from 'react-native'
 
 class MerchantOrders extends Component {
@@ -74,10 +74,14 @@ class MerchantOrders extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingTop: 15 }}>
-                    <Left/>
+                <Header iosBarStyle="light-content"
+                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
                     <Body>
-                    <Title style={{color: Colors.background}}>Cart</Title>
+                    <Left/>
+                    <Title style={{
+                        color: Colors.background,
+                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                    }}>Cart</Title>
                     </Body>
                     <Right/>
                 </Header>

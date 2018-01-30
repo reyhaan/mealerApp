@@ -172,8 +172,8 @@ class VendorDetails extends Component {
     render() {
         return (
             <Col>
-                <Header iosBarStyle="light-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0 }}>
-                    <Left style={{marginTop: Platform.OS === 'android' ? 80 : 0}}>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}>
+                    <Left style={{marginTop: Platform.OS === 'android' ? 110 : 0}}>
                         <Button transparent onPress={() => this.navigateBack()}>
                             <Icon name="chevron-left" size={20} color={Colors.background}/>
                         </Button>
@@ -181,9 +181,10 @@ class VendorDetails extends Component {
                     <Body>
                     <Title style={{
                         color: Colors.background,
-                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                        marginTop: Platform.OS === 'android' ? 110 : 0,
                     }}>{this.props.vendor.selectedVendor.name}</Title>
                     </Body>
+                    <Right/>
                 </Header>
 
                 <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>

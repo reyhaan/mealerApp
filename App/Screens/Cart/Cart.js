@@ -74,16 +74,13 @@ class MerchantOrders extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header iosBarStyle="light-content"
-                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0}} >
                     <Body>
-                    <Left/>
                     <Title style={{
                         color: Colors.background,
-                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                        marginTop: Platform.OS === 'android' ? 110 : 0,
                     }}>Cart</Title>
                     </Body>
-                    <Right/>
                 </Header>
 
                 <ScrollView>

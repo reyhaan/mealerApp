@@ -103,17 +103,17 @@ class UserAccount extends Component {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding">
                 <View style={styles.container}>
-                    <Header iosBarStyle="light-content"
-                            style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
-                        <Left style={{marginTop: Platform.OS === 'android' ? 80 : 0}}>
+                    <Header iosBarStyle="dark-content"
+                            style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0}}>
+                        <Left style={{marginTop: Platform.OS === 'android' ? 110 : 0}}>
                             <Button transparent onPress={() => this.navigateBack()}>
                                 <Icon name="chevron-left" size={20} color={Colors.background}/>
                             </Button>
                         </Left>
                         <Body>
-                        <Title style={{ color: Colors.background, marginTop: Platform.OS === 'android' ? 80 : 0}}>Account</Title>
+                        <Title style={{ color: Colors.background, marginTop: Platform.OS === 'android' ? 110 : 0}}>Account</Title>
                         </Body>
-                        <Right/>
+                        { Platform.OS === 'ios' && <Right/>}
                     </Header>
 
                     <ScrollView>

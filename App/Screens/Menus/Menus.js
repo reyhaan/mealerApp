@@ -66,13 +66,13 @@ class MenuTab extends Component {
 
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}}>
-                <Header iosBarStyle="light-content"
-                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
-                    <Left/>
+                <Header iosBarStyle="dark-content"
+                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0}}>
+                    { Platform.OS === 'ios' && <Left/>}
                     <Body>
                     <Title style={{
                         color: Colors.background,
-                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                        marginTop: Platform.OS === 'android' ? 110 : 0,
                     }}>Menu</Title>
                     </Body>
                     <Right>

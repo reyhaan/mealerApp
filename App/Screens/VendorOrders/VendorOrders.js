@@ -154,17 +154,17 @@ class Cart extends Component {
 
         return (
             <View style={styles.container}>
-                <Header iosBarStyle="light-content"
-                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0}}>
-                    <Left/>
+                <Header iosBarStyle="dark-content"
+                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0}}>
+                    { Platform.OS === 'ios' && <Left/>}
                     <Body>
                     <Title style={{
                         color: Colors.background,
-                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                        marginTop: Platform.OS === 'android' ? 110 : 0,
                     }}>Orders</Title>
                     </Body>
                     <Right>
-                        <Button transparent onPress={this.getVendorOrders}>
+                        <Button transparent onPress={this.getVendorOrders} style={{marginTop: Platform.OS === 'android' ? 110 : 0}}>
                             <Icon name="refresh" size={20} color={Colors.background}/>
                         </Button>
                     </Right>

@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '../Navigation.style'
 import {TabNavigator, StackNavigator} from 'react-navigation'
+import {View, Text} from 'react-native'
 import tabNavigatorConfig from './TabConfig'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {appStore} from '../../../App'
@@ -14,6 +15,7 @@ import {
     CustomerOrderHistory
 } from '../../Screens/index';
 
+let totaltemsInCart = 5;
 
 export default StackNavigator({
     Root: {
@@ -53,15 +55,33 @@ export default StackNavigator({
                         totalItemCount  = cart && cart.totalItemCount ? cart.totalItemCount : totalItemCount;
                     });
 
-                    return {
-                        gesturesEnabled: false,
-                        tabBarIcon: ({tintColor}) => (
-                            <Icon name="shopping-cart" size={20} color={tintColor}/>
-                        ),
-                        title: 'Cart'
-                    }
-                },
-            },
+    Two: {
+        screen: Cart,
+        navigationOptions: {
+            gesturesEnabled: false,
+            tabBarIcon: ({tintColor}) => (
+              <IconBadge
+                MainElement={ <View style={{position: 'relative', width:50, height:50,
+                justifyContent: 'center', alignItems: 'center'}}>
+                <Icon name="shopping-cart" size={20} color={tintColor} /></View>}
+                BadgeElement={
+                  <Text style={{color:'#FFFFFF', fontSize: 8}}>
+                    {totaltemsInCart}
+                  </Text>}
+                IconBadge={{
+                  position:'absolute',
+                  width:50,
+                  height:50,
+                  borderRadius:20,
+                  backgroundColor: '#FF0000'
+                }}
+                IconBadgeStyle={{top:7, right: 0, marginTop: 5.5}}
+                Hidden={false}
+              />
+            ),
+            title: 'Cart'
+        },
+    },
 
             Three: {
                 screen: StackNavigator({

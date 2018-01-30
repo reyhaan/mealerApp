@@ -156,7 +156,7 @@ cartService.totalItems = async () => {
             })
         });
     }
-    return totalItemCount;
+    return Promise.resolve(totalItemCount)
 };
 
 cartService.checkout = async (userInfo) => {

@@ -9,6 +9,7 @@ import {authActionCreators} from '../../Redux/Auth/AuthActions'
 import {Login} from '../index'
 import {LoadingSpinner} from '../../Components/index'
 import {Form, Item, Input, Label, Button, Content, Left, Radio} from 'native-base'
+import { TextField as PasswordTextField } from 'react-native-material-textfield'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -79,58 +80,75 @@ class SignUp extends Component {
 
                     <View style={[SignUpScreenStyle.formContainer]}>
                         <Form style={SignUpScreenStyle.forgotPasswordView}>
-                            <Item floatingLabel style={SignUpScreenStyle.formItemContainer}>
-                                <Label style={{color: Colors.charcoal}}>Name</Label>
-                                <Input style={SignUpScreenStyle.inputField}
-                                       onChangeText={(e) => this.formUpdate('name', e)}/>
-                            </Item>
-                            <Item floatingLabel style={SignUpScreenStyle.formItemContainer}>
-                                <Label style={{color: Colors.charcoal}}>Email</Label>
-                                <Input keyboardType="email-address"
-                                       autoCapitalize="none"
-                                       style={SignUpScreenStyle.inputField}
-                                       onChangeText={(e) => this.formUpdate('email', e)}/>
-                            </Item>
-                            <Item floatingLabel style={SignUpScreenStyle.formItemContainer}>
-                                <Label style={{color: Colors.charcoal}}>Password</Label>
-                                <Input keyboardType="email-address"
-                                       style={SignUpScreenStyle.inputField}
-                                       secureTextEntry={true}
-                                       onChangeText={(e) => this.formUpdate('password', e)}/>
-                            </Item>
+                          <View style={{marginLeft: 12}}>
+                            <PasswordTextField
+                              value={this.state.name}
+                              autoCapitalize='none'
+                              autoCorrect={false}
+                              style={{color: Colors.charcoal, fontSize: 14}}
+                              enablesReturnKeyAutomatically={true}
+                              onChangeText={(e) => this.formUpdate('name', e)}
+                              label='Name'
+                              tintColor={Colors.charcoal}
+                          /></View>
+                          <View style={{marginLeft: 12}}>
+                            <PasswordTextField
+                              value={this.state.email}
+                              autoCapitalize='none'
+                              autoCorrect={false}
+                              style={{color: Colors.charcoal, fontSize: 14}}
+                              enablesReturnKeyAutomatically={true}
+                              onChangeText={(e) => this.formUpdate('email', e)}
+                              label='Email'
+                              tintColor={Colors.charcoal}
+                          /></View>
+                          <View style={{marginLeft: 12}}>
+                            <PasswordTextField
+                              value={this.state.password}
+                              secureTextEntry={true}
+                              autoCapitalize='none'
+                              autoCorrect={false}
+                              style={{color: Colors.charcoal, fontSize: 14}}
+                              enablesReturnKeyAutomatically={true}
+                              clearTextOnFocus={true}
+                              onChangeText={(e) => this.formUpdate('password', e)}
+                              label='Password'
+                              tintColor={Colors.charcoal}
+                            />
+                          </View>
                         </Form>
 
                         <Content style={{ marginLeft: 15, marginTop: 0 }}>
 
-                            <TouchableOpacity onPress={() => this.toggleUserType('customer')}>
-                                <View style={{ padding: 10, backgroundColor: this.state.type === "customer" ? Colors.background : "#F5F5F5", flex: 1, flexDirection: "row", borderRadius: 3 }}>
-                                    <Text style={{ color: this.state.type === "customer" ? Colors.snow : Colors.gray, fontWeight: "bold", flex: 1 }}>AS A CUSTOMER</Text>
-                                    <View style={{ width: 40, height: 20, alignItems: 'flex-end' }}>
-                                        { this.state.type === "customer" &&
-                                        <Icon
-                                            size={20}
-                                            name='check'
-                                            color={Colors.snow}
-                                        />
-                                        }
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
+                          <TouchableOpacity onPress={() => this.toggleUserType('customer')}>
+                              <View style={{ padding: 10, backgroundColor: this.state.type === "customer" ? Colors.background : "#F5F5F5", flex: 1, flexDirection: "row", borderRadius: 3 }}>
+                                  <Text style={{ color: this.state.type === "customer" ? Colors.snow : Colors.gray, fontWeight: "bold", flex: 1 }}>AS A CUSTOMER</Text>
+                                  <View style={{ width: 40, height: 20, alignItems: 'flex-end' }}>
+                                      { this.state.type === "customer" &&
+                                      <Icon
+                                          size={20}
+                                          name='check'
+                                          color={Colors.snow}
+                                      />
+                                      }
+                                  </View>
+                              </View>
+                          </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => this.toggleUserType('vendor')}>
-                                <View style={{ backgroundColor: this.state.type === "vendor" ? Colors.background : "#F5F5F5", marginTop: 10, padding: 10, flex: 1, flexDirection: "row", borderRadius: 3 }}>
-                                    <Text style={{ color: this.state.type === "vendor" ? Colors.snow : Colors.gray, fontWeight: "bold", flex: 1 }}>AS A MERCHANT</Text>
-                                    <View style={{ width: 40, height: 20, alignItems: 'flex-end' }}>
-                                        { this.state.type === "vendor" &&
-                                        <Icon
-                                            size={20}
-                                            name='check'
-                                            color={Colors.snow}
-                                        />
-                                        }
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
+                          <TouchableOpacity onPress={() => this.toggleUserType('vendor')}>
+                              <View style={{ backgroundColor: this.state.type === "vendor" ? Colors.background : "#F5F5F5", marginTop: 10, padding: 10, flex: 1, flexDirection: "row", borderRadius: 3 }}>
+                                  <Text style={{ color: this.state.type === "vendor" ? Colors.snow : Colors.gray, fontWeight: "bold", flex: 1 }}>AS A MERCHANT</Text>
+                                  <View style={{ width: 40, height: 20, alignItems: 'flex-end' }}>
+                                      { this.state.type === "vendor" &&
+                                      <Icon
+                                          size={20}
+                                          name='check'
+                                          color={Colors.snow}
+                                      />
+                                      }
+                                  </View>
+                              </View>
+                          </TouchableOpacity>
 
                         </Content>
 
@@ -140,13 +158,13 @@ class SignUp extends Component {
                             onPress={() => {
                                 this.signUp()
                             }}>
-                            <Text style={{ textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold', color: Colors.snow }}>SIGN UP</Text>
+                          <Text style={{ textAlign: 'center', fontFamily: Fonts.type.bold, fontWeight: 'bold', color: Colors.snow }}>SIGN UP</Text>
                         </Button>
 
                         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginLeft: 15 }}>
-                            <TouchableOpacity onPress={() => this.toggleLoginScreen()}>
-                                <Text h5 style={SignUpScreenStyle.goBackToLoginButton}>GO BACK TO LOGIN</Text>
-                            </TouchableOpacity>
+                          <TouchableOpacity onPress={() => this.toggleLoginScreen()}>
+                              <Text h5 style={SignUpScreenStyle.goBackToLoginButton}>GO BACK TO LOGIN</Text>
+                          </TouchableOpacity>
                         </View>
                     </View>
                 </ScrollView>

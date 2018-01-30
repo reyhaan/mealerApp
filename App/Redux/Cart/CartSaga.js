@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import orderService from '../../Services/order-service';
 import cartService from '../../Services/cart-service';
 import { cartActionCreators } from './CartActions';
-import { orderActionCreators } from '../Order/OrderActions';
+import { requestActionCreators } from '../Request/RequestActions';
 import {NavigationActions} from 'react-navigation';
 
 
@@ -43,26 +43,26 @@ cartEffects.updateItemCount = function* (item) {
 
 cartEffects.checkout = function* () {
     try {
-        yield put(cartActionCreators.showActivityIndicator(true));
+        yield put(requestActionCreators.showLoadingSpinner(true));
         let updatedCart = yield call(orderService.createCustomerOrder);
         yield put(cartActionCreators.updateCart(updatedCart));
         yield put(cartActionCreators.getCart());
     } catch (error) {
         Alert.alert('Error', error.message,)
     } finally {
-        yield put(cartActionCreators.showActivityIndicator(false));
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 
 cartEffects.getUserCart = function* () {
     try {
-        yield put(cartActionCreators.showActivityIndicator(true));
+        yield put(requestActionCreators.showLoadingSpinner(true));
         let cart = yield call(cartService.getCart);
         yield put(cartActionCreators.updateCart(cart));
     } catch  (error) {
         Alert.alert('Error', error.message,)
     } finally {
-        yield put(cartActionCreators.showActivityIndicator(false));
+        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 

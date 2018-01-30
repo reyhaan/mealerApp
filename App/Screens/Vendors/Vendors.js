@@ -120,6 +120,8 @@ class Vendors extends Component {
                     </Body>
                 </Header>
 
+                <LoadingSpinner show={this.props.request && this.props.request.showLoadingSpinner}/>
+
                 <FlatList
                     contentContainerStyle={styles.listContent}
                     data={this.props.vendor.vendors}

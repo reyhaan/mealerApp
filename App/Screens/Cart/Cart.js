@@ -14,7 +14,8 @@ import {
     Text,
     TouchableOpacity,
     Image,
-    Platform
+    Platform,
+    Alert
 } from 'react-native'
 
 class MerchantOrders extends Component {
@@ -30,7 +31,14 @@ class MerchantOrders extends Component {
     };
 
     placeOrder = () => {
-        this.props.cartActions.checkout();
+        Alert.alert(
+            'Checkout', 'Are you sure you want to place your order ?',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'OK', onPress: () => this.props.cartActions.checkout()},
+            ],
+            { cancelable: false }
+        );
     };
 
     renderCustomerCart = () => {
@@ -54,7 +62,7 @@ class MerchantOrders extends Component {
     renderCheckoutButton = () => {
         if (this.props.cart && !this.props.cart.isEmpty) {
             return (<TouchableOpacity
-                disabled={this.props.cart && this.props.cart.showActivityIndicator}
+                disabled={this.props.request && this.props.request.showLoadingSpinner}
                 onPress={() => {
                     this.placeOrder()
                 }}
@@ -84,7 +92,7 @@ class MerchantOrders extends Component {
                 </Header>
 
                 <ScrollView>
-                    <LoadingSpinner show={this.props.cart && this.props.cart.showActivityIndicator}/>
+                    <LoadingSpinner show={this.props.request && this.props.request.showLoadingSpinner}/>
                     {this.renderCustomerCart()}
                 </ScrollView>
                 {this.renderCheckoutButton()}
@@ -101,7 +109,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        cart: state.cart.cart
+        cart: state.cart.cart,
+        request: state.request
     }
 };
 

@@ -23,6 +23,7 @@ import SnackBar from 'react-native-snackbar-component';
 import VendorEmail from './VendorEmail';
 import VendorAddress from './VendorAddress';
 import VendorPhone from './VendorPhone';
+import {LoadingSpinner} from '../../Components/index'
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -43,7 +44,8 @@ class VendorDetails extends Component {
         }
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     selectVendorItem = (mode, selectedItem) => {
         switch (mode) {
@@ -172,7 +174,8 @@ class VendorDetails extends Component {
     render() {
         return (
             <Col>
-                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}>
+                <Header iosBarStyle="dark-content"
+                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0}}>
                     <Left style={{marginTop: Platform.OS === 'android' ? 110 : 0}}>
                         <Button transparent onPress={() => this.navigateBack()}>
                             <Icon name="chevron-left" size={20} color={Colors.background}/>
@@ -244,12 +247,24 @@ class VendorDetails extends Component {
 
                     {this.state.showDetails && this._renderChefDetails()}
 
+                    <LoadingSpinner show={this.props.request && this.props.request.showLoadingSpinner}/>
+
                     {this.state.showMenu &&
                     <FlatList
-                        style={{backgroundColor: Colors.backgroundGray, paddingTop: 10}}
+                        style={{backgroundColor: Colors.snow, paddingTop: 10}}
                         data={this.props.vendor.selectedVendor.menus}
                         renderItem={({item}) => this.renderVendorItem(item)}
                     />}
+
+                    {!this.props.vendor.selectedVendor.menus || this.props.vendor.selectedVendor.menus.length === 0 &&
+                    <View style={{
+                        flex: 1,
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                        <Text style={{color: Colors.gray, fontSize: 15, marginTop: 30}}> Vendor has no listings:(</Text>
+                    </View>}
 
                 </ScrollView>
 
@@ -267,6 +282,7 @@ const mapStateToProps = (state) => {
         vendor: state.vendor,
         menu: state.menu,
         auth: state.auth,
+        request: state.request
     }
 };
 const mapDispatchToProps = (dispatch) => {

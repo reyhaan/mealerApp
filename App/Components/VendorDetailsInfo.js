@@ -37,7 +37,7 @@ export default class UserProfileHeader extends Component {
                                 <Text style={{
                                     fontSize: 18,
                                     fontWeight: 'bold',
-                                    color: Colors.background
+                                    color: Colors.gray
                                 }}>{user.quota || 20}</Text>
                             </Row>
                             <Row size={1} style={{
@@ -46,7 +46,7 @@ export default class UserProfileHeader extends Component {
                                 justifyContent: 'center',
                                 paddingTop: 2
                             }}>
-                                <Text style={{color: Colors.background, fontSize: 12}}>ORDER LIMIT</Text>
+                                <Text style={{color: Colors.gray, fontSize: 12}}>ORDER LIMIT</Text>
                             </Row>
                         </Col>
                         <Col>
@@ -54,7 +54,7 @@ export default class UserProfileHeader extends Component {
                                 <Text style={{
                                     fontSize: 18,
                                     fontWeight: 'bold',
-                                    color: Colors.background
+                                    color: Colors.gray
                                 }}>{this.state.rating.toFixed(1)}</Text>
                             </Row>
                             <Row size={1} style={{
@@ -63,7 +63,7 @@ export default class UserProfileHeader extends Component {
                                 justifyContent: 'center',
                                 paddingTop: 2
                             }}>
-                                <Text style={{color: Colors.background, fontSize: 12}}>RATING</Text>
+                                <Text style={{color: Colors.gray, fontSize: 12}}>RATING</Text>
                             </Row>
                         </Col>
                         <Col>
@@ -71,7 +71,7 @@ export default class UserProfileHeader extends Component {
                                 <Text style={{
                                     fontSize: 18,
                                     fontWeight: 'bold',
-                                    color: Colors.background
+                                    color: Colors.gray
                                 }}>{this.state.numOfItems}</Text>
                             </Row>
                             <Row size={1} style={{
@@ -80,7 +80,7 @@ export default class UserProfileHeader extends Component {
                                 justifyContent: 'center',
                                 paddingTop: 2
                             }}>
-                                <Text style={{color: Colors.background, fontSize: 12}}>ITEMS</Text>
+                                <Text style={{color: Colors.gray, fontSize: 12}}>ITEMS</Text>
                             </Row>
                         </Col>
                     </Row>

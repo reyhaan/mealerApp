@@ -111,15 +111,15 @@ class Vendors extends Component {
 
         return (
             <View style={styles.container}>
-                <Header iosBarStyle="light-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 60 : 0 }}>
+                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}>
                     <Body>
                     <Title style={{
                         color: Colors.background,
-                        marginTop: Platform.OS === 'android' ? 80 : 0,
+                        marginTop: Platform.OS === 'android' ? 110 : 0,
                     }}>Vendors</Title>
                     </Body>
                 </Header>
-                
+
                 <FlatList
                     contentContainerStyle={styles.listContent}
                     data={this.props.vendor.vendors}

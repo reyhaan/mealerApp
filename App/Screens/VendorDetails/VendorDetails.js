@@ -44,8 +44,7 @@ class VendorDetails extends Component {
         }
     }
 
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     selectVendorItem = (mode, selectedItem) => {
         switch (mode) {
@@ -171,6 +170,14 @@ class VendorDetails extends Component {
         }
     };
 
+    componentWillReceiveProps () {
+        // navState: state.navigation
+        let currentScreen = this.props.navState.routes[this.props.navState.index];
+        this.setState({
+            currentScreen: {...currentScreen}
+        });
+    }
+
     render() {
         return (
             <Col>
@@ -282,7 +289,8 @@ const mapStateToProps = (state) => {
         vendor: state.vendor,
         menu: state.menu,
         auth: state.auth,
-        request: state.request
+        request: state.request,
+        navState: state.navigation
     }
 };
 const mapDispatchToProps = (dispatch) => {

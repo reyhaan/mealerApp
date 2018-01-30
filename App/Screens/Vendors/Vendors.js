@@ -103,6 +103,14 @@ class Vendors extends Component {
         )
     };
 
+    componentWillReceiveProps () {
+        // navState: state.navigation
+        let currentScreen = this.props.navState.routes[this.props.navState.index];
+        this.setState({
+            currentScreen: {...currentScreen}
+        });
+    }
+
     render() {
         let refreshing = this.state.refreshing;
         if (this.props.request === true ||  this.props.request === false) {
@@ -120,7 +128,7 @@ class Vendors extends Component {
                     </Body>
                 </Header>
 
-                <LoadingSpinner show={this.props.request && this.props.request.showLoadingSpinner}/>
+                <LoadingSpinner show={this.props.request && this.props.request.showLoadingSpinner && this.state.currentScreen.routName === "CustomerTab"}/>
 
                 <FlatList
                     contentContainerStyle={styles.listContent}
@@ -136,7 +144,8 @@ class Vendors extends Component {
 const mapStateToProps = (state) => {
     return {
         vendor: state.vendor,
-        request: state.request
+        request: state.request,
+        navState: state.navigation
     }
 };
 

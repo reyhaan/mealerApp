@@ -31,14 +31,27 @@ class MerchantOrders extends Component {
     };
 
     placeOrder = () => {
-        Alert.alert(
-            'Checkout', 'Are you sure you want to place your order ?',
-            [
-                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                {text: 'OK', onPress: () => this.props.cartActions.checkout()},
-            ],
-            { cancelable: false }
-        );
+        let {user} = this.props.settings;
+
+        if ( user.address ){
+            Alert.alert(
+                'Checkout', 'Are you sure you want to place your order ?',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'OK', onPress: () => this.props.cartActions.checkout()},
+                ],
+                { cancelable: false }
+            );
+        } else {
+            Alert.alert(
+                'Missing address', 'Please update your delivery address before checking out',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'OK', onPress: () => this.props.navigation.navigate("UserAccount", {page: "User Account"})},
+                ],
+                { cancelable: false }
+            );
+        }
     };
 
     renderCustomerCart = () => {
@@ -110,7 +123,8 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         cart: state.cart.cart,
-        request: state.request
+        request: state.request,
+        settings: state.settings,
     }
 };
 

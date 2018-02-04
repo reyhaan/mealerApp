@@ -24,7 +24,7 @@ class Container extends Component {
                 'proximanova-bold': require('./App/Assets/Fonts/ProximaNova-Bold.ttf'),
                 'Roboto_medium': require('./App/Assets/Fonts/Roboto-Medium.ttf')
             });
-            this.setState({
+            await this.setState({
                 fontLoaded: true,
             });
         } catch (err) {
@@ -60,15 +60,6 @@ const mapStateToProps = state => ({
 
 const App = connect(mapStateToProps, mapDispatchToProps)(Container);
 
-/**
- * Provides an entry point into our application.  Both index.ios.js and index.android.js
- * call this component first.
- *
- * We create our Redux store here, put it into a provider and then bring in our
- * RootContainer.
- *
- * We separate like this to play nice with React Native's hot reloading.
- */
 
 class Index extends Component {
     constructor() {

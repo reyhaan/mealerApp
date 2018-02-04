@@ -5,6 +5,8 @@ import {Colors} from '../../Themes/index'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
+import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
+import {orderActionCreators} from '../../Redux/Order/OrderActions';
 import {registerForPushNotification, handleReceivedNotification} from '../../Services/push-notification-service'
 
 class AppEntry extends Component {
@@ -16,10 +18,13 @@ class AppEntry extends Component {
 
             if (user) {
                 if (user.type === "customer") {
-                    navigation.navigate('CustomerTab')
+                    this.props.vendorActions.fetchVendors();
+                    this.props.orderActions.getOrders(user.uid);
+                    navigation.navigate('CustomerTab');
                 }
                 else if (user.type === "vendor") {
-                    navigation.navigate('VendorTab')
+                    this.props.vendorActions.fetchVendorMenu();
+                    navigation.navigate('VendorTab');
                 }
 
                 registerForPushNotification();
@@ -47,7 +52,9 @@ class AppEntry extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
-        settingsActions: bindActionCreators(settingsActionCreators, dispatch)
+        vendorActions: bindActionCreators(vendorActionCreators, dispatch),
+        settingsActions: bindActionCreators(settingsActionCreators, dispatch),
+        orderActions: bindActionCreators(orderActionCreators, dispatch)
     }
 };
 const mapStateToProps = state => ({

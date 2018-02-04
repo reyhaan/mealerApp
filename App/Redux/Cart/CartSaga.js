@@ -56,13 +56,10 @@ cartEffects.checkout = function* () {
 
 cartEffects.getUserCart = function* () {
     try {
-        yield put(requestActionCreators.showLoadingSpinner(true));
         let cart = yield call(cartService.getCart);
         yield put(cartActionCreators.updateCart(cart));
     } catch  (error) {
         Alert.alert('Error', error.message,)
-    } finally {
-        yield put(requestActionCreators.showLoadingSpinner(false));
     }
 };
 

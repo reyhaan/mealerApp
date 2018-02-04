@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import {View, Text, Image, TouchableOpacity, TouchableWithoutFeedback} from 'react-native'
-import {ImagePicker} from 'expo';
-import {Colors, Fonts, Images} from '../Themes'
+import {View, Text, TouchableWithoutFeedback} from 'react-native'
+import {Colors, Fonts } from '../Themes'
 import {Button} from 'native-base';
 import style from './Styles/AddToCartButtonStyle'
 import {Col, Row, Grid} from 'react-native-easy-grid'
@@ -13,10 +12,6 @@ export default class AddToCartButton extends Component {
         this.state = {
             itemCount: 1
         }
-    }
-
-    componentWillReceiveProps(newProps) {
-
     }
 
     decreaseItemCount = () => {

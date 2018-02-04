@@ -44,8 +44,6 @@ class VendorDetails extends Component {
         }
     }
 
-    componentDidMount() {}
-
     selectVendorItem = (mode, selectedItem) => {
         switch (mode) {
             case 'list':

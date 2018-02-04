@@ -32,12 +32,14 @@ class UserAccount extends Component {
             showToast: false,
             toastMessage: ''
         };
-        this.props.getUser(this.props.settings.user.uid)
-
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         const currentUser = this.props.settings.user;
+        if (currentUser) {
+            this.props.settingsActions.getUser(currentUser.uid);
+        }
+
         currentUser
             ? this.setState({
                 user: {
@@ -211,7 +213,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(settingsActionCreators, dispatch);
+    return {
+        dispatch,
+        settingsActions: bindActionCreators(settingsActionCreators, dispatch)
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAccount)

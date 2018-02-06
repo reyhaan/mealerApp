@@ -28,7 +28,7 @@ class CustomerOrderHistory extends Component {
     }
 
     componentDidMount = () => {
-        this.props.getOrders(this.props.user.uid)
+        this.props.orderActions.getOrders(this.props.user.uid)
     };
 
     renderHistory = () => {
@@ -88,6 +88,8 @@ const mapStateToProps = (state) => {
     }
 };
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(orderActionCreators, dispatch);
+    return {
+        orderActions: bindActionCreators(orderActionCreators, dispatch)
+    }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CustomerOrderHistory)

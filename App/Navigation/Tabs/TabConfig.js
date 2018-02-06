@@ -11,7 +11,7 @@ export default {
         headerMode: 'none',
         headerStyle: styles.header
     },
-    initialRouteName: 'Two',
+    initialRouteName: 'One',
     tabBarOptions: {
         activeTintColor: (Platform.OS === 'ios') ? Colors.backgroundLighter : Colors.background,
         inactiveTintColor: (Platform.OS === 'ios') ? Colors.steel : Colors.gray,

@@ -10,6 +10,9 @@ import * as ReactNavigation from 'react-navigation'
 import {authActionCreators} from './App/Redux/Auth/AuthActions';
 import {bindActionCreators} from 'redux'
 
+// Export store
+export const appStore = createStore();
+
 class Container extends Component {
     state = {
         fontLoaded: false,
@@ -24,7 +27,7 @@ class Container extends Component {
                 'proximanova-bold': require('./App/Assets/Fonts/ProximaNova-Bold.ttf'),
                 'Roboto_medium': require('./App/Assets/Fonts/Roboto-Medium.ttf')
             });
-            this.setState({
+            await this.setState({
                 fontLoaded: true,
             });
         } catch (err) {
@@ -60,17 +63,8 @@ const mapStateToProps = state => ({
 
 const App = connect(mapStateToProps, mapDispatchToProps)(Container);
 
-/**
- * Provides an entry point into our application.  Both index.ios.js and index.android.js
- * call this component first.
- *
- * We create our Redux store here, put it into a provider and then bring in our
- * RootContainer.
- *
- * We separate like this to play nice with React Native's hot reloading.
- */
-
-class Index extends Component {
+// Export App
+export default class Index extends Component {
     constructor() {
         super();
         // walk around for firebase timer RN warnings
@@ -80,8 +74,6 @@ class Index extends Component {
     }
 
     render() {
-        return <Provider store={createStore()}><App/></Provider>;
+        return <Provider store={appStore}><App/></Provider>;
     }
 }
-
-export default Index

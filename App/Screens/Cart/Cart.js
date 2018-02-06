@@ -14,7 +14,8 @@ import {
     Text,
     TouchableOpacity,
     Image,
-    Platform
+    Platform,
+    Alert
 } from 'react-native'
 
 class MerchantOrders extends Component {
@@ -30,7 +31,27 @@ class MerchantOrders extends Component {
     };
 
     placeOrder = () => {
-        this.props.cartActions.checkout();
+        let {user} = this.props.settings;
+
+        if (user.address) {
+            Alert.alert(
+                'Checkout', 'Are you sure you want to place your order ?',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'OK', onPress: () => this.props.cartActions.checkout()},
+                ],
+                {cancelable: false}
+            );
+        } else {
+            Alert.alert(
+                'Missing address', 'Please update your delivery address before checking out',
+                [
+                    {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                    {text: 'OK', onPress: () => this.props.navigation.navigate("UserAccount", {page: "User Account"})},
+                ],
+                {cancelable: false}
+            );
+        }
     };
 
     renderCustomerCart = () => {
@@ -38,14 +59,18 @@ class MerchantOrders extends Component {
             return <CustomerCartScreen/>
         } else {
             return (
-                <View style={styles.subContainer}>
+                <View style={styles.emptyCart}>
                     <Image source={Images.emptyCart} style={styles.logo}/>
-                    <Text style={{
-                        color: Colors.backgroundGray,
-                        marginTop: Metrics.doubleBaseMargin,
-                        fontWeight: 'bold',
-                        fontSize: 18
-                    }}>Your cart is empty!</Text>
+
+                    <Button block success style={{backgroundColor: Colors.background}}
+                            onPress={() => {
+                                this.props.navigation.navigate("Vendors")
+                            }}>
+                        <Text style={{
+                            color: Colors.snow,
+                            fontSize: 18,
+                        }}>Cart is empty shop now!</Text>
+                    </Button>
                 </View>
             )
         }
@@ -54,7 +79,7 @@ class MerchantOrders extends Component {
     renderCheckoutButton = () => {
         if (this.props.cart && !this.props.cart.isEmpty) {
             return (<TouchableOpacity
-                disabled={this.props.cart && this.props.cart.showActivityIndicator}
+                disabled={this.props.request && this.props.request.showLoadingSpinner}
                 onPress={() => {
                     this.placeOrder()
                 }}
@@ -74,7 +99,8 @@ class MerchantOrders extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0}} >
+                <Header iosBarStyle="dark-content"
+                        style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0}}>
                     <Body>
                     <Title style={{
                         color: Colors.background,
@@ -84,7 +110,7 @@ class MerchantOrders extends Component {
                 </Header>
 
                 <ScrollView>
-                    <LoadingSpinner show={this.props.cart && this.props.cart.showActivityIndicator}/>
+                    <LoadingSpinner show={this.props.request && this.props.request.showLoadingSpinner}/>
                     {this.renderCustomerCart()}
                 </ScrollView>
                 {this.renderCheckoutButton()}
@@ -101,7 +127,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-        cart: state.cart.cart
+        cart: state.cart.cart,
+        request: state.request,
+        settings: state.settings,
     }
 };
 

@@ -1,16 +1,14 @@
 import React, {Component} from 'react'
 import styles from './Styles/LoadingSpinnerStyle'
 import {View} from 'react-native'
-import {
-    ActivityIndicator
-} from 'react-native'
+import { Spinner } from 'native-base';
 
 class LoadingSpinner extends Component {
     render() {
         if (this.props.show) {
             return (
                 <View style={styles.spinnerContainer}>
-                     <ActivityIndicator color='black' size='large' style={styles.spinner}/>
+                    <Spinner color='black'/>
                 </View>
             )
         } else {

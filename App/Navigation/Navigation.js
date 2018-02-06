@@ -4,9 +4,6 @@ import CustomerTab from './Tabs/CustomerTab'
 import {
     Login,
     SignUp,
-    MenuForm,
-    UserAccount,
-    Cart,
     Main
 } from '../Screens'
 
@@ -30,18 +27,9 @@ export default StackNavigator({
     CustomerTab: {
         screen: CustomerTab
     },
-    UserAccount: {
-        screen: UserAccount
-    },
-    MenuForm: {
-        screen: MenuForm
-    },
     Main: {
         screen: Main
     },
-    Cart: {
-        screen: Cart
-    }
 }, {
     // Default config for all screens
     headerMode: 'none',

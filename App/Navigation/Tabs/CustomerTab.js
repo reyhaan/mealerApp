@@ -3,6 +3,7 @@ import styles from '../Navigation.style'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {appStore} from '../../../App'
 import {
     Vendors,
     Cart,
@@ -12,6 +13,7 @@ import {
     VendorDetails,
     CustomerOrderHistory
 } from '../../Screens/index';
+
 
 export default StackNavigator({
     Root: {
@@ -43,12 +45,21 @@ export default StackNavigator({
 
             Two: {
                 screen: Cart,
-                navigationOptions: {
-                    gesturesEnabled: false,
-                    tabBarIcon: ({tintColor}) => (
-                        <Icon name="shopping-cart" size={20} color={tintColor}/>
-                    ),
-                    title: 'Cart'
+                navigationOptions: () => {
+                    let totalItemCount = 0;
+                    appStore.subscribe( () => {
+                        const state = appStore.getState();
+                        const cart = state.cart;
+                        totalItemCount  = cart && cart.totalItemCount ? cart.totalItemCount : totalItemCount;
+                    });
+
+                    return {
+                        gesturesEnabled: false,
+                        tabBarIcon: ({tintColor}) => (
+                            <Icon name="shopping-cart" size={20} color={tintColor}/>
+                        ),
+                        title: 'Cart'
+                    }
                 },
             },
 

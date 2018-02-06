@@ -10,6 +10,9 @@ import * as ReactNavigation from 'react-navigation'
 import {authActionCreators} from './App/Redux/Auth/AuthActions';
 import {bindActionCreators} from 'redux'
 
+// Export store
+export const appStore = createStore();
+
 class Container extends Component {
     state = {
         fontLoaded: false,
@@ -60,8 +63,8 @@ const mapStateToProps = state => ({
 
 const App = connect(mapStateToProps, mapDispatchToProps)(Container);
 
-
-class Index extends Component {
+// Export App
+export default class Index extends Component {
     constructor() {
         super();
         // walk around for firebase timer RN warnings
@@ -71,8 +74,6 @@ class Index extends Component {
     }
 
     render() {
-        return <Provider store={createStore()}><App/></Provider>;
+        return <Provider store={appStore}><App/></Provider>;
     }
 }
-
-export default Index

@@ -2,12 +2,14 @@ import {StyleSheet, Platform} from 'react-native'
 import {Colors, Metrics} from '../../Themes/index'
 
 export default StyleSheet.create({
-    subContainer: {
+    emptyCart: {
         flex: 1,
         backgroundColor: Colors.snow,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginLeft:15,
+        marginRight:15,
     },
     logo: {
         height: 220,

@@ -3,6 +3,7 @@ import styles from '../Navigation.style'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import {View, Text} from 'react-native'
 import tabNavigatorConfig from './TabConfig'
+import IconBadge from 'react-native-icon-badge';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {appStore} from '../../../App'
 import {
@@ -14,10 +15,10 @@ import {
     VendorDetails,
     CustomerOrderHistory
 } from '../../Screens/index';
+import { appStore } from '../../../App'
 
-let totaltemsInCart = 5;
-
-export default StackNavigator({
+let totalItemCount = 0;
+const chefsStack = StackNavigator({
     Root: {
         screen: TabNavigator({
             One: {
@@ -57,7 +58,14 @@ export default StackNavigator({
 
     Two: {
         screen: Cart,
-        navigationOptions: {
+        navigationOptions: () => {
+          appStore.subscribe( () => {
+            let appState = appStore.getState();
+            const cart = appState.cart && appState.cart.cart;
+            totalItemCount = cart && cart.totalItemCount ? cart.totalItemCount : totalItemCount;
+            console.log(totalItemCount);
+          })
+          return {
             gesturesEnabled: false,
             tabBarIcon: ({tintColor}) => (
               <IconBadge
@@ -66,7 +74,7 @@ export default StackNavigator({
                 <Icon name="shopping-cart" size={20} color={tintColor} /></View>}
                 BadgeElement={
                   <Text style={{color:'#FFFFFF', fontSize: 8}}>
-                    {totaltemsInCart}
+                    {totalItemCount}
                   </Text>}
                 IconBadge={{
                   position:'absolute',
@@ -80,7 +88,9 @@ export default StackNavigator({
               />
             ),
             title: 'Cart'
-        },
+          }
+            
+      }
     },
 
             Three: {

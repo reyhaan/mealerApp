@@ -16,16 +16,19 @@ cartService.getCart = async () => {
                 if (!cart.isEmpty) {
                     let itemsForAllMerchants = _.values(cart.to);
                     cart.cost = 0;
+                    cart.totalItemCount = 0
                     _.each(itemsForAllMerchants, (itemFromOneMerchant) => {
                         let itemArray = _.values(itemFromOneMerchant);
                         _.each(itemArray, (item) => {
                             cart.cost = cart.cost + item.itemCost * (item.itemCount);
+                            cart.totalItemCount = cart.totalItemCount + item.itemCount
                         })
                     });
                 }
                 cart.cost = parseFloat(cart.cost).toFixed(2);
             } else {
                 cart = {isEmpty: true};
+                cart.totalItemCount = 0
             }
 
             return Promise.resolve(cart);
@@ -151,12 +154,12 @@ cartService.totalItems = async () => {
         let itemsForAllMerchants = _.values(cart.to);
         _.each(itemsForAllMerchants, function (itemFromOneMerchant) {
             let itemArray = _.values(itemFromOneMerchant);
-            _.each(itemArray, function () {
-                totalItemCount = totalItemCount + 1;
+            _.each(itemArray, function (itemArray) {
+              totalItemCount = totalItemCount + itemArray.itemCount;
             })
         });
     }
-    return totalItemCount;
+    return Promise.resolve(totalItemCount)
 };
 
 cartService.checkout = async (userInfo) => {

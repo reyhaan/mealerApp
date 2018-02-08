@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import OrdersTabStyle from './Styles/VendorOrders.style';
-import VendorOrder from '../Components/VendorOrder';
+import CustomerOrderDetails from '../Components/CustomerOrderDetails';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../Themes/index';
 import {bindActionCreators} from 'redux';
@@ -68,7 +68,7 @@ class Cart extends Component {
                 data={this.props.vendor.newVendorOrders}
                 refreshing={refreshing}
                 onRefresh={() => this.getVendorOrders()}
-                renderItem={({item}) => <VendorOrder order={item}/>}/>)
+                renderItem={({item}) => <CustomerOrderDetails order={item}/>}/>)
         } else {
             return (
                 <View style={{
@@ -89,7 +89,7 @@ class Cart extends Component {
                 data={this.props.vendor.acceptedVendorOrders}
                 refreshing={refreshing}
                 onRefresh={() => this.getVendorOrders()}
-                renderItem={({item}) => <VendorOrder order={item}/>}/>)
+                renderItem={({item}) => <CustomerOrderDetails order={item}/>}/>)
         } else {
             return (
                 <View style={{
@@ -110,7 +110,7 @@ class Cart extends Component {
                 data={this.props.vendor.deliveredVendorOrders}
                 refreshing={refreshing}
                 onRefresh={() => this.getVendorOrders()}
-                renderItem={({item}) => <VendorOrder order={item}/>}/>)
+                renderItem={({item}) => <CustomerOrderDetails order={item}/>}/>)
         } else {
             return (
                 <View style={{
@@ -131,7 +131,7 @@ class Cart extends Component {
                 data={this.props.vendor.cancelledVendorOrders}
                 refreshing={refreshing}
                 onRefresh={() => this.getVendorOrders()}
-                renderItem={({item}) => <VendorOrder order={item}/>}/>)
+                renderItem={({item}) => <CustomerOrderDetails order={item}/>}/>)
         } else {
             return (
                 <View style={{
@@ -177,7 +177,7 @@ class Cart extends Component {
                          tabStyle={{backgroundColor: Colors.lightGray}} textStyle={{color: Colors.gray}}
                          heading={"New" + " (" + this.orderCount(constants.orderStates.new) + ")"}>
                         {this.renderNewOrders(refreshing)}
-                    </Tab>{}
+                    </Tab>
                     <Tab activeTextStyle={{color: Colors.background}} activeTabStyle={{backgroundColor: Colors.snow}}
                          tabStyle={{backgroundColor: Colors.lightGray}} textStyle={{color: Colors.gray}}
                          heading={"Accepted" + " (" + this.orderCount(constants.orderStates.accepted) + ")"}>

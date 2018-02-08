@@ -45,7 +45,7 @@ export const vendorActionCreators = {
     setNewVendorOrders: (data) => createAction(vendorActions.SET_NEW_VENDOR_ORDERS, data),
     setAcceptedVendorOrders: (data) => createAction(vendorActions.SET_ACCEPTED_VENDOR_ORDERS, data),
     setDeliveredVendorOrders: (data) => createAction(vendorActions.SET_DELIVERED_VENDOR_ORDERS, data),
-    setCancelledVendorOrders: (data) => createAction(vendorActions.SET_CANCELLED_VENDOR_ORDERS, data),
+    setRejectedVendorOrders: (data) => createAction(vendorActions.SET_CANCELLED_VENDOR_ORDERS, data),
 };
 
 /******************************* SAGA WATCHERS *************************************/

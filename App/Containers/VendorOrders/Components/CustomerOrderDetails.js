@@ -36,6 +36,7 @@ class CustomerOrderDetails extends Component {
     };
 
     orderStatusColor = (order) => {
+        console.log('COLORS: ', Colors)
         switch (order.status) {
             case constants.orderStates.new:
                 return Colors.background;
@@ -46,7 +47,7 @@ class CustomerOrderDetails extends Component {
             case constants.orderStates.delivered:
                 return Colors.green;
                 break;
-            case constants.orderStates.cancelled:
+            case constants.orderStates.rejected:
                 return Colors.red;
                 break;
             default:
@@ -58,9 +59,18 @@ class CustomerOrderDetails extends Component {
         switch (order.status) {
             case constants.orderStates.new:
                 return (
-                    <Button small block primary onPress={() => this.acceptOrder(order)}>
-                        <Text>Accept</Text>
-                    </Button>
+                  <Row style={styles.statusUpdateContainer}>
+                    <Col style={styles.statusUpdateButton}>
+                      <Button small block primary onPress={() => this.acceptOrder(order)}>
+                          <Text>Accept</Text>
+                      </Button>    
+                    </Col>
+                    <Col style={styles.statusUpdateButton}>
+                      <Button small block bordered danger onPress={() => this.rejectOrder(order)}>
+                          <Text>Reject</Text>
+                      </Button>    
+                    </Col>
+                  </Row>
                 );
                 break;
             case constants.orderStates.accepted:
@@ -87,7 +97,6 @@ class CustomerOrderDetails extends Component {
                 {
                     text: 'OK', onPress: () => {
                     order.status = constants.orderStates.accepted;
-                    orderActionCreators.updateOrderStatus(order);
                     this.props.orderActions.updateOrderStatus(order)
                 }
                 },
@@ -95,6 +104,26 @@ class CustomerOrderDetails extends Component {
             {cancelable: false}
         )
     };
+
+    rejectOrder = (order) => {
+      Alert.alert(
+          order.customer.name,
+          'Are you you want to reject order',
+          [
+              {
+                  text: 'Cancel', onPress: () => {
+              }, style: 'cancel'
+              },
+              {
+                  text: 'OK', onPress: () => {
+                  order.status = constants.orderStates.rejected;
+                  this.props.orderActions.updateOrderStatus(order)
+              }
+              },
+          ],
+          {cancelable: false}
+      )
+  };
 
     deliverOrder = (order) => {
         Alert.alert(
@@ -108,28 +137,6 @@ class CustomerOrderDetails extends Component {
                 {
                     text: 'OK', onPress: () => {
                     order.status = constants.orderStates.delivered;
-                    orderActionCreators.updateOrderStatus(order);
-                    this.props.orderActions.updateOrderStatus(order)
-                }
-                },
-            ],
-            {cancelable: false}
-        )
-    };
-
-    cancelOrder = (order) => {
-        Alert.alert(
-            order.customer.name,
-            'Are you you want to accept order',
-            [
-                {
-                    text: 'Cancel', onPress: () => {
-                }, style: 'cancel'
-                },
-                {
-                    text: 'OK', onPress: () => {
-                    order.status = constants.orderStates.accepted;
-                    orderActionCreators.updateOrderStatus(order);
                     this.props.orderActions.updateOrderStatus(order)
                 }
                 },
@@ -226,11 +233,7 @@ class CustomerOrderDetails extends Component {
                             </Text>
                         </Col>
                     </Row>
-                    <Row style={styles.statusUpdateContainer}>
-                        <Col style={styles.statusUpdateButton}>
-                            {this.orderActionButton(order)}
-                        </Col>
-                    </Row>
+                      {this.orderActionButton(order)}
                     </Body>
                 </CardItem>
             </Card>

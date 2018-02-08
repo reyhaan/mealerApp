@@ -3,7 +3,7 @@ export default {
         new: 'new',
         accepted: 'accepted',
         delivered: 'delivered',
-        cancelled: 'cancelled'
+        rejected: 'rejected'
     },
     userTypes:{
         customer:'customer',

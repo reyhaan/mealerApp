@@ -13,7 +13,7 @@ import {
     UserAccount,
     InfoTab,
     VendorDetails,
-    CustomerOrderHistory
+    OrderHistory
 } from '../../Containers/index';
 
 let totalItemCount = 0;
@@ -53,7 +53,6 @@ export default StackNavigator({
                             let appState = appStore.getState();
                             const cart = appState.cart && appState.cart.cart;
                             totalItemCount = cart && cart.totalItemCount ? cart.totalItemCount : totalItemCount;
-                            console.log(totalItemCount);
                         });
                         return {
                             gesturesEnabled: false,
@@ -102,8 +101,8 @@ export default StackNavigator({
                         UserAccount: {
                             screen: UserAccount
                         },
-                        CustomerOrderHistory: {
-                            screen: CustomerOrderHistory
+                        OrderHistory: {
+                            screen: OrderHistory
                         }
                     }, {
                         headerMode: 'none',

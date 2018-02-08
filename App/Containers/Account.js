@@ -55,7 +55,7 @@ class Settings extends Component {
                             user && user.type === 'customer' ?
                                 <ListItem
                                     onPress={() => {
-                                        this.props.navigation.navigate('CustomerOrderHistory')
+                                        this.props.navigation.navigate('OrderHistory')
                                     }}
                                     chevronColor={Colors.background}
                                     titleStyle={styles.listTitle}

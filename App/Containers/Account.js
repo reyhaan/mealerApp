@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {ScrollView, View, Alert, Platform} from 'react-native'
 import {connect} from 'react-redux'
 import {List, ListItem} from 'react-native-elements'
-import SettingsTabStyle from './Account.style'
+import SettingsTabStyle from './Styles/Account.style'
 import {bindActionCreators} from 'redux'
-import {Colors} from '../../Themes/index'
-import {authActionCreators} from '../../Redux/Auth/AuthActions'
+import {Colors} from '../Themes/index'
+import {authActionCreators} from '../Redux/Auth/AuthActions'
 import {Header, Left, Body, Right, Button, Title} from 'native-base';
 
 const styles = SettingsTabStyle;

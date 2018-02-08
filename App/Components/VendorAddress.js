@@ -5,7 +5,7 @@ import {
     Alert, TouchableOpacity
 } from 'react-native'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors} from '../../Themes/index';
+import {Colors} from '../Themes/index';
 import { Map } from 'react-native-openanything';
 import { Icon } from 'react-native-elements';
 

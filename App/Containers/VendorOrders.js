@@ -6,16 +6,16 @@ import {
     Platform
 } from 'react-native';
 import {connect} from 'react-redux';
-import OrdersTabStyle from './VendorOrders.style';
-import VendorOrder from './VendorOrder';
+import OrdersTabStyle from './Styles/VendorOrders.style';
+import VendorOrder from '../Components/VendorOrder';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors} from '../../Themes/index';
+import {Colors} from '../Themes/index';
 import {bindActionCreators} from 'redux';
-import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
-import constants from '../../Services/constants-service';
+import {vendorActionCreators} from '../Redux/Vendor/VendorActions';
+import constants from '../Services/constants-service';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Container, Content, Tab, Tabs, ScrollableTab, Header, Left, Body, Right, Button, Title} from 'native-base';
-import {clearBadgeCount} from '../../Services/push-notification-service'
+import {clearBadgeCount} from '../Services/push-notification-service'
 
 // Styles
 const styles = OrdersTabStyle;

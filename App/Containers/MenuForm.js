@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
 import {ScrollView, View, Platform, KeyboardAvoidingView, Text} from 'react-native'
 import {connect} from 'react-redux'
-import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
+import {Colors, Fonts, Metrics, Images} from '../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
+import {vendorActionCreators} from '../Redux/Vendor/VendorActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
-import styles from './MenuForm.style'
+import styles from './Styles/MenuForm.style'
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {ImagePicker} from 'expo';
-import Avatar from '../../Components/Avatar'
+import Avatar from '../Components/Avatar'
 
 class MenuForm extends Component {
     constructor(props) {

@@ -4,9 +4,9 @@ import {
     FlatList,
 } from 'react-native'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors} from '../../Themes/index';
-import style from './CustomerOrderHistory.style'
-import {Constants} from '../../Utils/Constants'
+import {Colors} from '../Themes/index';
+import style from '../Containers/Styles/CustomerOrderHistory.style'
+import {Constants} from '../Utils/Constants'
 import moment from 'moment';
 
 let _calculateTotalCost = (rowData) => {

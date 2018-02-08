@@ -2,17 +2,17 @@ import React, {Component} from 'react'
 import {ScrollView, View, KeyboardAvoidingView, Text, Platform} from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
-import UserInfoChangeScreenStyle from './UserAccount.style'
-import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
+import UserInfoChangeScreenStyle from './Styles/UserAccount.style'
+import {Colors, Fonts, Metrics, Images} from '../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
-import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
+import {settingsActionCreators} from '../Redux/Settings/SettingsActions'
 import {Alert} from 'react-native';
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SnackBar from 'react-native-snackbar-component'
 import {TextInputMask} from 'react-native-masked-text';
-import UserAvatar from '../../Components/UserAvatar'
+import UserAvatar from '../Components/UserAvatar'
 
 const styles = UserInfoChangeScreenStyle;
 

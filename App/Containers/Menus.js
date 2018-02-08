@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {Text, View, TouchableOpacity, FlatList, Image, Platform} from 'react-native'
 import {connect} from 'react-redux'
-import style from './Menus.style'
+import style from './Styles/Menus.style'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors} from '../../Themes/index';
-import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
+import {Colors} from '../Themes/index';
+import {vendorActionCreators} from '../Redux/Vendor/VendorActions';
 import {bindActionCreators} from 'redux';
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';

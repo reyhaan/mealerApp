@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Text, View, Image} from 'react-native'
 import {connect} from 'react-redux'
-import styles from './Info.style'
-import {Colors, Fonts, Images, Metrics} from '../../Themes/index'
+import styles from './Styles/Info.style'
+import {Colors, Fonts, Images, Metrics} from '../Themes/index'
 
 class InfoTab extends Component {
     render() {

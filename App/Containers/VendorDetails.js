@@ -10,20 +10,20 @@ import {
     Platform
 } from 'react-native'
 import {connect} from 'react-redux'
-import style from './VendorDetails.style'
+import style from './Styles/VendorDetails.style'
 import {Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {Colors} from '../../Themes/index';
-import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
-import {cartActionCreators} from '../../Redux/Cart/CartActions'
+import {Colors} from '../Themes/index';
+import {vendorActionCreators} from '../Redux/Vendor/VendorActions';
+import {cartActionCreators} from '../Redux/Cart/CartActions'
 import {bindActionCreators} from 'redux';
-import {VendorDetailsInfo, AddToCartModal} from '../../Components/index'
+import {VendorDetailsInfo, AddToCartModal} from '../Components/index'
 import {NavigationActions} from 'react-navigation'
 import SnackBar from 'react-native-snackbar-component';
-import VendorEmail from './VendorEmail';
-import VendorAddress from './VendorAddress';
-import VendorPhone from './VendorPhone';
-import {LoadingSpinner} from '../../Components/index'
+import VendorEmail from '../Components/VendorEmail';
+import VendorAddress from '../Components/VendorAddress';
+import VendorPhone from '../Components/VendorPhone';
+import {LoadingSpinner} from '../Components/index'
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 

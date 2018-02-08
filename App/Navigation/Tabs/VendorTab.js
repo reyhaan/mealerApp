@@ -9,7 +9,7 @@ import {
     InfoTab,
     Menus,
     MenuForm
-} from '../../Screens/index'
+} from '../../Containers/index'
 
 export default StackNavigator({
     Root: {

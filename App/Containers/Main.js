@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {Alert, View} from 'react-native'
 import {Notifications} from 'expo';
-import {Colors} from '../../Themes/index'
+import {Colors} from '../Themes/index'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {settingsActionCreators} from '../../Redux/Settings/SettingsActions'
-import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
-import {orderActionCreators} from '../../Redux/Order/OrderActions';
-import {registerForPushNotification, handleReceivedNotification} from '../../Services/push-notification-service'
+import {settingsActionCreators} from '../Redux/Settings/SettingsActions'
+import {vendorActionCreators} from '../Redux/Vendor/VendorActions';
+import {orderActionCreators} from '../Redux/Order/OrderActions';
+import {registerForPushNotification, handleReceivedNotification} from '../Services/push-notification-service'
 
 class AppEntry extends Component {
 

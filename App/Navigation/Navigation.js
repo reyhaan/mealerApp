@@ -5,7 +5,7 @@ import {
     Login,
     SignUp,
     Main
-} from '../Screens'
+} from '../Containers'
 
 // Manifest of possible screens
 export default StackNavigator({

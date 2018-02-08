@@ -3,10 +3,10 @@ import {View, FlatList, Alert} from 'react-native';
 import {Avatar, Badge} from 'react-native-elements';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import moment from 'moment';
-import {Colors} from '../../Themes';
-import styles from './VendorOrder.style';
-import constants from '../../Services/constants-service';
-import {orderActionCreators} from '../../Redux/Order/OrderActions'
+import {Colors} from '../Themes/index';
+import styles from './Styles/VendorOrder.style';
+import constants from '../Services/constants-service';
+import {orderActionCreators} from '../Redux/Order/OrderActions'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {

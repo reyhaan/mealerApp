@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {Text, Icon as RNE_Icon} from 'react-native-elements'
 import { View } from 'react-native'
-import LoginScreenStyle from './Login.style'
-import {Colors} from '../../Themes/index'
+import LoginScreenStyle from '../Containers/Styles/Login.style'
+import {Colors} from '../Themes/index'
 import {Button, Form, Item, Input, Label, Icon} from 'native-base'
 
 export default class ResetPassword extends Component {

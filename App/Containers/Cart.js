@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import styles from './Cart.style'
-import {CustomerCartScreen} from '../../Components/index'
-import {Colors, Metrics, Images} from '../../Themes/index'
+import styles from './Styles/Cart.style'
+import {CustomerCartScreen} from '../Components/index'
+import {Colors, Metrics, Images} from '../Themes/index'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {bindActionCreators} from 'redux'
-import {cartActionCreators} from '../../Redux/Cart/CartActions'
-import {LoadingSpinner} from '../../Components/index'
+import {cartActionCreators} from '../Redux/Cart/CartActions'
+import {LoadingSpinner} from '../Components/index'
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import {
     ScrollView,

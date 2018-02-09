@@ -5,7 +5,7 @@ const initialState = {
     vendors: [],
     showActivityIndicator: false
 };
-export function vendor(state=initialState, action){
+export default (state=initialState, action) => {
     switch(action.type){
         case vendorActions.FETCH_MENU_SUCCESSFUL:
             return Object.assign({}, state, {

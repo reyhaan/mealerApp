@@ -4,7 +4,8 @@ const initialState = {
     orders: '',
     showActivityIndicator: false
 };
-export function order(state=initialState, action){
+
+export default (state=initialState, action) => {
     switch(action.type){
         case orderActions.GET_ORDERS_SUCCESSFUL:
             return Object.assign({}, state, {

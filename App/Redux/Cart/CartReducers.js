@@ -3,7 +3,8 @@ import { cartActions } from './CartActions';
 const initialState = {
     showActivityIndicator: false
 };
-export function cart(state=initialState, action){
+
+export default (state=initialState, action) => {
     switch(action.type){
         case cartActions.ADD_TO_CART_SUCCESSFUL:
             return Object.assign({}, state, {

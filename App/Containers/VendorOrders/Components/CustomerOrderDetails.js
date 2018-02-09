@@ -36,7 +36,6 @@ class CustomerOrderDetails extends Component {
     };
 
     orderStatusColor = (order) => {
-        console.log('COLORS: ', Colors)
         switch (order.status) {
             case constants.orderStates.new:
                 return Colors.background;

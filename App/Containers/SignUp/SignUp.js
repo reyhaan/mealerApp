@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {List, ListItem, Icon} from 'react-native-elements'
+import {List, ListItem, Icon, colors} from 'react-native-elements'
 import {connect} from 'react-redux'
 import {ScrollView, View, Image, Alert, Text, TouchableOpacity} from 'react-native'
 import {Images, Fonts, Colors} from '../../Themes/index'
@@ -8,8 +8,9 @@ import {bindActionCreators} from 'redux'
 import {authActionCreators} from '../../Redux/Auth/AuthActions'
 import {Login} from '../index'
 import {LoadingSpinner} from '../../Components/index'
-import {Form, Item, Input, Label, Button, Content, Left, Radio} from 'native-base'
+import {Form, Item, Input, Label, Button, Content, Left, Radio, Body, CheckBox} from 'native-base'
 import { TextField as PasswordTextField } from 'react-native-material-textfield'
+import {getAgreementModal} from './AgreementModal'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";
@@ -21,7 +22,9 @@ class SignUp extends Component {
         password: "",
         type: 'customer',
         userTypeDropDown: false,
-        userTypeTitle: customerTitle
+        userTypeTitle: customerTitle,
+        agreeToTermsAndConditions: false,
+        isAgreementModalOpen: false
     };
 
     // state = {
@@ -58,13 +61,27 @@ class SignUp extends Component {
     };
 
     signUp = () => {
-        const {email, password, name, type} = this.state;
-        if (email && password && name && type) {
-            this.props.signUp({name, email, password, type});
+        const {email, password, name, type, agreeToTermsAndConditions} = this.state;
+        if (email && password && name && type && agreeToTermsAndConditions) {
+            this.props.signUp({name, email, password, type, agreeToTermsAndConditions});
         } else {
-            Alert.alert("", "Enter your name, email & password")
+            this.state.agreeToTermsAndConditions ?
+            Alert.alert("", "Enter your name, email & password") :
+            Alert.alert("", "Enter your name, email & password \n Agree to terms and condition")
         }
     };
+
+    toggleTermsAndConditionsAgreement = () => {
+      this.setState({agreeToTermsAndConditions: !this.state.agreeToTermsAndConditions})
+    }
+
+    openAgreementModal = () => {
+      this.setState({isAgreementModalOpen: true})
+    }
+
+    closeAgreementModal = () => {
+      this.setState({isAgreementModalOpen: false})
+    }
 
     //TODO: Add form validation for email and password
     render() {
@@ -116,8 +133,18 @@ class SignUp extends Component {
                               tintColor={Colors.charcoal}
                             />
                           </View>
+                          <View style={{marginLeft: 12, marginTop: 10, display: 'flex', 
+                          flexDirection: 'row', justifyContent: 'flex-start'}}>
+                            <CheckBox checked={this.state.agreeToTermsAndConditions} color={Colors.bloodOrange}
+                              onPress={() => this.toggleTermsAndConditionsAgreement()} />
+                            <TouchableOpacity onPress={() => this.openAgreementModal()} style={{marginLeft: 15}}>
+                              <Text style={{textDecorationLine: 'underline', color: Colors.charcoal}}>I agree to Terms and Conditions</Text>
+                            </TouchableOpacity>
+                          </View>
                         </Form>
-
+                        {this.state.isAgreementModalOpen &&
+                          getAgreementModal(this.state.isAgreementModalOpen, this.closeAgreementModal)
+                        }
                         <Content style={{ marginLeft: 15, marginTop: 0 }}>
 
                           <TouchableOpacity onPress={() => this.toggleUserType('customer')}>

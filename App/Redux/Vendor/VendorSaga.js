@@ -132,11 +132,11 @@ vendorEffects.fetchVendorOrders = function* () {
         const newOrders = _.filter(orders, o => { return o.status === Constants.orderStates.new });
         const acceptedOrders = _.filter(orders, o => { return o.status === Constants.orderStates.accepted });
         const deliveredOrders = _.filter(orders, o => { return o.status === Constants.orderStates.delivered });
-        const cancelledOrders = _.filter(orders, o => { return o.status === Constants.orderStates.cancelled });
+        const rejectedOrders = _.filter(orders, o => { return o.status === Constants.orderStates.rejected });
         yield put(vendorActionCreators.setNewVendorOrders(newOrders));
         yield put(vendorActionCreators.setAcceptedVendorOrders(acceptedOrders));
         yield put(vendorActionCreators.setDeliveredVendorOrders(deliveredOrders));
-        yield put(vendorActionCreators.setCancelledVendorOrders(cancelledOrders));
+        yield put(vendorActionCreators.setRejectedVendorOrders(rejectedOrders));
         yield put(vendorActionCreators.updateMerchantOrders(orders))
     }
     catch (error) {

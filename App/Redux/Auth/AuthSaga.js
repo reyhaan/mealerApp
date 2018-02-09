@@ -58,7 +58,8 @@ authEffect.signUp = function* (userCredentials) {
             email: userCredentials.data.email,
             uid: user.uid,
             name: userCredentials.data.name,
-            type: userCredentials.data.type
+            type: userCredentials.data.type,
+            agreeToTermsAndConditions: userCredentials.data.agreeToTermsAndConditions
         };
         AsyncStorage.setItem('userSession', JSON.stringify(user));
         yield call(authenticationService.addUser, user);

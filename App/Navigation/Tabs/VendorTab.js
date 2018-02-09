@@ -11,67 +11,70 @@ import {
     MenuForm
 } from '../../Containers/index'
 
+
+const Root = TabNavigator({
+    One: {
+        screen: StackNavigator({
+            Menus: {
+                screen: Menus
+            },
+            MenuForm: {
+                screen: MenuForm
+            }
+        }, {
+            headerMode: 'none',
+            initialRouteName: 'Menus',
+            navigationOptions: ({navigation}) => ({
+                header: null,
+            })
+        }),
+        navigationOptions: {
+            gesturesEnabled: false,
+            tabBarLabel: 'Menu',
+            tabBarIcon: ({tintColor}) => (
+                <Icon name="list" size={20} color={tintColor} />
+            ),
+            headerStyle: styles.header
+        },
+    },
+
+    Two: {
+        screen: VendorOrders,
+        navigationOptions: {
+            gesturesEnabled: false,
+            tabBarLabel: 'Orders',
+            tabBarIcon: ({tintColor}) => (
+                <Icon name="shopping-cart" size={20} color={tintColor} />
+            ),
+        },
+    },
+
+    Three: {
+        screen: Account,
+        navigationOptions: {
+            gesturesEnabled: false,
+            tabBarLabel: 'Account',
+            tabBarIcon: ({tintColor}) => (
+                <Icon name="user-circle" size={20} color={tintColor} />
+            ),
+        },
+    },
+
+    Four: {
+        screen: InfoTab,
+        navigationOptions: {
+            gesturesEnabled: false,
+            tabBarLabel: 'About',
+            tabBarIcon: ({tintColor}) => (
+                <Icon name="info" size={20} color={tintColor} />
+            ),
+        },
+    }
+}, tabNavigatorConfig);
+
 export default StackNavigator({
     Root: {
-        screen: TabNavigator({
-            One: {
-                screen: StackNavigator({
-                    Menus: {
-                        screen: Menus
-                    },
-                    MenuForm: {
-                        screen: MenuForm
-                    }
-                }, {
-                    headerMode: 'none',
-                    initialRouteName: 'Menus',
-                    navigationOptions: ({navigation}) => ({
-                        header: null,
-                    })
-                }),
-                navigationOptions: {
-                    gesturesEnabled: false,
-                    tabBarLabel: 'Menu',
-                    tabBarIcon: ({tintColor}) => (
-                        <Icon name="list" size={20} color={tintColor} />
-                    ),
-                    headerStyle: styles.header
-                },
-            },
-
-            Two: {
-                screen: VendorOrders,
-                navigationOptions: {
-                    gesturesEnabled: false,
-                    tabBarLabel: 'Orders',
-                    tabBarIcon: ({tintColor}) => (
-                        <Icon name="shopping-cart" size={20} color={tintColor} />
-                    ),
-                },
-            },
-
-            Three: {
-                screen: Account,
-                navigationOptions: {
-                    gesturesEnabled: false,
-                    tabBarLabel: 'Account',
-                    tabBarIcon: ({tintColor}) => (
-                        <Icon name="user-circle" size={20} color={tintColor} />
-                    ),
-                },
-            },
-
-            Four: {
-                screen: InfoTab,
-                navigationOptions: {
-                    gesturesEnabled: false,
-                    tabBarLabel: 'About',
-                    tabBarIcon: ({tintColor}) => (
-                        <Icon name="info" size={20} color={tintColor} />
-                    ),
-                },
-            }
-        }, tabNavigatorConfig),
+        screen: Root,
         navigationOptions: ({navigation}) => ({
             header: null
         })

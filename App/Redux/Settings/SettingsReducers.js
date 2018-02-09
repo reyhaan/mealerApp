@@ -1,7 +1,7 @@
 import { settingsActions } from './SettingsActions';
 
 const initialState = [];
-export function settings(state=initialState, action){
+export default  (state=initialState, action) => {
     switch(action.type){
         case settingsActions.UPDATE_USER_INFO:
             return Object.assign({}, state, {

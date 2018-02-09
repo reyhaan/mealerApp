@@ -64,7 +64,7 @@ class MerchantOrders extends Component {
 
                     <Button block success style={{backgroundColor: Colors.background}}
                             onPress={() => {
-                                this.props.navigation.navigate("Vendors")
+                                this.props.navigation.navigate("Root")
                             }}>
                         <Text style={{
                             color: Colors.snow,
@@ -76,7 +76,7 @@ class MerchantOrders extends Component {
         }
     };
 
-    renderCheckoutButton = () => {
+    customerCart = () => {
         if (this.props.cart && !this.props.cart.isEmpty) {
             return (<TouchableOpacity
                 disabled={this.props.request && this.props.request.showLoadingSpinner}
@@ -113,7 +113,7 @@ class MerchantOrders extends Component {
                     <LoadingSpinner show={this.props.request && this.props.request.showLoadingSpinner}/>
                     {this.renderCustomerCart()}
                 </ScrollView>
-                {this.renderCheckoutButton()}
+                {this.customerCart()}
             </View>
         )
     }

@@ -1,4 +1,4 @@
-import {requestActions} from './RequestActions';
+import {requestActions} from '../Actions/RequestActions';
 
 let initialState = null;
 

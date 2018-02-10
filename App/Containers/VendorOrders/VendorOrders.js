@@ -11,7 +11,7 @@ import CustomerOrderDetails from './Components/CustomerOrderDetails';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {bindActionCreators} from 'redux';
-import {vendorActionCreators} from '../../Redux/Vendor/VendorActions';
+import {vendorActionCreators} from '../../Actions/VendorActions';
 import constants from '../../Services/constants-service';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Container, Content, Tab, Tabs, ScrollableTab, Header, Left, Body, Right, Button, Title} from 'native-base';

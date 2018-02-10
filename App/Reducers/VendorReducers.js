@@ -1,4 +1,4 @@
-import { vendorActions } from './VendorActions';
+import { vendorActions } from '../Actions/VendorActions';
 
 const initialState = {
     menus: [],

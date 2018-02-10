@@ -1,5 +1,5 @@
 import {takeLatest} from 'redux-saga/effects';
-import VendorSaga from './VendorSaga';
+import VendorSaga from '../Sagas/VendorSaga';
 
 
 /******************************* ACTIONS *************************************/

@@ -1,6 +1,5 @@
 import {takeLatest} from 'redux-saga/effects';
-import CartSaga from './CartSaga';
-
+import CartSaga from '../Sagas/CartSaga';
 
 /******************************* ACTIONS *************************************/
 export const cartActions = {
@@ -32,10 +31,11 @@ export const cartActionCreators = {
 };
 
 /******************************* SAGA WATCHERS *************************************/
+const cart = new CartSaga();
 export const cartActionWatchers = [
-  takeLatest(cartActions.ADD_TO_CART, CartSaga.addToCart),
-  takeLatest(cartActions.REMOVE_FROM_CART, CartSaga.removeItemFromCart),
-  takeLatest(cartActions.UPDATE_ITEM_COUNT, CartSaga.updateItemCount),
-  takeLatest(cartActions.DO_CHECKOUT, CartSaga.checkout),
-  takeLatest(cartActions.GET_USER_CART, CartSaga.getUserCart)
+  takeLatest(cartActions.ADD_TO_CART, cart.addToCart),
+  takeLatest(cartActions.REMOVE_FROM_CART, cart.removeItemFromCart),
+  takeLatest(cartActions.UPDATE_ITEM_COUNT, cart.updateItemCount),
+  takeLatest(cartActions.DO_CHECKOUT, cart.checkout),
+  takeLatest(cartActions.GET_USER_CART, cart.getUserCart)
 ];

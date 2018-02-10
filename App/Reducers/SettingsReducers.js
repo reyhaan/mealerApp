@@ -1,4 +1,4 @@
-import { settingsActions } from './SettingsActions';
+import { settingsActions } from '../Actions/SettingsActions';
 
 const initialState = [];
 export default  (state=initialState, action) => {

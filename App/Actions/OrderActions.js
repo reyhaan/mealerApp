@@ -21,7 +21,7 @@ export const orderActionCreators = {
     showActivityIndicator: (data) => createAction(orderActions.showActivityIndicator, data)
 };
 
-/******************************* SAGA WATCHERS *************************************/
+/******************************* ACTION WATCHERS *************************************/
 export const orderActionWatchers = [
     takeLatest(orderActions.GET_ORDERS, OrderSaga.getOrders),
     takeLatest(orderActions.UPDATE_ORDER_STATUS, OrderSaga.updateOrderStatus)

@@ -48,7 +48,7 @@ export const vendorActionCreators = {
     setRejectedVendorOrders: (data) => createAction(vendorActions.SET_CANCELLED_VENDOR_ORDERS, data),
 };
 
-/******************************* SAGA WATCHERS *************************************/
+/******************************* ACTION WATCHERS *************************************/
 export const vendorActionWatchers = [
     takeLatest(vendorActions.FETCH_VENDOR_MENU, VendorSaga.fetchVendorMenu),
     takeLatest(vendorActions.CREATE_MENU, VendorSaga.createMenu),

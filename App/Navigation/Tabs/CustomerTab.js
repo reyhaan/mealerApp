@@ -14,7 +14,7 @@ import {
     InfoTab,
     VendorDetails,
     OrderHistory
-} from '../../Containers/index';
+} from '../../Screens/index';
 
 let totalItemCount = 0;
 

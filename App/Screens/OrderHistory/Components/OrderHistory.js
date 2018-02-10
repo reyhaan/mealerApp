@@ -6,7 +6,7 @@ import {
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../../Themes/index';
 import style from '../OrderHistory.style'
-import {Constants} from '../../../Utils/Constants'
+import {Constants} from '../../../Constants/Constants'
 import moment from 'moment';
 import OrderHistoryItem from './OrderHistoryItem'
 

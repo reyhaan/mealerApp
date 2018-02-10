@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {Provider} from 'react-redux'
-import createStore from './App/Redux/store'
+import createStore from './App/Store/store'
 import {Colors} from './App/Themes/index'
 import {Font, AppLoading} from 'expo';
 import {View, Alert} from 'react-native'
 import Navigation from './App/Navigation/Navigation'
 import {connect} from 'react-redux'
 import * as ReactNavigation from 'react-navigation'
-import {authActionCreators} from './App/Redux/Auth/AuthActions';
+import {authActionCreators} from './App/Actions/AuthActions';
 import {bindActionCreators} from 'redux'
 
 

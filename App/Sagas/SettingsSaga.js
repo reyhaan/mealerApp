@@ -1,9 +1,9 @@
 import {call, put} from 'redux-saga/effects'
 import {Alert} from 'react-native';
-import SettingsService from '../../Services/settings-service'
-import {settingsActionCreators} from './SettingsActions'
-import authenticationService from '../../Services/authentication-service'
-import imgService from '../../Services/image-service'
+import SettingsService from '../Services/settings-service'
+import {settingsActionCreators} from '../Actions/SettingsActions'
+import authenticationService from '../Services/authentication-service'
+import imgService from '../Services/image-service'
 
 const settingsEffects = {};
 

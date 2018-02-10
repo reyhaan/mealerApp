@@ -1,14 +1,14 @@
 import {createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga'
-import rootSaga from './saga'
+import rootSaga from '../Sagas/index'
 import {combineReducers} from 'redux';
-import auth from './Auth/AuthReducers';
-import navigation from './Navigation/NavigationReducer';
-import request from './Request/RequestReducers';
-import settings  from './Settings/SettingsReducers';
-import vendor  from './Vendor/VendorReducers';
-import cart  from './Cart/CartReducers';
-import order from './Order/OrderReducers';
+import auth from '../Reducers/AuthReducers';
+import navigation from '../Reducers/NavigationReducer';
+import request from '../Reducers/RequestReducers';
+import settings  from '../Reducers/SettingsReducers';
+import vendor  from '../Reducers/VendorReducers';
+import cart  from '../Reducers/CartReducers';
+import order from '../Reducers/OrderReducers';
 
 const reducers = combineReducers({
     auth,

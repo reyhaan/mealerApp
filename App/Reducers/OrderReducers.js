@@ -1,4 +1,4 @@
-import { orderActions } from './OrderActions';
+import { orderActions } from '../Actions/OrderActions';
 
 const initialState = {
     orders: '',

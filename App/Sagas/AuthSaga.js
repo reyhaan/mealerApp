@@ -1,10 +1,10 @@
 import {put, call} from 'redux-saga/effects'
 import {NavigationActions} from 'react-navigation';
 import {Alert, AsyncStorage} from 'react-native';
-import {authActionCreators} from './AuthActions';
-import {settingsActionCreators} from '../Settings/SettingsActions';
-import authenticationService from '../../Services/authentication-service'
-import {registerForPushNotification} from '../../Services/push-notification-service'
+import {authActionCreators} from '../Actions/AuthActions';
+import {settingsActionCreators} from '../Actions/SettingsActions';
+import authenticationService from '../Services/authentication-service'
+import {registerForPushNotification} from '../Services/push-notification-service'
 
 /******************************* EFFECTS *************************************/
 const authEffect = {};

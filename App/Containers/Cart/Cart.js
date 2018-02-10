@@ -5,7 +5,7 @@ import CustomerCartScreen from './Components/CustomerCartScreen';
 import {Colors, Images} from '../../Themes/index'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {bindActionCreators} from 'redux'
-import {cartActionCreators} from '../../Redux/Cart/CartActions'
+import {cartActionCreators} from '../../Actions/CartActions'
 import {LoadingSpinner} from '../../Components/index'
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import {

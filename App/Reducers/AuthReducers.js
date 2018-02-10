@@ -1,11 +1,11 @@
-import {authActions} from './AuthActions';
+import {authActions} from '../Actions/AuthActions';
 
 let initialState = {
   showResetPasswordModal: false,
   resetPasswordError: ''
 };
 
-export default function auth(state = initialState, action) {
+export default (state = initialState, action) => {
     switch (action.type) {
         case authActions.signInSuccessful:
             return Object.assign({}, state, {

@@ -1,14 +1,14 @@
 import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
-import menuService from '../../Services/menu-service';
-import vendorService from '../../Services/vendor-service';
-import orderService from '../../Services/order-service';
-import authentication from '../../Services/authentication-service';
-import imgService from '../../Services/image-service';
+import menuService from '../Services/menu-service';
+import vendorService from '../Services/vendor-service';
+import orderService from '../Services/order-service';
+import authentication from '../Services/authentication-service';
+import imgService from '../Services/image-service';
 import _ from 'lodash';
-import Constants from '../../Services/constants-service';
-import {vendorActionCreators} from './VendorActions'
-import {requestActionCreators} from '../Request/RequestActions'
+import Constants from '../Services/constants-service';
+import {vendorActionCreators} from '../Actions/VendorActions'
+import {requestActionCreators} from '../Actions/RequestActions'
 
 const vendorEffects = {};
 

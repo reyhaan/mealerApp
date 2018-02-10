@@ -2,8 +2,8 @@ import {Permissions, Notifications} from 'expo';
 import authentication from './authentication-service';
 import settingsService from './settings-service';
 import authService from './authentication-service';
-import {vendorActionCreators} from '../Redux/Vendor/VendorActions';
-import {orderActionCreators} from '../Redux/Order/OrderActions';
+import {vendorActionCreators} from '../Actions/VendorActions';
+import {orderActionCreators} from '../Actions/OrderActions';
 import {Alert, Platform} from 'react-native';
 import axios from 'axios';
 import DeviceInfo from 'react-native-device-info'

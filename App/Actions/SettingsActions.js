@@ -21,7 +21,8 @@ export const settingsActionCreators = {
 };
 
 /******************************* ACTION WATCHERS *************************************/
+const settingsSaga = new SettingsSaga();
 export const settingsActionWatchers = [
-    takeLatest(settingsActions.UPDATE_USER_INFO, SettingsSaga.updateUserInfo),
-    takeLatest(settingsActions.GET_CURRENT_USER, SettingsSaga.getUser),
+    takeLatest(settingsActions.UPDATE_USER_INFO, settingsSaga.updateUserInfo),
+    takeLatest(settingsActions.GET_CURRENT_USER, settingsSaga.getUser),
 ];

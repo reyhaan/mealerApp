@@ -36,10 +36,12 @@ export const authActionCreators = {
 };
 
 /******************************* ACTION WATCHERS *************************************/
+
+const authSaga = new AuthSaga();
 export const authActionWatchers = [
-    takeLatest(authActions.signIn, AuthSaga.signIn),
-    takeLatest(authActions.signUp, AuthSaga.signUp),
-    takeLatest(authActions.signOut, AuthSaga.signOut),
-    takeLatest(authActions.resetPassword, AuthSaga.resetPassword),
-    takeLatest(authActions.getCurrentUser, AuthSaga.getCurrentUser),
+    takeLatest(authActions.signIn, authSaga.signIn),
+    takeLatest(authActions.signUp, authSaga.signUp),
+    takeLatest(authActions.signOut, authSaga.signOut),
+    takeLatest(authActions.resetPassword, authSaga.resetPassword),
+    takeLatest(authActions.getCurrentUser, authSaga.getCurrentUser),
 ];

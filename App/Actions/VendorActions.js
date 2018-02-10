@@ -49,13 +49,14 @@ export const vendorActionCreators = {
 };
 
 /******************************* ACTION WATCHERS *************************************/
+const vendorSaga = new VendorSaga();
 export const vendorActionWatchers = [
-    takeLatest(vendorActions.FETCH_VENDOR_MENU, VendorSaga.fetchVendorMenu),
-    takeLatest(vendorActions.CREATE_MENU, VendorSaga.createMenu),
-    takeLatest(vendorActions.UPDATE_MENU, VendorSaga.updateMenu),
-    takeLatest(vendorActions.REMOVE_MENU, VendorSaga.removeMenu),
-    takeLatest(vendorActions.UPDATE_RATING, VendorSaga.updateRating),
-    takeLatest(vendorActions.FETCH_MERCHANT_ORDERS, VendorSaga.fetchVendorOrders),
-    takeLatest(vendorActions.FETCH_VENDORS, VendorSaga.fetchVendors),
-    takeLatest(vendorActions.GET_SELECTED_VENDOR, VendorSaga.getSelectedVendor),
+    takeLatest(vendorActions.FETCH_VENDOR_MENU, vendorSaga.fetchVendorMenu),
+    takeLatest(vendorActions.CREATE_MENU, vendorSaga.createMenu),
+    takeLatest(vendorActions.UPDATE_MENU, vendorSaga.updateMenu),
+    takeLatest(vendorActions.REMOVE_MENU, vendorSaga.removeMenu),
+    takeLatest(vendorActions.UPDATE_RATING, vendorSaga.updateRating),
+    takeLatest(vendorActions.FETCH_MERCHANT_ORDERS, vendorSaga.fetchVendorOrders),
+    takeLatest(vendorActions.FETCH_VENDORS, vendorSaga.fetchVendors),
+    takeLatest(vendorActions.GET_SELECTED_VENDOR, vendorSaga.getSelectedVendor),
 ];

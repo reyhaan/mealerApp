@@ -10,7 +10,7 @@ import {Login} from '../index'
 import {LoadingSpinner} from '../../Components/index'
 import {Form, Item, Input, Label, Button, Content, Left, Radio, Body, CheckBox} from 'native-base'
 import { TextField as PasswordTextField } from 'react-native-material-textfield'
-import {getAgreementModal} from './AgreementModal'
+import {getAgreementModal} from './Components/AgreementModal'
 
 const merchantTitle = "I AM A MERCHANT";
 const customerTitle = "I AM A CUSTOMER";

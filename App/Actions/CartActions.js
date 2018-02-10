@@ -30,7 +30,7 @@ export const cartActionCreators = {
     showActivityIndicator: (data) => createAction(cartActions.showActivityIndicator, data)
 };
 
-/******************************* SAGA WATCHERS *************************************/
+/******************************* ACTION WATCHERS *************************************/
 const cart = new CartSaga();
 export const cartActionWatchers = [
   takeLatest(cartActions.ADD_TO_CART, cart.addToCart),

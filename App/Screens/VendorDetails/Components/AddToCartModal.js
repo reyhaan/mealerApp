@@ -10,7 +10,7 @@ import AddToCartButton from './AddToCartButton';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { cartActionCreators } from '../../../Actions/CartActions'
-import { Constants } from '../../../Utils/Constants'
+import { Constants } from '../../../Constants/Constants'
 
 class AddToCartModal extends Component {
     constructor(props) {

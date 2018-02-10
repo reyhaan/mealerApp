@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Icon} from 'react-native-elements'
 import {View, Text, Modal, StyleSheet} from 'react-native'
-import {Colors} from '../../Themes/index'
+import {Colors} from '../../../Themes/index'
 import {Form, Item} from 'native-base'
 
 export const getAgreementModal = (isAgreementModalOpen, closeAgreementModal) => {

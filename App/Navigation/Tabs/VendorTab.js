@@ -9,7 +9,7 @@ import {
     InfoTab,
     Menus,
     MenuForm
-} from '../../Containers/index'
+} from '../../Screens/index'
 
 
 const Root = TabNavigator({

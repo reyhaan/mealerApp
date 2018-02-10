@@ -22,7 +22,8 @@ export const orderActionCreators = {
 };
 
 /******************************* ACTION WATCHERS *************************************/
+const orderSaga = new OrderSaga();
 export const orderActionWatchers = [
-    takeLatest(orderActions.GET_ORDERS, OrderSaga.getOrders),
-    takeLatest(orderActions.UPDATE_ORDER_STATUS, OrderSaga.updateOrderStatus)
+    takeLatest(orderActions.GET_ORDERS, orderSaga.getOrders),
+    takeLatest(orderActions.UPDATE_ORDER_STATUS, orderSaga.updateOrderStatus)
 ];

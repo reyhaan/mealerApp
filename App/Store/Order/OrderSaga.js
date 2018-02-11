@@ -1,8 +1,8 @@
 import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
-import orderService from '../Services/order-service';
-import {orderActionCreators} from '../Actions/OrderActions'
-import {vendorActionCreators} from '../Actions/VendorActions'
+import orderService from '../../Services/order-service';
+import {orderActionCreators} from './OrderActions'
+import {vendorActionCreators} from '../Vendor/VendorActions'
 
 export default class orderEffects {
     * getOrders (data) {

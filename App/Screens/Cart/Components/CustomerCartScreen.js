@@ -6,7 +6,7 @@ import {Colors} from '../../../Themes/index'
 import styles from './CustomerCartScreen.style'
 import cartService from '../../../Services/cart-service'
 import _ from 'lodash'
-import {cartActionCreators} from '../../../Actions/CartActions'
+import {cartActionCreators} from '../../../Store/Cart/CartActions'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 

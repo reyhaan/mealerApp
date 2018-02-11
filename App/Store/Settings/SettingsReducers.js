@@ -1,4 +1,4 @@
-import { settingsActions } from '../Actions/SettingsActions';
+import { settingsActions } from './SettingsActions';
 
 const initialState = {
     user: {}

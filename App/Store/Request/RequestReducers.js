@@ -1,4 +1,4 @@
-import {requestActions} from '../Actions/RequestActions';
+import {requestActions} from './RequestActions';
 
 let initialState = {
     showLoadingSpinner: false

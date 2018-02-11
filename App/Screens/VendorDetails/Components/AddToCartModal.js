@@ -9,7 +9,7 @@ import {Icon} from 'react-native-elements'
 import AddToCartButton from './AddToCartButton';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { cartActionCreators } from '../../../Actions/CartActions'
+import { cartActionCreators } from '../../../Store/Cart/CartActions'
 import { Constants } from '../../../Constants/Constants'
 
 class AddToCartModal extends Component {

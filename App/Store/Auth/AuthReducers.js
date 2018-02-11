@@ -1,4 +1,4 @@
-import {authActions} from '../Actions/AuthActions';
+import {authActions} from './AuthActions';
 
 let initialState = {
     showResetPasswordModal: false,

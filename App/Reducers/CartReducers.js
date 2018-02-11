@@ -1,7 +1,9 @@
 import { cartActions } from '../Actions/CartActions';
 
 const initialState = {
-    showActivityIndicator: false
+    showActivityIndicator: false,
+    shouldHideAddToCartModal: false,
+    cart: {}
 };
 
 export default (state=initialState, action) => {

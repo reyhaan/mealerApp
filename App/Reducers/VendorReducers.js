@@ -1,12 +1,19 @@
-import { vendorActions } from '../Actions/VendorActions';
+import {vendorActions} from '../Actions/VendorActions';
 
 const initialState = {
     menus: [],
     vendors: [],
-    showActivityIndicator: false
+    showActivityIndicator: false,
+    orders: [],
+    selectedVendor: {},
+    newVendorOrders: [],
+    acceptedVendorOrders: [],
+    deliveredVendorOrders: [],
+    cancelledVendorOrders: []
 };
-export default (state=initialState, action) => {
-    switch(action.type){
+
+export default (state = initialState, action) => {
+    switch (action.type) {
         case vendorActions.FETCH_MENU_SUCCESSFUL:
             return Object.assign({}, state, {
                 menus: action.data,

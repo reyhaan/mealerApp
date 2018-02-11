@@ -6,7 +6,9 @@ import tabNavigatorConfig from './TabConfig'
 import IconBadge from 'react-native-icon-badge';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {store} from '../../../App'
-import {
+import {Screens} from '../../Screens';
+
+const {
     Vendors,
     Cart,
     Account,
@@ -14,7 +16,7 @@ import {
     InfoTab,
     VendorDetails,
     OrderHistory
-} from '../../Screens/index';
+} = Screens;
 
 let totalItemCount = 0;
 

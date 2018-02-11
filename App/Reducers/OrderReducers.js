@@ -1,7 +1,7 @@
 import { orderActions } from '../Actions/OrderActions';
 
 const initialState = {
-    orders: '',
+    orders: [],
     showActivityIndicator: false
 };
 

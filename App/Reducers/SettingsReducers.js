@@ -1,6 +1,9 @@
 import { settingsActions } from '../Actions/SettingsActions';
 
-const initialState = [];
+const initialState = {
+    user: {}
+};
+
 export default  (state=initialState, action) => {
     switch(action.type){
         case settingsActions.UPDATE_USER_INFO:

@@ -1,8 +1,9 @@
 import {authActions} from '../Actions/AuthActions';
 
 let initialState = {
-  showResetPasswordModal: false,
-  resetPasswordError: ''
+    showResetPasswordModal: false,
+    resetPasswordError: '',
+    user: {},
 };
 
 export default (state = initialState, action) => {
@@ -21,12 +22,12 @@ export default (state = initialState, action) => {
             });
         case authActions.showResetPasswordModal:
             return Object.assign({}, state, {
-              showResetPasswordModal: action.data
+                showResetPasswordModal: action.data
             });
         case authActions.setResetPasswordError:
             return Object.assign({}, state, {
-              resetPasswordError: action.data
-            })
+                resetPasswordError: action.data
+            });
         default:
             return state;
     }

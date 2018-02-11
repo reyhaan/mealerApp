@@ -10,6 +10,7 @@ import vendor  from '../Reducers/VendorReducers';
 import cart  from '../Reducers/CartReducers';
 import order from '../Reducers/OrderReducers';
 
+// Names of state nodes
 const reducers = combineReducers({
     auth,
     navigation,

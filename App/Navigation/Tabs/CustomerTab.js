@@ -14,7 +14,7 @@ const {
     Account,
     UserAccount,
     InfoTab,
-    VendorDetails,
+    Vendor,
     OrderHistory
 } = Screens;
 
@@ -26,8 +26,8 @@ const Root = TabNavigator({
                 Vendors: {
                     screen: Vendors
                 },
-                VendorDetails: {
-                    screen: VendorDetails
+                Vendor: {
+                    screen: Vendor
                 }
             }, {
                 headerMode: 'none',

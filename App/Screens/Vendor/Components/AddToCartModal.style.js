@@ -26,7 +26,6 @@ export default StyleSheet.create({
     modal_itemCost: {
         marginTop: (Platform.OS === 'ios') ? 2 : 0,
         marginRight: 20,
-        marginTop: 5,
         textAlign: 'right',
         fontSize: 14,
         fontWeight: 'bold'

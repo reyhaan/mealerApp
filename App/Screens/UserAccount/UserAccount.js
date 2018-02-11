@@ -6,7 +6,7 @@ import UserInfoChangeScreenStyle from './UserAccount.style'
 import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid'
-import {settingsActionCreators} from '../../Actions/SettingsActions'
+import {settingsActionCreators} from '../../Store/Settings/SettingsActions'
 import {Alert} from 'react-native';
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';

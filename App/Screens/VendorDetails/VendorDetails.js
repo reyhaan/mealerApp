@@ -14,8 +14,8 @@ import style from './VendorDetails.style'
 import {Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
-import {vendorActionCreators} from '../../Actions/VendorActions';
-import {cartActionCreators} from '../../Actions/CartActions'
+import {vendorActionCreators} from '../../Store/Vendor/VendorActions';
+import {cartActionCreators} from '../../Store/Cart/CartActions'
 import {bindActionCreators} from 'redux';
 import VendorDetailsInfo from './Components/VendorDetailsInfo'
 import AddToCartModal from './Components/AddToCartModal'

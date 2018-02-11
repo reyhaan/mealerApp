@@ -13,7 +13,7 @@ import {Col} from 'react-native-easy-grid';
 import {Colors, Metrics, Images} from '../../Themes/index'
 import {bindActionCreators} from 'redux';
 import {NavigationActions} from 'react-navigation'
-import {orderActionCreators} from '../../Actions/OrderActions';
+import {orderActionCreators} from '../../Store/Order/OrderActions';
 import OrderHistoryList from './Components/OrderHistoryList'
 import {LoadingSpinner} from '../../Components/index'
 import Icon from 'react-native-vector-icons/FontAwesome';

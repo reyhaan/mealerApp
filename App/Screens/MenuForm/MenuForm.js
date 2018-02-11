@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Colors, Fonts, Metrics, Images} from '../../Themes/index'
 import {NavigationActions} from 'react-navigation'
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import {vendorActionCreators} from '../../Actions/VendorActions';
+import {vendorActionCreators} from '../../Store/Vendor/VendorActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 import styles from './MenuForm.style'

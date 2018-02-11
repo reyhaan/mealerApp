@@ -6,7 +6,7 @@ import moment from 'moment';
 import {Colors} from '../../../Themes/index';
 import styles from './CustomerOrderDetails.style';
 import constants from '../../../Services/constants-service';
-import {orderActionCreators} from '../../../Actions/OrderActions'
+import {orderActionCreators} from '../../../Store/Order/OrderActions'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {

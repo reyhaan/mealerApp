@@ -5,7 +5,7 @@ import {ScrollView, View, Image, Alert, Text, TouchableOpacity} from 'react-nati
 import {Images, Fonts, Colors} from '../../Themes/index'
 import SignUpScreenStyle from './SignUp.style'
 import {bindActionCreators} from 'redux'
-import {authActionCreators} from '../../Actions/AuthActions'
+import {authActionCreators} from '../../Store/Auth/AuthActions'
 import {Login} from '../index'
 import {LoadingSpinner} from '../../Components/index'
 import {Form, Item, Input, Label, Button, Content, Left, Radio, Body, CheckBox} from 'native-base'

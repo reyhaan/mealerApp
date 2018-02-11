@@ -1,6 +1,8 @@
-import {requestActions} from '../Actions/RequestActions';
+import {requestActions} from './RequestActions';
 
-let initialState = null;
+let initialState = {
+    showLoadingSpinner: false
+};
 
 export default function request(state = initialState, action) {
     switch (action.type) {

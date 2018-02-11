@@ -1,5 +1,5 @@
 import {takeLatest} from 'redux-saga/effects'
-import AuthSaga from '../Sagas/AuthSaga'
+import AuthSaga from './AuthSaga'
 
 function createAction(type, data) {
     return {type, data};

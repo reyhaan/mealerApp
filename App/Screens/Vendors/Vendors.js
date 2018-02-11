@@ -52,7 +52,7 @@ class Vendors extends Component {
             <TouchableOpacity onPress={() => {
                 this.props.vendorActions.setSelectedVendor(vendor);
                 this.props.vendorActions.getSelectedVendor(vendor);
-                this.props.navigation.navigate('VendorDetails');
+                this.props.navigation.navigate('Vendor');
             }}>
                 <View style={styles.row}>
                     <View style={styles.rowInnerContainer}>

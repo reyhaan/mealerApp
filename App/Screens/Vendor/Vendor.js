@@ -10,14 +10,14 @@ import {
     Platform
 } from 'react-native'
 import {connect} from 'react-redux'
-import style from './VendorDetails.style'
+import style from './Vendor.style'
 import {Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../Themes/index';
 import {vendorActionCreators} from '../../Store/Vendor/VendorActions';
 import {cartActionCreators} from '../../Store/Cart/CartActions'
 import {bindActionCreators} from 'redux';
-import VendorDetailsInfo from './Components/VendorDetailsInfo'
+import VendorInfo from './Components/VendorInfo'
 import AddToCartModal from './Components/AddToCartModal'
 import {NavigationActions} from 'react-navigation'
 import SnackBar from 'react-native-snackbar-component';
@@ -28,7 +28,7 @@ import {LoadingSpinner} from '../../Components/index'
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-class VendorDetails extends Component {
+class Vendor extends Component {
     constructor(props) {
         super(props);
 
@@ -203,7 +203,7 @@ class VendorDetails extends Component {
                                     closeSelectedItemModal={this.closeSelectedItemModal}
                                     selectedVendor={this.props.vendor.selectedVendor}/>
 
-                    <VendorDetailsInfo user={this.props.vendor.selectedVendor}/>
+                    <VendorInfo user={this.props.vendor.selectedVendor}/>
 
                     <View style={{
                         height: 50,
@@ -298,4 +298,4 @@ const mapDispatchToProps = (dispatch) => {
         cartActions: bindActionCreators(cartActionCreators, dispatch)
     }
 };
-export default connect(mapStateToProps, mapDispatchToProps)(VendorDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(Vendor)

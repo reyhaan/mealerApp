@@ -20,7 +20,7 @@ import InfoTab from './Info/Info'
 import Menus from './Menus/Menus'
 import Main from './Main/Main'
 import MenuForm from './MenuForm/MenuForm'
-import VendorDetails from './VendorDetails/VendorDetails'
+import Vendor from './Vendor/Vendor'
 
 export const Screens = {
     Login,
@@ -32,7 +32,7 @@ export const Screens = {
     InfoTab,
     Menus,
     MenuForm,
-    VendorDetails,
+    Vendor,
     OrderHistory,
     VendorOrders,
     Main

@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {View, Text, Image} from 'react-native'
 import {Grid, Col, Row} from 'react-native-easy-grid'
 import {Colors} from '../../../Themes/index'
-import styles from './VendorDetailsInfo.style'
+import styles from './VendorInfo.style'
 import menuService from '../../../Services/menu-service'
 
-export default class UserProfileHeader extends Component {
+export default class VendorInfo extends Component {
     constructor(props) {
         super(props);
         const user = this.props.user;

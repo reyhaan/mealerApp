@@ -1,9 +1,9 @@
 import {put, call} from 'redux-saga/effects'
 import {Alert} from 'react-native';
-import orderService from '../Services/order-service';
-import cartService from '../Services/cart-service';
-import {cartActionCreators} from '../Actions/CartActions';
-import {requestActionCreators} from '../Actions/RequestActions';
+import orderService from '../../Services/order-service';
+import cartService from '../../Services/cart-service';
+import {cartActionCreators} from './CartActions';
+import {requestActionCreators} from '../Request/RequestActions';
 
 export default class CartSaga {
     * addToCart(item) {

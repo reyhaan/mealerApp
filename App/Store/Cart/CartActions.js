@@ -1,5 +1,5 @@
 import {takeLatest} from 'redux-saga/effects';
-import CartSaga from '../Sagas/CartSaga';
+import CartSaga from './CartSaga';
 
 /******************************* ACTIONS *************************************/
 export const cartActions = {

@@ -14,7 +14,7 @@ import {LoadingSpinner} from '../../Components/index'
 import {SearchBar, Avatar, Rating} from 'react-native-elements'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors,} from '../../Themes/index'
-import {vendorActionCreators} from '../../Actions/VendorActions'
+import {vendorActionCreators} from '../../Store/Vendor/VendorActions'
 import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
 // Styles
 const styles = CooksTabStyle;

@@ -5,7 +5,7 @@ import {List, ListItem} from 'react-native-elements'
 import SettingsTabStyle from './Account.style'
 import {bindActionCreators} from 'redux'
 import {Colors} from '../../Themes/index'
-import {authActionCreators} from '../../Actions/AuthActions'
+import {authActionCreators} from '../../Store/Auth/AuthActions'
 import {Header, Left, Body, Right, Button, Title} from 'native-base';
 
 const styles = SettingsTabStyle;

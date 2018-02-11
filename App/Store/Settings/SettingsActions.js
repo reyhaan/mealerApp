@@ -1,5 +1,5 @@
 import {takeLatest} from 'redux-saga/effects';
-import SettingsSaga from '../Sagas/SettingsSaga';
+import SettingsSaga from './SettingsSaga';
 
 /******************************* ACTIONS *************************************/
 export const settingsActions = {

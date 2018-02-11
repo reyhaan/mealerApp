@@ -3,9 +3,9 @@ import {Alert} from 'react-native'
 import {Notifications, AppLoading} from 'expo';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {settingsActionCreators} from '../../Actions/SettingsActions'
-import {vendorActionCreators} from '../../Actions/VendorActions';
-import {orderActionCreators} from '../../Actions/OrderActions';
+import {settingsActionCreators} from '../../Store/Settings/SettingsActions'
+import {vendorActionCreators} from '../../Store/Vendor/VendorActions';
+import {orderActionCreators} from '../../Store/Order/OrderActions';
 import {registerForPushNotification, handleReceivedNotification} from '../../Services/push-notification-service'
 
 const mapDispatchToProps = (dispatch) => {

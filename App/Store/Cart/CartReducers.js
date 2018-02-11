@@ -1,4 +1,4 @@
-import { cartActions } from '../Actions/CartActions';
+import { cartActions } from './CartActions';
 
 const initialState = {
     showActivityIndicator: false,

@@ -3,14 +3,15 @@ import styles from '../Navigation.style'
 import {TabNavigator, StackNavigator} from 'react-navigation'
 import tabNavigatorConfig from './TabConfig'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {
+import {Screens} from '../../Screens';
+
+const {
     VendorOrders,
     Account,
     InfoTab,
     Menus,
     MenuForm
-} from '../../Screens/index'
-
+} = Screens;
 
 const Root = TabNavigator({
     One: {

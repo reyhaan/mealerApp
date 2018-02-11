@@ -1,11 +1,13 @@
 import {StackNavigator} from 'react-navigation'
 import VendorTab from './Tabs/VendorTab'
 import CustomerTab from './Tabs/CustomerTab'
-import {
+import {Screens} from '../Screens';
+
+const {
     Login,
     SignUp,
     Main
-} from '../Screens'
+} = Screens;
 
 // Manifest of possible screens
 export default StackNavigator({

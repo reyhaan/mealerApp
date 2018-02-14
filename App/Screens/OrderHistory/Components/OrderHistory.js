@@ -2,13 +2,18 @@ import React, {Component} from 'react'
 import {
     Text,
     FlatList,
+    Alert
 } from 'react-native'
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import {Colors} from '../../../Themes/index';
 import style from '../OrderHistory.style'
 import {Constants} from '../../../Constants/Constants'
 import moment from 'moment';
+import {Button} from 'native-base';
 import OrderHistoryItem from './OrderHistoryItem'
+import {orderActionCreators} from '../../../Redux/Order/OrderActions'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 
 let _calculateTotalCost = (rowData) => {
     let total = 0;
@@ -18,7 +23,28 @@ let _calculateTotalCost = (rowData) => {
     return parseFloat(total).toFixed(2);
 };
 
-export default class OrderHistory extends Component {
+class OrderHistory extends Component {
+    cancelOrder = () => {
+      const {order} = this.props;
+      Alert.alert(
+          order.customer.name,
+          'Are you want to cancel this order',
+          [
+              {
+                  text: 'Cancel', onPress: () => {
+              }, style: 'cancel'
+              },
+              {
+                  text: 'OK', onPress: () => {
+                  order.status = Constants.orderStatus.cancelled.toLowerCase();
+                  this.props.orderActions.updateOrderStatus(order)
+              }
+              },
+          ],
+          {cancelable: false}
+      )
+    };
+
     render() {
         const {order} = this.props;
 
@@ -32,13 +58,25 @@ export default class OrderHistory extends Component {
                         borderTopColor: Colors.gray2,
                         borderTopWidth: 1
                     }}/>
-                    <Row style={{marginTop: 5}}>
+                    <Row style={{marginTop: 5, display: 'flex', flexDirection: 'row'}}>
+                      <Col style={{alignItems: 'flex-start'}}>
                         <Text style={{
-                            alignItems: 'flex-start', marginRight: 20,
                             color: Colors.charcoal, fontWeight: 'bold', marginLeft: 10
                         }}>
                             DATE: {moment(moment.utc(order.timeStamp)).format('lll')}
                         </Text>
+                      </Col>
+                      {
+                        Constants.orderStatus[order.status] === 'NEW' &&
+                        <Col style={{alignItems: 'flex-end'}}>
+                          <Button small warning style={{marginRight: 10, alignSelf: 'flex-end'}}
+                          onPress={() => {this.cancelOrder()}}>
+                            <Text style={{paddingLeft: 5, paddingRight: 5, color: Colors.snow}}>
+                            Cancel Order
+                            </Text>
+                          </Button>
+                        </Col>
+                      }
                     </Row>
                     <Row style={{marginTop: 5}}>
                         <Col style={{alignItems: 'flex-start', marginRight: 20}}>
@@ -79,3 +117,11 @@ export default class OrderHistory extends Component {
         )
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      orderActions: bindActionCreators(orderActionCreators, dispatch),
+  }
+};
+
+export default connect(null, mapDispatchToProps)(OrderHistory)

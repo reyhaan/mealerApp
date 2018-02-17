@@ -11,7 +11,7 @@ import {Constants} from '../../../Constants/Constants'
 import moment from 'moment';
 import {Button} from 'native-base';
 import OrderHistoryItem from './OrderHistoryItem'
-import {orderActionCreators} from '../../../Redux/Order/OrderActions'
+import {orderActionCreators} from '../../../Store/Order/OrderActions'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 

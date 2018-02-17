@@ -1,4 +1,4 @@
-import {put, call} from 'redux-saga/effects'
+import {put, call} from 'redux-saga/effects';
 import {Alert} from 'react-native';
 import menuService from '../../Services/menu-service';
 import vendorService from '../../Services/vendor-service';
@@ -7,8 +7,9 @@ import authentication from '../../Services/authentication-service';
 import imgService from '../../Services/image-service';
 import _ from 'lodash';
 import Constants from '../../Services/constants-service';
-import {vendorActionCreators} from './VendorActions'
-import {requestActionCreators} from '../Request/RequestActions'
+import {vendorActionCreators} from './VendorActions';
+import {requestActionCreators} from '../Request/RequestActions';
+import {NavigationActions} from 'react-navigation';
 
 export default class VendorSaga {
     * fetchVendorMenu () {
@@ -98,6 +99,7 @@ export default class VendorSaga {
             const user = yield call(authentication.currentUser);
             yield call(menuService.removeMenu, user.uid, menu.data.id);
             yield put(vendorActionCreators.fetchVendorMenu(user.uid));
+            yield put(NavigationActions.back());
         }
         catch (error) {
             Alert.alert('Error', error.message)

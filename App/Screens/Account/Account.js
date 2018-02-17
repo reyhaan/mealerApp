@@ -18,76 +18,80 @@ class Settings extends Component {
                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
                 {text: 'OK', onPress: () => this.props.signOut()},
             ],
-            { cancelable: false }
+            {cancelable: false}
         );
+    };
+
+    navigateToOrderHistory = () => {
+        this.props.navigation.navigate('OrderHistory')
     };
 
     render() {
         const {user} = this.props.settings;
-        return (
-            <View style={styles.container}>
-                <Header iosBarStyle="dark-content" style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0}}>
-                    <Body>
-                    <Title style={{
-                        color: Colors.background,
-                        marginTop: Platform.OS === 'android' ? 110 : 0,
-                    }}>Account</Title>
-                    </Body>
-                </Header>
+        let customerUser, vendorUser;
+        if (user) {
+            customerUser = user.type === 'customer';
+            vendorUser = user.type === 'vendor';
+        }
 
-                <ScrollView style={styles.scrollContainer}>
-                    <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
-                        <ListItem
-                            onPress={() => {
-                                this.props.navigation.navigate("UserAccount", {page: "User Account"})
-                            }}
-                            chevronColor={Colors.background}
-                            titleStyle={styles.listTitle}
-                            containerStyle={styles.listItem}
-                            leftIcon={{
-                                name: 'user-circle',
-                                type: 'font-awesome',
-                                style: {color: Colors.background, fontSize: 18}
-                            }}
-                            title={'User Account'}
-                        />
-                        {
-                            user && user.type === 'customer' ?
-                                <ListItem
-                                    onPress={() => {
-                                        this.props.navigation.navigate('OrderHistory')
-                                    }}
-                                    chevronColor={Colors.background}
-                                    titleStyle={styles.listTitle}
-                                    containerStyle={styles.listItem}
-                                    leftIcon={{
-                                        name: 'history',
-                                        type: 'font-awesome',
-                                        style: {color: Colors.background, fontSize: 18}
-                                    }}
-                                    title={'Order History'}
-                                /> : null
-                        }
+        if (user)
+            return (
+                <View style={styles.container}>
+                    <Header iosBarStyle="dark-content"
+                            style={{backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0}}>
+                        <Body>
+                        <Title style={{
+                            color: Colors.background,
+                            marginTop: Platform.OS === 'android' ? 110 : 0,
+                        }}>Account</Title>
+                        </Body>
+                    </Header>
 
-                        <ListItem
-                            onPress={() => {
-                                this.logout()
-                            }}
-                            style={{marginTop: 10}}
-                            chevronColor={Colors.background}
-                            titleStyle={styles.listTitle}
-                            containerStyle={styles.listItem}
-                            leftIcon={{
-                                name: 'sign-out',
-                                type: 'font-awesome',
-                                style: {color: Colors.background, fontSize: 18}
-                            }}
-                            title={'Logout'}
-                        />
-                    </List>
-                </ScrollView>
-            </View>
-        )
+                    <ScrollView style={styles.scrollContainer}>
+                        <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
+                            <ListItem
+                                onPress={() => {
+                                    this.props.navigation.navigate("UserAccount", {page: "User Account"})
+                                }}
+                                chevronColor={Colors.background}
+                                titleStyle={styles.listTitle}
+                                containerStyle={styles.listItem}
+                                leftIcon={{
+                                    name: 'user-circle',
+                                    type: 'font-awesome',
+                                    style: {color: Colors.background, fontSize: 18}
+                                }}
+                                title={'User Account'}
+                            />
+                            {customerUser && <ListItem onPress={this.navigateToOrderHistory}
+                                                     chevronColor={Colors.background}
+                                                     titleStyle={styles.listTitle}
+                                                     containerStyle={styles.listItem}
+                                                     leftIcon={{
+                                                         name: 'history',
+                                                         type: 'font-awesome',
+                                                         style: {color: Colors.background, fontSize: 18}
+                                                     }}
+                                                     title={'Order History'}
+                            />}
+
+                            <ListItem
+                                onPress={this.logout}
+                                style={{marginTop: 10}}
+                                chevronColor={Colors.background}
+                                titleStyle={styles.listTitle}
+                                containerStyle={styles.listItem}
+                                leftIcon={{
+                                    name: 'sign-out',
+                                    type: 'font-awesome',
+                                    style: {color: Colors.background, fontSize: 18}
+                                }}
+                                title={'Logout'}
+                            />
+                        </List>
+                    </ScrollView>
+                </View>
+            )
     }
 }
 

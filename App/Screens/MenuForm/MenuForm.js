@@ -8,12 +8,24 @@ import {vendorActionCreators} from '../../Store/Vendor/VendorActions';
 import {bindActionCreators} from 'redux';
 import {Alert} from 'react-native';
 import styles from './MenuForm.style'
-import {Header, Left, Body, Right, Button, Title, Form, Item, Input, Label} from 'native-base';
+import {Header, Left, Right, Button, Title, Form, Item, Input, Label, Toast} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {ImagePicker} from 'expo';
-import Avatar from '../../Components/Avatar'
+import Avatar from '../../Components/Avatar';
+import SnackBar from 'react-native-snackbar-component';
 
-class MenuForm extends Component {
+const mapStateToProps = (state) => {
+    return {}
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        vendorActions: bindActionCreators(vendorActionCreators, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(class MenuForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,6 +35,7 @@ class MenuForm extends Component {
             itemCost: "",
             id: "",
             base64img: null,
+            showToast: false
         }
     }
 
@@ -58,7 +71,17 @@ class MenuForm extends Component {
         })
     };
 
-    onMenuSubmit() {
+    showToast = (toastMessage) => {
+        let hideToast = () => {
+            setTimeout(() => {
+                this.setState({showToast: false, toastMessage: ''})
+            }, 2000);
+        };
+
+        this.setState({toastMessage, showToast: true}, hideToast);
+    };
+
+    onMenuSubmit = () => {
         let {itemName, itemCost, itemDetail, itemImage, base64img} = this.state;
 
         if (!itemName) {
@@ -80,20 +103,33 @@ class MenuForm extends Component {
             this.setState({
                 itemCost: itemCost,
             }, () => {
+                const vendorActions = this.props.vendorActions;
                 if (this.state.id) {
-                    this.props.updateMenu(this.state);
+                    vendorActions.updateMenu(this.state);
+                    this.showToast('Item updated');
                 } else {
-                    this.props.createMenu(this.state);
+                    vendorActions.createMenu(this.state);
+                    this.showToast('Item Created');
                 }
-                this.props.navigation.dispatch(NavigationActions.back())
             });
         }
-    }
+    };
 
     removeMenu = () => {
-        this.props.removeMenu(this.state);
-        this.resetForm();
-        this.props.navigation.dispatch(NavigationActions.back());
+        Alert.alert(
+            'Are you sure you want to delete item ?', '',
+            [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {
+                    text: 'OK', onPress: () => {
+                    const vendorActions = this.props.vendorActions;
+                    vendorActions.removeMenu(this.state);
+                    this.resetForm();
+                }
+                },
+            ],
+            {cancelable: false}
+        );
     };
 
     navigateBack = () => {
@@ -131,6 +167,7 @@ class MenuForm extends Component {
                     </Header>
 
                     <View style={styles.formContainer}>
+                        <SnackBar visible={this.state.showToast} textMessage={this.state.toastMessage} position='top' backgroundColor='#272A2F'/>
                         <Avatar image={image} _pickImage={this._pickImage}/>
                         <Form>
                             <Item stackedLabel>
@@ -181,7 +218,7 @@ class MenuForm extends Component {
                                             fontFamily: Fonts.type.bold,
                                             fontWeight: 'bold',
                                         }}
-                                        onPress={() => this.onMenuSubmit()}>
+                                        onPress={this.onMenuSubmit}>
                                     <Text style={{color: Colors.white}}>Save</Text>
                                 </Button>
                             </Col>
@@ -194,7 +231,7 @@ class MenuForm extends Component {
                                             fontWeight: 'bold'
                                         }}
                                         title={`CANCEL`}
-                                        onPress={() => this.removeMenu()}>
+                                        onPress={this.removeMenu}>
                                     <Text style={{color: Colors.fire}}>Remove</Text>
                                 </Button>
                             </Col>
@@ -205,13 +242,6 @@ class MenuForm extends Component {
             </KeyboardAvoidingView>
         )
     }
-}
+})
 
-const mapStateToProps = (state) => {
-    return {}
-};
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators(vendorActionCreators, dispatch);
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(MenuForm)

@@ -3,6 +3,8 @@ export const Constants = {
         new: 'NEW',
         confirmed: 'CONFIRMED',
         cancelled: 'CANCELLED',
-        delivered: 'DELIVERED'
+        rejected: 'CANCELLED', // to-do change this and use only cancelled
+        delivered: 'DELIVERED',
+        accepted: 'ACCEPTED'
     }
 }

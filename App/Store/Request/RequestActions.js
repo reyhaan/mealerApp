@@ -1,13 +1,13 @@
 function createAction(type, data) {
-    return {type, data};
+  return { type, data };
 }
 
-/******************************* ACTIONS *************************************/
+/** ***************************** ACTIONS ************************************ */
 export const requestActions = {
-    showLoadingSpinner: 'showLoadingSpinner',
+  showLoadingSpinner: 'showLoadingSpinner',
 };
 
-/******************************* ACTION CREATORS *************************************/
+/** ***************************** ACTION CREATORS ************************************ */
 export const requestActionCreators = {
-    showLoadingSpinner: (data) => createAction(requestActions.showLoadingSpinner, data),
+  showLoadingSpinner: data => createAction(requestActions.showLoadingSpinner, data),
 };

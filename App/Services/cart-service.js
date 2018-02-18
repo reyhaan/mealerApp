@@ -1,49 +1,48 @@
-import db from '../Config/database'
-import authenticationService from './authentication-service'
-import {AsyncStorage} from 'react-native';
-import _ from 'lodash'
+import { AsyncStorage } from 'react-native';
+import _ from 'lodash';
+import db from '../Config/database';
+import authenticationService from './authentication-service';
 
-let cartService = {};
+const cartService = {};
 
 cartService.getCart = async () => {
-    try {
-        const currentUser = await authenticationService.currentUser();
-        if (currentUser && currentUser.type === "customer") {
-            let storedCart = await AsyncStorage.getItem('cart');
-            let cart = JSON.parse(storedCart);
-            if (cart && cart.to) {
-                cart.isEmpty = _.isEmpty(cart.to);
-                if (!cart.isEmpty) {
-                    let itemsForAllMerchants = _.values(cart.to);
-                    cart.cost = 0;
-                    cart.totalItemCount = 0
-                    _.each(itemsForAllMerchants, (itemFromOneMerchant) => {
-                        let itemArray = _.values(itemFromOneMerchant);
-                        _.each(itemArray, (item) => {
-                            cart.cost = cart.cost + item.itemCost * (item.itemCount);
-                            cart.totalItemCount = cart.totalItemCount + item.itemCount
-                        })
-                    });
-                }
-                cart.cost = parseFloat(cart.cost).toFixed(2);
-            } else {
-                cart = {isEmpty: true};
-                cart.totalItemCount = 0
-            }
-
-            return Promise.resolve(cart);
+  try {
+    const currentUser = await authenticationService.currentUser();
+    if (currentUser && currentUser.type === 'customer') {
+      const storedCart = await AsyncStorage.getItem('cart');
+      let cart = JSON.parse(storedCart);
+      if (cart && cart.to) {
+        cart.isEmpty = _.isEmpty(cart.to);
+        if (!cart.isEmpty) {
+          const itemsForAllMerchants = _.values(cart.to);
+          cart.cost = 0;
+          cart.totalItemCount = 0;
+          _.each(itemsForAllMerchants, (itemFromOneMerchant) => {
+            const itemArray = _.values(itemFromOneMerchant);
+            _.each(itemArray, (item) => {
+              cart.cost += item.itemCost * (item.itemCount);
+              cart.totalItemCount += item.itemCount;
+            });
+          });
         }
+        cart.cost = parseFloat(cart.cost).toFixed(2);
+      } else {
+        cart = { isEmpty: true };
+        cart.totalItemCount = 0;
+      }
+      return Promise.resolve(cart);
     }
-    catch (error) {
-        return Promise.reject(error);
-    }
+    return Promise.resolve({});
+  } catch (error) {
+    return Promise.reject(error);
+  }
 };
 
 /**
  * Empty out the cart
  */
 cartService.dumpCart = () => {
-    AsyncStorage.setItem('cart', '');
+  AsyncStorage.setItem('cart', '');
 };
 
 /**
@@ -51,51 +50,49 @@ cartService.dumpCart = () => {
  * @param item: object
  */
 cartService.addToCart = async (item) => {
-    let from = item.from;
-    let toMerchant = item.to;
-    let orderItem = item.item;
-    orderItem.itemCount = item.itemCount;  // set item count on orderItem itself
-    orderItem.merchantInfo = item.merchantInfo;
+  const { from } = item;
+  const toMerchant = item.to;
+  const orderItem = item.item;
+  orderItem.itemCount = item.itemCount; // set item count on orderItem itself
+  orderItem.merchantInfo = item.merchantInfo;
 
-    let cart = await AsyncStorage.getItem('cart');
-    let storedCart = JSON.parse(cart);
-    // if there is no cart, populate one
-    if (storedCart === null && _.keys(storedCart).length === 0) {
-        let order = {
-            from: from,
-            to: {}
-        };
-        order.to[toMerchant] = {};
-        order.to[toMerchant][orderItem.id] = orderItem;
-        AsyncStorage.setItem('cart', JSON.stringify(order));
+  const cart = await AsyncStorage.getItem('cart');
+  const storedCart = JSON.parse(cart);
+  // if there is no cart, populate one
+  if (storedCart === null && _.keys(storedCart).length === 0) {
+    const order = {
+      from,
+      to: {},
+    };
+    order.to[toMerchant] = {};
+    order.to[toMerchant][orderItem.id] = orderItem;
+    AsyncStorage.setItem('cart', JSON.stringify(order));
+  } else {
+    const foundMerchantId = _.find(_.keys(storedCart.to), merchantId => merchantId === toMerchant);
+
+    // If item belongs to already present vendor in the cart
+    if (foundMerchantId) {
+      const itemsForFoundMerchant = _.values(storedCart.to[foundMerchantId]);
+      const foundItem = _.find(itemsForFoundMerchant, i => i.id === orderItem.id);
+      // Add item count to same item being added from same vendor
+      if (foundItem) {
+        const merchant = storedCart.to[toMerchant][foundItem.id];
+        const count = merchant.itemCount;
+        merchant.itemCount = count + item.itemCount;
+        AsyncStorage.setItem('cart', JSON.stringify(storedCart));
+        // Else, just add the new item under this vendor
+      } else {
+        storedCart.to[toMerchant][orderItem.id] = orderItem;
+        AsyncStorage.setItem('cart', JSON.stringify(storedCart));
+      }
+      // Add a new vendor
     } else {
-        let foundMerchantId = _.find(_.keys(storedCart.to), function (merchantId) {
-            return merchantId === toMerchant
-        });
-
-        // If item belongs to already present vendor in the cart
-        if (foundMerchantId) {
-            let itemsForFoundMerchant = _.values(storedCart.to[foundMerchantId]);
-            let foundItem = _.find(itemsForFoundMerchant, function (item) {
-                return item.id === orderItem.id
-            });
-            // Add item count to same item being added from same vendor
-            if (foundItem) {
-                storedCart.to[toMerchant][foundItem.id]['itemCount'] = storedCart.to[toMerchant][foundItem.id]['itemCount'] + item.itemCount;
-                AsyncStorage.setItem('cart', JSON.stringify(storedCart));
-                // Else, just add the new item under this vendor
-            } else {
-                storedCart.to[toMerchant][orderItem.id] = orderItem;
-                AsyncStorage.setItem('cart', JSON.stringify(storedCart));
-            }
-            // Add a new vendor
-        } else {
-            storedCart.to[toMerchant] = {};
-            storedCart.to[toMerchant][orderItem.id] = orderItem;
-            AsyncStorage.setItem('cart', JSON.stringify(storedCart));
-        }
+      storedCart.to[toMerchant] = {};
+      storedCart.to[toMerchant][orderItem.id] = orderItem;
+      AsyncStorage.setItem('cart', JSON.stringify(storedCart));
     }
-    return Promise.resolve(storedCart);
+  }
+  return Promise.resolve(storedCart);
 };
 
 /**
@@ -104,15 +101,15 @@ cartService.addToCart = async (item) => {
  * @param merchantId: string
  */
 cartService.removeItemFromCart = async (itemId, merchantId) => {
-    let cart = await cartService.getCart();
-    let updatedMerchantList = _.omit(cart.to[merchantId], itemId);
-    if (_.keys(updatedMerchantList).length === 0) {
-        cart.to = _.omit(cart.to, merchantId);
-    } else {
-        cart.to[merchantId] = updatedMerchantList;
-    }
-    AsyncStorage.setItem('cart', JSON.stringify(cart));
-    return Promise.resolve(cart);
+  const cart = await cartService.getCart();
+  const updatedMerchantList = _.omit(cart.to[merchantId], itemId);
+  if (_.keys(updatedMerchantList).length === 0) {
+    cart.to = _.omit(cart.to, merchantId);
+  } else {
+    cart.to[merchantId] = updatedMerchantList;
+  }
+  AsyncStorage.setItem('cart', JSON.stringify(cart));
+  return Promise.resolve(cart);
 };
 
 /**
@@ -122,93 +119,92 @@ cartService.removeItemFromCart = async (itemId, merchantId) => {
  * @param newCount: integer
  */
 cartService.updateItemCount = async (itemId, merchantId, newCount) => {
-    let cart = await cartService.getCart();
-    cart.to[merchantId][itemId]['itemCount'] = newCount;
-    AsyncStorage.setItem('cart', JSON.stringify(cart));
-    return Promise.resolve(cart);
+  const cart = await cartService.getCart();
+  cart.to[merchantId][itemId].itemCount = newCount;
+  AsyncStorage.setItem('cart', JSON.stringify(cart));
+  return Promise.resolve(cart);
 };
 
 cartService.getTotalCost = async () => {
-    let cost = 0;
-    let cart = await cartService.getCart();
-    let itemsForAllMerchants = _.values(cart.to);
+  let cost = 0;
+  const cart = await cartService.getCart();
+  const itemsForAllMerchants = _.values(cart.to);
 
-    _.each(itemsForAllMerchants, function (itemFromOneMerchant) {
-        let itemArray = _.values(itemFromOneMerchant);
-        _.each(itemArray, function (item) {
-            cost = cost + (parseFloat(item.itemCost).toFixed(2) * (item.itemCount));
-        })
+  _.each(itemsForAllMerchants, (itemFromOneMerchant) => {
+    const itemArray = _.values(itemFromOneMerchant);
+    _.each(itemArray, (item) => {
+      cost += (parseFloat(item.itemCost).toFixed(2) * (item.itemCount));
     });
-    return Promise.resolve(cost);
+  });
+  return Promise.resolve(cost);
 };
 
 cartService.isCartEmpty = async () => {
-    let cart = await AsyncStorage.getItem('cart');
-    return Promise.resolve(cart);
+  const cart = await AsyncStorage.getItem('cart');
+  return Promise.resolve(cart);
 };
 
 cartService.totalItems = async () => {
-    let totalItemCount = 0;
-    let cart = await cartService.getCart();
-    if (cart && cart.to) {
-        let itemsForAllMerchants = _.values(cart.to);
-        _.each(itemsForAllMerchants, function (itemFromOneMerchant) {
-            let itemArray = _.values(itemFromOneMerchant);
-            _.each(itemArray, function (itemArray) {
-              totalItemCount = totalItemCount + itemArray.itemCount;
-            })
-        });
-    }
-    return Promise.resolve(totalItemCount)
+  let totalItemCount = 0;
+  const cart = await cartService.getCart();
+  if (cart && cart.to) {
+    const itemsForAllMerchants = _.values(cart.to);
+    _.each(itemsForAllMerchants, (itemFromOneMerchant) => {
+      const itemArray = _.values(itemFromOneMerchant);
+      _.each(itemArray, (i) => {
+        totalItemCount += i.itemCount;
+      });
+    });
+  }
+  return Promise.resolve(totalItemCount);
 };
 
 cartService.checkout = async (userInfo) => {
-    try {
-        let data = {
-            timestamp: db.firebase.database.ServerValue.TIMESTAMP,
-            status: 'new',
-            userInfo: userInfo
-        };
+  try {
+    const data = {
+      timestamp: db.firebase.database.ServerValue.TIMESTAMP,
+      status: 'new',
+      userInfo,
+    };
 
-        let cart = await cartService.getCart();
-        // create unified order object
-        let order = Object.assign(cart, data);
+    const cart = await cartService.getCart();
+    // create unified order object
+    const order = Object.assign(cart, data);
 
-        const orderRef = db.orders();
-        const orderKey = await orderRef.push().getKey();
-        order.id = orderKey; //!important
+    const orderRef = db.orders();
+    const orderKey = await orderRef.push().getKey();
+    order.id = orderKey; //! important
 
-        // Grab customer and vendor ref to update their order's list
-        let merchantRefArray = _.keys(order.to);
-        merchantRefArray.push(order.userInfo.uid);
+    // Grab customer and vendor ref to update their order's list
+    const merchantRefArray = _.keys(order.to);
+    merchantRefArray.push(order.userInfo.uid);
 
-        let userOrders = {};
+    const userOrders = {};
 
-        _.each(merchantRefArray, function (userRef) {
-            // If its the user placing the order, add the complete order object
-            if (userRef === order.userInfo.uid) {
-                userOrders["orders/" + userRef + "/" + orderKey] = order
+    _.each(merchantRefArray, (userRef) => {
+      // If its the user placing the order, add the complete order object
+      if (userRef === order.userInfo.uid) {
+        userOrders[`orders/${userRef}/${orderKey}`] = order;
 
-                // If its a vendor, then only add info from order relevant to each vendor
-            } else {
-                let merchantOrder = Object.assign({}, order);
-                // Omit `to` ref for merchants, we dont need other vendor's info
-                merchantOrder = _.omit(merchantOrder, 'to');
-                merchantOrder['itemsList'] = order.to[userRef];
-                userOrders["orders/" + userRef + "/" + orderKey] = merchantOrder
-            }
-        });
+        // If its a vendor, then only add info from order relevant to each vendor
+      } else {
+        let merchantOrder = Object.assign({}, order);
+        // Omit `to` ref for merchants, we dont need other vendor's info
+        merchantOrder = _.omit(merchantOrder, 'to');
+        merchantOrder.itemsList = order.to[userRef];
+        userOrders[`orders/${userRef}/${orderKey}`] = merchantOrder;
+      }
+    });
 
-        let rootRef = db.root();
-        await rootRef.update(userOders);
+    const rootRef = db.root();
+    await rootRef.update(userOrders);
 
-        await db.ordersList().child(orderKey).set(order);
-        await cartService.dumpCart();
-        return Promise.resolve({});
-
-    } catch (error) {
-        return {error};
-    }
+    await db.ordersList().child(orderKey).set(order);
+    await cartService.dumpCart();
+    return Promise.resolve({});
+  } catch (error) {
+    return { error };
+  }
 };
 
 export default cartService;

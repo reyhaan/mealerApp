@@ -1,15 +1,15 @@
-import { StyleSheet } from 'react-native'
-import { Colors, Metrics, Fonts } from '../../../Themes/index'
+import { StyleSheet } from 'react-native';
+import { Colors, Fonts } from '../../../Themes/index';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.lightGray
+    backgroundColor: Colors.lightGray,
   },
   listContainer: {
     flex: 1,
     backgroundColor: Colors.snow,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   row: {
     flex: 1,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     paddingLeft: 0,
     paddingBottom: 0,
     paddingTop: 0,
-    marginBottom: 0
+    marginBottom: 0,
   },
   rowInnerContainer: {
     flex: 1,
@@ -28,7 +28,7 @@ export default StyleSheet.create({
     borderRadius: 3,
     padding: 10,
     paddingRight: 20,
-    paddingLeft: 20
+    paddingLeft: 20,
   },
   boldLabel: {
     fontWeight: 'bold',
@@ -39,33 +39,33 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
     fontFamily: Fonts.type.bold,
-    color: Colors.gray
+    color: Colors.gray,
   },
   itemCount: {
     fontSize: 14,
-    color: Colors.gray
+    color: Colors.gray,
   },
   itemModify: {
     fontSize: 12,
     color: Colors.background,
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   label: {
     textAlign: 'center',
-    color: Colors.snow
+    color: Colors.snow,
   },
   listContent: {
     marginTop: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
   },
-  itemCountButton: { 
+  itemCountButton: {
     marginTop: 4,
     width: 20,
     height: 24,
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    borderColor: Colors.snow, 
-    borderRadius: 14, 
-    borderWidth: 1
-  }
-})
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: Colors.snow,
+    borderRadius: 14,
+    borderWidth: 1,
+  },
+});

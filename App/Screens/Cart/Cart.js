@@ -16,7 +16,7 @@ import styles from './Cart.style';
 import CustomerCartScreen from './Components/CustomerCartScreen';
 import { Colors, Images } from '../../Themes/index';
 import { cartActionCreators } from '../../Store/Cart/CartActions';
-import { LoadingSpinner } from '../../Components/index';
+import LoadingSpinner from '../../Components/LoadingSpinner';
 
 class MerchantOrders extends Component {
   componentDidMount = () => {

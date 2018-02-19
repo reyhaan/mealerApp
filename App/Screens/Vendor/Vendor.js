@@ -26,7 +26,7 @@ import AddToCartModal from './Components/AddToCartModal';
 import { Colors } from '../../Themes/index';
 import { vendorActionCreators } from '../../Store/Vendor/VendorActions';
 import { cartActionCreators } from '../../Store/Cart/CartActions';
-import { LoadingSpinner } from '../../Components/index';
+import LoadingSpinner from '../../Components/LoadingSpinner';
 
 class Vendor extends Component {
   constructor(props) {

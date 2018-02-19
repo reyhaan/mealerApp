@@ -12,7 +12,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CooksTabStyle from './Vendors.style';
-import { LoadingSpinner } from '../../Components/index';
+import LoadingSpinner from '../../Components/LoadingSpinner';
 import { Colors } from '../../Themes/index';
 import { vendorActionCreators } from '../../Store/Vendor/VendorActions';
 

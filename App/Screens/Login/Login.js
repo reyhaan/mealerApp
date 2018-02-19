@@ -11,7 +11,7 @@ import LoginScreenStyle from './Login.style';
 import { Images, Colors } from '../../Themes/index';
 import { authActionCreators } from '../../Store/Auth/AuthActions';
 import { settingsActionCreators } from '../../Store/Settings/SettingsActions';
-import { LoadingSpinner } from '../../Components/index';
+import LoadingSpinner from '../../Components/LoadingSpinner';
 import authenticationService from '../../Services/authentication-service';
 import ResetPassword from './Components/ResetPassword';
 import SignUp from '../SignUp/SignUp';

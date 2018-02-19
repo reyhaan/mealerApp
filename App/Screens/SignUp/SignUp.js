@@ -8,7 +8,7 @@ import { ScrollView, View, Image, Alert, Text, TouchableOpacity } from 'react-na
 import { Images, Fonts, Colors } from '../../Themes/index';
 import SignUpScreenStyle from './SignUp.style';
 import { authActionCreators } from '../../Store/Auth/AuthActions';
-import { LoadingSpinner } from '../../Components/index';
+import LoadingSpinner from '../../Components/LoadingSpinner';
 import AgreementModal from './Components/AgreementModal';
 import Login from '../Login/Login';
 

@@ -1,4 +1,4 @@
-export const Constants = {
+export default {
   orderStatus: {
     new: 'NEW',
     confirmed: 'CONFIRMED',

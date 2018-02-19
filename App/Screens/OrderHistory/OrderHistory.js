@@ -17,7 +17,7 @@ import style from './OrderHistory.style';
 import { Colors, Metrics, Images } from '../../Themes/index';
 import { orderActionCreators } from '../../Store/Order/OrderActions';
 import OrderHistoryList from './Components/OrderHistoryList';
-import { LoadingSpinner } from '../../Components/index';
+import LoadingSpinner from '../../Components/LoadingSpinner';
 
 class OrderHistory extends Component {
   componentWillMount = () => {

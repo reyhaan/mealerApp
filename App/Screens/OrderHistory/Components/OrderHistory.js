@@ -11,7 +11,7 @@ import { Button } from 'native-base';
 import { Col, Row } from 'react-native-easy-grid';
 import { Colors } from '../../../Themes/index';
 import style from '../OrderHistory.style';
-import { Constants } from '../../../Constants/Constants';
+import Constants from '../../../Constants/Constants';
 import OrderHistoryItem from './OrderHistoryItem';
 import { orderActionCreators } from '../../../Store/Order/OrderActions';
 

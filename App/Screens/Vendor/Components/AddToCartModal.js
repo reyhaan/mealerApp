@@ -9,7 +9,7 @@ import { Colors } from '../../../Themes/index';
 import style from './AddToCartModal.style';
 import AddToCartButton from './AddToCartButton';
 import { cartActionCreators } from '../../../Store/Cart/CartActions';
-import { Constants } from '../../../Constants/Constants';
+import Constants from '../../../Constants/Constants';
 
 class AddToCartModal extends Component {
     addItemToCart = (itemCount) => {

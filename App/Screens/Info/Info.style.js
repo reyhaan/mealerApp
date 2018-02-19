@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native'
-import { Colors, Metrics } from '../../Themes/index'
+import { StyleSheet } from 'react-native';
+import { Colors, Metrics } from '../../Themes/index';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.snow
+    backgroundColor: Colors.snow,
   },
   subContainer: {
     flex: 1,
@@ -25,11 +25,11 @@ export default StyleSheet.create({
     marginTop: (Metrics.screenHeight / 2) - 200,
     height: 90,
     width: 90,
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   mealerLogo: {
-      height: 50,
-      resizeMode: 'contain',
-      tintColor: Colors.background
-  }
-})
+    height: 50,
+    resizeMode: 'contain',
+    tintColor: Colors.background,
+  },
+});

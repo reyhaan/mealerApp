@@ -1,29 +1,29 @@
-import {takeLatest} from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import OrderSaga from './OrderSaga';
 
 
-/******************************* ACTIONS *************************************/
+/** ***************************** ACTIONS ************************************ */
 export const orderActions = {
-    GET_ORDERS: 'GET_ORDERS',
-    GET_ORDERS_SUCCESSFUL: 'GET_ORDERS_SUCCESSFUL',
-    UPDATE_ORDER_STATUS: 'UPDATE_ORDER_STATUS',
-    showActivityIndicator: 'showActivityIndicator',
+  GET_ORDERS: 'GET_ORDERS',
+  GET_ORDERS_SUCCESSFUL: 'GET_ORDERS_SUCCESSFUL',
+  UPDATE_ORDER_STATUS: 'UPDATE_ORDER_STATUS',
+  showActivityIndicator: 'showActivityIndicator',
 };
 
-/******************************* ACTION CREATORS *************************************/
+/** ***************************** ACTION CREATORS ************************************ */
 function createAction(type, data) {
-    return {type, data};
+  return { type, data };
 }
 export const orderActionCreators = {
-    getOrders: (data) => createAction(orderActions.GET_ORDERS, data),
-    getOrdersSuccessful: (data) => createAction(orderActions.GET_ORDERS_SUCCESSFUL, data),
-    updateOrderStatus: (data) => createAction(orderActions.UPDATE_ORDER_STATUS, data),
-    showActivityIndicator: (data) => createAction(orderActions.showActivityIndicator, data)
+  getOrders: data => createAction(orderActions.GET_ORDERS, data),
+  getOrdersSuccessful: data => createAction(orderActions.GET_ORDERS_SUCCESSFUL, data),
+  updateOrderStatus: data => createAction(orderActions.UPDATE_ORDER_STATUS, data),
+  showActivityIndicator: data => createAction(orderActions.showActivityIndicator, data),
 };
 
-/******************************* ACTION WATCHERS *************************************/
+/** ***************************** ACTION WATCHERS ************************************ */
 const orderSaga = new OrderSaga();
 export const orderActionWatchers = [
-    takeLatest(orderActions.GET_ORDERS, orderSaga.getOrders),
-    takeLatest(orderActions.UPDATE_ORDER_STATUS, orderSaga.updateOrderStatus)
+  takeLatest(orderActions.GET_ORDERS, orderSaga.getOrders),
+  takeLatest(orderActions.UPDATE_ORDER_STATUS, orderSaga.updateOrderStatus),
 ];

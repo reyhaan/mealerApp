@@ -1,16 +1,16 @@
-import {requestActions} from './RequestActions';
+import { requestActions } from './RequestActions';
 
-let initialState = {
-    showLoadingSpinner: false
+const initialState = {
+  showLoadingSpinner: false,
 };
 
 export default function request(state = initialState, action) {
-    switch (action.type) {
-        case requestActions.showLoadingSpinner:
-            return Object.assign({}, state, {
-                showLoadingSpinner: action.data,
-            });
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case requestActions.showLoadingSpinner:
+      return Object.assign({}, state, {
+        showLoadingSpinner: action.data,
+      });
+    default:
+      return state;
+  }
 }

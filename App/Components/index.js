@@ -1,7 +1,3 @@
-import LoadingSpinner from './LoadingSpinner'
-import Header from './Header'
+import LoadingSpinner from './LoadingSpinner';
 
-export {
-    Header,
-    LoadingSpinner
-};
+export { LoadingSpinner };

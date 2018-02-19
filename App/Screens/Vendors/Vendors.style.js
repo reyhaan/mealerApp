@@ -1,10 +1,10 @@
-import { StyleSheet, Platform } from 'react-native'
-import { Colors, Metrics, Fonts } from '../../Themes/index'
+import { StyleSheet, Platform } from 'react-native';
+import { Colors, Metrics } from '../../Themes/index';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.snow
+    backgroundColor: Colors.snow,
   },
   headerOuterContainer: {
     width: Metrics.screenWidth,
@@ -18,7 +18,7 @@ export default StyleSheet.create({
       height: (Platform.OS === 'ios') ? 0 : 0,
     },
     elevation: 4,
-    zIndex: 10
+    zIndex: 10,
   },
   row: {
     flex: 1,
@@ -28,7 +28,7 @@ export default StyleSheet.create({
     paddingRight: 10,
     paddingLeft: 10,
     paddingBottom: 0,
-    paddingTop: 0
+    paddingTop: 0,
   },
   rowInnerContainer: {
     flex: 1,
@@ -37,19 +37,19 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Colors.lightGray,
     padding: 10,
-    paddingTop: 15
+    paddingTop: 15,
   },
   boldLabel: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: Colors.charcoal
+    color: Colors.charcoal,
   },
   label: {
     textAlign: 'center',
-    color: Colors.snow
+    color: Colors.snow,
   },
   listContent: {
     marginTop: 0,
-    paddingBottom: 10
-  }
-})
+    paddingBottom: 10,
+  },
+});

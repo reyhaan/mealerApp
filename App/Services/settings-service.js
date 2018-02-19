@@ -1,6 +1,6 @@
-import db from '../Config/database'
+import db from '../Config/database';
 
-let SettingsService = {};
+const SettingsService = {};
 
 // Update user's details
 
@@ -10,14 +10,14 @@ let SettingsService = {};
  * @param userInfo: object
  */
 SettingsService.updateUserInfo = async (userId, userInfo) => {
-    try {
-        const userRef = db.user(userId);
-        await userRef.update(userInfo);
-        const userSnapshot = await userRef.once('value');
-        return {uid: userSnapshot.key, ...userSnapshot.val()};
-    } catch (error) {
-        return {error};
-    }
+  try {
+    const userRef = db.user(userId);
+    await userRef.update(userInfo);
+    const userSnapshot = await userRef.once('value');
+    return { uid: userSnapshot.key, ...userSnapshot.val() };
+  } catch (error) {
+    return { error };
+  }
 };
 
 // Fetch user's details

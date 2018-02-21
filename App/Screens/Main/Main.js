@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { Notifications, AppLoading } from 'expo';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { settingsActionCreators } from '../../Store/Settings/SettingsActions';
+import { userActionCreators } from '../../Store/User/UserActions';
 import { vendorActionCreators } from '../../Store/Vendor/VendorActions';
 import { orderActionCreators } from '../../Store/Order/OrderActions';
 import { registerForPushNotification, handleReceivedNotification } from '../../Services/push-notification-service';
@@ -11,26 +11,26 @@ import { registerForPushNotification, handleReceivedNotification } from '../../S
 const mapDispatchToProps = dispatch => ({
   dispatch,
   vendorActions: bindActionCreators(vendorActionCreators, dispatch),
-  settingsActions: bindActionCreators(settingsActionCreators, dispatch),
+  userActions: bindActionCreators(userActionCreators, dispatch),
   orderActions: bindActionCreators(orderActionCreators, dispatch),
 });
 
 const mapStateToProps = state => ({
-  settings: state.settings,
+  user: state.user,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(class Main extends Component {
   componentDidMount() {
     try {
       const { navigation } = this.props;
-      const { user } = this.props.settings;
+      const { currentUser } = this.props.user;
 
-      if (user) {
-        if (user.type === 'customer') {
+      if (currentUser) {
+        if (currentUser.type === 'customer') {
           this.props.vendorActions.fetchVendors();
-          this.props.orderActions.getOrders(user.uid);
+          this.props.orderActions.getOrders(currentUser.uid);
           navigation.navigate('CustomerTab');
-        } else if (user.type === 'vendor') {
+        } else if (currentUser.type === 'vendor') {
           this.props.vendorActions.fetchVendorMenu();
           navigation.navigate('VendorTab');
         }

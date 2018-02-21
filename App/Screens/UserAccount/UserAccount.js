@@ -10,7 +10,7 @@ import { NavigationActions } from 'react-navigation';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import UserInfoChangeScreenStyle from './UserAccount.style';
 import { Colors, Fonts, Metrics, Images } from '../../Themes/index';
-import { settingsActionCreators } from '../../Store/Settings/SettingsActions';
+import { userActionCreators } from '../../Store/User/UserActions';
 import UserAvatar from '../../Components/UserAvatar';
 
 const styles = UserInfoChangeScreenStyle;
@@ -19,7 +19,7 @@ class UserAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
+      currentUser: {
         id: '',
         name: '',
         address: '',
@@ -34,11 +34,12 @@ class UserAccount extends Component {
   }
 
   componentWillMount() {
-    const currentUser = this.props.settings.user;
+    const { user } = this.props;
+    const { currentUser } = user;
     if (currentUser) {
-      this.props.settingsActions.getUser(currentUser.uid);
+      this.props.userActions.getUser(currentUser.uid);
       this.setState({
-        user: {
+        currentUser: {
           name: currentUser.name || '',
           avatar: currentUser.avatar || { uri: Images.addImagePlaceHolder },
           address: currentUser.address || '',
@@ -58,11 +59,11 @@ class UserAccount extends Component {
     } else {
       validValue = value;
     }
-    this.setState({ user: { ...this.state.user, [name]: validValue } });
+    this.setState({ currentUser: { ...this.state.currentUser, [name]: validValue } });
   };
 
   setUserAvatar = (image) => {
-    this.setState({ user: { ...this.state.user, avatar: image.uri, base64Img: image.base64 } });
+    this.setState({ currentUser: { ...this.state.currentUser, avatar: image.uri, base64Img: image.base64 } });
   };
 
   navigateBack = () => {
@@ -79,8 +80,9 @@ class UserAccount extends Component {
   _updateUserDetails = () => {
     const {
       name: newName, address: newAddress, email: newEmail, phone: newPhone, avatar,
-    } = this.state.user;
-    const existingUser = this.props.settings.user;
+    } = this.state.currentUser;
+
+    const existingUser = this.props.user.currentUser;
     if (!(newName && newEmail)) {
       if (newName && newEmail || newName && newEmail) {
         Alert.alert('Name and Email is required');
@@ -94,11 +96,11 @@ class UserAccount extends Component {
         existingUser.email !== newEmail ||
         existingUser.phone !== newPhone;
       if (conditionToUpdateUser) {
-        this.props.settingsActions.updateUserInfo({
-          uid: this.props.settings.user.uid,
-          user: this.state.user,
+        this.props.userActions.updateUserInfo({
+          uid: this.props.user.currentUser.uid,
+          currentUser: this.state.currentUser,
         });
-        this.props.settingsActions.getUser(this.props.settings.user.uid);
+        this.props.userActions.getUser(this.props.user.currentUser.uid);
         this.displayToast('Successfully Updated ');
       } else {
         this.displayToast('Nothing to update');
@@ -133,13 +135,13 @@ class UserAccount extends Component {
             <Grid>
               <Row size={1} style={{ backgroundColor: Colors.cloud }}>
                 <View style={styles.formContainer}>
-                  <UserAvatar image={this.state.user.avatar} setUserAvatar={this.setUserAvatar} />
+                  <UserAvatar image={this.state.currentUser.avatar} setUserAvatar={this.setUserAvatar} />
                   <Form>
                     <Item stackedLabel style={styles.formItemContainer}>
                       <Label>Display Name</Label>
                       <Input
                         autoCapitalize="none"
-                        value={this.state.user.name}
+                        value={this.state.currentUser.name}
                         placeholder="Your name"
                         onChangeText={value => this.onInputChange(value, 'name')}
                       />
@@ -149,7 +151,7 @@ class UserAccount extends Component {
                       <Input
                         autoCapitalize="none"
                         keyboardType="default"
-                        value={this.state.user.address}
+                        value={this.state.currentUser.address}
                         onChangeText={value => this.onInputChange(value, 'address')}
                       />
                     </Item>
@@ -158,7 +160,7 @@ class UserAccount extends Component {
                       <Input
                         autoCapitalize="none"
                         keyboardType="email-address"
-                        value={this.state.user.email}
+                        value={this.state.currentUser.email}
                         onChangeText={value => this.onInputChange(value, 'email')}
                       />
                     </Item>
@@ -172,7 +174,7 @@ class UserAccount extends Component {
                           withDDD: true,
                           dddMask: '(999) 999-9999',
                         }}
-                        value={this.state.user.phone}
+                        value={this.state.currentUser.phone}
                         onChangeText={value => this.onInputChange(value, 'phone')}
                         style={{ width: '100%', height: 45 }}
                         placeholder="613-XXX-XXXX"
@@ -230,12 +232,12 @@ class UserAccount extends Component {
 const mapStateToProps = state => ({
   menu: state.menu,
   auth: state.auth,
-  settings: state.settings,
+  user: state.user,
 });
 
 const mapDispatchToProps = dispatch => ({
   dispatch,
-  settingsActions: bindActionCreators(settingsActionCreators, dispatch),
+  userActions: bindActionCreators(userActionCreators, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAccount);

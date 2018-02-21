@@ -8,28 +8,28 @@ import menuService from '../../../Services/menu-service';
 export default class VendorInfo extends Component {
   constructor(props) {
     super(props);
-    const { user } = this.props;
+    const { vendor } = this.props;
     this.state = {
-      user,
+      vendor,
       numOfItems: 0,
-      rating: user.rating ? (user.rating.cumulativeRating / user.rating.numberOfRatings) : 0,
+      rating: vendor.rating ? (vendor.rating.cumulativeRating / vendor.rating.numberOfRatings) : 0,
     };
   }
 
   componentDidMount = async () => {
-    const menu = await menuService.getMenu(this.state.user.id);
+    const menu = await menuService.getMenu(this.state.vendor.id);
     this.setState({
       numOfItems: menu.length,
     });
   };
 
   render() {
-    const { user } = this.props;
+    const { vendor } = this.props;
     return (
       <View style={styles.mainContainer}>
         <Grid>
           <Row size={70} style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <Image source={{ uri: user.avatar }} style={styles.userImage} />
+            <Image source={{ uri: vendor.avatar }} style={styles.userImage} />
           </Row>
           <Row size={30}>
             <Col>
@@ -39,7 +39,7 @@ export default class VendorInfo extends Component {
                   fontWeight: 'bold',
                   color: Colors.gray,
                 }}
-                >{user.quota || 20}
+                >{vendor.quota || 20}
                 </Text>
               </Row>
               <Row

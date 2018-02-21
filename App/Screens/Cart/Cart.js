@@ -24,9 +24,9 @@ class MerchantOrders extends Component {
   };
 
   placeOrder = () => {
-    const { user } = this.props.settings;
+    const { currentUser } = this.props.user;
 
-    if (user.address) {
+    if (currentUser.address) {
       Alert.alert(
         'Checkout', 'Are you sure you want to place your order ?',
         [
@@ -129,7 +129,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   cart: state.cart.cart,
   request: state.request,
-  settings: state.settings,
+  user: state.user,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MerchantOrders);

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import LoginScreenStyle from './Login.style';
 import { Images, Colors } from '../../Themes/index';
 import { authActionCreators } from '../../Store/Auth/AuthActions';
-import { settingsActionCreators } from '../../Store/Settings/SettingsActions';
+import { userActionCreators } from '../../Store/User/UserActions';
 import LoadingSpinner from '../../Components/LoadingSpinner';
 import authenticationService from '../../Services/authentication-service';
 import ResetPassword from './Components/ResetPassword';
@@ -182,10 +182,10 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => ({
   authActions: bindActionCreators(authActionCreators, dispatch),
-  settingsActions: bindActionCreators(settingsActionCreators, dispatch),
+  userActions: bindActionCreators(userActionCreators, dispatch),
 });
 const mapStateToProps = state => ({
   auth: state.auth,
-  settings: state.settings,
+  user: state.user,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

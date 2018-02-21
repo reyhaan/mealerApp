@@ -28,9 +28,9 @@ export const registerForPushNotification = async () => {
   const token = await Notifications.getExpoPushTokenAsync();
 
   if (token) {
-    const user = await authService.currentUser();
-    user.pushNotificationToken = token;
-    await settingsService.updateUserInfo(user.uid, user);
+    const currentUser = await authService.currentUser();
+    currentUser.pushNotificationToken = token;
+    await settingsService.updateUserInfo(currentUser.uid, currentUser);
   }
 };
 

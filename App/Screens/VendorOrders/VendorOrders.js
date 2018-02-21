@@ -249,7 +249,6 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   vendor: state.vendor,
-  settings: state.settings,
   request: state.request,
 });
 

@@ -226,7 +226,7 @@ class Vendor extends Component {
             selectedVendor={props.vendor.selectedVendor}
           />
 
-          <VendorInfo user={props.vendor.selectedVendor} />
+          <VendorInfo vendor={props.vendor.selectedVendor} />
 
           <View style={{
             height: 50,

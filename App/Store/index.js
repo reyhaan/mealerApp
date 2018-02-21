@@ -13,6 +13,7 @@ import { authActionWatchers } from '../Store/Auth/AuthActions';
 import { settingsActionWatchers } from './User/UserActions';
 import { cartActionWatchers } from '../Store/Cart/CartActions';
 import { orderActionWatchers } from '../Store/Order/OrderActions';
+import { navigationActionWatchers } from '../Store/Navigation/NavigationActions';
 
 // Sagas
 const sagas = function* root() {
@@ -22,6 +23,7 @@ const sagas = function* root() {
     ...settingsActionWatchers,
     ...cartActionWatchers,
     ...orderActionWatchers,
+    ...navigationActionWatchers,
   ]);
 };
 

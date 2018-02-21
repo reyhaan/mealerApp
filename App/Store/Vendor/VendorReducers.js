@@ -18,6 +18,10 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         fetchVendorsPending: action.data,
       });
+    case vendorActions.FETCH_VENDORS_ORDERS_PENDING:
+      return Object.assign({}, state, {
+        fetchVendorsOrdersPending: action.data,
+      });
     case vendorActions.FETCH_MENU_SUCCESSFUL:
       return Object.assign({}, state, {
         menus: action.data,
@@ -26,7 +30,7 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         showActivityIndicator: action.data,
       });
-    case vendorActions.UPDATE_MERCHANT_ORDERS:
+    case vendorActions.UPDATE_VENDOR_ORDERS:
       return Object.assign({}, state, {
         orders: action.data,
       });

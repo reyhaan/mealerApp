@@ -117,14 +117,13 @@ export default class VendorSaga {
 
   * fetchVendorOrders() {
     try {
+      yield put(vendorActionCreators.fetchVendorsOrdersPending(true));
       const user = yield call(authentication.currentUser);
-      yield put(requestActionCreators.showLoadingSpinner(true));
       const orders = yield call(orderService.getMerchantOrders, user.uid);
       const newOrders = _.filter(orders, o => o.status === Constants.orderStates.new);
       const acceptedOrders = _.filter(orders, o => o.status === Constants.orderStates.accepted);
       const deliveredOrders = _.filter(orders, o => o.status === Constants.orderStates.delivered);
       const rejectedOrders = _.filter(orders, o => o.status === Constants.orderStates.rejected);
-      yield put(vendorActionCreators.fetchVendorsPending(true));
       yield put(vendorActionCreators.setNewVendorOrders(newOrders));
       yield put(vendorActionCreators.setAcceptedVendorOrders(acceptedOrders));
       yield put(vendorActionCreators.setDeliveredVendorOrders(deliveredOrders));
@@ -133,7 +132,7 @@ export default class VendorSaga {
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
-      yield put(vendorActionCreators.fetchVendorsPending(false));
+      yield put(vendorActionCreators.fetchVendorsOrdersPending(false));
     }
   }
 }

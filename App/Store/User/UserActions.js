@@ -17,7 +17,7 @@ function createAction(type, data) {
 export const userActionCreators = {
   updateUserInfo: data => createAction(userActions.UPDATE_USER_INFO, data),
   setUser: data => createAction(userActions.SET_CURRENT_USER, data),
-  getUser: id => createAction(userActions.GET_CURRENT_USER, { id }),
+  getUser: () => createAction(userActions.GET_CURRENT_USER),
   clearCurrentUser: () => createAction(userActions.CLEAR_CURRENT_USER),
   registerForPushNotification: data => createAction(userActions.REGISTER_FOR_PUSH_NOTIFICATION, data),
 };

@@ -27,7 +27,7 @@ authenticationService.addUser = async (u) => {
   return { uid: userSnapshot.key, ...userSnapshot.val() };
 };
 
-// Remove vendor menu
+// Remove user
 authenticationService.removeUser = async (userId) => {
   try {
     const userRef = db.user(userId);

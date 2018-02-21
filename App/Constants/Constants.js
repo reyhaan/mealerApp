@@ -7,4 +7,8 @@ export default {
     delivered: 'DELIVERED',
     accepted: 'ACCEPTED',
   },
+  userType: {
+    vendor: 'vendor',
+    customer: 'customer',
+  },
 };

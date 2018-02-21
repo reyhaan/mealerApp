@@ -12,8 +12,6 @@ export default class UserSaga {
       const { data } = action;
       const { currentUser, uid } = data;
 
-      console.log(currentUser);
-
       if (currentUser && currentUser.base64Img && uid) {
         data.currentUser.avatar = yield call(imgService.uploadBase64Image, uid, currentUser.base64Img);
       }
@@ -28,9 +26,10 @@ export default class UserSaga {
     }
   }
 
-  * getUser(action) {
+  * getUser() {
     try {
-      const currentUser = yield call(authenticationService.fetchUser, action.data.id);
+      let currentUser = yield call(authenticationService.currentUser);
+      currentUser = yield call(authenticationService.fetchUser, currentUser.uid);
       yield put(userActionCreators.setUser(currentUser));
     } catch (error) {
       Alert.alert('Error', error.message);
@@ -53,9 +52,8 @@ export default class UserSaga {
       }
     } else {
       try {
-        delete user.pushNotificationToken;
-        const updatedUserInfo = yield call(SettingsService.updateUserInfo, user.uid, user);
-        yield put(userActionCreators.setUser(updatedUserInfo));
+        user.pushNotificationToken = undefined;
+        yield put(userActionCreators.updateUserInfo({ currentUser: user, uid: user.uid }));
       } catch (e) {
         Alert.alert('Error', e.message);
       }

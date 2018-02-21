@@ -21,12 +21,14 @@ export default class orderEffects {
   * updateOrderStatus(action) {
     try {
       const order = action.data;
+      yield put(vendorActionCreators.fetchVendorsPending(true));
       yield put(orderActionCreators.showActivityIndicator(true));
       yield call(orderService.updateOrderStatus, order);
       yield put(vendorActionCreators.fetchVendorOrders());
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
+      yield put(vendorActionCreators.fetchVendorsPending(true));
       yield put(orderActionCreators.showActivityIndicator(false));
     }
   }

@@ -4,8 +4,8 @@ import { Alert } from 'react-native';
 const img = {};
 
 // storage reference
-img.uploadBase64Image = async (n, base64Img) => {
-  let name = n;
+img.uploadBase64Image = async (uid, base64Img) => {
+  let name = uid;
   try {
     const SERVER_URL = 'https://airnd-rest-api-dev.herokuapp.com/api/image/uploadImage';
     // const LOCAL_URL = "http://localhost:5000/mealer-app/us-central1/uploadBase64ImageToS3";

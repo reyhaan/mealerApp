@@ -7,6 +7,8 @@ import { vendorActionCreators } from '../Store/Vendor/VendorActions';
 import { orderActionCreators } from '../Store/Order/OrderActions';
 
 export const registerForPushNotification = async () => {
+  console.log('register for push notification');
+
   const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
   let finalStatus = existingStatus;
 
@@ -28,9 +30,9 @@ export const registerForPushNotification = async () => {
   const token = await Notifications.getExpoPushTokenAsync();
 
   if (token) {
-    const user = await authService.currentUser();
-    user.pushNotificationToken = token;
-    await settingsService.updateUserInfo(user.uid, user);
+    const currentUser = await authService.currentUser();
+    currentUser.pushNotificationToken = token;
+    await settingsService.updateUserInfo(currentUser.uid, currentUser);
   }
 };
 

@@ -61,9 +61,13 @@ class CustomerOrderDetails extends Component {
         );
       case constants.orderStates.accepted:
         return (
-          <Button small block success onPress={() => this.deliverOrder(order)}>
-            <Text>Deliver</Text>
-          </Button>
+          <Row style={styles.statusUpdateContainer}>
+            <Col style={styles.statusUpdateButton}>
+              <Button small block success onPress={() => this.deliverOrder(order)}>
+                <Text>Deliver</Text>
+              </Button>
+            </Col>
+          </Row>
         );
       default:
         return null;
@@ -148,7 +152,7 @@ class CustomerOrderDetails extends Component {
       <View style={styles.orderItemContainer}>
         <Grid>
           <Col style={{ width: 60 }}>
-            <Avatar medium source={{ uri: `${item.itemImage}?${new Date().getTime()}` }} />
+            <Avatar medium source={{ uri: `${item.itemImage}?${new Date().getTime()}` }}/>
           </Col>
           <Col>
             <Row style={{ height: 20, width: 200 }}>
@@ -176,77 +180,86 @@ class CustomerOrderDetails extends Component {
 
   render() {
     const { props } = this;
-    const { order } = props.order;
-    return (
-      <View style={styles.container}>
-        <Card>
-          <CardItem>
-            <Body>
-              <Row>
-                <Col size={1}>
-                  <FlatList data={order.items} renderItem={this.renderItem} />
-                </Col>
-              </Row>
-              <Row>
-                <Col size={1}>
-                  <Text style={{ color: Colors.gray, marginTop: 5 }}>Name</Text>
-                </Col>
-                <Col size={1} style={styles.orderInfo}>
-                  <Text style={{
-                    fontWeight: 'bold',
-                    fontSize: 14,
-                    marginBottom: 5,
-                    color: Colors.gray,
-                  }}
-                  >{order.customer.name.toUpperCase()}
-                  </Text>
-                </Col>
-              </Row>
-              <Row>
-                <Col size={1}>
-                  <Text style={{ color: Colors.gray, marginTop: 5 }}>Time</Text>
-                </Col>
-                <Col size={1} style={styles.orderInfo}>
-                  <Text style={{
-                    fontWeight: 'bold',
-                    fontSize: 14,
-                    marginBottom: 5,
-                    color: Colors.gray,
-                  }}
-                  >{moment(moment.utc(order.timeStamp)).format('lll')}
-                  </Text>
-                </Col>
-              </Row>
-              <Row>
-                <Col size={1}>
-                  <Text style={{ color: Colors.gray, marginTop: 5 }}>Status</Text>
-                </Col>
-                <Col size={1} style={styles.orderInfo}>
-                  <Text style={{
-                    fontWeight: 'bold',
-                    fontSize: 14,
-                    marginBottom: 5,
-                    color: this.orderStatusColor(order),
-                  }}
-                  > {order.status.toUpperCase()}
-                  </Text>
-                </Col>
-              </Row>
-              <Row>
-                <Col size={1}>
-                  <Badge value="Total" textStyle={{ color: Colors.gray }} containerStyle={styles.customerTotalCostBadge} />
-                </Col>
-                <Col size={1} style={styles.orderInfo}>
-                  <Text style={[styles.customerTotalCostText, { marginTop: 5 }]}>
-                    {`${' '} $ ${this._calculateTotalCost(order.items)}`}
-                  </Text>
-                </Col>
-              </Row>
-              {this.orderActionButton(order)}
-            </Body>
-          </CardItem>
-        </Card>
-      </View>);
+    const { order } = props;
+
+    if (order) {
+      return (
+        <View style={styles.container}>
+          <Card>
+            <CardItem>
+              <Body>
+                <Row>
+                  <Col size={1}>
+                    <FlatList data={order.items} renderItem={this.renderItem}/>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col size={1}>
+                    <Text style={{ color: Colors.gray, marginTop: 5 }}>Name</Text>
+                  </Col>
+                  <Col size={1} style={styles.orderInfo}>
+                    <Text style={{
+                      fontWeight: 'bold',
+                      fontSize: 14,
+                      marginBottom: 5,
+                      color: Colors.gray,
+                    }}
+                    >{order.customer.name.toUpperCase()}
+                    </Text>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col size={1}>
+                    <Text style={{ color: Colors.gray, marginTop: 5 }}>Time</Text>
+                  </Col>
+                  <Col size={1} style={styles.orderInfo}>
+                    <Text style={{
+                      fontWeight: 'bold',
+                      fontSize: 14,
+                      marginBottom: 5,
+                      color: Colors.gray,
+                    }}
+                    >{moment(moment.utc(order.timeStamp)).format('lll')}
+                    </Text>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col size={1}>
+                    <Text style={{ color: Colors.gray, marginTop: 5 }}>Status</Text>
+                  </Col>
+                  <Col size={1} style={styles.orderInfo}>
+                    <Text style={{
+                      fontWeight: 'bold',
+                      fontSize: 14,
+                      marginBottom: 5,
+                      color: this.orderStatusColor(order),
+                    }}
+                    > {order.status.toUpperCase()}
+                    </Text>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col size={1}>
+                    <Badge
+                      value="Total"
+                      textStyle={{ color: Colors.gray }}
+                      containerStyle={styles.customerTotalCostBadge}
+                    />
+                  </Col>
+                  <Col size={1} style={styles.orderInfo}>
+                    <Text style={[styles.customerTotalCostText, { marginTop: 5 }]}>
+                      {`${' '} $ ${this._calculateTotalCost(order.items)}`}
+                    </Text>
+                  </Col>
+                </Row>
+                {this.orderActionButton(order)}
+              </Body>
+            </CardItem>
+          </Card>
+        </View>);
+    } else {
+      return null;
+    }
   }
 }
 

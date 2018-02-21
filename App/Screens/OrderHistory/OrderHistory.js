@@ -21,8 +21,8 @@ import LoadingSpinner from '../../Components/LoadingSpinner';
 
 class OrderHistory extends Component {
   componentWillMount = () => {
-    const { props } = this;
-    props.orderActions.getOrders(props.user.uid);
+    const { user, orderActions } = this.props;
+    orderActions.getOrders(user.currentUser.uid);
   };
 
   render() {
@@ -83,7 +83,7 @@ class OrderHistory extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.settings.user,
+  user: state.user,
   order: state.order,
 });
 const mapDispatchToProps = dispatch => ({

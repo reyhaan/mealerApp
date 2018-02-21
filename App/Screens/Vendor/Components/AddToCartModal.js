@@ -13,8 +13,9 @@ import Constants from '../../../Constants/Constants';
 
 class AddToCartModal extends Component {
     addItemToCart = (itemCount) => {
+      const { user } = this.props;
       const orderItem = {
-        from: this.props.user.uid,
+        from: user.currentUser.uid,
         to: this.props.selectedVendor.uid,
         item: Object.assign({}, this.props.selectedItem),
         itemCount,
@@ -95,7 +96,7 @@ const mapDispatchToProps = dispatch => ({
   cartActions: bindActionCreators(cartActionCreators, dispatch),
 });
 const mapStateToProps = state => ({
-  user: state.settings.user,
+  user: state.user,
   cart: state.cart,
 });
 

@@ -3,6 +3,7 @@ Mealer-App
 # Client
 * Install all dependencies `npm i`
 * Important to install React native debugger [https://streetsmartdev.com/debugging-react-native-expo-using-react-native-debugger/](React debugger setup)
+* Run lint `npm run lint-watch`
 * Start app `npm start`
 
 

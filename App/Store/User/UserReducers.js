@@ -1,22 +1,22 @@
-import { settingsActions } from './SettingsActions';
+import { userActions } from './UserActions';
 
 const initialState = {
-  user: {},
+  currentUser: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case settingsActions.UPDATE_USER_INFO:
+    case userActions.UPDATE_USER_INFO:
       return Object.assign({}, state, {
-        user: action.data,
+        currentUser: action.data,
       });
-    case settingsActions.SET_CURRENT_USER:
+    case userActions.SET_CURRENT_USER:
       return Object.assign({}, state, {
-        user: action.data,
+        currentUser: action.data,
       });
-    case settingsActions.CLEAR_CURRENT_USER:
+    case userActions.CLEAR_CURRENT_USER:
       return Object.assign({}, state, {
-        user: null,
+        currentUser: null,
       });
     default:
       return state;

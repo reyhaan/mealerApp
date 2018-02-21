@@ -14,6 +14,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case vendorActions.FETCH_VENDORS_PENDING:
+      return Object.assign({}, state, {
+        fetchVendorsPending: action.data,
+      });
     case vendorActions.FETCH_MENU_SUCCESSFUL:
       return Object.assign({}, state, {
         menus: action.data,

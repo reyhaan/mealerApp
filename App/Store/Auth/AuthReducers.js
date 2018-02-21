@@ -3,18 +3,18 @@ import { authActions } from './AuthActions';
 const initialState = {
   showResetPasswordModal: false,
   resetPasswordError: '',
-  user: {},
+  currentUser: {},
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case authActions.signInSuccessful:
       return Object.assign({}, state, {
-        user: action.data,
+        currentUser: action.data,
       });
     case authActions.signUpSuccessful:
       return Object.assign({}, state, {
-        user: action.data,
+        currentUser: action.data,
       });
     case authActions.showActivityIndicator:
       return Object.assign({}, state, {

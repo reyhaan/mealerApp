@@ -4,8 +4,9 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Colors } from '../../../Themes/index';
 import style from '../OrderHistory.style';
 
-export default () => {
-  const { item } = this.props;
+export default (props) => {
+  const { item } = props;
+  console.log(item);
   return (
     <Grid style={style.vendorOrderItemsContainer}>
       <Row style={{ height: 25 }}>

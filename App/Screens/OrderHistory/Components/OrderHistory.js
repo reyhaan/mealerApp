@@ -51,9 +51,7 @@ class OrderHistory extends Component {
   render() {
     const { order } = this.props;
     const totalCost = this.calculateTotalCost(order.items);
-
-    console.log(order);
-
+    const showOrderItems = order && order.items.length > 1;
     return (
       <Col>
         <Col style={{ paddingTop: 0, backgroundColor: Colors.snow }}>
@@ -112,14 +110,13 @@ class OrderHistory extends Component {
               </Text>
             </Col>
           </Row>
-
+          {showOrderItems &&
           <FlatList
             style={style.vendorOrderContainer}
             contentContainerStyle={style.listContent}
             data={order.items}
             renderItem={({ item }) => <OrderHistoryItem item={item}/>}
-          />
-
+          />}
           <Row style={{ backgroundColor: Colors.snow, paddingBottom: 25, paddingTop: 10 }}>
             <Col size={2} style={{ paddingLeft: 10 }}>
               <Text style={{ color: Colors.charcoal, fontWeight: 'bold' }}>Subtotal</Text>

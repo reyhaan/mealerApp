@@ -24,9 +24,6 @@ class Cart extends Component {
     super(props);
     this.state = {};
     this.getVendorOrders();
-    this.state = {
-      refreshing: false,
-    };
   }
 
   async componentDidMount() {
@@ -64,11 +61,11 @@ class Cart extends Component {
     }
   };
 
-    renderNewOrders = (refreshing) => {
+    renderNewOrders = () => {
       if (this.props.vendor.newVendorOrders && this.props.vendor.newVendorOrders.length > 0) {
         return (<FlatList
           data={this.props.vendor.newVendorOrders}
-          refreshing={refreshing}
+          refreshing={this.props.vendor.fetchVendorsPending}
           onRefresh={() => this.getVendorOrders()}
           renderItem={({ item }) => <CustomerOrderDetails order={item} />}
         />);
@@ -90,12 +87,12 @@ class Cart extends Component {
       );
     };
 
-    renderAcceptedOrders = (refreshing) => {
+    renderAcceptedOrders = () => {
       if (this.props.vendor.acceptedVendorOrders &&
         this.props.vendor.acceptedVendorOrders.length > 0) {
         return (<FlatList
           data={this.props.vendor.acceptedVendorOrders}
-          refreshing={refreshing}
+          refreshing={this.props.vendor.fetchVendorsPending}
           onRefresh={() => this.getVendorOrders()}
           renderItem={({ item }) => <CustomerOrderDetails order={item} />}
         />);
@@ -116,12 +113,12 @@ class Cart extends Component {
       );
     };
 
-    renderDeliveredOrders = (refreshing) => {
+    renderDeliveredOrders = () => {
       if (this.props.vendor.deliveredVendorOrders &&
         this.props.vendor.deliveredVendorOrders.length > 0) {
         return (<FlatList
           data={this.props.vendor.deliveredVendorOrders}
-          refreshing={refreshing}
+          refreshing={this.props.vendor.fetchVendorsPending}
           onRefresh={() => this.getVendorOrders()}
           renderItem={({ item }) => <CustomerOrderDetails order={item} />}
         />);
@@ -142,12 +139,12 @@ class Cart extends Component {
       );
     };
 
-    renderCancelledOrders = (refreshing) => {
+    renderCancelledOrders = () => {
       if (this.props.vendor.cancelledVendorOrders &&
         this.props.vendor.cancelledVendorOrders.length > 0) {
         return (<FlatList
           data={this.props.vendor.cancelledVendorOrders}
-          refreshing={refreshing}
+          refreshing={this.props.vendor.fetchVendorsPending}
           onRefresh={() => this.getVendorOrders()}
           renderItem={({ item }) => <CustomerOrderDetails order={item} />}
         />);
@@ -169,11 +166,6 @@ class Cart extends Component {
     };
 
     render() {
-      let { refreshing } = this.state;
-      if (this.props.request) {
-        refreshing = this.props.request.showLoadingSpinner;
-      }
-
       return (
         <View style={styles.container}>
           <Header
@@ -206,36 +198,36 @@ class Cart extends Component {
               activeTabStyle={{ backgroundColor: Colors.snow }}
               tabStyle={{ backgroundColor: Colors.lightGray }}
               textStyle={{ color: Colors.gray }}
-              heading={`New ( ${this.orderCount(constants.orderStates.new)}`}
+              heading={`New (${this.orderCount(constants.orderStates.new)})`}
             >
-              {this.renderNewOrders(refreshing)}
+              {this.renderNewOrders()}
             </Tab>
             <Tab
               activeTextStyle={{ color: Colors.background }}
               activeTabStyle={{ backgroundColor: Colors.snow }}
               tabStyle={{ backgroundColor: Colors.lightGray }}
               textStyle={{ color: Colors.gray }}
-              heading={`Accepted ( ${this.orderCount(constants.orderStates.accepted)}`}
+              heading={`Accepted (${this.orderCount(constants.orderStates.accepted)})`}
             >
-              {this.renderAcceptedOrders(refreshing)}
+              {this.renderAcceptedOrders()}
             </Tab>
             <Tab
               activeTextStyle={{ color: Colors.background }}
               activeTabStyle={{ backgroundColor: Colors.snow }}
               tabStyle={{ backgroundColor: Colors.lightGray }}
               textStyle={{ color: Colors.gray }}
-              heading={`Delivered ( ${this.orderCount(constants.orderStates.delivered)}`}
+              heading={`Delivered (${this.orderCount(constants.orderStates.delivered)})`}
             >
-              {this.renderDeliveredOrders(refreshing)}
+              {this.renderDeliveredOrders()}
             </Tab>
             <Tab
               activeTextStyle={{ color: Colors.background }}
               activeTabStyle={{ backgroundColor: Colors.snow }}
               tabStyle={{ backgroundColor: Colors.lightGray }}
               textStyle={{ color: Colors.gray }}
-              heading={`Cancelled ( ${this.orderCount(constants.orderStates.cancelled)}`}
+              heading={`Cancelled (${this.orderCount(constants.orderStates.cancelled)})`}
             >
-              {this.renderCancelledOrders(refreshing)}
+              {this.renderCancelledOrders()}
             </Tab>
           </Tabs>
         </View>

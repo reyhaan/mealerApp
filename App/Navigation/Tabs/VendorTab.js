@@ -10,6 +10,7 @@ const {
   Account,
   InfoTab,
   Menus,
+  UserAccount,
   MenuForm,
 } = Screens;
 
@@ -51,13 +52,30 @@ const Root = TabNavigator({
   },
 
   Three: {
-    screen: Account,
+    screen: StackNavigator({
+      Account: {
+        screen: Account,
+      },
+      UserAccount: {
+        screen: UserAccount,
+      },
+    }, {
+      headerMode: 'none',
+      initialRouteName: 'Account',
+      navigationOptions: () => ({
+        header: null,
+      }),
+    }),
     navigationOptions: {
       gesturesEnabled: false,
-      tabBarLabel: 'Account',
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="user-circle" size={20} color={tintColor} />
+        <Icon
+          name="user-circle"
+          size={20}
+          color={tintColor}
+        />
       ),
+      title: 'Account',
     },
   },
 

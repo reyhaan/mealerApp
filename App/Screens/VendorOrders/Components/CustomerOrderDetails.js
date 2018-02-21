@@ -61,9 +61,13 @@ class CustomerOrderDetails extends Component {
         );
       case constants.orderStates.accepted:
         return (
-          <Button small block success onPress={() => this.deliverOrder(order)}>
-            <Text>Deliver</Text>
-          </Button>
+          <Row style={styles.statusUpdateContainer}>
+            <Col style={styles.statusUpdateButton}>
+              <Button small block success onPress={() => this.deliverOrder(order)}>
+                <Text>Deliver</Text>
+              </Button>
+            </Col>
+          </Row>
         );
       default:
         return null;
@@ -176,7 +180,7 @@ class CustomerOrderDetails extends Component {
 
   render() {
     const { props } = this;
-    const { order } = props.order;
+    const { order } = props;
 
     if (order) {
       return (

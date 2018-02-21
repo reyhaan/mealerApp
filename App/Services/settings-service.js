@@ -13,8 +13,11 @@ SettingsService.updateUserInfo = async (userId, userInfo) => {
   try {
     const userRef = db.user(userId);
     await userRef.update(userInfo);
+    /*
     const userSnapshot = await userRef.once('value');
-    return { uid: userSnapshot.key, ...userSnapshot.val() };
+    const updatedUser = { uid: userSnapshot.key, ...userSnapshot.val() };
+    */
+    return userInfo;
   } catch (error) {
     return { error };
   }

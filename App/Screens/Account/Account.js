@@ -92,7 +92,7 @@ class Settings extends Component {
                 type: 'font-awesome',
                 style: { color: Colors.background, fontSize: 18 },
               }}
-              switched={true}
+              switched={Boolean(currentUser.pushNotificationToken)}
               hideChevron={true}
               switchButton={true}
               onSwitch={this.registerForPushNotification}

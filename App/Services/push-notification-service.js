@@ -7,6 +7,8 @@ import { vendorActionCreators } from '../Store/Vendor/VendorActions';
 import { orderActionCreators } from '../Store/Order/OrderActions';
 
 export const registerForPushNotification = async () => {
+  console.log('register for push notification');
+
   const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
   let finalStatus = existingStatus;
 

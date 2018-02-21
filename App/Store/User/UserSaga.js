@@ -28,9 +28,9 @@ export default class UserSaga {
     }
   }
 
-  * getUser(data) {
+  * getUser(action) {
     try {
-      const currentUser = yield call(authenticationService.fetchUser, data.data.id);
+      const currentUser = yield call(authenticationService.fetchUser, action.data.id);
       yield put(userActionCreators.setUser(currentUser));
     } catch (error) {
       Alert.alert('Error', error.message);
@@ -39,11 +39,25 @@ export default class UserSaga {
 
   * registerForPushNotification(action) {
     const register = action.data;
+
+    let user = yield call(authenticationService.currentUser);
+    user = yield call(authenticationService.fetchUser, user.uid);
+
     if (register) {
       try {
         yield call(registerForPushNotification);
+        const currentUser = yield call(authenticationService.fetchUser, user.uid);
+        yield put(userActionCreators.setUser(currentUser));
       } catch (error) {
         Alert.alert('Error', error.message);
+      }
+    } else {
+      try {
+        delete user.pushNotificationToken;
+        const updatedUserInfo = yield call(SettingsService.updateUserInfo, user.uid, user);
+        yield put(userActionCreators.setUser(updatedUserInfo));
+      } catch (e) {
+        Alert.alert('Error', e.message);
       }
     }
   }

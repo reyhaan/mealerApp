@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { userActionCreators } from '../../Store/User/UserActions';
 import { vendorActionCreators } from '../../Store/Vendor/VendorActions';
 import { orderActionCreators } from '../../Store/Order/OrderActions';
-import { registerForPushNotification, handleReceivedNotification } from '../../Services/push-notification-service';
+import { handleReceivedNotification } from '../../Services/push-notification-service';
 
 const mapDispatchToProps = dispatch => ({
   dispatch,
@@ -22,7 +22,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, mapDispatchToProps)(class Main extends Component {
   componentDidMount() {
     try {
-      const { navigation } = this.props;
+      const { navigation, userActions } = this.props;
       const { currentUser } = this.props.user;
 
       if (currentUser) {
@@ -31,11 +31,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(class Main extends C
           this.props.orderActions.getOrders(currentUser.uid);
           navigation.navigate('CustomerTab');
         } else if (currentUser.type === 'vendor') {
-          this.props.vendorActions.fetchVendorMenu();
           navigation.navigate('VendorTab');
         }
 
-        registerForPushNotification();
+        userActions.registerForPushNotification(true);
         Notifications.addListener(this.handleNotification);
       } else {
         navigation.navigate('Login');

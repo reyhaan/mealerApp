@@ -3,7 +3,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../Navigation.style';
 import tabNavigatorConfig from './TabConfig';
-import { Screens } from '../../Screens';
+import Screens from '../../Screens';
 
 const {
   VendorOrders,

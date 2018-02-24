@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import App from './App';
+import MealerApp from './App';
 
-AppRegistry.registerComponent('mealerExpo', () => App);
+AppRegistry.registerComponent('mealerExpo', () => MealerApp);

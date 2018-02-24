@@ -25,6 +25,7 @@ export const userActionCreators = {
 /** ***************************** ACTION WATCHERS ************************************ */
 const userSaga = new UserSaga();
 export const settingsActionWatchers = [
+  takeLatest(userActions.SET_CURRENT_USER, userSaga.setCurrentUser),
   takeLatest(userActions.UPDATE_USER_INFO, userSaga.updateUserInfo),
   takeLatest(userActions.GET_CURRENT_USER, userSaga.getUser),
   takeLatest(userActions.REGISTER_FOR_PUSH_NOTIFICATION, userSaga.registerForPushNotification),

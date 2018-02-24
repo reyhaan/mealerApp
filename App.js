@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import createStore from './App/Store';
-import App from './App/Screens';
+import AppScreens from './App/Screens';
 
 // Export store
 export const store = createStore();
@@ -17,6 +17,6 @@ export default class Index extends Component {
   }
 
   render() {
-    return <Provider store={store}><App /></Provider>;
+    return <Provider store={store}><AppScreens /></Provider>;
   }
 }

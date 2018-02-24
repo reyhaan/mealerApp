@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { Alert } from 'react-native';
+import { Alert, AsyncStorage } from 'react-native';
 import SettingsService from '../../Services/settings-service';
 import { userActionCreators } from './UserActions';
 import authenticationService from '../../Services/authentication-service';
@@ -21,6 +21,15 @@ export default class UserSaga {
       }
       const updatedUserInfo = yield call(SettingsService.updateUserInfo, uid, currentUser);
       yield put(userActionCreators.setUser(updatedUserInfo));
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  }
+
+  * setCurrentUser(action) {
+    try {
+      const user = action.data;
+      yield call(AsyncStorage.setItem, 'userSession', JSON.stringify(user));
     } catch (error) {
       Alert.alert('Error', error.message);
     }

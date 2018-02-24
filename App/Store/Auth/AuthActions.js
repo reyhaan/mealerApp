@@ -13,7 +13,7 @@ export const authActions = {
   signUpSuccessful: 'signUpSuccessful',
   signOut: 'signOut',
   signOutSuccessful: 'signOutSuccessful',
-  getCurrentUser: 'getCurrentUser',
+  initializeAppWithCurrentUser: 'initializeAppWithCurrentUser',
   showActivityIndicator: 'showActivityIndicator',
   resetPassword: 'resetPassword',
   showResetPasswordModal: 'showResetPasswordModal',
@@ -22,7 +22,7 @@ export const authActions = {
 
 /** ***************************** ACTION CREATORS ************************************ */
 export const authActionCreators = {
-  getCurrentUser: () => createAction(authActions.getCurrentUser),
+  initializeAppWithCurrentUser: () => createAction(authActions.initializeAppWithCurrentUser),
   signIn: data => createAction(authActions.signIn, data),
   signInSuccessful: data => createAction(authActions.signInSuccessful, data),
   signUp: data => createAction(authActions.signUp, data),
@@ -43,5 +43,5 @@ export const authActionWatchers = [
   takeLatest(authActions.signUp, authSaga.signUp),
   takeLatest(authActions.signOut, authSaga.signOut),
   takeLatest(authActions.resetPassword, authSaga.resetPassword),
-  takeLatest(authActions.getCurrentUser, authSaga.getCurrentUser),
+  takeLatest(authActions.initializeAppWithCurrentUser, authSaga.initializeAppWithCurrentUser),
 ];

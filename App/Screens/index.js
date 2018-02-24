@@ -54,7 +54,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(class Container exte
 
         async componentWillMount() {
           try {
-            this.props.authActions.getCurrentUser(); // !important to initialize app
+            this.props.authActions.initializeAppWithCurrentUser(); // !important to initialize app
 
             /* eslint-disable global-require */
             await Font.loadAsync({

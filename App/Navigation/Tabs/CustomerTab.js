@@ -4,7 +4,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import tabNavigatorConfig from './TabConfig';
 import CartTabBadgeIcon from '../../Components/CartTabBadgeIcon';
 import styles from '../Navigation.style';
-import { Screens } from '../../Screens';
+import Screens from '../../Screens';
 
 const {
   Vendors,

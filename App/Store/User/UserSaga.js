@@ -46,26 +46,26 @@ export default class UserSaga {
   }
 
   * registerForPushNotification(action) {
-    const register = action.data;
+    // const register = action.data;
 
-    let user = yield call(authenticationService.currentUser);
-    user = yield call(authenticationService.fetchUser, user.uid);
-
-    if (register) {
-      try {
-        yield call(registerForPushNotification);
-        const currentUser = yield call(authenticationService.fetchUser, user.uid);
-        yield put(userActionCreators.setUser(currentUser));
-      } catch (error) {
-        Alert.alert('Error', error.message);
-      }
-    } else {
-      try {
-        user.pushNotificationToken = undefined;
-        yield put(userActionCreators.updateUserInfo({ currentUser: user, uid: user.uid }));
-      } catch (e) {
-        Alert.alert('Error', e.message);
-      }
-    }
+    // let user = yield call(authenticationService.currentUser);
+    // user = yield call(authenticationService.fetchUser, user.uid);
+    //
+    // if (register) {
+    //   try {
+    //     yield call(registerForPushNotification);
+    //     const currentUser = yield call(authenticationService.fetchUser, user.uid);
+    //     yield put(userActionCreators.setUser(currentUser));
+    //   } catch (error) {
+    //     Alert.alert('Error', error.message);
+    //   }
+    // } else {
+    //   try {
+    //     user.pushNotificationToken = undefined;
+    //     yield put(userActionCreators.updateUserInfo({ currentUser: user, uid: user.uid }));
+    //   } catch (e) {
+    //     Alert.alert('Error', e.message);
+    //   }
+    // }
   }
 }

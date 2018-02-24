@@ -1,13 +1,19 @@
+import React from 'react';
 import { StackNavigator } from 'react-navigation';
+import { View } from 'react-native';
+import { Colors } from '../Themes/index';
 import VendorTab from './Tabs/VendorTab';
 import CustomerTab from './Tabs/CustomerTab';
-import { Screens } from '../Screens';
+import Screens from '../Screens';
 
 const {
   Login,
   SignUp,
-  Main,
 } = Screens;
+
+const Main = () => (
+  <View style={{ flex: 1, backgroundColor: Colors.white }}/>
+);
 
 // Manifest of possible screens
 export default StackNavigator({

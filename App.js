@@ -1,22 +1,45 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { Font, AppLoading } from 'expo';
 import createStore from './App/Store';
-import AppScreens from './App/Screens';
+import App from './App/index';
 
 // Export store
 export const store = createStore();
 
 // Export App
-export default class Index extends Component {
+export default class MealerApp extends Component {
   constructor() {
     super();
     // walk around for firebase timer RN warnings
     console.ignoredYellowBox = [
       'Setting a timer',
     ];
+
+    this.state = {
+      fontLoaded: false,
+    };
+  }
+
+  async componentWillMount() {
+    /* eslint-disable global-require */
+    await Font.loadAsync({
+      'proximanova-regular': require('./App/Assets/Fonts/ProximaNova-Regular.ttf'),
+      'proximanova-bold': require('./App/Assets/Fonts/ProximaNova-Bold.ttf'),
+      'Roboto_ medium': require('./App/Assets/Fonts/Roboto-Medium.ttf'),
+    });
+    /* eslint-enable global-require */
+
+    this.setState({
+      fontLoaded: true,
+    });
   }
 
   render() {
-    return <Provider store={store}><AppScreens /></Provider>;
+    if (this.state.fontLoaded) {
+      return <Provider store={store}><App/></Provider>;
+    } else {
+      return <AppLoading/>;
+    }
   }
 }

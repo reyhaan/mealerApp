@@ -13,6 +13,8 @@ import { handleReceivedNotification, clearBadgeCount } from '../../Services/push
 export default class AuthSaga {
   * initializeAppWithCurrentUser() {
     try {
+      // yield call(AsyncStorage.clear);
+
       yield put(authActionCreators.showActivityIndicator(true));
       let currentUser = yield call(authenticationService.currentUser);
 

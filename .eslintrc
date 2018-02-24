@@ -15,6 +15,7 @@
     "describe": true
   },
   "rules": {
+    "brace-style":0,
     "no-console": 0,
     "no-useless-escape": 0,
     "react/jsx-boolean-value": 0,
@@ -30,6 +31,8 @@
     "no-param-reassign": 0,
     "no-shadow": 0,
     "no-mixed-operators": 0,
+    "padded-blocks": 0,
+    "import/no-name-as-default": 0,
     "react/jsx-filename-extension": [
       1,
       {

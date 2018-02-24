@@ -1,23 +1,45 @@
 import { put, call } from 'redux-saga/effects';
 import { NavigationActions } from 'react-navigation';
 import { Alert, AsyncStorage } from 'react-native';
+import { Notifications } from 'expo';
+import { store } from '../../../App';
 import { authActionCreators } from './AuthActions';
 import { userActionCreators } from '../User/UserActions';
+import { orderActionCreators } from '../Order/OrderActions';
+import { vendorActionCreators } from '../Vendor/VendorActions';
 import authenticationService from '../../Services/authentication-service';
-import { registerForPushNotification } from '../../Services/push-notification-service';
+import { handleReceivedNotification, clearBadgeCount } from '../../Services/push-notification-service';
 
 export default class AuthSaga {
-  // Authentication effect of signing in
-  * signIn(userCredentials) {
+  * initializeAppWithCurrentUser() {
     try {
       yield put(authActionCreators.showActivityIndicator(true));
-      let user = yield call(authenticationService.signIn, userCredentials.data);
-      user = yield call(authenticationService.fetchUser, user.uid);
-      AsyncStorage.setItem('userSession', JSON.stringify(user));
-      yield put(authActionCreators.signInSuccessful(user));
-      yield put(userActionCreators.setUser(user)); //! important to update the user state
-      yield put(NavigationActions.navigate({ routeName: user.type === 'vendor' ? 'VendorTab' : 'CustomerTab' }));
-      yield call(registerForPushNotification);
+      let currentUser = yield call(authenticationService.currentUser);
+
+      if (currentUser) {
+        if (currentUser.type === 'customer') {
+          yield put(NavigationActions.navigate({ routeName: 'CustomerTab' }));
+          yield put(vendorActionCreators.fetchVendors());
+          yield put(orderActionCreators.getOrders(currentUser.uid));
+        } else if (currentUser.type === 'vendor') {
+          yield put(NavigationActions.navigate({ routeName: 'VendorTab' }));
+          yield put(vendorActionCreators.fetchVendorMenu());
+        }
+
+        currentUser = yield call(authenticationService.fetchUser, currentUser.uid);
+        yield put(userActionCreators.setUser(currentUser));
+        yield put(userActionCreators.registerForPushNotification(true));
+        yield call(clearBadgeCount);
+
+        Notifications.addListener((notification) => {
+          handleReceivedNotification(notification, store.dispatch);
+        });
+
+      } else {
+        // clear the user app state
+        yield put(userActionCreators.clearCurrentUser());
+        yield put(NavigationActions.navigate({ routeName: 'Login' }));
+      }
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
@@ -26,18 +48,13 @@ export default class AuthSaga {
   }
 
   // Authentication effect of signing in
-  * getCurrentUser() {
+  * signIn(userCredentials) {
     try {
-      const currentUser = yield call(authenticationService.currentUser);
-
-      if (currentUser) {
-        // Update the user app state
-        yield put(userActionCreators.setUser(currentUser));
-        yield put(userActionCreators.getUser(currentUser.uid));
-      } else {
-        // clear the user app state
-        yield put(userActionCreators.clearCurrentUser());
-      }
+      yield put(authActionCreators.showActivityIndicator(true));
+      let user = yield call(authenticationService.signIn, userCredentials.data);
+      user = yield call(authenticationService.fetchUser, user.uid);
+      yield put(userActionCreators.setUser(user));
+      yield put(authActionCreators.initializeAppWithCurrentUser());
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
@@ -58,12 +75,9 @@ export default class AuthSaga {
         type: userCredentials.data.type,
         agreeToTermsAndConditions: userCredentials.data.agreeToTermsAndConditions,
       };
-      AsyncStorage.setItem('userSession', JSON.stringify(user));
       yield call(authenticationService.addUser, user);
-      yield put(authActionCreators.signUpSuccessful(user));
-      yield put(userActionCreators.setUser(user)); //! important to update the user state
-      yield put(NavigationActions.navigate({ routeName: user.type === 'vendor' ? 'VendorTab' : 'CustomerTab' }));
-      yield call(registerForPushNotification);
+      yield put(userActionCreators.setUser(user));
+      yield put(authActionCreators.initializeAppWithCurrentUser());
     } catch (error) {
       Alert.alert('Error', error.message);
     } finally {
@@ -74,9 +88,8 @@ export default class AuthSaga {
   // Authentication effect of signing out
   * signOut() {
     try {
-      yield put(authActionCreators.showActivityIndicator(true));
+      yield call(AsyncStorage.clear);
       yield call(authenticationService.signOut);
-      yield call(AsyncStorage.removeItem, 'userSession');
       yield put(NavigationActions.navigate({ routeName: 'Login' }));
       yield put(userActionCreators.clearCurrentUser());
     } catch (error) {

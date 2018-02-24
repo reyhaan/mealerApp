@@ -12,7 +12,6 @@ import { Images, Colors } from '../../Themes/index';
 import { authActionCreators } from '../../Store/Auth/AuthActions';
 import { userActionCreators } from '../../Store/User/UserActions';
 import LoadingSpinner from '../../Components/LoadingSpinner';
-import authenticationService from '../../Services/authentication-service';
 import ResetPassword from './Components/ResetPassword';
 import SignUp from '../SignUp/SignUp';
 
@@ -27,30 +26,14 @@ class Login extends Component {
     };
   }
 
-  async componentDidMount() {
-    try {
-      const currentUser = await authenticationService.currentUser();
-      const { navigation } = this.props;
-      if (currentUser) {
-        this.props.getUser(currentUser.uid);
-      }
-
-      if (currentUser && currentUser.type === 'customer') {
-        navigation.navigate('CustomerTab');
-      } else if (currentUser && currentUser.type === 'vendor') {
-        navigation.navigate('VendorTab');
-      }
-    } catch (err) {
-      Alert.alert('Error', err);
-    }
-  }
-
   getUserLoginInfo = (id, e) => {
     this.setState({ userLoginInfo: Object.assign({}, this.state.userLoginInfo, { [id]: e }) });
   };
+
   toggleSignUpPage = () => {
     this.setState({ showSignUpScreen: !this.state.showSignUpScreen });
   };
+
   sendResetPasswordLink = () => {
     const errors = this.isEmailValid();
     if (errors.errorText === undefined) {

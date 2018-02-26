@@ -7,7 +7,6 @@ export const NavigationActions = {
 };
 
 /** ***************************** ACTION WATCHERS ************************************ */
-const navigationSaga = new NavigationSaga();
 export const navigationActionWatchers = [
-  takeLatest(NavigationActions.NAVIGATE, navigationSaga.updateAppState),
+  takeLatest(NavigationActions.NAVIGATE, NavigationSaga.updateAppState),
 ];

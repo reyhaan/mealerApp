@@ -9,7 +9,7 @@ const SettingsService = {};
  * @param userId: string
  * @param userInfo: object
  */
-SettingsService.updateUserInfo = async (userId, userInfo) => {
+SettingsService.updateUser = async (userId, userInfo) => {
   try {
     const userRef = db.user(userId);
     await userRef.update(userInfo);

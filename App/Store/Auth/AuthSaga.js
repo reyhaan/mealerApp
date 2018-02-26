@@ -10,7 +10,7 @@ import { vendorActionCreators } from '../Vendor/VendorActions';
 import authenticationService from '../../Services/authentication-service';
 import { handleReceivedNotification, clearBadgeCount } from '../../Services/push-notification-service';
 
-export default class AuthSaga {
+class AuthSaga {
   * initializeAppWithCurrentUser() {
     try {
       // yield call(AsyncStorage.clear);
@@ -30,6 +30,7 @@ export default class AuthSaga {
 
         currentUser = yield call(authenticationService.fetchUser, currentUser.uid);
         yield put(userActionCreators.setUser(currentUser));
+        yield call(authenticationService.saveUserToLocalStorage, currentUser);
         yield put(userActionCreators.registerForPushNotification(true));
         yield call(clearBadgeCount);
 
@@ -56,6 +57,7 @@ export default class AuthSaga {
       let user = yield call(authenticationService.signIn, userCredentials.data);
       user = yield call(authenticationService.fetchUser, user.uid);
       yield put(userActionCreators.setUser(user));
+      yield call(authenticationService.saveUserToLocalStorage, user);
       yield put(authActionCreators.initializeAppWithCurrentUser());
     } catch (error) {
       Alert.alert('Error', error.message);
@@ -78,7 +80,6 @@ export default class AuthSaga {
         agreeToTermsAndConditions: userCredentials.data.agreeToTermsAndConditions,
       };
       yield call(authenticationService.addUser, user);
-      yield put(userActionCreators.setUser(user));
       yield put(authActionCreators.initializeAppWithCurrentUser());
     } catch (error) {
       Alert.alert('Error', error.message);
@@ -118,3 +119,5 @@ export default class AuthSaga {
     }
   }
 }
+
+export default new AuthSaga();

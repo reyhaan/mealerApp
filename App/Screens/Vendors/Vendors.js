@@ -26,11 +26,6 @@ class Vendors extends Component {
     };
   }
 
-  componentDidMount = () => {
-    const { props } = this;
-    props.vendorActions.fetchVendors();
-  };
-
   componentWillReceiveProps() {
     const { props } = this;
     const currentScreen = props.navState.routes[props.navState.index];

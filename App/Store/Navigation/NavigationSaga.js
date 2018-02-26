@@ -7,7 +7,7 @@ import authenticationService from '../../Services/authentication-service';
 import Constants from '../../Constants/Constants';
 
 
-export default class NavigationEffects {
+class NavigationSaga {
   * updateAppState(data) {
     const { routeName } = data;
 
@@ -65,3 +65,5 @@ export default class NavigationEffects {
     }
   }
 }
+
+export default new NavigationSaga();

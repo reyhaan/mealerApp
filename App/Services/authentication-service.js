@@ -50,13 +50,14 @@ authenticationService.fetchUser = id => new Promise((resolve, reject) => {
 });
 
 // Get the current signed in user information
-authenticationService.currentUser = () => new Promise((resolve, reject) => {
-  AsyncStorage.getItem('userSession').then((value) => {
-    resolve(JSON.parse(value));
-  }).catch((error) => {
-    reject(error);
-  });
-});
+authenticationService.currentUser = async () => {
+  try {
+    const user = await AsyncStorage.getItem('userSession');
+    return JSON.parse(user);
+  } catch (error) {
+    return error;
+  }
+};
 
 authenticationService.fetchUserByEmail = async (email) => {
   try {
@@ -80,6 +81,23 @@ authenticationService.fetchUserByEmail = async (email) => {
     return { error: 'No registered user with this email address' };
   } catch (error) {
     return { error: 'An error occured while sending email' };
+  }
+};
+
+authenticationService.saveUserToLocalStorage = async (user) => {
+
+
+  ///////
+
+
+
+  try {
+    await AsyncStorage.removeItem('userSession');
+    await AsyncStorage.setItem('userSession', JSON.stringify(user));
+    return user;
+  }
+  catch (error) {
+    return error;
   }
 };
 

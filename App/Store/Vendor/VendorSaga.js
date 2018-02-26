@@ -11,7 +11,7 @@ import Constants from '../../Services/constants-service';
 import { vendorActionCreators } from './VendorActions';
 import { requestActionCreators } from '../Request/RequestActions';
 
-export default class VendorSaga {
+class VendorSaga {
   * fetchVendorMenu() {
     try {
       yield put(requestActionCreators.showLoadingSpinner(true));
@@ -136,3 +136,5 @@ export default class VendorSaga {
     }
   }
 }
+
+export default new VendorSaga();

@@ -9,6 +9,7 @@ import Screens from '../Screens';
 const {
   Login,
   SignUp,
+  InfoTab
 } = Screens;
 
 const Main = () => (

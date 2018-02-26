@@ -5,7 +5,7 @@ import cartService from '../../Services/cart-service';
 import { cartActionCreators } from './CartActions';
 import { requestActionCreators } from '../Request/RequestActions';
 
-export default class CartSaga {
+class CartSaga {
   * addToCart(item) {
     try {
       const { data } = item;
@@ -60,3 +60,5 @@ export default class CartSaga {
     }
   }
 }
+
+export default new CartSaga();

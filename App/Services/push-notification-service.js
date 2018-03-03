@@ -7,6 +7,8 @@ import { vendorActionCreators } from '../Store/Vendor/VendorActions';
 import { orderActionCreators } from '../Store/Order/OrderActions';
 
 export const registerForPushNotification = async () => {
+  // return "test push";
+
   const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
   let finalStatus = existingStatus;
 
@@ -51,7 +53,7 @@ export const sendPush = async (data) => {
 
 export const unregister = async (user) => {
   try {
-    await db.user(user.uid).child("pushNotificationToken").remove();
+    await db.user(user.uid).child('pushNotificationToken').remove();
   } catch (error) {
     Alert.alert('Error', error);
   }

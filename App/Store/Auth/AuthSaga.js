@@ -16,9 +16,14 @@ class AuthSaga {
       // yield call(AsyncStorage.clear);
 
       yield put(authActionCreators.showActivityIndicator(true));
-      let currentUser = yield call(authenticationService.currentUser);
 
-      if (currentUser) {
+      let currentUser = {};
+      currentUser.uid = yield call(authenticationService.currentUser);
+
+      if (currentUser.uid) {
+        currentUser = yield call(authenticationService.fetchUser, currentUser.uid);
+        yield put(userActionCreators.setUser(currentUser));
+
         if (currentUser.type === 'customer') {
           yield put(NavigationActions.navigate({ routeName: 'CustomerTab' }));
           yield put(vendorActionCreators.fetchVendors());
@@ -28,18 +33,16 @@ class AuthSaga {
           yield put(vendorActionCreators.fetchVendorMenu());
         }
 
-        currentUser = yield call(authenticationService.fetchUser, currentUser.uid);
-        yield put(userActionCreators.setUser(currentUser));
-        yield call(authenticationService.saveUserToLocalStorage, currentUser);
+
         yield put(userActionCreators.registerForPushNotification(true));
         yield call(clearBadgeCount);
 
         Notifications.addListener((notification) => {
           handleReceivedNotification(notification, store.dispatch);
         });
-
       } else {
         // clear the user app state
+        yield call(AsyncStorage.clear);
         yield put(userActionCreators.clearCurrentUser());
         yield put(NavigationActions.navigate({ routeName: 'Login' }));
       }
@@ -54,10 +57,8 @@ class AuthSaga {
   * signIn(userCredentials) {
     try {
       yield put(authActionCreators.showActivityIndicator(true));
-      let user = yield call(authenticationService.signIn, userCredentials.data);
-      user = yield call(authenticationService.fetchUser, user.uid);
-      yield put(userActionCreators.setUser(user));
-      yield call(authenticationService.saveUserToLocalStorage, user);
+      const user = yield call(authenticationService.signIn, userCredentials.data);
+      yield call(authenticationService.saveUserToLocalStorage, user.uid);
       yield put(authActionCreators.initializeAppWithCurrentUser());
     } catch (error) {
       Alert.alert('Error', error.message);
@@ -80,6 +81,7 @@ class AuthSaga {
         agreeToTermsAndConditions: userCredentials.data.agreeToTermsAndConditions,
       };
       yield call(authenticationService.addUser, user);
+      yield call(authenticationService.saveUserToLocalStorage, user.uid);
       yield put(authActionCreators.initializeAppWithCurrentUser());
     } catch (error) {
       Alert.alert('Error', error.message);

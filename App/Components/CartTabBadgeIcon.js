@@ -36,7 +36,7 @@ class BadgeIcon extends PureComponent {
             <Icon
               name="shopping-cart"
               size={20}
-              color={Colors.background}
+              color={this.props.tintColor}
             />
           </View>}
         BadgeElement={
@@ -51,13 +51,12 @@ class BadgeIcon extends PureComponent {
           width: 50,
           height: 50,
           borderRadius: 20,
-          backgroundColor: Colors.background,
         }}
         IconBadgeStyle={{
           top: 7,
           right: 0,
           marginTop: 5.5,
-          backgroundColor: Colors.background,
+          backgroundColor: totalItemCount > 0 ? Colors.background : this.props.tintColor,
         }}
         Hidden={false}
       />

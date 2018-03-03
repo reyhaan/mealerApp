@@ -51,17 +51,30 @@ authenticationService.fetchUser = id => new Promise((resolve, reject) => {
 
 // Get the current signed in user information
 authenticationService.currentUser = async () => {
-  try {
-    const user = await AsyncStorage.getItem('userSession');
-    return JSON.parse(user);
-  } catch (error) {
+  return AsyncStorage.getItem('userSession').then((userId) => {
+    return userId;
+  }).catch((error) => {
     return error;
+  });
+};
+
+authenticationService.updateUser = async (userId, userInfo) => {
+  try {
+    const userRef = db.user(userId);
+    await userRef.update(userInfo);
+    /*
+    const userSnapshot = await userRef.once('value');
+    const updatedUser = { uid: userSnapshot.key, ...userSnapshot.val() };
+    */
+    return userInfo;
+  } catch (error) {
+    return { error };
   }
 };
 
 authenticationService.fetchUserByEmail = async (email) => {
   try {
-    const snapshot = await db.user().orderByChild('email').equalTo(email).once('value');
+    const snapshot = await db.users().orderByChild('email').equalTo(email).once('value');
     if (snapshot.val()) {
       const actionCodeSettings = {
         url: `https://mealer-app.firebaseapp.com/?email=${email}`,
@@ -84,21 +97,11 @@ authenticationService.fetchUserByEmail = async (email) => {
   }
 };
 
-authenticationService.saveUserToLocalStorage = async (user) => {
+authenticationService.saveUserToLocalStorage = async (userId) => {
+  return AsyncStorage.removeItem('userSession').then(() => {
+    return AsyncStorage.setItem('userSession', userId);
+  }).then(() => userId).catch(error => error);
 
-
-  ///////
-
-
-
-  try {
-    await AsyncStorage.removeItem('userSession');
-    await AsyncStorage.setItem('userSession', JSON.stringify(user));
-    return user;
-  }
-  catch (error) {
-    return error;
-  }
 };
 
 export default authenticationService;

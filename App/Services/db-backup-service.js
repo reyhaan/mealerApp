@@ -5,7 +5,7 @@ const dbString = '{"menus":{"12j3VND2oXZBhMG9Y14ytB5YY3y1":{"-L0-aJz13Rf7ZmIcWXc
 const backupDB = {};
 
 backupDB.writeUsers = async () => {
-  await db.user().set({
+  await db.users().set({
     '12j3VND2oXZBhMG9Y14ytB5YY3y1': {
       email: 'vendor@mealer.com',
       name: 'vendor',

@@ -7,10 +7,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case userActions.SET_USER:
-
-      console.log('Reducer');
-      console.log(action.data);
-
       return Object.assign({}, state, {
         currentUser: action.data,
       });

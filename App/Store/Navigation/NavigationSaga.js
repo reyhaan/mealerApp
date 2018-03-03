@@ -5,13 +5,12 @@ import { cartActionCreators } from '../Cart/CartActions';
 import { vendorActionCreators } from '../Vendor/VendorActions';
 import authenticationService from '../../Services/authentication-service';
 import Constants from '../../Constants/Constants';
-
+import { store } from '../../../App';
 
 class NavigationSaga {
   * updateAppState(data) {
     const { routeName } = data;
-
-    let currentUser = yield call(authenticationService.currentUser);
+    let currentUser = Object.assign({}, store.getState().user.currentUser);
 
     // Merchant user fetch merchants menu
     if (routeName === 'One' && currentUser.type === Constants.userType.vendor) {

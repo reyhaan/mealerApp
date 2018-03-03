@@ -44,9 +44,11 @@ database.ordersList = (id) => {
 
 // user reference
 database.user = (id) => {
-  if (id) {
-    return firebase.database().ref('users').child(id);
-  }
+  return firebase.database().ref('users').child(id);
+};
+
+// users reference
+database.users = () => {
   return firebase.database().ref('users');
 };
 

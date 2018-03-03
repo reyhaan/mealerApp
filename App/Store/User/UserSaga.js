@@ -1,6 +1,5 @@
 import { call, put } from 'redux-saga/effects';
 import { Alert } from 'react-native';
-import SettingsService from '../../Services/settings-service';
 import { userActionCreators } from './UserActions';
 import authenticationService from '../../Services/authentication-service';
 import { registerForPushNotification, unregister } from '../../Services/push-notification-service';
@@ -19,23 +18,10 @@ class UserSaga {
       if (currentUser && currentUser.base64Img) {
         delete currentUser.base64Img;
       }
-
-      const updatedUserInfo = yield call(SettingsService.updateUser, uid, currentUser);
-      yield call(authenticationService.saveUserToLocalStorage, updatedUserInfo);
+      yield call(authenticationService.updateUser, uid, currentUser);
+      const userId = yield call(authenticationService.currentUser);
+      const updatedUserInfo = yield call(authenticationService.fetchUser, userId);
       yield put(userActionCreators.setUser(updatedUserInfo));
-    } catch (error) {
-      Alert.alert('Error', error.message);
-    }
-  }
-
-  * setUser(action) {
-    try {
-      const user = action.data;
-
-      console.log('Saga');
-      console.log(user);
-
-      yield call(authenticationService.saveUserToLocalStorage, user);
     } catch (error) {
       Alert.alert('Error', error.message);
     }

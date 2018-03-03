@@ -32,6 +32,7 @@
     "no-shadow": 0,
     "no-mixed-operators": 0,
     "padded-blocks": 0,
+    "arrow-body-style": 0,
     "import/no-name-as-default": 0,
     "react/jsx-filename-extension": [
       1,

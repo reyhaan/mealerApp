@@ -8,14 +8,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case authActions.signInSuccessful:
-      return Object.assign({}, state, {
-        currentUser: action.data,
-      });
-    case authActions.signUpSuccessful:
-      return Object.assign({}, state, {
-        currentUser: action.data,
-      });
     case authActions.showActivityIndicator:
       return Object.assign({}, state, {
         showActivityIndicator: action.data,

@@ -10,7 +10,7 @@ const vendor = {};
 vendor.fetchVendors = async () => {
   try {
     const cooks = [];
-    const snapshot = await db.user().orderByChild('type').equalTo('vendor').once('value');
+    const snapshot = await db.users().orderByChild('type').equalTo('vendor').once('value');
     snapshot.forEach((childSnapshot) => {
       const id = childSnapshot.key;
       const { key } = childSnapshot;

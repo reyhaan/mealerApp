@@ -1,12 +1,14 @@
 import { Permissions, Notifications } from 'expo';
 import { Alert, Platform } from 'react-native';
 import axios from 'axios';
-import settingsService from './settings-service';
+import db from '../Config/database';
 import authService from './authentication-service';
 import { vendorActionCreators } from '../Store/Vendor/VendorActions';
 import { orderActionCreators } from '../Store/Order/OrderActions';
 
 export const registerForPushNotification = async () => {
+  // return "test push";
+
   const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
   let finalStatus = existingStatus;
 
@@ -24,14 +26,11 @@ export const registerForPushNotification = async () => {
     return;
   }
 
+  /* eslint-disable consistent-return */
   // Get the token that uniquely identifies this device
   const token = await Notifications.getExpoPushTokenAsync();
-
-  if (token) {
-    const currentUser = await authService.currentUser();
-    currentUser.pushNotificationToken = token;
-    await settingsService.updateUserInfo(currentUser.uid, currentUser);
-  }
+  return token;
+  /* eslint-enable global-require */
 };
 
 export const sendPush = async (data) => {
@@ -49,6 +48,14 @@ export const sendPush = async (data) => {
   } catch (error) {
     console.log(error.response.data);
     Alert.alert('Error', error.response.data);
+  }
+};
+
+export const unregister = async (user) => {
+  try {
+    await db.user(user.uid).child('pushNotificationToken').remove();
+  } catch (error) {
+    Alert.alert('Error', error);
   }
 };
 

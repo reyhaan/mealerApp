@@ -4,7 +4,7 @@ import orderService from '../../Services/order-service';
 import { orderActionCreators } from './OrderActions';
 import { vendorActionCreators } from '../Vendor/VendorActions';
 
-export default class orderEffects {
+class OrderSaga {
   * getOrders(data) {
     try {
       const userId = data.data;
@@ -33,3 +33,5 @@ export default class orderEffects {
     }
   }
 }
+
+export default new OrderSaga();

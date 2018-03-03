@@ -37,7 +37,6 @@ class UserAccount extends Component {
     const { user } = this.props;
     const { currentUser } = user;
     if (currentUser) {
-      this.props.userActions.getUser(currentUser.uid);
       this.setState({
         currentUser: {
           name: currentUser.name || '',
@@ -96,11 +95,10 @@ class UserAccount extends Component {
         existingUser.email !== newEmail ||
         existingUser.phone !== newPhone;
       if (conditionToUpdateUser) {
-        this.props.userActions.updateUserInfo({
+        this.props.userActions.updateUser({
           uid: this.props.user.currentUser.uid,
           currentUser: this.state.currentUser,
         });
-        this.props.userActions.getUser(this.props.user.currentUser.uid);
         this.displayToast('Successfully Updated ');
       } else {
         this.displayToast('Nothing to update');

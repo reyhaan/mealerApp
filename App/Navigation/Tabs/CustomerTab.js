@@ -2,9 +2,10 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import tabNavigatorConfig from './TabConfig';
-import CartTabBadgeIcon from '../../Components/CartTabBadgeIcon';
+import TabBadgeIcon from '../../Components/TabBadgeIcon';
 import styles from '../Navigation.style';
 import Screens from '../../Screens';
+import Constants from '../../Services/constants-service';
 
 const {
   Vendors,
@@ -51,7 +52,7 @@ const Root = TabNavigator(
       navigationOptions: () => ({
         gesturesEnabled: false,
         tabBarIcon: ({ tintColor }) => (
-          <CartTabBadgeIcon tintColor={tintColor}/>
+          <TabBadgeIcon userType={Constants.userTypes.customer} tintColor={tintColor}/>
         ),
         title: 'Cart',
       }),

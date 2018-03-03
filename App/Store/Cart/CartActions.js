@@ -31,11 +31,10 @@ export const cartActionCreators = {
 };
 
 /** ***************************** ACTION WATCHERS ************************************ */
-const cartSaga = new CartSaga();
 export const cartActionWatchers = [
-  takeLatest(cartActions.ADD_TO_CART, cartSaga.addToCart),
-  takeLatest(cartActions.REMOVE_FROM_CART, cartSaga.removeItemFromCart),
-  takeLatest(cartActions.UPDATE_ITEM_COUNT, cartSaga.updateItemCount),
-  takeLatest(cartActions.DO_CHECKOUT, cartSaga.checkout),
-  takeLatest(cartActions.GET_USER_CART, cartSaga.getUserCart),
+  takeLatest(cartActions.ADD_TO_CART, CartSaga.addToCart),
+  takeLatest(cartActions.REMOVE_FROM_CART, CartSaga.removeItemFromCart),
+  takeLatest(cartActions.UPDATE_ITEM_COUNT, CartSaga.updateItemCount),
+  takeLatest(cartActions.DO_CHECKOUT, CartSaga.checkout),
+  takeLatest(cartActions.GET_USER_CART, CartSaga.getUserCart),
 ];

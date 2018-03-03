@@ -6,11 +6,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case userActions.UPDATE_USER_INFO:
-      return Object.assign({}, state, {
-        currentUser: action.data,
-      });
-    case userActions.SET_CURRENT_USER:
+    case userActions.SET_USER:
       return Object.assign({}, state, {
         currentUser: action.data,
       });

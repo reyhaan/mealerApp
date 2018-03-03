@@ -50,17 +50,31 @@ authenticationService.fetchUser = id => new Promise((resolve, reject) => {
 });
 
 // Get the current signed in user information
-authenticationService.currentUser = () => new Promise((resolve, reject) => {
-  AsyncStorage.getItem('userSession').then((value) => {
-    resolve(JSON.parse(value));
+authenticationService.currentUser = async () => {
+  return AsyncStorage.getItem('userSession').then((userId) => {
+    return userId;
   }).catch((error) => {
-    reject(error);
+    return error;
   });
-});
+};
+
+authenticationService.updateUser = async (userId, userInfo) => {
+  try {
+    const userRef = db.user(userId);
+    await userRef.update(userInfo);
+    /*
+    const userSnapshot = await userRef.once('value');
+    const updatedUser = { uid: userSnapshot.key, ...userSnapshot.val() };
+    */
+    return userInfo;
+  } catch (error) {
+    return { error };
+  }
+};
 
 authenticationService.fetchUserByEmail = async (email) => {
   try {
-    const snapshot = await db.user().orderByChild('email').equalTo(email).once('value');
+    const snapshot = await db.users().orderByChild('email').equalTo(email).once('value');
     if (snapshot.val()) {
       const actionCodeSettings = {
         url: `https://mealer-app.firebaseapp.com/?email=${email}`,
@@ -81,6 +95,13 @@ authenticationService.fetchUserByEmail = async (email) => {
   } catch (error) {
     return { error: 'An error occured while sending email' };
   }
+};
+
+authenticationService.saveUserToLocalStorage = async (userId) => {
+  return AsyncStorage.removeItem('userSession').then(() => {
+    return AsyncStorage.setItem('userSession', userId);
+  }).then(() => userId).catch(error => error);
+
 };
 
 export default authenticationService;

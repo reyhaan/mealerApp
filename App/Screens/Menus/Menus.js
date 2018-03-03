@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, FlatList, Image, Platform } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Col, Grid } from 'react-native-easy-grid';
 import { bindActionCreators } from 'redux';
-import { Header, Left, Body, Right, Button, Title } from 'native-base';
+import { Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import style from './Menus.style';
+import ScreenHeader from '../../Components/ScreenHeader';
 import { Colors } from '../../Themes/index';
 import { vendorActionCreators } from '../../Store/Vendor/VendorActions';
 
@@ -52,6 +53,15 @@ class MenuTab extends Component {
     );
   };
 
+  headerRightComponent = () => {
+    return (
+      <Button transparent onPress={() => this.addMenuItem()}>
+        <Icon name="plus" size={20} color={Colors.background}/>
+        <Text style={{ marginLeft: 5, color: Colors.background }}>Add</Text>
+      </Button>
+    );
+  };
+
   render() {
     // Add key to the list of Menus
     let menus = [];
@@ -64,27 +74,7 @@ class MenuTab extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <Header
-          iosBarStyle="dark-content"
-          style={{ backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}
-        >
-          {Platform.OS === 'ios' && <Left/>}
-          <Body>
-            <Title style={{
-              color: Colors.background,
-              marginTop: Platform.OS === 'android' ? 110 : 0,
-            }}
-            >Menu
-            </Title>
-          </Body>
-          <Right>
-            <Button transparent onPress={() => this.addMenuItem()}>
-              <Icon name="plus" size={20} color={Colors.background}/>
-              <Text style={{ marginLeft: 5, color: Colors.background }}>Add</Text>
-            </Button>
-          </Right>
-        </Header>
-
+        <ScreenHeader title="Menus" rightComponent={this.headerRightComponent} />
         <FlatList
           style={{ backgroundColor: style.white }}
           data={menus}

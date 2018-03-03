@@ -5,7 +5,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { NavigationActions } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SnackBar from 'react-native-snackbar-component';
-import { Header, Left, Body, Right, Button, Title } from 'native-base';
+import { Button } from 'native-base';
 import {
   Text,
   View,
@@ -14,7 +14,6 @@ import {
   Image,
   ScrollView,
   TouchableWithoutFeedback,
-  Platform,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import VendorEmail from './Components/VendorEmail';
@@ -27,6 +26,7 @@ import { Colors } from '../../Themes/index';
 import { vendorActionCreators } from '../../Store/Vendor/VendorActions';
 import { cartActionCreators } from '../../Store/Cart/CartActions';
 import LoadingSpinner from '../../Components/LoadingSpinner';
+import ScreenHeader from '../../Components/ScreenHeader';
 
 class Vendor extends Component {
   constructor(props) {
@@ -87,6 +87,14 @@ class Vendor extends Component {
     this.setState({
       showSelectedItem: false,
     });
+  };
+
+  headerLeftComponent = () => {
+    return (
+      <Button transparent onPress={() => this.navigateBack()}>
+        <Icon name="chevron-left" size={20} color={Colors.background} />
+      </Button>
+    );
   };
 
   _renderChefDetails = () => {
@@ -197,25 +205,7 @@ class Vendor extends Component {
     const { props } = this;
     return (
       <Col>
-        <Header
-          iosBarStyle="dark-content"
-          style={{ backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}
-        >
-          <Left style={{ marginTop: Platform.OS === 'android' ? 110 : 0 }} >
-            <Button transparent onPress={() => this.navigateBack()}>
-              <Icon name="chevron-left" size={20} color={Colors.background} />
-            </Button>
-          </Left>
-          <Body>
-            <Title style={{
-            color: Colors.background,
-            marginTop: Platform.OS === 'android' ? 110 : 0,
-          }}
-            >{props.vendor.selectedVendor.name}
-            </Title>
-          </Body>
-          <Right />
-        </Header>
+        <ScreenHeader title={props.vendor.selectedVendor.name} leftComponent={this.headerLeftComponent} />
 
         <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
 

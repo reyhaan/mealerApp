@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Alert, Platform } from 'react-native';
+import { ScrollView, View, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Header, Body, Title } from 'native-base';
 import { List, ListItem } from 'react-native-elements';
 import SettingsTabStyle from './Account.style';
 import { Colors } from '../../Themes/index';
 import { authActionCreators } from '../../Store/Auth/AuthActions';
 import { userActionCreators } from '../../Store/User/UserActions';
+import ScreenHeader from '../../Components/ScreenHeader';
 
 const styles = SettingsTabStyle;
 
@@ -40,20 +40,7 @@ class Settings extends Component {
 
     return (
       <View style={styles.container}>
-        <Header
-          iosBarStyle="dark-content"
-          style={{ backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}
-        >
-          <Body>
-            <Title style={{
-              color: Colors.background,
-              marginTop: Platform.OS === 'android' ? 110 : 0,
-            }}
-            >Account
-            </Title>
-          </Body>
-        </Header>
-
+        <ScreenHeader title="Account" />
         <ScrollView style={styles.scrollContainer}>
           <List wrapperStyle={styles.listWrapper} containerStyle={styles.listContainer}>
             <ListItem

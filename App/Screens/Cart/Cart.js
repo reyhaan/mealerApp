@@ -6,17 +6,17 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  Platform,
   Alert,
 } from 'react-native';
 import { Row } from 'react-native-easy-grid';
 import { bindActionCreators } from 'redux';
-import { Header, Body, Button, Title } from 'native-base';
+import { Button } from 'native-base';
 import styles from './Cart.style';
 import CustomerCartScreen from './Components/CustomerCartScreen';
 import { Colors, Images } from '../../Themes/index';
 import { cartActionCreators } from '../../Store/Cart/CartActions';
 import LoadingSpinner from '../../Components/LoadingSpinner';
+import ScreenHeader from '../../Components/ScreenHeader';
 
 class MerchantOrders extends Component {
   componentDidMount = () => {
@@ -98,19 +98,8 @@ class MerchantOrders extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header
-          iosBarStyle="dark-content"
-          style={{ backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}
-        >
-          <Body>
-            <Title style={{
-              color: Colors.background,
-              marginTop: Platform.OS === 'android' ? 110 : 0,
-            }}
-            >Cart
-            </Title>
-          </Body>
-        </Header>
+
+        <ScreenHeader title="Cart"/>
 
         <ScrollView>
           <LoadingSpinner show={this.props.request && this.props.request.showLoadingSpinner} />

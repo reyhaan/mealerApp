@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SnackBar from 'react-native-snackbar-component';
 import { TextInputMask } from 'react-native-masked-text';
-import { ScrollView, View, KeyboardAvoidingView, Text, Platform, Alert } from 'react-native';
-import { Header, Left, Body, Right, Button, Title, Form, Item, Input, Label } from 'native-base';
+import { ScrollView, View, KeyboardAvoidingView, Text, Alert } from 'react-native';
+import { Button, Form, Item, Input, Label } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { NavigationActions } from 'react-navigation';
@@ -12,6 +12,7 @@ import UserInfoChangeScreenStyle from './UserAccount.style';
 import { Colors, Fonts, Metrics, Images } from '../../Themes/index';
 import { userActionCreators } from '../../Store/User/UserActions';
 import UserAvatar from '../../Components/UserAvatar';
+import ScreenHeader from '../../Components/ScreenHeader';
 
 const styles = UserInfoChangeScreenStyle;
 
@@ -106,29 +107,19 @@ class UserAccount extends Component {
     }
   };
 
+  headerLeftComponent = () => {
+    return (
+      <Button transparent onPress={() => this.navigateBack()}>
+        <Icon name="chevron-left" size={20} color={Colors.background} />
+      </Button>
+    );
+  };
+
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <View style={styles.container}>
-          <Header
-            iosBarStyle="dark-content"
-            style={{ backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}
-          >
-            <Left style={{ marginTop: Platform.OS === 'android' ? 110 : 0 }}>
-              <Button transparent onPress={() => this.navigateBack()}>
-                <Icon name="chevron-left" size={20} color={Colors.background} />
-              </Button>
-            </Left>
-            <Body>
-              <Title
-                style={{ color: Colors.background, marginTop: Platform.OS === 'android' ? 110 : 0 }}
-              >
-                Account
-              </Title>
-            </Body>
-            {Platform.OS === 'ios' && <Right />}
-          </Header>
-
+          <ScreenHeader title="Account" leftComponent={this.headerLeftComponent} />
           <ScrollView>
             <Grid>
               <Row size={1} style={{ backgroundColor: Colors.cloud }}>

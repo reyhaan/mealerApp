@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { bindActionCreators } from 'redux';
-import { Tab, Tabs, ScrollableTab, Header, Left, Body, Right, Button, Title } from 'native-base';
+import { Tab, Tabs, ScrollableTab, Button } from 'native-base';
 import { connect } from 'react-redux';
 import OrdersTabStyle from './VendorOrders.style';
 import CustomerOrderDetails from './Components/CustomerOrderDetails';
@@ -16,6 +16,7 @@ import { vendorActionCreators } from '../../Store/Vendor/VendorActions';
 import constants from '../../Services/constants-service';
 import { clearBadgeCount } from '../../Services/push-notification-service';
 import LoadingSpinner from '../../Components/LoadingSpinner';
+import ScreenHeader from '../../Components/ScreenHeader';
 
 // Styles
 const styles = OrdersTabStyle;
@@ -59,6 +60,18 @@ class Cart extends Component {
       default:
         return 0;
     }
+  };
+
+  headerRightComponent = () => {
+    return (
+      <Button
+        transparent
+        onPress={this.getVendorOrders}
+        style={{ marginTop: Platform.OS === 'android' ? 110 : 0 }}
+      >
+        <Icon name="refresh" size={20} color={Colors.background}/>
+      </Button>
+    );
   };
 
   renderNewOrders = () => {
@@ -188,30 +201,7 @@ class Cart extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header
-          iosBarStyle="dark-content"
-          style={{ backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}
-        >
-          {Platform.OS === 'ios' && <Left/>}
-          <Body>
-            <Title style={{
-              color: Colors.background,
-              marginTop: Platform.OS === 'android' ? 110 : 0,
-            }}
-            >Orders
-            </Title>
-          </Body>
-          <Right>
-            <Button
-              transparent
-              onPress={this.getVendorOrders}
-              style={{ marginTop: Platform.OS === 'android' ? 110 : 0 }}
-            >
-              <Icon name="refresh" size={20} color={Colors.background}/>
-            </Button>
-          </Right>
-        </Header>
-
+        <ScreenHeader title="Orders" rightComponent={this.headerRightComponent} />
         <Tabs
           initialPage={0}
           tabBarUnderlineStyle={{ backgroundColor: Colors.background }}

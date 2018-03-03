@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { ScrollView, View, Platform, KeyboardAvoidingView, Text, Alert } from 'react-native';
+import { ScrollView, View, KeyboardAvoidingView, Text, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { ImagePicker } from 'expo';
 import SnackBar from 'react-native-snackbar-component';
 import { NavigationActions } from 'react-navigation';
 import { Col, Row } from 'react-native-easy-grid';
 import { bindActionCreators } from 'redux';
-import { Header, Left, Right, Button, Form, Item, Input, Label } from 'native-base';
+import { Button, Form, Item, Input, Label } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './MenuForm.style';
 import Avatar from '../../Components/Avatar';
 import { Colors, Fonts, Metrics, Images } from '../../Themes/index';
 import { vendorActionCreators } from '../../Store/Vendor/VendorActions';
+import ScreenHeader from '../../Components/ScreenHeader';
 
 const mapStateToProps = () => ({});
 
@@ -148,6 +149,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(class MenuForm exten
     }
   };
 
+  headerLeftComponent = () => {
+    return (
+      <Button transparent onPress={() => this.navigateBack()}>
+        <Icon name="chevron-left" size={20} color={Colors.background} />
+      </Button>
+    );
+  };
+
   render() {
     // Set the item image or show a placeholder
     const image = this.state.itemImage ?
@@ -156,18 +165,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(class MenuForm exten
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <ScrollView style={styles.container}>
-          <Header
-            iosBarStyle="dark-content"
-            style={{ backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}
-          >
-            <Left style={{ marginTop: Platform.OS === 'android' ? 110 : 0 }}>
-              <Button transparent onPress={() => this.navigateBack()}>
-                <Icon name="chevron-left" size={20} color={Colors.background} />
-              </Button>
-            </Left>
-            <Right />
-          </Header>
-
+          <ScreenHeader leftComponent={this.headerLeftComponent} />
           <View style={styles.formContainer}>
             <SnackBar
               visible={this.state.showToast}

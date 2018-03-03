@@ -4,10 +4,8 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  Platform,
 } from 'react-native';
 import { Avatar, Rating } from 'react-native-elements';
-import { Header, Body, Title } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,6 +13,7 @@ import CooksTabStyle from './Vendors.style';
 import LoadingSpinner from '../../Components/LoadingSpinner';
 import { Colors } from '../../Themes/index';
 import { vendorActionCreators } from '../../Store/Vendor/VendorActions';
+import ScreenHeader from '../../Components/ScreenHeader';
 
 const styles = CooksTabStyle;
 
@@ -109,17 +108,7 @@ class Vendors extends Component {
 
       return (
         <View style={styles.container}>
-          <Header iosBarStyle="dark-content" style={{ backgroundColor: Colors.snow, paddingBottom: Platform.OS === 'android' ? 80 : 0 }}>
-            <Body>
-              <Title style={{
-                        color: Colors.background,
-                        marginTop: Platform.OS === 'android' ? 110 : 0,
-                    }}
-              >Vendors
-              </Title>
-            </Body>
-          </Header>
-
+          <ScreenHeader title="Vendors" />
           <LoadingSpinner show={props.request && props.request.showLoadingSpinner && this.state.currentScreen.routName === 'CustomerTab'} />
 
           <FlatList

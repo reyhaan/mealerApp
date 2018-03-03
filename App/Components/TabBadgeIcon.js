@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import IconBadge from 'react-native-icon-badge';
 import { View, Text } from 'react-native';
 import { Colors } from '../Themes/index';
+import Constants from '../Services/constants-service';
 
 
 const mapDispatchToProps = dispatch => ({
@@ -12,14 +13,22 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   cart: state.cart,
+  vendor: state.vendor,
 });
 
 class BadgeIcon extends PureComponent {
   render() {
     let totalItemCount = 0;
-    if (this.props.cart.cart && this.props.cart.cart.totalItemCount) {
-      // eslint-disable-next-line prefer-destructuring
-      totalItemCount = this.props.cart.cart.totalItemCount;
+    if (this.props.userType === Constants.userTypes.vendor) {
+      if (this.props.vendor.newVendorOrders && this.props.vendor.newVendorOrders.length) {
+        // eslint-disable-next-line prefer-destructuring
+        totalItemCount = this.props.vendor.newVendorOrders.length;
+      }
+    } else if (this.props.userType === Constants.userTypes.customer) {
+      if (this.props.cart.cart && this.props.cart.cart.totalItemCount) {
+        // eslint-disable-next-line prefer-destructuring
+        totalItemCount = this.props.cart.cart.totalItemCount;
+      }
     }
 
     return (

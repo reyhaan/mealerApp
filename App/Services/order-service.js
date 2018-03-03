@@ -4,6 +4,7 @@ import db from '../Config/database';
 import authenticationService from './authentication-service';
 import cartService from './cart-service';
 import { sendPush } from '../Services/push-notification-service';
+import { store } from '../../App';
 
 const orderService = {};
 
@@ -13,8 +14,7 @@ const orderService = {};
 orderService.createCustomerOrder = async () => {
   try {
     const cart = await cartService.getCart();
-    const user = await authenticationService.currentUser();
-
+    const user = Object.assign({}, store.getState().user.currentUser);
     const customerOrder = {};
     customerOrder.customerId = user.uid;
     customerOrder.timeStamp = db.firebase.database.ServerValue.TIMESTAMP;

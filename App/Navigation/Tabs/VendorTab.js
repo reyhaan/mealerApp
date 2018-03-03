@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../Navigation.style';
 import tabNavigatorConfig from './TabConfig';
 import Screens from '../../Screens';
+import TabBadgeIcon from '../../Components/TabBadgeIcon';
+import Constants from '../../Services/constants-service';
 
 const {
   VendorOrders,
@@ -46,7 +48,7 @@ const Root = TabNavigator({
       gesturesEnabled: false,
       tabBarLabel: 'Orders',
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="shopping-cart" size={20} color={tintColor} />
+        <TabBadgeIcon userType={Constants.userTypes.vendor} tintColor={tintColor}/>
       ),
     },
   },

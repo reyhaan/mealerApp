@@ -1,13 +1,13 @@
 import { AsyncStorage } from 'react-native';
 import _ from 'lodash';
 import db from '../Config/database';
-import authenticationService from './authentication-service';
+import { store } from '../../App';
 
 const cartService = {};
 
 cartService.getCart = async () => {
   try {
-    const currentUser = await authenticationService.currentUser();
+    const currentUser = Object.assign({}, store.getState().user.currentUser);
     if (currentUser && currentUser.type === 'customer') {
       const storedCart = await AsyncStorage.getItem('cart');
       let cart = JSON.parse(storedCart);

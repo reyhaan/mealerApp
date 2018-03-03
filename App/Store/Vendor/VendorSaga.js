@@ -5,17 +5,17 @@ import { NavigationActions } from 'react-navigation';
 import menuService from '../../Services/menu-service';
 import vendorService from '../../Services/vendor-service';
 import orderService from '../../Services/order-service';
-import authentication from '../../Services/authentication-service';
 import imgService from '../../Services/image-service';
 import Constants from '../../Services/constants-service';
 import { vendorActionCreators } from './VendorActions';
 import { requestActionCreators } from '../Request/RequestActions';
+import { store } from '../../../App';
 
 class VendorSaga {
   * fetchVendorMenu() {
     try {
       yield put(requestActionCreators.showLoadingSpinner(true));
-      const user = yield call(authentication.currentUser);
+      const user = Object.assign({}, store.getState().user.currentUser);
       const menus = yield call(menuService.getMenu, user.uid);
       yield put(vendorActionCreators.fetchMenuSuccessful(menus));
     } catch (error) {
@@ -53,7 +53,7 @@ class VendorSaga {
   * createMenu(menu) {
     try {
       yield put(requestActionCreators.showLoadingSpinner(true));
-      const user = yield call(authentication.currentUser);
+      const user = Object.assign({}, store.getState().user.currentUser);
       const { data } = menu;
       if (data.base64img) {
         const imageUrlName = data.itemName + user.uid;
@@ -73,7 +73,7 @@ class VendorSaga {
     try {
       yield put(requestActionCreators.showLoadingSpinner(true));
       const { data } = menu;
-      const user = yield call(authentication.currentUser);
+      const user = Object.assign({}, store.getState().user.currentUser);
       if (data.base64img) {
         const imageUrlName = data.itemName + user.uid;
         data.itemImage = yield call(imgService.uploadBase64Image, imageUrlName, data.base64img);
@@ -91,7 +91,7 @@ class VendorSaga {
   * removeMenu(menu) {
     try {
       yield put(requestActionCreators.showLoadingSpinner(true));
-      const user = yield call(authentication.currentUser);
+      const user = Object.assign({}, store.getState().user.currentUser);
       yield call(menuService.removeMenu, user.uid, menu.data.id);
       yield put(vendorActionCreators.fetchVendorMenu(user.uid));
       yield put(NavigationActions.back());
@@ -118,7 +118,7 @@ class VendorSaga {
   * fetchVendorOrders() {
     try {
       yield put(vendorActionCreators.fetchVendorsOrdersPending(true));
-      const user = yield call(authentication.currentUser);
+      const user = Object.assign({}, store.getState().user.currentUser);
       const orders = yield call(orderService.getMerchantOrders, user.uid);
       const newOrders = _.filter(orders, o => o.status === Constants.orderStates.new);
       const acceptedOrders = _.filter(orders, o => o.status === Constants.orderStates.accepted);

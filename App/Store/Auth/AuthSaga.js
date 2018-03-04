@@ -47,6 +47,7 @@ class AuthSaga {
         yield put(NavigationActions.navigate({ routeName: 'Login' }));
       }
     } catch (error) {
+      yield call(AsyncStorage.clear);
       Alert.alert('Error', error.message);
     } finally {
       yield put(authActionCreators.showActivityIndicator(false));
@@ -61,6 +62,7 @@ class AuthSaga {
       yield call(authenticationService.saveUserToLocalStorage, user.uid);
       yield put(authActionCreators.initializeAppWithCurrentUser());
     } catch (error) {
+      yield call(AsyncStorage.clear);
       Alert.alert('Error', error.message);
     } finally {
       yield put(authActionCreators.showActivityIndicator(false));
@@ -84,6 +86,7 @@ class AuthSaga {
       yield call(authenticationService.saveUserToLocalStorage, user.uid);
       yield put(authActionCreators.initializeAppWithCurrentUser());
     } catch (error) {
+      yield call(AsyncStorage.clear);
       Alert.alert('Error', error.message);
     } finally {
       yield put(authActionCreators.showActivityIndicator(false));
@@ -117,6 +120,7 @@ class AuthSaga {
         yield put(authActionCreators.setResetPasswordError(userFoundResult.error));
       }
     } catch (error) {
+      yield call(AsyncStorage.clear);
       Alert.alert('Error', error.message);
     }
   }

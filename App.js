@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Font, AppLoading } from 'expo';
+import { Alert } from 'react-native';
 import createStore from './App/Store';
 import App from './App/index';
 
@@ -22,17 +23,23 @@ export default class MealerApp extends Component {
   }
 
   async componentWillMount() {
-    /* eslint-disable global-require */
-    await Font.loadAsync({
-      'proximanova-regular': require('./App/Assets/Fonts/ProximaNova-Regular.ttf'),
-      'proximanova-bold': require('./App/Assets/Fonts/ProximaNova-Bold.ttf'),
-      'Roboto_ medium': require('./App/Assets/Fonts/Roboto-Medium.ttf'),
-    });
-    /* eslint-enable global-require */
+    try {
+      /* eslint-disable global-require */
+      await Font.loadAsync({
+        'proximanova-regular': require('./App/Assets/Fonts/ProximaNova-Regular.ttf'),
+        'proximanova-bold': require('./App/Assets/Fonts/ProximaNova-Bold.ttf'),
+        'Roboto_ medium': require('./App/Assets/Fonts/Roboto-Medium.ttf'),
+      });
+      /* eslint-enable global-require */
 
-    this.setState({
-      fontLoaded: true,
-    });
+      this.setState({
+        fontLoaded: true,
+      });
+    }
+    catch (e) {
+      Alert.alert('Error', e);
+    }
+
   }
 
   render() {

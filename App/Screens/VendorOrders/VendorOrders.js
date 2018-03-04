@@ -3,7 +3,6 @@ import {
   View,
   Text,
   FlatList,
-  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { bindActionCreators } from 'redux';
@@ -67,7 +66,6 @@ class Cart extends Component {
       <Button
         transparent
         onPress={this.getVendorOrders}
-        style={{ marginTop: Platform.OS === 'android' ? 110 : 0 }}
       >
         <Icon name="refresh" size={20} color={Colors.background}/>
       </Button>

@@ -28,6 +28,7 @@ class UserAccount extends Component {
         email: '',
         avatar: '',
         userImage: '',
+        deliveryFee: '',
       },
       showToast: false,
       toastMessage: '',
@@ -45,6 +46,7 @@ class UserAccount extends Component {
           address: currentUser.address || '',
           phone: currentUser.phone || '',
           email: currentUser.email || '',
+          deliveryFee: currentUser.deliveryFee || '',
         },
       });
     } else {
@@ -80,6 +82,7 @@ class UserAccount extends Component {
   _updateUserDetails = () => {
     const {
       name: newName, address: newAddress, email: newEmail, phone: newPhone, avatar,
+      deliveryFee: newDeliveryFee,
     } = this.state.currentUser;
 
     const existingUser = this.props.user.currentUser;
@@ -94,7 +97,8 @@ class UserAccount extends Component {
         existingUser.name !== newName ||
         existingUser.address !== newAddress ||
         existingUser.email !== newEmail ||
-        existingUser.phone !== newPhone;
+        existingUser.phone !== newPhone ||
+        existingUser.deliveryFee !== newDeliveryFee;
       if (conditionToUpdateUser) {
         this.props.userActions.updateUser({
           uid: this.props.user.currentUser.uid,
@@ -122,7 +126,7 @@ class UserAccount extends Component {
           <ScreenHeader title="Account" leftComponent={this.headerLeftComponent} />
           <ScrollView>
             <Grid>
-              <Row size={1} style={{ backgroundColor: Colors.cloud }}>
+              <Row size={1} style={{ backgroundColor: Colors.cloud, marginRight: 15 }}>
                 <View style={styles.formContainer}>
                   <UserAvatar image={this.state.currentUser.avatar} setUserAvatar={this.setUserAvatar} />
                   <Form>
@@ -153,23 +157,42 @@ class UserAccount extends Component {
                         onChangeText={value => this.onInputChange(value, 'email')}
                       />
                     </Item>
-                    <Item stackedLabel style={styles.formItemContainer}>
-                      <Label>Phone Number</Label>
-                      <TextInputMask
-                        underlineColorAndroid="transparent"
-                        ref="celPhone"
-                        type="cel-phone"
-                        options={{
-                          withDDD: true,
-                          dddMask: '(999) 999-9999',
-                        }}
-                        value={this.state.currentUser.phone}
-                        onChangeText={value => this.onInputChange(value, 'phone')}
-                        style={{ width: '100%', height: 45 }}
-                        placeholder="613-XXX-XXXX"
-                        keyboardType="number-pad"
-                      />
-                    </Item>
+                    <Row>
+                      <Col>
+                        <Item stackedLabel style={styles.formItemContainer}>
+                          <Label>Phone Number</Label>
+                          <TextInputMask
+                            underlineColorAndroid="transparent"
+                            ref="celPhone"
+                            type="cel-phone"
+                            options={{
+                              withDDD: true,
+                              dddMask: '(999) 999-9999',
+                            }}
+                            value={this.state.currentUser.phone}
+                            onChangeText={value => this.onInputChange(value, 'phone')}
+                            style={{ width: '100%', height: 45 }}
+                            placeholder="613-XXX-XXXX"
+                            keyboardType="number-pad"
+                          />
+                        </Item>
+                      </Col>
+                      { this.props.user.currentUser.type === 'vendor' &&
+                        <Col>
+                          <Item stackedLabel style={styles.formItemContainer}>
+                            <Label>Delivery Fee</Label>
+                            <Input
+                              ref="moneyUnit"
+                              value={this.state.currentUser.deliveryFee}
+                              onChangeText={value => this.onInputChange(value, 'deliveryFee')}
+                              style={{ width: '100%', height: 50 }}
+                              placeholder="$ 0.00"
+                              keyboardType="numeric"
+                            />
+                          </Item>
+                        </Col>
+                      }
+                    </Row>
                   </Form>
 
                   <Row style={{

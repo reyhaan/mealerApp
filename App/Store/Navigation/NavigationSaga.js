@@ -6,6 +6,7 @@ import { vendorActionCreators } from '../Vendor/VendorActions';
 import authenticationService from '../../Services/authentication-service';
 import Constants from '../../Constants/Constants';
 import { store } from '../../../App';
+import { clearBadgeCount } from '../../Services/push-notification-service';
 
 class NavigationSaga {
   * updateAppState(data) {
@@ -47,6 +48,7 @@ class NavigationSaga {
       console.log('fetch users cart');
       try {
         yield call(cartActionCreators.getCart);
+        yield call(clearBadgeCount);
       } catch (error) {
         Alert.alert('Error', error.message);
       }

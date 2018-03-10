@@ -59,6 +59,16 @@ class CartSaga {
       Alert.alert('Error', error.message);
     }
   }
+
+  // * setOrderDeliveryMode(data) {
+  //   console.log(data);
+  //   // try {
+  //   //   const cart = yield call(cartService.getCart);
+  //   //   yield put(cartActionCreators.updateCart(cart));
+  //   // } catch (error) {
+  //   //   Alert.alert('Error', error.message);
+  //   // }
+  // }
 }
 
 export default new CartSaga();

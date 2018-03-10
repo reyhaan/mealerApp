@@ -1,65 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import _ from 'lodash';
 import { Colors } from '../../../Themes/index';
-import styles from './CustomerCartScreen.style';
-import cartService from '../../../Services/cart-service';
-import { cartActionCreators } from '../../../Store/Cart/CartActions';
+import styles from './VendorsInCart.style';
 
-class CustomerCartScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount = async () => {
-    // cart is not yet on state object, populate it from session object
-    const cart = await cartService.getCart();
-    if (cart) {
-      this.initializeUserCart(cart);
-    }
-  };
-
-  componentWillReceiveProps = async () => {
-    const cart = await cartService.getCart();
-    if (cart) {
-      this.initializeUserCart(cart);
-    }
-  };
-
-  initializeUserCart = (cart) => {
-    if (cart !== undefined && cart !== null && !_.isEmpty(cart)) {
-      const merchantIds = [];
-      const userCart = [];
-
-      _.forIn(cart.to, (_, merchantId) => {
-        merchantIds.push(merchantId);
-      });
-      merchantIds.forEach((id) => {
-        const key = id;
-        const itemsObject = cart.to[id];
-        const itemIds = [];
-        const items = [];
-
-        _.forIn(itemsObject, (_, id) => {
-          itemIds.push(id);
-        });
-        itemIds.forEach((id) => {
-          items.push(itemsObject[id]);
-        });
-        userCart.push({ key, items });
-      });
-
-      this.setState({
-        merchantDataSourceFromCart: userCart,
-      });
-    }
-  };
-
+export default class VendorsInCart extends Component {
   _calculateTotalCost = (rowData) => {
     let total = 0;
     for (let i = 0; i < rowData.length; i++) {
@@ -70,11 +16,11 @@ class CustomerCartScreen extends Component {
 
   _updateItemCount = (itemId, merchantId, newCount) => {
     const count = newCount < 1 ? 1 : newCount;
-    this.props.updateItemCount({ itemId, merchantId, newCount: count });
+    this.props.cartActions.updateItemCount({ itemId, merchantId, newCount: count });
   };
 
   _removeItem = (itemId, merchantId) => {
-    this.props.removeItemFromCart({ itemId, merchantId });
+    this.props.cartActions.removeItemFromCart({ itemId, merchantId });
   };
 
   _renderRow = rowData => (
@@ -218,7 +164,7 @@ class CustomerCartScreen extends Component {
 
       </Row>
 
-      {this.state.merchantDataSourceFromCart.length > 1 &&
+      {this.props.cart.vendors > 1 &&
       <Row style={{ height: 10, backgroundColor: Colors.gray2 }} />}
     </Col>
   );
@@ -230,7 +176,7 @@ class CustomerCartScreen extends Component {
           <Row>
             <FlatList
               contentContainerStyle={styles.listContent}
-              data={this.state.merchantDataSourceFromCart}
+              data={this.props.cart.vendors}
               renderItem={({ item }) => this._renderIndividualMerchantRow(item)}
             />
           </Row>
@@ -239,10 +185,3 @@ class CustomerCartScreen extends Component {
     );
   }
 }
-
-const mapDispatchToProps = dispatch => (bindActionCreators(cartActionCreators, dispatch));
-const mapStateToProps = state => ({
-  cart: state.cart.cart,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CustomerCartScreen);

@@ -6,6 +6,7 @@ import { store } from '../../../App';
 import { authActionCreators } from './AuthActions';
 import { userActionCreators } from '../User/UserActions';
 import { orderActionCreators } from '../Order/OrderActions';
+import { cartActionCreators } from '../Cart/CartActions';
 import { vendorActionCreators } from '../Vendor/VendorActions';
 import authenticationService from '../../Services/authentication-service';
 import { handleReceivedNotification, clearBadgeCount } from '../../Services/push-notification-service';
@@ -28,6 +29,7 @@ class AuthSaga {
           yield put(NavigationActions.navigate({ routeName: 'CustomerTab' }));
           yield put(vendorActionCreators.fetchVendors());
           yield put(orderActionCreators.getOrders(currentUser.uid));
+          yield put(cartActionCreators.getCart(currentUser.uid));
         } else if (currentUser.type === 'vendor') {
           yield put(NavigationActions.navigate({ routeName: 'VendorTab' }));
           yield put(vendorActionCreators.fetchVendorMenu());

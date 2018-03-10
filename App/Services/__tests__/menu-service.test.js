@@ -1,5 +1,5 @@
 import menuService from '../menu-service';
-import { vendor, User } from './test-data-service';
+import { vendor, User } from '../test-data-service';
 import database from '../../Config/database';
 
 let createdMenu = null;

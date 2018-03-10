@@ -7,10 +7,11 @@ import {
 import { bindActionCreators } from 'redux';
 import styles from './Cart.style';
 import CheckoutButton from './Components/CheckoutButton';
-import CartContainer from './Components/CartContainer';
 import { cartActionCreators } from '../../Store/Cart/CartActions';
 import LoadingSpinner from '../../Components/LoadingSpinner';
 import ScreenHeader from '../../Components/ScreenHeader';
+import ListOfVendors from './Components/ListOfVendors';
+import EmptyCart from './Components/EmptyCart';
 
 const mapDispatchToProps = dispatch => ({
   cartActions: bindActionCreators(cartActionCreators, dispatch),
@@ -22,14 +23,19 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-class MerchantOrders extends PureComponent {
+class CartScreen extends PureComponent {
   render() {
+    const showCart = this.props.cart && !this.props.cart.isEmpty;
+    const showSpinner = this.props.request && this.props.request.showLoadingSpinner;
+
     return (
       <View style={styles.container}>
         <ScreenHeader title="Cart"/>
         <ScrollView>
-          <LoadingSpinner show={this.props.request && this.props.request.showLoadingSpinner} />
-          <CartContainer {...this.props} />
+          <LoadingSpinner show={showSpinner}/>
+          {
+            showCart ? <ListOfVendors {...this.props} /> : <EmptyCart {...this.props} />
+          }
         </ScrollView>
         <CheckoutButton {...this.props} />
       </View>
@@ -37,4 +43,4 @@ class MerchantOrders extends PureComponent {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MerchantOrders);
+export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);

@@ -1,4 +1,4 @@
-import db from '../../Config/database';
+import db from '../Config/database';
 
 export const customer = {
   email: 'customer@mealer.com',

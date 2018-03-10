@@ -30,12 +30,40 @@ cartService.getCart = async () => {
         cart = { isEmpty: true };
         cart.totalItemCount = 0;
       }
+      cart.vendors = cartService.cartByVendors(cart);
       return Promise.resolve(cart);
     }
     return Promise.resolve({});
   } catch (error) {
     return Promise.reject(error);
   }
+};
+
+cartService.cartByVendors = (cart) => {
+  const merchantIds = [];
+  const userCart = [];
+
+  if (cart !== undefined && cart !== null && !_.isEmpty(cart)) {
+    _.forIn(cart.to, (_, merchantId) => {
+      merchantIds.push(merchantId);
+    });
+    merchantIds.forEach((id) => {
+      const key = id;
+      const itemsObject = cart.to[id];
+      const itemIds = [];
+      const items = [];
+
+      _.forIn(itemsObject, (_, id) => {
+        itemIds.push(id);
+      });
+      itemIds.forEach((id) => {
+        items.push(itemsObject[id]);
+      });
+      userCart.push({ key, items });
+    });
+  }
+
+  return userCart;
 };
 
 /**

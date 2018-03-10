@@ -25,9 +25,9 @@ class BadgeIcon extends PureComponent {
         totalItemCount = this.props.vendor.newVendorOrders.length;
       }
     } else if (this.props.userType === Constants.userTypes.customer) {
-      if (this.props.cart.cart && this.props.cart.cart.totalItemCount) {
+      if (this.props.cart && this.props.cart.totalItemCount) {
         // eslint-disable-next-line prefer-destructuring
-        totalItemCount = this.props.cart.cart.totalItemCount;
+        totalItemCount = this.props.cart.totalItemCount;
       }
     }
 

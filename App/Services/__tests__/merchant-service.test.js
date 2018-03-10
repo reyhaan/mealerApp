@@ -1,5 +1,5 @@
 import merchantService from '../vendor-service';
-import { vendor } from './test-data-service';
+import { vendor } from '../test-data-service';
 
 afterAll(async () => {
 

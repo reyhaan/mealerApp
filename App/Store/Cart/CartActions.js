@@ -12,7 +12,7 @@ export const cartActions = {
   DO_CHECKOUT: 'DO_CHECKOUT',
   GET_USER_CART: 'GET_USER_CART',
   UPDATE_USER_CART: 'UPDATE_USER_CART',
-  SET_ORDER_DELIVERY_MODE: 'SET_ORDER_DELIVERY_MODE',
+  SET_ORDER_DELIVERY_TYPE: 'SET_ORDER_DELIVERY_TYPE',
   showActivityIndicator: 'showActivityIndicator',
 };
 
@@ -28,7 +28,7 @@ export const cartActionCreators = {
   updateCart: data => createAction(cartActions.UPDATE_CART, data),
   checkout: data => createAction(cartActions.DO_CHECKOUT, data),
   getCart: () => createAction(cartActions.GET_USER_CART),
-  setOrderDeliveryMode: data => createAction(cartActions.SET_ORDER_DELIVERY_MODE, data),
+  setOrderDeliveryType: data => createAction(cartActions.SET_ORDER_DELIVERY_TYPE, data),
   showActivityIndicator: data => createAction(cartActions.showActivityIndicator, data),
 };
 
@@ -39,5 +39,5 @@ export const cartActionWatchers = [
   takeLatest(cartActions.UPDATE_ITEM_COUNT, CartSaga.updateItemCount),
   takeLatest(cartActions.DO_CHECKOUT, CartSaga.checkout),
   takeLatest(cartActions.GET_USER_CART, CartSaga.getUserCart),
-  // takeLatest(cartActions.SET_ORDER_DELIVERY_MODE, CartSaga.getUserCart),
+  takeLatest(cartActions.SET_ORDER_DELIVERY_TYPE, CartSaga.setOrderDeliveryType),
 ];

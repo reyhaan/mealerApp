@@ -153,6 +153,21 @@ cartService.updateItemCount = async (itemId, merchantId, newCount) => {
   return Promise.resolve(cart);
 };
 
+cartService.updateDeliveryType = async (vendorId, delivery) => {
+  const cart = await cartService.getCart();
+  const items = cart.to[vendorId];
+  const itemKeys = _.keys(items);
+
+  itemKeys.forEach((itemId) => {
+    cart.to[vendorId][itemId].delivery = delivery;
+  });
+
+  console.log(cart.to[vendorId]);
+
+  AsyncStorage.setItem('cart', JSON.stringify(cart));
+  return Promise.resolve(cart);
+};
+
 cartService.getTotalCost = async () => {
   let cost = 0;
   const cart = await cartService.getCart();

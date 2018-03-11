@@ -5,7 +5,7 @@ import auth from './Auth/AuthReducers';
 import navigation from './Navigation/NavigationReducer';
 import request from './Request/RequestReducers';
 import user from './User/UserReducers';
-import vendor from './Vendor/VendorReducers';
+import vendor, { vendors } from './Vendor/VendorReducers';
 import cart from './Cart/CartReducers';
 import orderHistory from './Order/OrderReducers';
 import { vendorActionWatchers } from '../Store/Vendor/VendorActions';
@@ -33,6 +33,7 @@ const reducers = combineReducers({
   navigation,
   user,
   vendor,
+  vendors,
   cart,
   orderHistory,
   request,

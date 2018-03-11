@@ -113,7 +113,7 @@ class Vendors extends Component {
 
           <FlatList
             contentContainerStyle={styles.listContent}
-            data={props.vendor.vendors}
+            data={props.vendors}
             refreshing={refreshing}
             onRefresh={() => this.fetchVendors()}
             renderItem={this.renderVendor}
@@ -125,6 +125,7 @@ class Vendors extends Component {
 
 const mapStateToProps = state => ({
   vendor: state.vendor,
+  vendors: state.vendors,
   request: state.request,
   navState: state.navigation,
 });

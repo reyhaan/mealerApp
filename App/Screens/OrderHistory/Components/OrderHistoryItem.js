@@ -6,7 +6,6 @@ import style from '../OrderHistory.style';
 
 export default (props) => {
   const { item } = props;
-  console.log(item);
   return (
     <Grid style={style.vendorOrderItemsContainer}>
       <Row style={{ height: 25 }}>

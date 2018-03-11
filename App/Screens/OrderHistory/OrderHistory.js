@@ -27,8 +27,8 @@ class OrderHistory extends Component {
 
   render() {
     const { props } = this;
-    const { orders } = props.order;
-    const showOrdersList = orders && orders.length > 0;
+    const { orderHistory } = props;
+    const showOrdersList = orderHistory && orderHistory.length > 0;
 
     return (
       <Col style={style.container}>
@@ -60,7 +60,7 @@ class OrderHistory extends Component {
 
           {showOrdersList &&
           <FlatList
-            data={props.order.orders}
+            data={props.orderHistory}
             renderItem={({ item }) => <OrderHistoryList order={item}/>}
           />}
 
@@ -84,7 +84,7 @@ class OrderHistory extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  order: state.order,
+  orderHistory: state.orderHistory,
 });
 const mapDispatchToProps = dispatch => ({
   orderActions: bindActionCreators(orderActionCreators, dispatch),

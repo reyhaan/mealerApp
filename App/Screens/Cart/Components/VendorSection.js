@@ -20,7 +20,6 @@ export default (props) => {
         />
       </Row>
       <ItemsSubtotal {...props}/>
-      {cart.vendors > 1 && <Row style={{ height: 10, backgroundColor: Colors.gray2 }} />}
     </Col>
   );
 };

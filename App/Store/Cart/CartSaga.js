@@ -70,8 +70,9 @@ class CartSaga {
       vendor.items.forEach((item) => {
         item.delivery = data.delivery;
       });
+
       yield call(cartService.updateDeliveryType, data.vendorId, data.delivery);
-      yield put(cartActionCreators.updateCart(cart));
+      yield put(cartActionCreators.getCart());
     } catch (error) {
       Alert.alert('Error', error.message);
     }

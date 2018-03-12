@@ -161,11 +161,8 @@ cartService.updateDeliveryType = async (vendorId, delivery) => {
   itemKeys.forEach((itemId) => {
     cart.to[vendorId][itemId].delivery = delivery;
   });
-
-  console.log(cart.to[vendorId]);
-
-  AsyncStorage.setItem('cart', JSON.stringify(cart));
-  return Promise.resolve(cart);
+  await AsyncStorage.setItem('cart', JSON.stringify(cart));
+  return {};
 };
 
 cartService.getTotalCost = async () => {

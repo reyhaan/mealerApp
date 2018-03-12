@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import { Switch } from 'native-base';
@@ -19,11 +19,13 @@ const style = StyleSheet.create({
   },
   vendorNameText: {
     fontSize: 14,
-    color: Colors.gray3,
+    color: Colors.charcoal,
+    fontWeight: 'bold',
   },
   deliveryType: {
     marginLeft: 10,
     color: Colors.gray3,
+    fontWeight: 'bold',
   },
   vendorDeliveryMethodSwitch: {
     flex: 1,
@@ -31,7 +33,7 @@ const style = StyleSheet.create({
   },
 });
 
-export default class VendorSectionHeader extends Component {
+export default class VendorSectionHeader extends PureComponent {
   setVendorDeliveryType = (state) => {
     const { cartActions, cart } = this.props;
     const vendor = cart.items[0].merchantInfo;

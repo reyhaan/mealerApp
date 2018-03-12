@@ -5,6 +5,7 @@ import { Colors } from '../../../Themes/index';
 import styles from './VendorsInCart.style';
 import ItemSection from './ItemSection';
 import VendorSectionHeader from './VendorSectionHeader';
+import ItemsSubtotal from './ItemsSubtotal';
 
 export default class VendorSection extends PureComponent {
   render() {
@@ -20,6 +21,7 @@ export default class VendorSection extends PureComponent {
             renderItem={({ item }) => <ItemSection {...this.props} item={item}/>}
           />
         </Row>
+        <ItemsSubtotal cart={cart} />
       </Col>
     );
   }

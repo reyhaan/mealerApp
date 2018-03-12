@@ -1,10 +1,6 @@
 import { cartActions } from './CartActions';
 
-const initialState = {
-  showActivityIndicator: false,
-  shouldHideAddToCartModal: false,
-  cart: {},
-};
+const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {

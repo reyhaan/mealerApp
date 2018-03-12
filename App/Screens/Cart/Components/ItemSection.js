@@ -26,13 +26,13 @@ export default class ItemSection extends PureComponent {
             <Row style={{ height: 30 }}>
               <Col size={1}>
                 <Row style={{ height: 20 }}>
-                  <Text style={[styles.boldLabel, { color: Colors.gray }]}>{item.itemName}</Text>
+                  <Text style={{ color: Colors.gray }}>{item.itemName}</Text>
                 </Row>
               </Col>
 
               <Col style={{ width: 100 }}>
                 <Row style={{ height: 20, flexDirection: 'column', alignItems: 'flex-end' }}>
-                  <Text style={styles.itemCost}>$ {item.itemCost}</Text>
+                  <Text style={{ color: Colors.gray }}>$ {item.itemCost}</Text>
                 </Row>
               </Col>
             </Row>

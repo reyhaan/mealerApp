@@ -2,8 +2,6 @@ import { vendorActions } from './VendorActions';
 
 const initialState = {
   menus: [],
-  vendors: [],
-  showActivityIndicator: false,
   orders: [],
   selectedVendor: {},
   newVendorOrders: [],
@@ -11,6 +9,15 @@ const initialState = {
   deliveredVendorOrders: [],
   cancelledVendorOrders: [],
 };
+
+export function vendors(state = [], action) {
+  switch (action.type) {
+    case vendorActions.UPDATE_VENDORS:
+      return action.data;
+    default:
+      return state;
+  }
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -33,10 +40,6 @@ export default (state = initialState, action) => {
     case vendorActions.UPDATE_VENDOR_ORDERS:
       return Object.assign({}, state, {
         orders: action.data,
-      });
-    case vendorActions.UPDATE_VENDORS:
-      return Object.assign({}, state, {
-        vendors: action.data,
       });
     case vendorActions.SET_SELECTED_VENDOR:
       return Object.assign({}, state, {

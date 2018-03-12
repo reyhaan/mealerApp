@@ -4,6 +4,7 @@ import orderService from '../../Services/order-service';
 import cartService from '../../Services/cart-service';
 import { cartActionCreators } from './CartActions';
 import { requestActionCreators } from '../Request/RequestActions';
+import { store } from '../../../App';
 
 class CartSaga {
   * addToCart(item) {
@@ -60,15 +61,22 @@ class CartSaga {
     }
   }
 
-  // * setOrderDeliveryMode(data) {
-  //   console.log(data);
-  //   // try {
-  //   //   const cart = yield call(cartService.getCart);
-  //   //   yield put(cartActionCreators.updateCart(cart));
-  //   // } catch (error) {
-  //   //   Alert.alert('Error', error.message);
-  //   // }
-  // }
+  * setOrderDeliveryType(action) {
+    const { data } = action;
+    try {
+      const cart = Object.assign([], store.getState().cart);
+      const vendor = cart.vendors.find(v => v.key === data.vendorId);
+      vendor.delivery = data.delivery;
+      vendor.items.forEach((item) => {
+        item.delivery = data.delivery;
+      });
+
+      yield call(cartService.updateDeliveryType, data.vendorId, data.delivery);
+      yield put(cartActionCreators.getCart());
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  }
 }
 
 export default new CartSaga();

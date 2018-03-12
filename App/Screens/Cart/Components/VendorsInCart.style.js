@@ -36,7 +36,6 @@ export default StyleSheet.create({
     fontFamily: Fonts.type.bold,
   },
   itemCost: {
-    fontWeight: 'bold',
     fontSize: 14,
     fontFamily: Fonts.type.bold,
     color: Colors.gray,

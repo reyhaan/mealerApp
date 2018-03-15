@@ -46,7 +46,7 @@ export default (props) => {
         <Row style={styles.checkoutButton}>
           <Text style={{ fontWeight: 'bold', fontSize: 14, color: Colors.snow }}>CHECKOUT:
             <Text style={{ fontWeight: 'bold', fontSize: 17, color: Colors.snow }}>
-              $ {props.cart.cost}
+              $ {props.cart.cost.toFixed(2)}
             </Text>
           </Text>
         </Row>

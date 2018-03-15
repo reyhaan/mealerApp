@@ -15,7 +15,6 @@ cartService.getCart = async () => {
         cart.isEmpty = _.isEmpty(cart.to);
         if (!cart.isEmpty) {
           const itemsForAllMerchants = _.values(cart.to);
-          cart.cost = 0;
           cart.totalItemCount = 0;
           _.each(itemsForAllMerchants, (itemFromOneMerchant) => {
             const itemArray = _.values(itemFromOneMerchant);
@@ -25,12 +24,17 @@ cartService.getCart = async () => {
             });
           });
         }
-        cart.cost = parseFloat(cart.cost).toFixed(2);
       } else {
         cart = { isEmpty: true };
         cart.totalItemCount = 0;
       }
+
       cart.vendors = cartService.cartByVendors(cart);
+      cart.cost = 0;
+      cart.vendors.map(v => v.totalCost).forEach((v) => {
+        cart.cost += Number(parseFloat(v).toFixed(2));
+      });
+
       return Promise.resolve(cart);
     }
     return Promise.resolve({});
@@ -59,11 +63,44 @@ cartService.cartByVendors = (cart) => {
       itemIds.forEach((id) => {
         items.push(itemsObject[id]);
       });
-      userCart.push({ key, items });
+
+      const vendorId = items[0].merchantInfo.uid;
+      const vendors = Object.assign([], store.getState().vendors);
+      const currentVendor = vendors.find(v => v.id === vendorId);
+      const deliveryFee = _.has(currentVendor, 'deliveryFee') ? currentVendor.deliveryFee : 0;
+      let totalCost = cartService.itemsTotalCost(items, deliveryFee);
+
+      if (!items[0].delivery) {
+        totalCost -= deliveryFee;
+      }
+
+      if (totalCost.toFixed) {
+        totalCost = totalCost.toFixed(2);
+      }
+
+      userCart.push({
+        key,
+        items,
+        totalCost,
+        deliveryFee,
+      });
     });
   }
 
   return userCart;
+};
+
+cartService.itemsTotalCost = (items, deliveryFee) => {
+  let total = 0;
+  for (let i = 0; i < items.length; i++) {
+    total += (items[i].itemCost * items[i].itemCount);
+  }
+
+  if (deliveryFee) {
+    total += Number(parseFloat(deliveryFee).toFixed(2));
+  }
+
+  return parseFloat(total).toFixed(2);
 };
 
 /**
